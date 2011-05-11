@@ -8,10 +8,10 @@
    <version>20</version>
  </parent>
 
-  <groupId>ognl</groupId>
-  <artifactId>ognl</artifactId>
+  <groupId>org.apache.commons</groupId>
+  <artifactId>commons-ognl</artifactId>
   <packaging>jar</packaging>
-  <version>3.0.2-SNAPSHOT</version>
+  <version>4.0-incubating-SNAPSHOT</version>
   <name>OGNL - Object Graph Navigation Library</name>
   <description>OGNL - Object Graph Navigation Library</description>
 
