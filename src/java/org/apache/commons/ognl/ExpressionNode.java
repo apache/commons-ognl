@@ -77,30 +77,30 @@ public abstract class ExpressionNode extends SimpleNode
 
     public String toString()
     {
-        String result = (_parent == null) ? "" : "(";
+        StringBuilder result = new StringBuilder (_parent == null ? "" : "(" );
         
         if ((_children != null) && (_children.length > 0)) {
             for ( int i = 0; i < _children.length; ++i ) {
                 if (i > 0) {
-                    result += " " + getExpressionOperator(i) + " ";
+                    result.append(" ").append(getExpressionOperator(i)).append(" ");
                 }
-                result += _children[i].toString();
+                result.append(_children[i].toString());
             }
         }
         if (_parent != null) {
-            result = result + ")";
+            result.append(')');
         }
-        return result;
+        return result.toString();
     }
     
     public String toGetSourceString(OgnlContext context, Object target)
     {
-        String result = (_parent == null || NumericExpression.class.isAssignableFrom(_parent.getClass())) ? "" : "(";
+        StringBuilder result = new StringBuilder ((_parent == null || NumericExpression.class.isAssignableFrom(_parent.getClass())) ? "" : "(");
 
         if ((_children != null) && (_children.length > 0)) {
             for ( int i = 0; i < _children.length; ++i ) {
                 if (i > 0) {
-                    result += " " + getExpressionOperator(i) + " ";
+                    result.append(" ").append(getExpressionOperator(i)).append(" ");
                 }
                 
                 String value = _children[i].toGetSourceString(context, target);
@@ -125,15 +125,15 @@ public abstract class ExpressionNode extends SimpleNode
                     value = cast + ExpressionCompiler.getRootExpression(_children[i], context.getRoot(), context) + pre + value;
                 } 
 
-                result += value;
+                result.append(value);
             }
         }
 
         if (_parent != null && !NumericExpression.class.isAssignableFrom(_parent.getClass())) {
-            result = result + ")";
+            result.append(")");
         }
         
-        return result;
+        return result.toString();
     }
     
     public String toSetSourceString(OgnlContext context, Object target)

@@ -129,27 +129,27 @@ public class ASTCtor extends SimpleNode
 
     public String toString()
     {
-        String result = "new " + className;
+        StringBuilder result = new StringBuilder("new ").append(className);
 
         if (isArray) {
             if (_children[0] instanceof ASTConst) {
-                result = result + "[" + _children[0] + "]";
+                result.append("[").append(_children[0]).append("]");
             } else {
-                result = result + "[] " + _children[0];
+                result.append("[] ").append(_children[0]);
             }
         } else {
-            result = result + "(";
+            result.append("(");
             if ((_children != null) && (_children.length > 0)) {
                 for(int i = 0; i < _children.length; i++) {
                     if (i > 0) {
-                        result = result + ", ";
+                        result.append(", ");
                     }
-                    result = result + _children[i];
+                    result.append(_children[i]);
                 }
             }
-            result = result + ")";
+            result.append(")");
         }
-        return result;
+        return result.toString();
     }
 
     public String toGetSourceString(OgnlContext context, Object target)

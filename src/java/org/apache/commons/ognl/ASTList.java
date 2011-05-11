@@ -73,15 +73,15 @@ public class ASTList extends SimpleNode implements NodeType
 
     public String toString()
     {
-        String result = "{ ";
+        StringBuilder result = new StringBuilder("{ ");
 
         for(int i = 0; i < jjtGetNumChildren(); ++i) {
             if (i > 0) {
-                result = result + ", ";
+                result.append(", ");
             }
-            result = result + _children[i].toString();
+            result.append(_children[i].toString());
         }
-        return result + " }";
+        return result.append(" }").toString();
     }
 
     public String toGetSourceString(OgnlContext context, Object target)

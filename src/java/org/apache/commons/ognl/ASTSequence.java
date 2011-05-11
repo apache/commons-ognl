@@ -96,15 +96,15 @@ public class ASTSequence extends SimpleNode implements NodeType, OrderedReturn
 
     public String toString()
     {
-        String      result = "";
+        StringBuilder result = new StringBuilder("");
 
         for ( int i=0; i < _children.length; ++i ) {
             if (i > 0) {
-                result = result + ", ";
+                result.append (", ");
             }
-            result = result + _children[i];
+            result.append(_children[i]);
         }
-        return result;
+        return result.toString();
     }
 
     public String toSetSourceString(OgnlContext context, Object target)

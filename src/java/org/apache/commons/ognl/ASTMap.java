@@ -102,22 +102,22 @@ class ASTMap extends SimpleNode
 
     public String toString()
     {
-        String result = "#";
+        StringBuilder result = new StringBuilder("#");
         
         if (className != null) {
-            result = result + "@" + className + "@";
+            result.append("@").append(className).append("@");
         }
         
-        result = result + "{ ";
+        result.append("{ ");
         for(int i = 0; i < jjtGetNumChildren(); ++i) {
             ASTKeyValue kv = (ASTKeyValue) _children[i];
 
             if (i > 0) {
-                result = result + ", ";
+                result.append(", ");
             }
-            result = result + kv.getKey() + " : " + kv.getValue();
+            result.append(kv.getKey()).append(" : ").append(kv.getValue());
         }
-        return result + " }";
+        return result.append(" }").toString();
     }
     
     public String toGetSourceString(OgnlContext context, Object target)

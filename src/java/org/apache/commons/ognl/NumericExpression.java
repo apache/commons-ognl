@@ -37,7 +37,7 @@ public abstract class NumericExpression extends ExpressionNode implements NodeTy
     public String toGetSourceString(OgnlContext context, Object target)
     {
         Object value = null;
-        String result = "";
+        StringBuilder result = new StringBuilder("");
 
         try {
 
@@ -49,11 +49,11 @@ public abstract class NumericExpression extends ExpressionNode implements NodeTy
             for (int i=0; i < _children.length; i++)
             {
                 if (i > 0)
-                    result += " " + getExpressionOperator(i) + " ";
+                    result.append(" ").append(getExpressionOperator(i)).append(" ");
 
                 String str = OgnlRuntime.getChildSource(context, target, _children[i]);
 
-                result += coerceToNumeric(str, context, _children[i]);
+                result.append(coerceToNumeric(str, context, _children[i]));
             }
             
         } catch (Throwable t)
@@ -61,7 +61,7 @@ public abstract class NumericExpression extends ExpressionNode implements NodeTy
             throw OgnlOps.castToRuntime(t);
         }
 
-        return result;
+        return result.toString();
     }
 
     public String coerceToNumeric(String source, OgnlContext context, Node child)

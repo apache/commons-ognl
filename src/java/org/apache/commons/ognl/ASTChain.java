@@ -258,19 +258,19 @@ public class ASTChain extends SimpleNode implements NodeType, OrderedReturn
 
     public String toString()
     {
-        String result = "";
+        StringBuilder result = new StringBuilder("");
 
         if ((_children != null) && (_children.length > 0)) {
             for(int i = 0; i < _children.length; i++) {
                 if (i > 0) {
                     if (!(_children[i] instanceof ASTProperty) || !((ASTProperty) _children[i]).isIndexedAccess()) {
-                        result = result + ".";
+                        result.append(".");
                     }
                 }
-                result += _children[i].toString();
+                result.append(_children[i].toString());
             }
         }
-        return result;
+        return result.toString();
     }
 
     public String toGetSourceString(OgnlContext context, Object target)
