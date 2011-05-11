@@ -41,7 +41,7 @@ public class QuotingTest extends OgnlTestCase
             { null, "'string'", "string" },
             { null, "\"string\"", "string" },
             { null, "'' + 'bar'", "bar"},
-            { null, "'yyyy年MM月dd日'", "yyyy年MM月dd日"}
+            { null, "'yyyy\u539Add\u5EA6'", "yyyy\u539Add\u5EA6"}
     };
 
     /*===================================================================
