@@ -43,10 +43,98 @@
 
   <developers>
     <developer>
-      <id>lukaszlenart</id>
-      <email>lukaszlenart@apache.org</email>
+      <name>Antonio Petrelli</name>
+      <id>apetrelli</id>
+      <email>apetrelli at apache dot org</email>
       <roles>
-        <role>ASF Committer</role>
+        <role>PPMC Member</role>
+        <role>Committer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Christian Grobmeier</name>
+      <id>grobmeier</id>
+      <email>grobmeier at apache dot org</email>
+      <roles>
+        <role>Mentor</role>
+        <role>PPMC Member</role>
+        <role>Committer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Jesse Kuhnert</name>
+      <id>jkuhnert</id>
+      <email>jkuhnert at apache dot org</email>
+      <roles>
+        <role>PPMC Member</role>
+        <role>Committer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Jochen Wiedmann</name>
+      <id>jochen</id>
+      <email>jochen at apache dot org</email>
+      <roles>
+        <role>Mentor</role>
+        <role>PPMC Member</role>
+        <role>Committer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Lukasz Lenart</name>
+      <id>lukaszlenart</id>
+      <email>lukaszlenart at apache dot org</email>
+      <roles>
+        <role>Champion</role>
+        <role>PPMC Member</role>
+        <role>Committer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Olivier Lamy</name>
+      <id>olamy</id>
+      <email>olamy at apache dot org</email>
+      <roles>
+        <role>Mentor</role>
+        <role>PPMC Member</role>
+        <role>Committer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Marc Andrew Davidson</name>
+      <id>javadrewd</id>
+      <email>javadrewd at apache dot org</email>
+      <roles>
+        <role>PPMC Member</role>
+        <role>Committer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Maurizio Cucchiara</name>
+      <id>mcucchiara</id>
+      <email>mcucchiara at apache dot org</email>
+      <roles>
+        <role>PPMC Member</role>
+        <role>Committer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Simone Tripodi</name>
+      <id>simonetripodi</id>
+      <email>simonetripodi at apache dot org</email>
+      <roles>
+        <role>PPMC Member</role>
+        <role>Committer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Upayavira</name>
+      <id>upayavira</id>
+      <email>upayavira at apache dot org</email>
+      <roles>
+        <role>Mentor</role>
+        <role>PPMC Member</role>
+        <role>Committer</role>
       </roles>
     </developer>
   </developers>
