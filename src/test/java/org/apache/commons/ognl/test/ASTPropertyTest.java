@@ -20,7 +20,7 @@ import java.util.Map;
 import static org.apache.commons.ognl.test.OgnlTestCase.isEqual;
 
 /**
- * Tests functionality of {@link ognl.ASTProperty}.
+ * Tests functionality of {@link org.apache.commons.ognl.ASTProperty}.
  */
 public class ASTPropertyTest extends TestCase {
 
@@ -208,7 +208,7 @@ public class ASTPropertyTest extends TestCase {
 
         // test with only getIndex
 
-        assertEquals(".get(org.apache.commons.ognl.OgnlOps#getIntValue(((org.ognl.test.objects.Root)$2)..getGenericIndex().toString()))", p.toGetSourceString(context, root.getList()));
+        assertEquals(".get(org.apache.commons.ognl.OgnlOps#getIntValue(((org.apache.commons.ognl.test.objects.Root)$2)..getGenericIndex().toString()))", p.toGetSourceString(context, root.getList()));
         assertEquals(root.getArray(), context.getCurrentObject());
         assertEquals(Object.class, context.getCurrentType());
     }
