@@ -270,7 +270,7 @@ public class ASTMethod extends SimpleNode implements OrderedReturn, NodeType
 
                         } else if (parms[i] != Object.class) {
                             parmString = OgnlRuntime.getCompiler().createLocalReference(context,
-                                                                                        "(" + parms[i].getName() + ")ognl.OgnlOps#convertValue(" + parmString + "," + parms[i].getName() + ".class)",
+                                                                                        "(" + parms[i].getName() + ")org.apache.commons.ognl.OgnlOps#convertValue(" + parmString + "," + parms[i].getName() + ".class)",
                                                                                         parms[i]
                             );
                         } else if ((NodeType.class.isInstance(_children[i])
@@ -441,7 +441,7 @@ public class ASTMethod extends SimpleNode implements OrderedReturn, NodeType
                         } else if (parms[i] != Object.class)
                         {
                             parmString = OgnlRuntime.getCompiler().createLocalReference(context,
-                                                                                        "(" + parms[i].getName() + ")ognl.OgnlOps#convertValue("
+                                                                                        "(" + parms[i].getName() + ")org.apache.commons.ognl.OgnlOps#convertValue("
                                                                                         + parmString + "," + parms[i].getName() + ".class)",
                                                                                         parms[i]
                             );
