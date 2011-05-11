@@ -41,6 +41,11 @@
     <url>https://issues.apache.org/jira/browse/OGNL</url>
   </issueManagement>
 
+  <ciManagement>
+    <system>Jenkins</system>
+    <url>https://builds.apache.org/hudson/job/ognl/</url>
+  </ciManagement>
+
   <developers>
     <developer>
       <name>Antonio Petrelli</name>
