@@ -153,6 +153,16 @@
     </developer>
   </developers>
 
+  <pluginRepositories>
+  	<pluginRepository>
+  		<snapshots>
+  			<enabled>false</enabled>
+  		</snapshots>
+  		<id>mc-release</id>
+  		<name>Mathieu Carbou repository</name>
+  		<url>http://mc-repo.googlecode.com/svn/maven2/releases</url>
+  	</pluginRepository>
+  </pluginRepositories>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -224,6 +234,24 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-clean-plugin</artifactId>
         <version>2.4.1</version>
+      </plugin>
+      <plugin>
+        <groupId>com.mycila.maven-license-plugin</groupId>
+        <artifactId>maven-license-plugin</artifactId>
+        <version>1.9.0</version>
+        <configuration>
+          <header>src/etc/header.txt</header>
+          <mapping>
+            <java>SLASHSTAR_STYLE</java>
+            <template>XML_STYLE</template>
+            <jj>SLASHSTAR_STYLE</jj>
+            <jjt>SLASHSTAR_STYLE</jjt>
+          </mapping>
+          <excludes>
+            <exclude>LICENSE.txt</exclude>
+            <exclude>NOTICE.txt</exclude>
+          </excludes>
+        </configuration>
       </plugin>
     </plugins>
     <pluginManagement>
