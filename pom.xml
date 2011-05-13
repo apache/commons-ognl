@@ -164,6 +164,7 @@
       <url>http://mc-repo.googlecode.com/svn/maven2/releases</url>
     </pluginRepository>
   </pluginRepositories>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
