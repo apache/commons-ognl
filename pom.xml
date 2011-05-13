@@ -155,14 +155,14 @@
   </developers>
 
   <pluginRepositories>
-  	<pluginRepository>
-  		<snapshots>
-  			<enabled>false</enabled>
-  		</snapshots>
-  		<id>mc-release</id>
-  		<name>Mathieu Carbou repository</name>
-  		<url>http://mc-repo.googlecode.com/svn/maven2/releases</url>
-  	</pluginRepository>
+    <pluginRepository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>mc-release</id>
+      <name>Mathieu Carbou repository</name>
+      <url>http://mc-repo.googlecode.com/svn/maven2/releases</url>
+    </pluginRepository>
   </pluginRepositories>
   <dependencies>
     <dependency>
