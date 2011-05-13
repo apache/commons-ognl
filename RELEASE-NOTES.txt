@@ -1,0 +1,29 @@
+$Id$
+
+
+                          Commons OGNL Package
+                         Version 4.0-incubating
+                             Release Notes
+
+
+INTRODUCTION
+============
+
+Apache Commons OGNL is a Java development framework for Object-Graph Navigation Language,
+plus other extras such as list projection and selection and lambda expressions.
+
+This is the first release under Apache Incubator.
+New projects are encouraged to use this release of OGNL.
+
+IMPORTANT NOTES
+===============
+
+Dependencies
+=============
+Commons OGNL depends on Javassist. It is built against version 3.11.0.GA.
+
+BUGS FROM PREVIOUS RELEASE
+=========================
+
+JIRA Issues Addressed
+---------------------
