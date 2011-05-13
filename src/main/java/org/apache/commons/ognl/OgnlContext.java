@@ -50,7 +50,7 @@ public class OgnlContext extends Object implements Map
     public static final TypeConverter DEFAULT_TYPE_CONVERTER = new DefaultTypeConverter();
     public static final MemberAccess DEFAULT_MEMBER_ACCESS = new DefaultMemberAccess(false);
     
-    private static Map RESERVED_KEYS = new HashMap(11);
+    private static Set<String> RESERVED_KEYS = new HashSet<String>(11);
     
     private Object _root;
     private Object _currentObject;
@@ -70,15 +70,15 @@ public class OgnlContext extends Object implements Map
     static {
         String s;
         
-        RESERVED_KEYS.put(CONTEXT_CONTEXT_KEY, null);
-        RESERVED_KEYS.put(ROOT_CONTEXT_KEY, null);
-        RESERVED_KEYS.put(THIS_CONTEXT_KEY, null);
-        RESERVED_KEYS.put(TRACE_EVALUATIONS_CONTEXT_KEY, null);
-        RESERVED_KEYS.put(LAST_EVALUATION_CONTEXT_KEY, null);
-        RESERVED_KEYS.put(KEEP_LAST_EVALUATION_CONTEXT_KEY, null);
-        RESERVED_KEYS.put(CLASS_RESOLVER_CONTEXT_KEY, null);
-        RESERVED_KEYS.put(TYPE_CONVERTER_CONTEXT_KEY, null);
-        RESERVED_KEYS.put(MEMBER_ACCESS_CONTEXT_KEY, null);
+        RESERVED_KEYS.add(CONTEXT_CONTEXT_KEY);
+        RESERVED_KEYS.add(ROOT_CONTEXT_KEY);
+        RESERVED_KEYS.add(THIS_CONTEXT_KEY);
+        RESERVED_KEYS.add(TRACE_EVALUATIONS_CONTEXT_KEY);
+        RESERVED_KEYS.add(LAST_EVALUATION_CONTEXT_KEY);
+        RESERVED_KEYS.add(KEEP_LAST_EVALUATION_CONTEXT_KEY);
+        RESERVED_KEYS.add(CLASS_RESOLVER_CONTEXT_KEY);
+        RESERVED_KEYS.add(TYPE_CONVERTER_CONTEXT_KEY);
+        RESERVED_KEYS.add(MEMBER_ACCESS_CONTEXT_KEY);
 
         try {
             if ((s = System.getProperty(PROPERTY_KEY_PREFIX + ".traceEvaluations")) != null) {
@@ -477,7 +477,7 @@ public class OgnlContext extends Object implements Map
     {
         Object result;
 
-        if (RESERVED_KEYS.containsKey(key)) {
+        if (RESERVED_KEYS.contains(key)) {
             if (key.equals(OgnlContext.THIS_CONTEXT_KEY)) {
                 result = getCurrentObject();
             } else {
@@ -525,7 +525,7 @@ public class OgnlContext extends Object implements Map
     {
         Object result;
         
-        if (RESERVED_KEYS.containsKey(key)) {
+        if (RESERVED_KEYS.contains(key)) {
             if (key.equals(OgnlContext.THIS_CONTEXT_KEY)) {
                 result = getCurrentObject();
                 setCurrentObject(value);
@@ -583,7 +583,7 @@ public class OgnlContext extends Object implements Map
     {
         Object result;
 
-        if (RESERVED_KEYS.containsKey(key)) {
+        if (RESERVED_KEYS.contains(key)) {
             if (key.equals(OgnlContext.THIS_CONTEXT_KEY)) {
                 result = getCurrentObject();
                 setCurrentObject(null);
