@@ -30,7 +30,7 @@ limitations under the License.
   <packaging>jar</packaging>
   <version>4.0-incubating-SNAPSHOT</version>
   <name>Apache Commons OGNL - Object Graph Navigation Library</name>
-  <description>The Apache Commons OGNL is a Java development framework for Object-Graph Navigation Language,
+  <description>The Apache Commons OGNL library is a Java development framework for Object-Graph Navigation Language,
   plus other extras such as list projection and selection and lambda expressions.</description>
 
   <inceptionYear>1997</inceptionYear>

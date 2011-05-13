@@ -9,7 +9,7 @@ $Id$
 INTRODUCTION
 ============
 
-The Apache Commons OGNL is a Java development framework for Object-Graph Navigation Language,
+The Apache Commons OGNL library is a Java development framework for Object-Graph Navigation Language,
 plus other extras such as list projection and selection and lambda expressions.
 
 This is the first release under Apache Incubator.
