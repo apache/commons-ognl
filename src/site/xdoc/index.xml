@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+  <properties>
+    <title>Apache Commons OGNL - Object Graph Navigation Library</title>
+  </properties>
+
+  <body>
+
+    <section name="Apache Commons OGNL - Object Graph Navigation Library">
+      <p>
+      OGNL stands for Object-Graph Navigation Language; it is an expression language for getting and setting
+      properties of Java objects, plus other extras such as list projection and selection and lambda expressions.
+      You use the same expression for both getting and setting the value of a property.
+      </p>
+
+      <p>
+      The <code>Ognl</code> class contains convenience methods for evaluating OGNL expressions. You can do this in two
+      stages, parsing an expression into an internal form and then using that internal form to either set or get the
+      value of a property; or you can do it in a single stage, and get or set a property using the String form of the
+      expression directly.
+      </p>
+
+      <p>
+      OGNL started out as a way to set up associations between UI components and controllers using property names. As the
+      desire for more complicated associations grew, Drew Davidson created what he called KVCL, for Key-Value Coding
+      Language, egged on by Luke Blanshard. Luke then reimplemented the language using ANTLR, came up with the new name,
+      and, egged on by Drew, filled it out to its current state. Later on Luke again reimplemented the language using
+      JavaCC. Further maintenance on all the code is done by Drew (with spiritual guidance from Luke).
+      </p>
+
+      <p>
+      We pronounce OGNL as a word, like the last syllables of a drunken pronunciation of "<i>orthogonal</i>".
+      </p>
+    </section>
+
+    <section name="Introduction">
+      <p>
+      Many people have asked exactly what <code>OGNL</code> is good for. Several of the uses to which <code>OGNL</code>
+      has been applied are:
+      </p>
+      <ul>
+        <li>
+        A binding language between GUI elements (textfield, combobox, etc.) to model objects. Transformations are made
+        easier by <code>OGNL</code>&#39;s TypeConverter mechanism to convert values from one type to another (String to
+        numeric types, for example);
+        </li>
+        <li>
+        A data source language to map between table columns and a Swing TableModel;
+        </li>
+        <li>
+        A binding language between web components and the underlying model objects;
+        </li>
+        <li>
+        A more expressive replacement for the property-getting language used by the Apache Commons BeanUtils package or
+        JSTL&#39;s EL (which only allow simple property navigation and rudimentary indexed properties).
+        </li>
+      </ul>
+      <p>
+      Most of what you can do in Java is possible in <code>OGNL</code>, plus other extras such as list <i>projection</i>,
+      <i>selection</i> and <i>lambda expressions</i>.
+      </p>
+    </section>
+
+  </body>
+
+</document>
