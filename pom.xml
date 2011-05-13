@@ -298,7 +298,6 @@ limitations under the License.
 
       <reporting>
         <plugins>
-            <!--
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-changes-plugin</artifactId>
@@ -315,7 +314,8 @@ limitations under the License.
                 </reportSet>
               </reportSets>
             </plugin>
-          <plugin>
+          <!--
+            <plugin>
             <artifactId>maven-checkstyle-plugin</artifactId>
             <version>2.6</version>
             <configuration>
