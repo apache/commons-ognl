@@ -492,7 +492,7 @@ public class OgnlContext extends Object implements Map
 
     public Object get(Object key)
     {
-        Object result;
+        Object result = null;
 
         if ( RESERVED_KEYS.contains( key ) )
         {
@@ -531,10 +531,6 @@ public class OgnlContext extends Object implements Map
             else if ( key.equals( OgnlContext.MEMBER_ACCESS_CONTEXT_KEY ) )
             {
                 result = getMemberAccess();
-            }
-            else
-            {
-                throw new IllegalArgumentException( "unknown reserved key '" + key + "'" );
             }
         }
         else
