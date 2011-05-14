@@ -496,39 +496,39 @@ public class OgnlContext extends Object implements Map
 
         if ( RESERVED_KEYS.contains( key ) )
         {
-            if ( key.equals( OgnlContext.THIS_CONTEXT_KEY ) )
+            if ( key.equals( THIS_CONTEXT_KEY ) )
             {
                 result = getCurrentObject();
             }
-            else if ( key.equals( OgnlContext.ROOT_CONTEXT_KEY ) )
+            else if ( key.equals( ROOT_CONTEXT_KEY ) )
             {
                 result = getRoot();
             }
-            else if ( key.equals( OgnlContext.CONTEXT_CONTEXT_KEY ) )
+            else if ( key.equals( CONTEXT_CONTEXT_KEY ) )
             {
                 result = this;
             }
-            else if ( key.equals( OgnlContext.TRACE_EVALUATIONS_CONTEXT_KEY ) )
+            else if ( key.equals( TRACE_EVALUATIONS_CONTEXT_KEY ) )
             {
                 result = getTraceEvaluations() ? Boolean.TRUE : Boolean.FALSE;
             }
-            else if ( key.equals( OgnlContext.LAST_EVALUATION_CONTEXT_KEY ) )
+            else if ( key.equals( LAST_EVALUATION_CONTEXT_KEY ) )
             {
                 result = getLastEvaluation();
             }
-            else if ( key.equals( OgnlContext.KEEP_LAST_EVALUATION_CONTEXT_KEY ) )
+            else if ( key.equals( KEEP_LAST_EVALUATION_CONTEXT_KEY ) )
             {
                 result = getKeepLastEvaluation() ? Boolean.TRUE : Boolean.FALSE;
             }
-            else if ( key.equals( OgnlContext.CLASS_RESOLVER_CONTEXT_KEY ) )
+            else if ( key.equals( CLASS_RESOLVER_CONTEXT_KEY ) )
             {
                 result = getClassResolver();
             }
-            else if ( key.equals( OgnlContext.TYPE_CONVERTER_CONTEXT_KEY ) )
+            else if ( key.equals( TYPE_CONVERTER_CONTEXT_KEY ) )
             {
                 result = getTypeConverter();
             }
-            else if ( key.equals( OgnlContext.MEMBER_ACCESS_CONTEXT_KEY ) )
+            else if ( key.equals( MEMBER_ACCESS_CONTEXT_KEY ) )
             {
                 result = getMemberAccess();
             }
@@ -546,47 +546,47 @@ public class OgnlContext extends Object implements Map
 
         if ( RESERVED_KEYS.contains( key ) )
         {
-            if ( key.equals( OgnlContext.CONTEXT_CONTEXT_KEY ) )
+            if ( key.equals( CONTEXT_CONTEXT_KEY ) )
             {
-                throw new IllegalArgumentException( "can't change " + OgnlContext.CONTEXT_CONTEXT_KEY + " in context" );
+                throw new IllegalArgumentException( "can't change " + CONTEXT_CONTEXT_KEY + " in context" );
             }
 
-            if ( key.equals( OgnlContext.THIS_CONTEXT_KEY ) )
+            if ( key.equals( THIS_CONTEXT_KEY ) )
             {
                 result = getCurrentObject();
                 setCurrentObject( value );
             }
-            else if ( key.equals( OgnlContext.ROOT_CONTEXT_KEY ) )
+            else if ( key.equals( ROOT_CONTEXT_KEY ) )
             {
                 result = getRoot();
                 setRoot( value );
             }
-            else if ( key.equals( OgnlContext.TRACE_EVALUATIONS_CONTEXT_KEY ) )
+            else if ( key.equals( TRACE_EVALUATIONS_CONTEXT_KEY ) )
             {
                 result = getTraceEvaluations() ? Boolean.TRUE : Boolean.FALSE;
                 setTraceEvaluations( OgnlOps.booleanValue( value ) );
             }
-            else if ( key.equals( OgnlContext.LAST_EVALUATION_CONTEXT_KEY ) )
+            else if ( key.equals( LAST_EVALUATION_CONTEXT_KEY ) )
             {
                 result = getLastEvaluation();
                 _lastEvaluation = (Evaluation) value;
             }
-            else if ( key.equals( OgnlContext.KEEP_LAST_EVALUATION_CONTEXT_KEY ) )
+            else if ( key.equals( KEEP_LAST_EVALUATION_CONTEXT_KEY ) )
             {
                 result = getKeepLastEvaluation() ? Boolean.TRUE : Boolean.FALSE;
                 setKeepLastEvaluation( OgnlOps.booleanValue( value ) );
             }
-            else if ( key.equals( OgnlContext.CLASS_RESOLVER_CONTEXT_KEY ) )
+            else if ( key.equals( CLASS_RESOLVER_CONTEXT_KEY ) )
             {
                 result = getClassResolver();
                 setClassResolver( (ClassResolver) value );
             }
-            else if ( key.equals( OgnlContext.TYPE_CONVERTER_CONTEXT_KEY ) )
+            else if ( key.equals( TYPE_CONVERTER_CONTEXT_KEY ) )
             {
                 result = getTypeConverter();
                 setTypeConverter( (TypeConverter) value );
             }
-            else if ( key.equals( OgnlContext.MEMBER_ACCESS_CONTEXT_KEY ) )
+            else if ( key.equals( MEMBER_ACCESS_CONTEXT_KEY ) )
             {
                 result = getMemberAccess();
                 setMemberAccess( (MemberAccess) value );
@@ -606,39 +606,39 @@ public class OgnlContext extends Object implements Map
 
         if ( RESERVED_KEYS.contains( key ) )
         {
-            if ( key.equals( OgnlContext.CONTEXT_CONTEXT_KEY )
-                || key.equals( OgnlContext.TRACE_EVALUATIONS_CONTEXT_KEY )
-                || key.equals( OgnlContext.KEEP_LAST_EVALUATION_CONTEXT_KEY ) )
+            if ( key.equals( CONTEXT_CONTEXT_KEY )
+                || key.equals( TRACE_EVALUATIONS_CONTEXT_KEY )
+                || key.equals( KEEP_LAST_EVALUATION_CONTEXT_KEY ) )
             {
-                throw new IllegalArgumentException( "can't remove " + OgnlContext.CONTEXT_CONTEXT_KEY + " from context" );
+                throw new IllegalArgumentException( "can't remove " + CONTEXT_CONTEXT_KEY + " from context" );
             }
 
-            if ( key.equals( OgnlContext.THIS_CONTEXT_KEY ) )
+            if ( key.equals( THIS_CONTEXT_KEY ) )
             {
                 result = getCurrentObject();
                 setCurrentObject( null );
             }
-            else if ( key.equals( OgnlContext.ROOT_CONTEXT_KEY ) )
+            else if ( key.equals( ROOT_CONTEXT_KEY ) )
             {
                 result = getRoot();
                 setRoot( null );
             }
-            else if ( key.equals( OgnlContext.LAST_EVALUATION_CONTEXT_KEY ) )
+            else if ( key.equals( LAST_EVALUATION_CONTEXT_KEY ) )
             {
                 result = _lastEvaluation;
                 setLastEvaluation( null );
             }
-            else if ( key.equals( OgnlContext.CLASS_RESOLVER_CONTEXT_KEY ) )
+            else if ( key.equals( CLASS_RESOLVER_CONTEXT_KEY ) )
             {
                 result = getClassResolver();
                 setClassResolver( null );
             }
-            else if ( key.equals( OgnlContext.TYPE_CONVERTER_CONTEXT_KEY ) )
+            else if ( key.equals( TYPE_CONVERTER_CONTEXT_KEY ) )
             {
                 result = getTypeConverter();
                 setTypeConverter( null );
             }
-            else if ( key.equals( OgnlContext.MEMBER_ACCESS_CONTEXT_KEY ) )
+            else if ( key.equals( MEMBER_ACCESS_CONTEXT_KEY ) )
             {
                 result = getMemberAccess();
                 setMemberAccess( null );
