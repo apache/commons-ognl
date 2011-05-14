@@ -496,39 +496,39 @@ public class OgnlContext extends Object implements Map
 
         if ( RESERVED_KEYS.contains( key ) )
         {
-            if ( key.equals( THIS_CONTEXT_KEY ) )
+            if ( THIS_CONTEXT_KEY.equals( key ) )
             {
                 result = getCurrentObject();
             }
-            else if ( key.equals( ROOT_CONTEXT_KEY ) )
+            else if ( ROOT_CONTEXT_KEY.equals( key ) )
             {
                 result = getRoot();
             }
-            else if ( key.equals( CONTEXT_CONTEXT_KEY ) )
+            else if ( CONTEXT_CONTEXT_KEY.equals( key ) )
             {
                 result = this;
             }
-            else if ( key.equals( TRACE_EVALUATIONS_CONTEXT_KEY ) )
+            else if ( TRACE_EVALUATIONS_CONTEXT_KEY.equals( key ) )
             {
                 result = getTraceEvaluations() ? Boolean.TRUE : Boolean.FALSE;
             }
-            else if ( key.equals( LAST_EVALUATION_CONTEXT_KEY ) )
+            else if ( LAST_EVALUATION_CONTEXT_KEY.equals( key ) )
             {
                 result = getLastEvaluation();
             }
-            else if ( key.equals( KEEP_LAST_EVALUATION_CONTEXT_KEY ) )
+            else if ( KEEP_LAST_EVALUATION_CONTEXT_KEY.equals( key ) )
             {
                 result = getKeepLastEvaluation() ? Boolean.TRUE : Boolean.FALSE;
             }
-            else if ( key.equals( CLASS_RESOLVER_CONTEXT_KEY ) )
+            else if ( CLASS_RESOLVER_CONTEXT_KEY.equals( key ) )
             {
                 result = getClassResolver();
             }
-            else if ( key.equals( TYPE_CONVERTER_CONTEXT_KEY ) )
+            else if ( TYPE_CONVERTER_CONTEXT_KEY.equals( key ) )
             {
                 result = getTypeConverter();
             }
-            else if ( key.equals( MEMBER_ACCESS_CONTEXT_KEY ) )
+            else if ( MEMBER_ACCESS_CONTEXT_KEY.equals( key ) )
             {
                 result = getMemberAccess();
             }
@@ -546,47 +546,47 @@ public class OgnlContext extends Object implements Map
 
         if ( RESERVED_KEYS.contains( key ) )
         {
-            if ( key.equals( CONTEXT_CONTEXT_KEY ) )
+            if ( CONTEXT_CONTEXT_KEY.equals( key ) )
             {
                 throw new IllegalArgumentException( "can't change " + CONTEXT_CONTEXT_KEY + " in context" );
             }
 
-            if ( key.equals( THIS_CONTEXT_KEY ) )
+            if ( THIS_CONTEXT_KEY.equals( key ) )
             {
                 result = getCurrentObject();
                 setCurrentObject( value );
             }
-            else if ( key.equals( ROOT_CONTEXT_KEY ) )
+            else if ( ROOT_CONTEXT_KEY.equals( key ) )
             {
                 result = getRoot();
                 setRoot( value );
             }
-            else if ( key.equals( TRACE_EVALUATIONS_CONTEXT_KEY ) )
+            else if ( TRACE_EVALUATIONS_CONTEXT_KEY.equals( key ) )
             {
                 result = getTraceEvaluations() ? Boolean.TRUE : Boolean.FALSE;
                 setTraceEvaluations( OgnlOps.booleanValue( value ) );
             }
-            else if ( key.equals( LAST_EVALUATION_CONTEXT_KEY ) )
+            else if ( LAST_EVALUATION_CONTEXT_KEY.equals( key ) )
             {
                 result = getLastEvaluation();
                 _lastEvaluation = (Evaluation) value;
             }
-            else if ( key.equals( KEEP_LAST_EVALUATION_CONTEXT_KEY ) )
+            else if ( KEEP_LAST_EVALUATION_CONTEXT_KEY.equals( key ) )
             {
                 result = getKeepLastEvaluation() ? Boolean.TRUE : Boolean.FALSE;
                 setKeepLastEvaluation( OgnlOps.booleanValue( value ) );
             }
-            else if ( key.equals( CLASS_RESOLVER_CONTEXT_KEY ) )
+            else if ( CLASS_RESOLVER_CONTEXT_KEY.equals( key ) )
             {
                 result = getClassResolver();
                 setClassResolver( (ClassResolver) value );
             }
-            else if ( key.equals( TYPE_CONVERTER_CONTEXT_KEY ) )
+            else if ( TYPE_CONVERTER_CONTEXT_KEY.equals( key ) )
             {
                 result = getTypeConverter();
                 setTypeConverter( (TypeConverter) value );
             }
-            else if ( key.equals( MEMBER_ACCESS_CONTEXT_KEY ) )
+            else if ( MEMBER_ACCESS_CONTEXT_KEY.equals( key ) )
             {
                 result = getMemberAccess();
                 setMemberAccess( (MemberAccess) value );
@@ -606,39 +606,39 @@ public class OgnlContext extends Object implements Map
 
         if ( RESERVED_KEYS.contains( key ) )
         {
-            if ( key.equals( CONTEXT_CONTEXT_KEY )
-                || key.equals( TRACE_EVALUATIONS_CONTEXT_KEY )
-                || key.equals( KEEP_LAST_EVALUATION_CONTEXT_KEY ) )
+            if ( CONTEXT_CONTEXT_KEY.equals( key )
+                || TRACE_EVALUATIONS_CONTEXT_KEY.equals( key )
+                || KEEP_LAST_EVALUATION_CONTEXT_KEY.equals( key ) )
             {
                 throw new IllegalArgumentException( "can't remove " + key + " from context" );
             }
 
-            if ( key.equals( THIS_CONTEXT_KEY ) )
+            if ( THIS_CONTEXT_KEY.equals( key ) )
             {
                 result = getCurrentObject();
                 setCurrentObject( null );
             }
-            else if ( key.equals( ROOT_CONTEXT_KEY ) )
+            else if ( ROOT_CONTEXT_KEY.equals( key ) )
             {
                 result = getRoot();
                 setRoot( null );
             }
-            else if ( key.equals( LAST_EVALUATION_CONTEXT_KEY ) )
+            else if ( LAST_EVALUATION_CONTEXT_KEY.equals( key ) )
             {
                 result = _lastEvaluation;
                 setLastEvaluation( null );
             }
-            else if ( key.equals( CLASS_RESOLVER_CONTEXT_KEY ) )
+            else if ( CLASS_RESOLVER_CONTEXT_KEY.equals( key ) )
             {
                 result = getClassResolver();
                 setClassResolver( null );
             }
-            else if ( key.equals( TYPE_CONVERTER_CONTEXT_KEY ) )
+            else if ( TYPE_CONVERTER_CONTEXT_KEY.equals( key ) )
             {
                 result = getTypeConverter();
                 setTypeConverter( null );
             }
-            else if ( key.equals( MEMBER_ACCESS_CONTEXT_KEY ) )
+            else if ( MEMBER_ACCESS_CONTEXT_KEY.equals( key ) )
             {
                 result = getMemberAccess();
                 setMemberAccess( null );
