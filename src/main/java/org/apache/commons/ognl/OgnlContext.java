@@ -494,46 +494,52 @@ public class OgnlContext extends Object implements Map
     {
         Object result;
 
-        if (RESERVED_KEYS.contains(key)) {
-            if (key.equals(OgnlContext.THIS_CONTEXT_KEY)) {
+        if ( RESERVED_KEYS.contains( key ) )
+        {
+            if ( key.equals( OgnlContext.THIS_CONTEXT_KEY ) )
+            {
                 result = getCurrentObject();
-            } else {
-                if (key.equals(OgnlContext.ROOT_CONTEXT_KEY)) {
-                    result = getRoot();
-                } else {
-                    if (key.equals(OgnlContext.CONTEXT_CONTEXT_KEY)) {
-                        result = this;
-                    } else {
-                        if (key.equals(OgnlContext.TRACE_EVALUATIONS_CONTEXT_KEY)) {
-                            result = getTraceEvaluations() ? Boolean.TRUE : Boolean.FALSE;
-                        } else {
-                            if (key.equals(OgnlContext.LAST_EVALUATION_CONTEXT_KEY)) {
-                                result = getLastEvaluation();
-                            } else {
-                                if (key.equals(OgnlContext.KEEP_LAST_EVALUATION_CONTEXT_KEY)) {
-                                    result = getKeepLastEvaluation() ? Boolean.TRUE : Boolean.FALSE;
-                                } else {
-                                    if (key.equals(OgnlContext.CLASS_RESOLVER_CONTEXT_KEY)) {
-                                        result = getClassResolver();
-                                    } else {
-                                        if (key.equals(OgnlContext.TYPE_CONVERTER_CONTEXT_KEY)) {
-                                            result = getTypeConverter();
-                                        } else {
-                                            if (key.equals(OgnlContext.MEMBER_ACCESS_CONTEXT_KEY)) {
-                                                result = getMemberAccess();
-                                            } else {
-                                                throw new IllegalArgumentException("unknown reserved key '" + key + "'");
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
             }
-        } else {
-            result = _values.get(key);
+            else if ( key.equals( OgnlContext.ROOT_CONTEXT_KEY ) )
+            {
+                result = getRoot();
+            }
+            else if ( key.equals( OgnlContext.CONTEXT_CONTEXT_KEY ) )
+            {
+                result = this;
+            }
+            else if ( key.equals( OgnlContext.TRACE_EVALUATIONS_CONTEXT_KEY ) )
+            {
+                result = getTraceEvaluations() ? Boolean.TRUE : Boolean.FALSE;
+            }
+            else if ( key.equals( OgnlContext.LAST_EVALUATION_CONTEXT_KEY ) )
+            {
+                result = getLastEvaluation();
+            }
+            else if ( key.equals( OgnlContext.KEEP_LAST_EVALUATION_CONTEXT_KEY ) )
+            {
+                result = getKeepLastEvaluation() ? Boolean.TRUE : Boolean.FALSE;
+            }
+            else if ( key.equals( OgnlContext.CLASS_RESOLVER_CONTEXT_KEY ) )
+            {
+                result = getClassResolver();
+            }
+            else if ( key.equals( OgnlContext.TYPE_CONVERTER_CONTEXT_KEY ) )
+            {
+                result = getTypeConverter();
+            }
+            else if ( key.equals( OgnlContext.MEMBER_ACCESS_CONTEXT_KEY ) )
+            {
+                result = getMemberAccess();
+            }
+            else
+            {
+                throw new IllegalArgumentException( "unknown reserved key '" + key + "'" );
+            }
+        }
+        else
+        {
+            result = _values.get( key );
         }
         return result;
     }
