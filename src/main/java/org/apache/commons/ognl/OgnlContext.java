@@ -494,6 +494,7 @@ public class OgnlContext extends Object implements Map
     {
         Object result = null;
 
+        // FIXME: complexity is O(n)
         if ( RESERVED_KEYS.contains( key ) )
         {
             if ( THIS_CONTEXT_KEY.equals( key ) )
@@ -544,6 +545,7 @@ public class OgnlContext extends Object implements Map
     {
         Object result = null;
 
+        // FIXME: complexity is O(n)
         if ( RESERVED_KEYS.contains( key ) )
         {
             if ( CONTEXT_CONTEXT_KEY.equals( key ) )
@@ -604,6 +606,7 @@ public class OgnlContext extends Object implements Map
     {
         Object result = null;
 
+        // FIXME: complexity is O(n)
         if ( RESERVED_KEYS.contains( key ) )
         {
             if ( CONTEXT_CONTEXT_KEY.equals( key )
