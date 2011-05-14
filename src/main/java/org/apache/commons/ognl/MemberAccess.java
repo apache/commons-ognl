@@ -1,5 +1,6 @@
+package org.apache.commons.ognl;
+
 /*
- * $Id$
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -8,7 +9,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -17,7 +18,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.commons.ognl;
 
 import java.lang.reflect.Member;
 import java.util.Map;
@@ -35,15 +35,15 @@ public interface MemberAccess
     /**
      * Sets the member up for accessibility
      */
-    public Object setup( Map context, Object target, Member member, String propertyName );
+    Object setup( Map context, Object target, Member member, String propertyName );
 
     /**
      * Restores the member from the previous setup call.
      */
-    public void restore( Map context, Object target, Member member, String propertyName, Object state );
+    void restore( Map context, Object target, Member member, String propertyName, Object state );
 
     /**
      * Returns true if the given member is accessible or can be made accessible by this object.
      */
-    public boolean isAccessible( Map context, Object target, Member member, String propertyName );
+    boolean isAccessible( Map context, Object target, Member member, String propertyName );
 }
