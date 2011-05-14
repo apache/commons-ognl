@@ -50,7 +50,7 @@ public class OgnlContext extends Object implements Map
     public static final TypeConverter DEFAULT_TYPE_CONVERTER = new DefaultTypeConverter();
     public static final MemberAccess DEFAULT_MEMBER_ACCESS = new DefaultMemberAccess(false);
     
-    private static Set<String> RESERVED_KEYS = new HashSet<String>(11);
+    private static final Set<String> RESERVED_KEYS = new HashSet<String>(11);
     
     private Object _root;
     private Object _currentObject;
