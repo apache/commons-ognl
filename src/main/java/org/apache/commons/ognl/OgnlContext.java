@@ -96,7 +96,7 @@ public class OgnlContext extends Object implements Map
     private Stack<Class<?>> _accessorStack = new Stack<Class<?>>();
 
     private int _localReferenceCounter = 0;
-    private Map _localReferenceMap = null;
+    private Map<String, LocalReference> _localReferenceMap = null;
 
     /**
      * Constructs a new OgnlContext with the default class resolver, type converter and member
@@ -458,13 +458,13 @@ public class OgnlContext extends Object implements Map
     {
         if (_localReferenceMap == null)
         {
-            _localReferenceMap = new LinkedHashMap();
+            _localReferenceMap = new LinkedHashMap<String, LocalReference>();
         }
 
         _localReferenceMap.put(key, reference);
     }
 
-    public Map getLocalReferences()
+    public Map<String, LocalReference> getLocalReferences()
     {
         return _localReferenceMap;
     }
