@@ -92,7 +92,7 @@ public class OgnlContext extends Object implements Map
         }
     }
 
-    private List _typeStack = new ArrayList();
+    private Stack<Class<?>> _typeStack = new Stack<Class<?>>();
     private List _accessorStack = new ArrayList();
 
     private int _localReferenceCounter = 0;
@@ -298,15 +298,17 @@ public class OgnlContext extends Object implements Map
      * 
      * @return The current object type, may be null.
      */
-    public Class getCurrentType()
+    public Class<?> getCurrentType()
     {
         if (_typeStack.isEmpty())
+        {
             return null;
+        }
 
-       return (Class) _typeStack.get(_typeStack.size() - 1); 
+       return _typeStack.peek(); 
     }
     
-    public void setCurrentType(Class type)
+    public void setCurrentType(Class<?> type)
     {
         _typeStack.add(type);
     }
@@ -317,31 +319,39 @@ public class OgnlContext extends Object implements Map
      * 
      * @return The previous type of object on the stack, may be null.
      */
-    public Class getPreviousType()
+    public Class<?> getPreviousType()
     {
         if (_typeStack.isEmpty())
+        {
             return null;
+        }
 
         if (_typeStack.size() > 1)
-            return (Class)_typeStack.get(_typeStack.size() - 2);
-        else
-            return null;
+        {
+            return _typeStack.get(_typeStack.size() - 2);
+        }
+
+        return null;
     }
     
-    public void setPreviousType(Class type)
+    public void setPreviousType(Class<?> type)
     {
         if (_typeStack.isEmpty() || _typeStack.size() < 2)
+        {
             return;
+        }
 
         _typeStack.set(_typeStack.size() - 2, type);
     }
 
-    public Class getFirstType()
+    public Class<?> getFirstType()
     {
         if (_typeStack.isEmpty())
+        {
             return null;
+        }
 
-        return (Class)_typeStack.get(0);
+        return _typeStack.get(0);
     }
 
     public void setCurrentNode(Node value)
