@@ -610,7 +610,7 @@ public class OgnlContext extends Object implements Map
                 || key.equals( TRACE_EVALUATIONS_CONTEXT_KEY )
                 || key.equals( KEEP_LAST_EVALUATION_CONTEXT_KEY ) )
             {
-                throw new IllegalArgumentException( "can't remove " + CONTEXT_CONTEXT_KEY + " from context" );
+                throw new IllegalArgumentException( "can't remove " + key + " from context" );
             }
 
             if ( key.equals( THIS_CONTEXT_KEY ) )
