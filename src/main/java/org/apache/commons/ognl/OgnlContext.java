@@ -93,7 +93,7 @@ public class OgnlContext extends Object implements Map
     }
 
     private Stack<Class<?>> _typeStack = new Stack<Class<?>>();
-    private List _accessorStack = new ArrayList();
+    private Stack<Class<?>> _accessorStack = new Stack<Class<?>>();
 
     private int _localReferenceCounter = 0;
     private Map _localReferenceMap = null;
@@ -261,36 +261,43 @@ public class OgnlContext extends Object implements Map
         return _currentObject;
     }
     
-    public void setCurrentAccessor(Class type)
+    public void setCurrentAccessor(Class<?> type)
     {
         _accessorStack.add(type);        
     }
     
-    public Class getCurrentAccessor()
+    public Class<?> getCurrentAccessor()
     {
         if (_accessorStack.isEmpty())
+        {
             return null;
-        
-        return (Class) _accessorStack.get(_accessorStack.size() - 1);
+        }
+
+        return _accessorStack.peek();
     }
     
-    public Class getPreviousAccessor()
+    public Class<?> getPreviousAccessor()
     {
         if (_accessorStack.isEmpty())
+        {
             return null;
+        }
 
-        if (_accessorStack.size() > 1)
-            return (Class) _accessorStack.get(_accessorStack.size() - 2);
-        else
-            return null;
+        if (_accessorStack.size() > 1) {
+            return _accessorStack.get(_accessorStack.size() - 2);
+        }
+
+        return null;
     }
 
-    public Class getFirstAccessor()
+    public Class<?> getFirstAccessor()
     {
         if (_accessorStack.isEmpty())
+        {
             return null;
+        }
 
-        return (Class)_accessorStack.get(0);
+        return _accessorStack.get(0);
     }
 
     /**
