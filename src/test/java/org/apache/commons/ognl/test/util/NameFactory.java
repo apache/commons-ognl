@@ -19,26 +19,32 @@
  */
 package org.apache.commons.ognl.test.util;
 
-public class NameFactory extends Object
+public class NameFactory
+    extends Object
 {
-    private String      classBaseName;
-    private int         classNameCounter = 0;
-    private String      variableBaseName;
-    private int         variableNameCounter = 0;
+    private String classBaseName;
 
-	/*===================================================================
-		Constructors
-	  ===================================================================*/
-    public NameFactory(String classBaseName, String variableBaseName)
+    private int classNameCounter = 0;
+
+    private String variableBaseName;
+
+    private int variableNameCounter = 0;
+
+    /*
+     * =================================================================== Constructors
+     * ===================================================================
+     */
+    public NameFactory( String classBaseName, String variableBaseName )
     {
         super();
         this.classBaseName = classBaseName;
         this.variableBaseName = variableBaseName;
     }
 
-	/*===================================================================
-		Public methods
-	  ===================================================================*/
+    /*
+     * =================================================================== Public methods
+     * ===================================================================
+     */
     public String getNewClassName()
     {
         return classBaseName + classNameCounter++;

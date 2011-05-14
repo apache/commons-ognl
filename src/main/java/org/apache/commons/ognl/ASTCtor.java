@@ -29,29 +29,31 @@ import java.util.List;
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-public class ASTCtor extends SimpleNode
+public class ASTCtor
+    extends SimpleNode
 {
 
     private String className;
+
     private boolean isArray;
 
-    public ASTCtor(int id)
+    public ASTCtor( int id )
     {
-        super(id);
+        super( id );
     }
 
-    public ASTCtor(OgnlParser p, int id)
+    public ASTCtor( OgnlParser p, int id )
     {
-        super(p, id);
+        super( p, id );
     }
 
     /** Called from parser action. */
-    void setClassName(String className)
+    void setClassName( String className )
     {
         this.className = className;
     }
 
-    void setArray(boolean value)
+    void setArray( boolean value )
     {
         isArray = value;
     }
@@ -61,163 +63,209 @@ public class ASTCtor extends SimpleNode
         return isArray;
     }
 
-    protected Object getValueBody(OgnlContext context, Object source)
-            throws OgnlException
+    protected Object getValueBody( OgnlContext context, Object source )
+        throws OgnlException
     {
         Object result, root = context.getRoot();
         int count = jjtGetNumChildren();
-        Object[] args = OgnlRuntime.getObjectArrayPool().create(count);
+        Object[] args = OgnlRuntime.getObjectArrayPool().create( count );
 
-        try {
-            for(int i = 0; i < count; ++i) {
-                args[i] = _children[i].getValue(context, root);
+        try
+        {
+            for ( int i = 0; i < count; ++i )
+            {
+                args[i] = _children[i].getValue( context, root );
             }
-            if (isArray) {
-                if (args.length == 1) {
-                    try {
-                        Class componentClass = OgnlRuntime.classForName(context, className);
+            if ( isArray )
+            {
+                if ( args.length == 1 )
+                {
+                    try
+                    {
+                        Class componentClass = OgnlRuntime.classForName( context, className );
                         List sourceList = null;
                         int size;
 
-                        if (args[0] instanceof List) {
+                        if ( args[0] instanceof List )
+                        {
                             sourceList = (List) args[0];
                             size = sourceList.size();
-                        } else {
-                            size = (int) OgnlOps.longValue(args[0]);
                         }
-                        result = Array.newInstance(componentClass, size);
-                        if (sourceList != null) {
+                        else
+                        {
+                            size = (int) OgnlOps.longValue( args[0] );
+                        }
+                        result = Array.newInstance( componentClass, size );
+                        if ( sourceList != null )
+                        {
                             TypeConverter converter = context.getTypeConverter();
 
-                            for(int i = 0, icount = sourceList.size(); i < icount; i++) {
-                                Object o = sourceList.get(i);
+                            for ( int i = 0, icount = sourceList.size(); i < icount; i++ )
+                            {
+                                Object o = sourceList.get( i );
 
-                                if ((o == null) || componentClass.isInstance(o)) {
-                                    Array.set(result, i, o);
-                                } else {
-                                    Array.set(result, i, converter.convertValue(context, null, null, null, o,
-                                            componentClass));
+                                if ( ( o == null ) || componentClass.isInstance( o ) )
+                                {
+                                    Array.set( result, i, o );
+                                }
+                                else
+                                {
+                                    Array.set( result, i,
+                                               converter.convertValue( context, null, null, null, o, componentClass ) );
                                 }
                             }
                         }
-                    } catch (ClassNotFoundException ex) {
-                        throw new OgnlException("array component class '" + className + "' not found", ex);
                     }
-                } else {
-                    throw new OgnlException("only expect array size or fixed initializer list");
+                    catch ( ClassNotFoundException ex )
+                    {
+                        throw new OgnlException( "array component class '" + className + "' not found", ex );
+                    }
                 }
-            } else {
-                result = OgnlRuntime.callConstructor(context, className, args);
+                else
+                {
+                    throw new OgnlException( "only expect array size or fixed initializer list" );
+                }
+            }
+            else
+            {
+                result = OgnlRuntime.callConstructor( context, className, args );
             }
 
             return result;
-        } finally {
-            OgnlRuntime.getObjectArrayPool().recycle(args);
+        }
+        finally
+        {
+            OgnlRuntime.getObjectArrayPool().recycle( args );
         }
     }
 
     public String toString()
     {
-        StringBuilder result = new StringBuilder("new ").append(className);
+        StringBuilder result = new StringBuilder( "new " ).append( className );
 
-        if (isArray) {
-            if (_children[0] instanceof ASTConst) {
-                result.append("[").append(_children[0]).append("]");
-            } else {
-                result.append("[] ").append(_children[0]);
+        if ( isArray )
+        {
+            if ( _children[0] instanceof ASTConst )
+            {
+                result.append( "[" ).append( _children[0] ).append( "]" );
             }
-        } else {
-            result.append("(");
-            if ((_children != null) && (_children.length > 0)) {
-                for(int i = 0; i < _children.length; i++) {
-                    if (i > 0) {
-                        result.append(", ");
+            else
+            {
+                result.append( "[] " ).append( _children[0] );
+            }
+        }
+        else
+        {
+            result.append( "(" );
+            if ( ( _children != null ) && ( _children.length > 0 ) )
+            {
+                for ( int i = 0; i < _children.length; i++ )
+                {
+                    if ( i > 0 )
+                    {
+                        result.append( ", " );
                     }
-                    result.append(_children[i]);
+                    result.append( _children[i] );
                 }
             }
-            result.append(")");
+            result.append( ")" );
         }
         return result.toString();
     }
 
-    public String toGetSourceString(OgnlContext context, Object target)
+    public String toGetSourceString( OgnlContext context, Object target )
     {
         String result = "new " + className;
 
         Class clazz = null;
         Object ctorValue = null;
-        try {
+        try
+        {
 
-            clazz = OgnlRuntime.classForName(context, className);
-            
-            ctorValue = this.getValueBody(context, target);
-            context.setCurrentObject(ctorValue);
-            
-            if (clazz != null && ctorValue != null) {
-                
-                context.setCurrentType(ctorValue.getClass());
-                context.setCurrentAccessor(ctorValue.getClass());
+            clazz = OgnlRuntime.classForName( context, className );
+
+            ctorValue = this.getValueBody( context, target );
+            context.setCurrentObject( ctorValue );
+
+            if ( clazz != null && ctorValue != null )
+            {
+
+                context.setCurrentType( ctorValue.getClass() );
+                context.setCurrentAccessor( ctorValue.getClass() );
             }
 
-            if (isArray)
-                context.put("_ctorClass", clazz);
+            if ( isArray )
+                context.put( "_ctorClass", clazz );
 
-        } catch (Throwable t)
+        }
+        catch ( Throwable t )
         {
-            throw OgnlOps.castToRuntime(t);
+            throw OgnlOps.castToRuntime( t );
         }
 
-        try {
+        try
+        {
 
-            if (isArray) {
-                if (_children[0] instanceof ASTConst) {
-                    
-                    result = result + "[" + _children[0].toGetSourceString(context, target) + "]";
-                } else if (ASTProperty.class.isInstance(_children[0])) {
+            if ( isArray )
+            {
+                if ( _children[0] instanceof ASTConst )
+                {
 
-                    result = result + "["
-                            + ExpressionCompiler.getRootExpression(_children[0], target, context)
-                            + _children[0].toGetSourceString(context, target)
-                            + "]";
-                } else if (ASTChain.class.isInstance(_children[0])) {
+                    result = result + "[" + _children[0].toGetSourceString( context, target ) + "]";
+                }
+                else if ( ASTProperty.class.isInstance( _children[0] ) )
+                {
 
-                    result = result + "[" + _children[0].toGetSourceString(context, target) + "]";
-                } else {
+                    result =
+                        result + "[" + ExpressionCompiler.getRootExpression( _children[0], target, context )
+                            + _children[0].toGetSourceString( context, target ) + "]";
+                }
+                else if ( ASTChain.class.isInstance( _children[0] ) )
+                {
 
-                    result = result + "[] "+ _children[0].toGetSourceString(context, target);
+                    result = result + "[" + _children[0].toGetSourceString( context, target ) + "]";
+                }
+                else
+                {
+
+                    result = result + "[] " + _children[0].toGetSourceString( context, target );
                 }
 
-            } else {
+            }
+            else
+            {
                 result = result + "(";
 
-                if ((_children != null) && (_children.length > 0)) {
+                if ( ( _children != null ) && ( _children.length > 0 ) )
+                {
 
                     Object[] values = new Object[_children.length];
                     String[] expressions = new String[_children.length];
                     Class[] types = new Class[_children.length];
 
                     // first populate arrays with child values
-                    
-                    for(int i = 0; i < _children.length; i++) {
-                        
-                        Object objValue = _children[i].getValue(context, context.getRoot());
-                        String value = _children[i].toGetSourceString(context, target);
 
-                        if (!ASTRootVarRef.class.isInstance(_children[i]))
+                    for ( int i = 0; i < _children.length; i++ )
+                    {
+
+                        Object objValue = _children[i].getValue( context, context.getRoot() );
+                        String value = _children[i].toGetSourceString( context, target );
+
+                        if ( !ASTRootVarRef.class.isInstance( _children[i] ) )
                         {
-                            value = ExpressionCompiler.getRootExpression(_children[i], target, context) + value;
+                            value = ExpressionCompiler.getRootExpression( _children[i], target, context ) + value;
                         }
 
                         String cast = "";
-                        if (ExpressionCompiler.shouldCast(_children[i])) {
+                        if ( ExpressionCompiler.shouldCast( _children[i] ) )
+                        {
 
-                            cast = (String)context.remove(ExpressionCompiler.PRE_CAST);
+                            cast = (String) context.remove( ExpressionCompiler.PRE_CAST );
                         }
-                        if (cast == null)
+                        if ( cast == null )
                             cast = "";
 
-                        if (!ASTConst.class.isInstance(_children[i]))
+                        if ( !ASTConst.class.isInstance( _children[i] ) )
                             value = cast + value;
 
                         values[i] = objValue;
@@ -226,58 +274,75 @@ public class ASTCtor extends SimpleNode
                     }
 
                     // now try and find a matching constructor
-                    
+
                     Constructor[] cons = clazz.getConstructors();
                     Constructor ctor = null;
                     Class[] ctorParamTypes = null;
-                    
-                    for (int i=0; i < cons.length; i++)
+
+                    for ( int i = 0; i < cons.length; i++ )
                     {
                         Class[] ctorTypes = cons[i].getParameterTypes();
 
-                        if (OgnlRuntime.areArgsCompatible(values, ctorTypes)
-                            && (ctor == null || OgnlRuntime.isMoreSpecific(ctorTypes, ctorParamTypes))) {
+                        if ( OgnlRuntime.areArgsCompatible( values, ctorTypes )
+                            && ( ctor == null || OgnlRuntime.isMoreSpecific( ctorTypes, ctorParamTypes ) ) )
+                        {
                             ctor = cons[i];
                             ctorParamTypes = ctorTypes;
                         }
                     }
 
-                    if (ctor == null)
-                        ctor = OgnlRuntime.getConvertedConstructorAndArgs(context, clazz, OgnlRuntime.getConstructors(clazz), values, new Object[values.length]);
+                    if ( ctor == null )
+                        ctor =
+                            OgnlRuntime.getConvertedConstructorAndArgs( context, clazz,
+                                                                        OgnlRuntime.getConstructors( clazz ), values,
+                                                                        new Object[values.length] );
 
-                    if (ctor == null)
-                        throw new NoSuchMethodException("Unable to find constructor appropriate for arguments in class: " + clazz);
+                    if ( ctor == null )
+                        throw new NoSuchMethodException(
+                                                         "Unable to find constructor appropriate for arguments in class: "
+                                                             + clazz );
 
                     ctorParamTypes = ctor.getParameterTypes();
 
                     // now loop over child values again and build up the actual source string
 
-                    for(int i = 0; i < _children.length; i++) {
-                        if (i > 0) {
+                    for ( int i = 0; i < _children.length; i++ )
+                    {
+                        if ( i > 0 )
+                        {
                             result = result + ", ";
                         }
 
                         String value = expressions[i];
 
-                        if (types[i].isPrimitive()) {
+                        if ( types[i].isPrimitive() )
+                        {
 
-                            String literal = OgnlRuntime.getNumericLiteral(types[i]);
-                            if (literal != null)
+                            String literal = OgnlRuntime.getNumericLiteral( types[i] );
+                            if ( literal != null )
                                 value += literal;
                         }
 
-                        if (ctorParamTypes[i] != types[i]) {
+                        if ( ctorParamTypes[i] != types[i] )
+                        {
 
-                            if (values[i] != null && !types[i].isPrimitive()
-                                && !values[i].getClass().isArray() && !ASTConst.class.isInstance(_children[i])) {
-                                
-                                value = "(" + OgnlRuntime.getCompiler().getInterfaceClass(values[i].getClass()).getName() + ")" + value;
-                            } else if (!ASTConst.class.isInstance(_children[i])
-                                       || (ASTConst.class.isInstance(_children[i]) && !types[i].isPrimitive())) {
-                                
-                                if (!types[i].isArray()
-                                    && types[i].isPrimitive() && !ctorParamTypes[i].isPrimitive())
-                                    value = "new " + ExpressionCompiler.getCastString(OgnlRuntime.getPrimitiveWrapperClass(types[i])) + "(" + value + ")";
+                            if ( values[i] != null && !types[i].isPrimitive() && !values[i].getClass().isArray()
+                                && !ASTConst.class.isInstance( _children[i] ) )
+                            {
+
+                                value =
+                                    "(" + OgnlRuntime.getCompiler().getInterfaceClass( values[i].getClass() ).getName()
+                                        + ")" + value;
+                            }
+                            else if ( !ASTConst.class.isInstance( _children[i] )
+                                || ( ASTConst.class.isInstance( _children[i] ) && !types[i].isPrimitive() ) )
+                            {
+
+                                if ( !types[i].isArray() && types[i].isPrimitive() && !ctorParamTypes[i].isPrimitive() )
+                                    value =
+                                        "new "
+                                            + ExpressionCompiler.getCastString( OgnlRuntime.getPrimitiveWrapperClass( types[i] ) )
+                                            + "(" + value + ")";
                                 else
                                     value = " ($w) " + value;
                             }
@@ -290,21 +355,22 @@ public class ASTCtor extends SimpleNode
                 result = result + ")";
             }
 
-            context.setCurrentType(ctorValue != null ? ctorValue.getClass() : clazz);
-            context.setCurrentAccessor(clazz);
-            context.setCurrentObject(ctorValue);
+            context.setCurrentType( ctorValue != null ? ctorValue.getClass() : clazz );
+            context.setCurrentAccessor( clazz );
+            context.setCurrentObject( ctorValue );
 
-        } catch (Throwable t)
+        }
+        catch ( Throwable t )
         {
-            throw OgnlOps.castToRuntime(t);
+            throw OgnlOps.castToRuntime( t );
         }
 
-        context.remove("_ctorClass");
+        context.remove( "_ctorClass" );
 
         return result;
     }
 
-    public String toSetSourceString(OgnlContext context, Object target)
+    public String toSetSourceString( OgnlContext context, Object target )
     {
         return "";
     }

@@ -22,48 +22,64 @@ package org.apache.commons.ognl.test;
 import junit.framework.TestSuite;
 import org.apache.commons.ognl.test.objects.Root;
 
-public class NullStringCatenationTest extends OgnlTestCase {
+public class NullStringCatenationTest
+    extends OgnlTestCase
+{
 
     public static final String MESSAGE = "blarney";
 
     private static Root ROOT = new Root();
 
-    private static Object[][] TESTS = {
+    private static Object[][] TESTS =
+        {
             // Null string catenation
-            {ROOT, "\"bar\" + null", "barnull"}, // Catenate null to a string
-            {ROOT, "\"bar\" + nullObject", "barnull"}, // Catenate null to a string
-            {ROOT, "20.56 + nullObject", NullPointerException.class}, // Catenate null to a number
-            {ROOT, "(true ? 'tabHeader' : '') + (false ? 'tabHeader' : '')", "tabHeader"},
-            {ROOT, "theInt == 0 ? '5%' : theInt + '%'", "6%"},
-            {ROOT, "'width:' + width + ';'", "width:238px;" },
-            {ROOT, "theLong + '_' + index", "4_1"},
-            {ROOT, "'javascript:' + @org.apache.commons.ognl.test.NullStringCatenationTest@MESSAGE", "javascript:blarney" },
-            {ROOT, "printDelivery ? '' : 'javascript:deliverySelected(' + property.carrier + ',' + currentDeliveryId + ')'", "" },
-            {ROOT, "bean2.id + '_' + theInt", "1_6" }
-    };
+            { ROOT, "\"bar\" + null", "barnull" }, // Catenate null to a string
+            { ROOT, "\"bar\" + nullObject", "barnull" }, // Catenate null to a string
+            { ROOT, "20.56 + nullObject", NullPointerException.class }, // Catenate null to a number
+            { ROOT, "(true ? 'tabHeader' : '') + (false ? 'tabHeader' : '')", "tabHeader" },
+            { ROOT, "theInt == 0 ? '5%' : theInt + '%'", "6%" },
+            { ROOT, "'width:' + width + ';'", "width:238px;" },
+            { ROOT, "theLong + '_' + index", "4_1" },
+            { ROOT, "'javascript:' + @org.apache.commons.ognl.test.NullStringCatenationTest@MESSAGE",
+                "javascript:blarney" },
+            {
+                ROOT,
+                "printDelivery ? '' : 'javascript:deliverySelected(' + property.carrier + ',' + currentDeliveryId + ')'",
+                "" }, { ROOT, "bean2.id + '_' + theInt", "1_6" } };
 
     /*
-    * =================================================================== Public static methods
-    * ===================================================================
-    */
+     * =================================================================== Public static methods
+     * ===================================================================
+     */
     public static TestSuite suite()
     {
         TestSuite result = new TestSuite();
 
-        for (int i = 0; i < TESTS.length; i++) {
-            if (TESTS[i].length == 3) {
-                result.addTest(new NullStringCatenationTest((String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                                                            TESTS[i][2]));
-            } else {
-                if (TESTS[i].length == 4) {
-                    result.addTest(new NullStringCatenationTest((String) TESTS[i][1], TESTS[i][0],
-                                                                (String) TESTS[i][1], TESTS[i][2], TESTS[i][3]));
-                } else {
-                    if (TESTS[i].length == 5) {
-                        result.addTest(new NullStringCatenationTest((String) TESTS[i][1], TESTS[i][0],
-                                                                    (String) TESTS[i][1], TESTS[i][2], TESTS[i][3], TESTS[i][4]));
-                    } else {
-                        throw new RuntimeException("don't understand TEST format");
+        for ( int i = 0; i < TESTS.length; i++ )
+        {
+            if ( TESTS[i].length == 3 )
+            {
+                result.addTest( new NullStringCatenationTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
+                                                              TESTS[i][2] ) );
+            }
+            else
+            {
+                if ( TESTS[i].length == 4 )
+                {
+                    result.addTest( new NullStringCatenationTest( (String) TESTS[i][1], TESTS[i][0],
+                                                                  (String) TESTS[i][1], TESTS[i][2], TESTS[i][3] ) );
+                }
+                else
+                {
+                    if ( TESTS[i].length == 5 )
+                    {
+                        result.addTest( new NullStringCatenationTest( (String) TESTS[i][1], TESTS[i][0],
+                                                                      (String) TESTS[i][1], TESTS[i][2], TESTS[i][3],
+                                                                      TESTS[i][4] ) );
+                    }
+                    else
+                    {
+                        throw new RuntimeException( "don't understand TEST format" );
                     }
                 }
             }
@@ -80,25 +96,25 @@ public class NullStringCatenationTest extends OgnlTestCase {
         super();
     }
 
-    public NullStringCatenationTest(String name)
+    public NullStringCatenationTest( String name )
     {
-        super(name);
+        super( name );
     }
 
-    public NullStringCatenationTest(String name, Object root, String expressionString, Object expectedResult,
-                                    Object setValue, Object expectedAfterSetResult)
+    public NullStringCatenationTest( String name, Object root, String expressionString, Object expectedResult,
+                                     Object setValue, Object expectedAfterSetResult )
     {
-        super(name, root, expressionString, expectedResult, setValue, expectedAfterSetResult);
+        super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
     }
 
-    public NullStringCatenationTest(String name, Object root, String expressionString, Object expectedResult,
-                                    Object setValue)
+    public NullStringCatenationTest( String name, Object root, String expressionString, Object expectedResult,
+                                     Object setValue )
     {
-        super(name, root, expressionString, expectedResult, setValue);
+        super( name, root, expressionString, expectedResult, setValue );
     }
 
-    public NullStringCatenationTest(String name, Object root, String expressionString, Object expectedResult)
+    public NullStringCatenationTest( String name, Object root, String expressionString, Object expectedResult )
     {
-        super(name, root, expressionString, expectedResult);
+        super( name, root, expressionString, expectedResult );
     }
 }

@@ -22,7 +22,8 @@ package org.apache.commons.ognl.test.objects;
 /**
  *
  */
-public class SetterReturns {
+public class SetterReturns
+{
 
     private String _value = "";
 
@@ -31,7 +32,7 @@ public class SetterReturns {
         return _value;
     }
 
-    public SetterReturns setValue(String value)
+    public SetterReturns setValue( String value )
     {
         _value += value;
         return this;

@@ -22,27 +22,22 @@ package org.apache.commons.ognl.test;
 import junit.framework.TestSuite;
 import org.apache.commons.ognl.Ognl;
 
-public class ConstantTreeTest extends OgnlTestCase
+public class ConstantTreeTest
+    extends OgnlTestCase
 {
 
     public static int nonFinalStaticVariable = 15;
 
-    private static Object[][] TESTS = { 
-        { "true", Boolean.TRUE }, 
-        { "55", Boolean.TRUE }, 
-        { "@java.awt.Color@black", Boolean.TRUE }, 
+    private static Object[][] TESTS = { { "true", Boolean.TRUE }, { "55", Boolean.TRUE },
+        { "@java.awt.Color@black", Boolean.TRUE },
         { "@org.apache.commons.ognl.test.ConstantTreeTest@nonFinalStaticVariable", Boolean.FALSE },
         { "@org.apache.commons.ognl.test.ConstantTreeTest@nonFinalStaticVariable + 10", Boolean.FALSE },
-        { "55 + 24 + @java.awt.Event@ALT_MASK", Boolean.TRUE },
-        { "name", Boolean.FALSE },
-        { "name[i]", Boolean.FALSE },
-        { "name[i].property", Boolean.FALSE }, 
-        { "name.{? foo }", Boolean.FALSE },
-        { "name.{ foo }", Boolean.FALSE }, 
-        { "name.{ 25 }", Boolean.FALSE }
-        
+        { "55 + 24 + @java.awt.Event@ALT_MASK", Boolean.TRUE }, { "name", Boolean.FALSE },
+        { "name[i]", Boolean.FALSE }, { "name[i].property", Boolean.FALSE }, { "name.{? foo }", Boolean.FALSE },
+        { "name.{ foo }", Boolean.FALSE }, { "name.{ 25 }", Boolean.FALSE }
+
     };
-    
+
     /*
      * =================================================================== Public static methods
      * ===================================================================
@@ -51,9 +46,10 @@ public class ConstantTreeTest extends OgnlTestCase
     {
         TestSuite result = new TestSuite();
 
-        for(int i = 0; i < TESTS.length; i++) {
-            result.addTest(new ConstantTreeTest((String) TESTS[i][0] + " (" + TESTS[i][1] + ")", null,
-                    (String) TESTS[i][0], TESTS[i][1]));
+        for ( int i = 0; i < TESTS.length; i++ )
+        {
+            result.addTest( new ConstantTreeTest( (String) TESTS[i][0] + " (" + TESTS[i][1] + ")", null,
+                                                  (String) TESTS[i][0], TESTS[i][1] ) );
         }
         return result;
     }
@@ -65,7 +61,7 @@ public class ConstantTreeTest extends OgnlTestCase
     protected void runTest()
         throws Exception
     {
-        assertTrue(Ognl.isConstant(getExpression(), _context) == ((Boolean) getExpectedResult()).booleanValue());
+        assertTrue( Ognl.isConstant( getExpression(), _context ) == ( (Boolean) getExpectedResult() ).booleanValue() );
     }
 
     /*
@@ -77,24 +73,24 @@ public class ConstantTreeTest extends OgnlTestCase
         super();
     }
 
-    public ConstantTreeTest(String name)
+    public ConstantTreeTest( String name )
     {
-        super(name);
+        super( name );
     }
 
-    public ConstantTreeTest(String name, Object root, String expressionString, Object expectedResult, Object setValue,
-            Object expectedAfterSetResult)
+    public ConstantTreeTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,
+                             Object expectedAfterSetResult )
     {
-        super(name, root, expressionString, expectedResult, setValue, expectedAfterSetResult);
+        super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
     }
 
-    public ConstantTreeTest(String name, Object root, String expressionString, Object expectedResult, Object setValue)
+    public ConstantTreeTest( String name, Object root, String expressionString, Object expectedResult, Object setValue )
     {
-        super(name, root, expressionString, expectedResult, setValue);
+        super( name, root, expressionString, expectedResult, setValue );
     }
 
-    public ConstantTreeTest(String name, Object root, String expressionString, Object expectedResult)
+    public ConstantTreeTest( String name, Object root, String expressionString, Object expectedResult )
     {
-        super(name, root, expressionString, expectedResult);
+        super( name, root, expressionString, expectedResult );
     }
 }

@@ -30,44 +30,36 @@ import org.apache.commons.ognl.test.objects.Root;
 
 import java.util.List;
 
-public class InterfaceInheritanceTest extends OgnlTestCase {
+public class InterfaceInheritanceTest
+    extends OgnlTestCase
+{
 
     private static Root ROOT = new Root();
 
-    static {
-        ROOT.getBeans().setBean("testBean", new Bean1());
-        ROOT.getBeans().setBean("evenOdd", new EvenOdd());
+    static
+    {
+        ROOT.getBeans().setBean( "testBean", new Bean1() );
+        ROOT.getBeans().setBean( "evenOdd", new EvenOdd() );
 
         List list = new ListSourceImpl();
-        list.add("test1");
+        list.add( "test1" );
 
-        ROOT.getMap().put("customList", list);
+        ROOT.getMap().put( "customList", list );
     }
 
-    private static Object[][] TESTS = {
-            {ROOT, "myMap", ROOT.getMyMap()},
-            {ROOT, "myMap.test", ROOT},
-            {ROOT.getMyMap(), "list", ROOT.getList()},
-            {ROOT, "myMap.array[0]", new Integer(ROOT.getArray()[0])},
-            {ROOT, "myMap.list[1]", ROOT.getList().get(1)},
-            {ROOT, "myMap[^]", new Integer(99)},
-            {ROOT, "myMap[$]", null},
-            {ROOT.getMyMap(), "array[$]", new Integer(ROOT.getArray()[ROOT.getArray().length - 1])},
-            {ROOT, "[\"myMap\"]", ROOT.getMyMap()},
-            {ROOT, "myMap[null]", null},
-            {ROOT, "myMap[#x = null]", null},
-            {ROOT, "myMap.(null,test)", ROOT},
-            {ROOT, "myMap[null] = 25", new Integer(25)},
-            {ROOT, "myMap[null]", new Integer(25), new Integer(50), new Integer(50)},
-            {ROOT, "beans.testBean", ROOT.getBeans().getBean("testBean")},
-            {ROOT, "beans.evenOdd.next", "even"},
-            {ROOT, "map.comp.form.clientId", "form1"},
-            {ROOT, "map.comp.getCount(genericIndex)", Integer.valueOf(0)},
-            {ROOT, "map.customList.total", Integer.valueOf(1)},
-            {ROOT, "myTest.theMap['key']", "value" },
-            {ROOT, "contentProvider.hasChildren(property)", Boolean.TRUE},
-            {ROOT, "objectIndex instanceof java.lang.Object", Boolean.TRUE}
-    };
+    private static Object[][] TESTS = { { ROOT, "myMap", ROOT.getMyMap() }, { ROOT, "myMap.test", ROOT },
+        { ROOT.getMyMap(), "list", ROOT.getList() }, { ROOT, "myMap.array[0]", new Integer( ROOT.getArray()[0] ) },
+        { ROOT, "myMap.list[1]", ROOT.getList().get( 1 ) }, { ROOT, "myMap[^]", new Integer( 99 ) },
+        { ROOT, "myMap[$]", null },
+        { ROOT.getMyMap(), "array[$]", new Integer( ROOT.getArray()[ROOT.getArray().length - 1] ) },
+        { ROOT, "[\"myMap\"]", ROOT.getMyMap() }, { ROOT, "myMap[null]", null }, { ROOT, "myMap[#x = null]", null },
+        { ROOT, "myMap.(null,test)", ROOT }, { ROOT, "myMap[null] = 25", new Integer( 25 ) },
+        { ROOT, "myMap[null]", new Integer( 25 ), new Integer( 50 ), new Integer( 50 ) },
+        { ROOT, "beans.testBean", ROOT.getBeans().getBean( "testBean" ) }, { ROOT, "beans.evenOdd.next", "even" },
+        { ROOT, "map.comp.form.clientId", "form1" }, { ROOT, "map.comp.getCount(genericIndex)", Integer.valueOf( 0 ) },
+        { ROOT, "map.customList.total", Integer.valueOf( 1 ) }, { ROOT, "myTest.theMap['key']", "value" },
+        { ROOT, "contentProvider.hasChildren(property)", Boolean.TRUE },
+        { ROOT, "objectIndex instanceof java.lang.Object", Boolean.TRUE } };
 
     /*
      * =================================================================== Public static methods
@@ -77,20 +69,31 @@ public class InterfaceInheritanceTest extends OgnlTestCase {
     {
         TestSuite result = new TestSuite();
 
-        for (int i = 0; i < TESTS.length; i++) {
-            if (TESTS[i].length == 3) {
-                result.addTest(new InterfaceInheritanceTest((String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                                                            TESTS[i][2]));
-            } else {
-                if (TESTS[i].length == 4) {
-                    result.addTest(new InterfaceInheritanceTest((String) TESTS[i][1], TESTS[i][0],
-                                                                (String) TESTS[i][1], TESTS[i][2], TESTS[i][3]));
-                } else {
-                    if (TESTS[i].length == 5) {
-                        result.addTest(new InterfaceInheritanceTest((String) TESTS[i][1], TESTS[i][0],
-                                                                    (String) TESTS[i][1], TESTS[i][2], TESTS[i][3], TESTS[i][4]));
-                    } else {
-                        throw new RuntimeException("don't understand TEST format");
+        for ( int i = 0; i < TESTS.length; i++ )
+        {
+            if ( TESTS[i].length == 3 )
+            {
+                result.addTest( new InterfaceInheritanceTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
+                                                              TESTS[i][2] ) );
+            }
+            else
+            {
+                if ( TESTS[i].length == 4 )
+                {
+                    result.addTest( new InterfaceInheritanceTest( (String) TESTS[i][1], TESTS[i][0],
+                                                                  (String) TESTS[i][1], TESTS[i][2], TESTS[i][3] ) );
+                }
+                else
+                {
+                    if ( TESTS[i].length == 5 )
+                    {
+                        result.addTest( new InterfaceInheritanceTest( (String) TESTS[i][1], TESTS[i][0],
+                                                                      (String) TESTS[i][1], TESTS[i][2], TESTS[i][3],
+                                                                      TESTS[i][4] ) );
+                    }
+                    else
+                    {
+                        throw new RuntimeException( "don't understand TEST format" );
                     }
                 }
             }
@@ -100,34 +103,34 @@ public class InterfaceInheritanceTest extends OgnlTestCase {
     }
 
     /*
-    * =================================================================== Constructors
-    * ===================================================================
-    */
+     * =================================================================== Constructors
+     * ===================================================================
+     */
     public InterfaceInheritanceTest()
     {
         super();
     }
 
-    public InterfaceInheritanceTest(String name)
+    public InterfaceInheritanceTest( String name )
     {
-        super(name);
+        super( name );
     }
 
-    public InterfaceInheritanceTest(String name, Object root, String expressionString, Object expectedResult,
-                                    Object setValue, Object expectedAfterSetResult)
+    public InterfaceInheritanceTest( String name, Object root, String expressionString, Object expectedResult,
+                                     Object setValue, Object expectedAfterSetResult )
     {
-        super(name, root, expressionString, expectedResult, setValue, expectedAfterSetResult);
+        super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
     }
 
-    public InterfaceInheritanceTest(String name, Object root, String expressionString, Object expectedResult,
-                                    Object setValue)
+    public InterfaceInheritanceTest( String name, Object root, String expressionString, Object expectedResult,
+                                     Object setValue )
     {
-        super(name, root, expressionString, expectedResult, setValue);
+        super( name, root, expressionString, expectedResult, setValue );
     }
 
-    public InterfaceInheritanceTest(String name, Object root, String expressionString, Object expectedResult)
+    public InterfaceInheritanceTest( String name, Object root, String expressionString, Object expectedResult )
     {
-        super(name, root, expressionString, expectedResult);
+        super( name, root, expressionString, expectedResult );
     }
 
     public void setUp()

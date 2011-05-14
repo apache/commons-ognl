@@ -22,11 +22,12 @@ package org.apache.commons.ognl.test.objects;
 /**
  *
  */
-public class GetterMethods {
+public class GetterMethods
+{
 
     private int theInt = 1;
 
-    public boolean isAllowDisplay(Object something)
+    public boolean isAllowDisplay( Object something )
     {
         return true;
     }
@@ -36,7 +37,7 @@ public class GetterMethods {
         return theInt;
     }
 
-    public void setAllowDisplay(int val)
+    public void setAllowDisplay( int val )
     {
         theInt = val;
     }

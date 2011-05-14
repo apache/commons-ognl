@@ -23,23 +23,23 @@ import junit.framework.TestSuite;
 import org.apache.commons.ognl.DefaultMemberAccess;
 import org.apache.commons.ognl.test.objects.Root;
 
-public class PrivateAccessorTest extends OgnlTestCase
+public class PrivateAccessorTest
+    extends OgnlTestCase
 {
 
     private static Root ROOT = new Root();
 
     private static Object[][] TESTS = {
-            // Using private get/set methods
-            { ROOT, "getPrivateAccessorIntValue()", new Integer(67) },
-            { ROOT, "privateAccessorIntValue", new Integer(67) },
-            { ROOT, "privateAccessorIntValue", new Integer(67), new Integer(100) },
-            { ROOT, "privateAccessorIntValue2", new Integer(67) },
-            { ROOT, "privateAccessorIntValue2", new Integer(67), new Integer(100) },
-            { ROOT, "privateAccessorIntValue3", new Integer(67) },
-            { ROOT, "privateAccessorIntValue3", new Integer(67), new Integer(100) },
-            { ROOT, "privateAccessorBooleanValue", Boolean.TRUE },
-            { ROOT, "privateAccessorBooleanValue", Boolean.TRUE, Boolean.FALSE },
-            };
+        // Using private get/set methods
+        { ROOT, "getPrivateAccessorIntValue()", new Integer( 67 ) },
+        { ROOT, "privateAccessorIntValue", new Integer( 67 ) },
+        { ROOT, "privateAccessorIntValue", new Integer( 67 ), new Integer( 100 ) },
+        { ROOT, "privateAccessorIntValue2", new Integer( 67 ) },
+        { ROOT, "privateAccessorIntValue2", new Integer( 67 ), new Integer( 100 ) },
+        { ROOT, "privateAccessorIntValue3", new Integer( 67 ) },
+        { ROOT, "privateAccessorIntValue3", new Integer( 67 ), new Integer( 100 ) },
+        { ROOT, "privateAccessorBooleanValue", Boolean.TRUE },
+        { ROOT, "privateAccessorBooleanValue", Boolean.TRUE, Boolean.FALSE }, };
 
     /*
      * =================================================================== Public static methods
@@ -49,20 +49,31 @@ public class PrivateAccessorTest extends OgnlTestCase
     {
         TestSuite result = new TestSuite();
 
-        for(int i = 0; i < TESTS.length; i++) {
-            if (TESTS[i].length == 3) {
-                result.addTest(new PrivateAccessorTest((String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                        TESTS[i][2]));
-            } else {
-                if (TESTS[i].length == 4) {
-                    result.addTest(new PrivateAccessorTest((String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                            TESTS[i][2], TESTS[i][3]));
-                } else {
-                    if (TESTS[i].length == 5) {
-                        result.addTest(new PrivateAccessorTest((String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                                TESTS[i][2], TESTS[i][3], TESTS[i][4]));
-                    } else {
-                        throw new RuntimeException("don't understand TEST format");
+        for ( int i = 0; i < TESTS.length; i++ )
+        {
+            if ( TESTS[i].length == 3 )
+            {
+                result.addTest( new PrivateAccessorTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
+                                                         TESTS[i][2] ) );
+            }
+            else
+            {
+                if ( TESTS[i].length == 4 )
+                {
+                    result.addTest( new PrivateAccessorTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
+                                                             TESTS[i][2], TESTS[i][3] ) );
+                }
+                else
+                {
+                    if ( TESTS[i].length == 5 )
+                    {
+                        result.addTest( new PrivateAccessorTest( (String) TESTS[i][1], TESTS[i][0],
+                                                                 (String) TESTS[i][1], TESTS[i][2], TESTS[i][3],
+                                                                 TESTS[i][4] ) );
+                    }
+                    else
+                    {
+                        throw new RuntimeException( "don't understand TEST format" );
                     }
                 }
             }
@@ -79,25 +90,26 @@ public class PrivateAccessorTest extends OgnlTestCase
         super();
     }
 
-    public PrivateAccessorTest(String name)
+    public PrivateAccessorTest( String name )
     {
-        super(name);
+        super( name );
     }
 
-    public PrivateAccessorTest(String name, Object root, String expressionString, Object expectedResult,
-            Object setValue, Object expectedAfterSetResult)
+    public PrivateAccessorTest( String name, Object root, String expressionString, Object expectedResult,
+                                Object setValue, Object expectedAfterSetResult )
     {
-        super(name, root, expressionString, expectedResult, setValue, expectedAfterSetResult);
+        super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
     }
 
-    public PrivateAccessorTest(String name, Object root, String expressionString, Object expectedResult, Object setValue)
+    public PrivateAccessorTest( String name, Object root, String expressionString, Object expectedResult,
+                                Object setValue )
     {
-        super(name, root, expressionString, expectedResult, setValue);
+        super( name, root, expressionString, expectedResult, setValue );
     }
 
-    public PrivateAccessorTest(String name, Object root, String expressionString, Object expectedResult)
+    public PrivateAccessorTest( String name, Object root, String expressionString, Object expectedResult )
     {
-        super(name, root, expressionString, expectedResult);
+        super( name, root, expressionString, expectedResult );
     }
 
     /*
@@ -107,7 +119,7 @@ public class PrivateAccessorTest extends OgnlTestCase
     public void setUp()
     {
         super.setUp();
-        _context.setMemberAccess(new DefaultMemberAccess(true));
+        _context.setMemberAccess( new DefaultMemberAccess( true ) );
         _compileExpressions = false;
     }
 }

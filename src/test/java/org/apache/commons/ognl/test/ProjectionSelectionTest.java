@@ -25,22 +25,22 @@ import org.apache.commons.ognl.test.objects.Root;
 import java.math.BigInteger;
 import java.util.Arrays;
 
-public class ProjectionSelectionTest extends OgnlTestCase
+public class ProjectionSelectionTest
+    extends OgnlTestCase
 {
     private static Root ROOT = new Root();
-    
+
     private static Object[][] TESTS = {
-            // Projection, selection
-             { ROOT, "array.{class}",
-                    Arrays.asList(new Class[] { Integer.class, Integer.class, Integer.class, Integer.class }) },
-            { ROOT, "map.array.{? #this > 2 }", Arrays.asList(new Integer[] { new Integer(3), new Integer(4) }) },
-            { ROOT, "map.array.{^ #this > 2 }", Arrays.asList(new Integer[] { new Integer(3) }) },
-            { ROOT, "map.array.{$ #this > 2 }", Arrays.asList(new Integer[] { new Integer(4) }) }, 
-            { ROOT, "map.array[*].{?true} instanceof java.util.Collection", Boolean.TRUE },
-            { null, "#fact=1, 30H.{? #fact = #fact * (#this+1), false }, #fact",
-                    new BigInteger("265252859812191058636308480000000") },
-            };
-    
+        // Projection, selection
+        { ROOT, "array.{class}",
+            Arrays.asList( new Class[] { Integer.class, Integer.class, Integer.class, Integer.class } ) },
+        { ROOT, "map.array.{? #this > 2 }", Arrays.asList( new Integer[] { new Integer( 3 ), new Integer( 4 ) } ) },
+        { ROOT, "map.array.{^ #this > 2 }", Arrays.asList( new Integer[] { new Integer( 3 ) } ) },
+        { ROOT, "map.array.{$ #this > 2 }", Arrays.asList( new Integer[] { new Integer( 4 ) } ) },
+        { ROOT, "map.array[*].{?true} instanceof java.util.Collection", Boolean.TRUE },
+        { null, "#fact=1, 30H.{? #fact = #fact * (#this+1), false }, #fact",
+            new BigInteger( "265252859812191058636308480000000" ) }, };
+
     /*
      * =================================================================== Public static methods
      * ===================================================================
@@ -48,10 +48,11 @@ public class ProjectionSelectionTest extends OgnlTestCase
     public static TestSuite suite()
     {
         TestSuite result = new TestSuite();
-        
-        for(int i = 0; i < TESTS.length; i++) {
-            result.addTest(new ProjectionSelectionTest((String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                    TESTS[i][2]));
+
+        for ( int i = 0; i < TESTS.length; i++ )
+        {
+            result.addTest( new ProjectionSelectionTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
+                                                         TESTS[i][2] ) );
         }
         return result;
     }
@@ -65,25 +66,25 @@ public class ProjectionSelectionTest extends OgnlTestCase
         super();
     }
 
-    public ProjectionSelectionTest(String name)
+    public ProjectionSelectionTest( String name )
     {
-        super(name);
+        super( name );
     }
 
-    public ProjectionSelectionTest(String name, Object root, String expressionString, Object expectedResult,
-            Object setValue, Object expectedAfterSetResult)
+    public ProjectionSelectionTest( String name, Object root, String expressionString, Object expectedResult,
+                                    Object setValue, Object expectedAfterSetResult )
     {
-        super(name, root, expressionString, expectedResult, setValue, expectedAfterSetResult);
+        super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
     }
 
-    public ProjectionSelectionTest(String name, Object root, String expressionString, Object expectedResult,
-            Object setValue)
+    public ProjectionSelectionTest( String name, Object root, String expressionString, Object expectedResult,
+                                    Object setValue )
     {
-        super(name, root, expressionString, expectedResult, setValue);
+        super( name, root, expressionString, expectedResult, setValue );
     }
 
-    public ProjectionSelectionTest(String name, Object root, String expressionString, Object expectedResult)
+    public ProjectionSelectionTest( String name, Object root, String expressionString, Object expectedResult )
     {
-        super(name, root, expressionString, expectedResult);
+        super( name, root, expressionString, expectedResult );
     }
 }

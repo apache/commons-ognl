@@ -24,122 +24,149 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Implementation of PropertyAccessor that sets and gets properties by storing and looking up values
- * in Maps.
- *
+ * Implementation of PropertyAccessor that sets and gets properties by storing and looking up values in Maps.
+ * 
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-public class MapPropertyAccessor implements PropertyAccessor
+public class MapPropertyAccessor
+    implements PropertyAccessor
 {
 
-    public Object getProperty(Map context, Object target, Object name)
-            throws OgnlException
+    public Object getProperty( Map context, Object target, Object name )
+        throws OgnlException
     {
         Object result;
         Map map = (Map) target;
-        Node currentNode = ((OgnlContext) context).getCurrentNode().jjtGetParent();
+        Node currentNode = ( (OgnlContext) context ).getCurrentNode().jjtGetParent();
         boolean indexedAccess = false;
 
-        if (currentNode == null) { throw new OgnlException("node is null for '" + name + "'"); }
-        if (!(currentNode instanceof ASTProperty)) {
+        if ( currentNode == null )
+        {
+            throw new OgnlException( "node is null for '" + name + "'" );
+        }
+        if ( !( currentNode instanceof ASTProperty ) )
+        {
             currentNode = currentNode.jjtGetParent();
         }
-        if (currentNode instanceof ASTProperty) {
-            indexedAccess = ((ASTProperty) currentNode).isIndexedAccess();
+        if ( currentNode instanceof ASTProperty )
+        {
+            indexedAccess = ( (ASTProperty) currentNode ).isIndexedAccess();
         }
 
-        if ((name instanceof String) && !indexedAccess) {
-            if (name.equals("size")) {
-                result = new Integer(map.size());
-            } else {
-                if (name.equals("keys") || name.equals("keySet")) {
+        if ( ( name instanceof String ) && !indexedAccess )
+        {
+            if ( name.equals( "size" ) )
+            {
+                result = new Integer( map.size() );
+            }
+            else
+            {
+                if ( name.equals( "keys" ) || name.equals( "keySet" ) )
+                {
                     result = map.keySet();
-                } else {
-                    if (name.equals("values")) {
+                }
+                else
+                {
+                    if ( name.equals( "values" ) )
+                    {
                         result = map.values();
-                    } else {
-                        if (name.equals("isEmpty")) {
+                    }
+                    else
+                    {
+                        if ( name.equals( "isEmpty" ) )
+                        {
                             result = map.isEmpty() ? Boolean.TRUE : Boolean.FALSE;
-                        } else {
-                            result = map.get(name);
+                        }
+                        else
+                        {
+                            result = map.get( name );
                         }
                     }
                 }
             }
-        } else {
-            result = map.get(name);
+        }
+        else
+        {
+            result = map.get( name );
         }
 
         return result;
     }
 
-    public void setProperty(Map context, Object target, Object name, Object value)
-            throws OgnlException
+    public void setProperty( Map context, Object target, Object name, Object value )
+        throws OgnlException
     {
         Map map = (Map) target;
-        map.put(name, value);
+        map.put( name, value );
     }
 
-    public String getSourceAccessor(OgnlContext context, Object target, Object index)
+    public String getSourceAccessor( OgnlContext context, Object target, Object index )
     {
-        Node currentNode = ((OgnlContext) context).getCurrentNode().jjtGetParent();
+        Node currentNode = ( (OgnlContext) context ).getCurrentNode().jjtGetParent();
         boolean indexedAccess = false;
 
-        if (currentNode == null)
-            throw new RuntimeException("node is null for '" + index + "'");
+        if ( currentNode == null )
+            throw new RuntimeException( "node is null for '" + index + "'" );
 
-        if (!(currentNode instanceof ASTProperty))
+        if ( !( currentNode instanceof ASTProperty ) )
             currentNode = currentNode.jjtGetParent();
 
-        if (currentNode instanceof ASTProperty)
-            indexedAccess = ((ASTProperty) currentNode).isIndexedAccess();
+        if ( currentNode instanceof ASTProperty )
+            indexedAccess = ( (ASTProperty) currentNode ).isIndexedAccess();
 
         String indexStr = index.toString();
 
-        context.setCurrentAccessor(Map.class);
-        context.setCurrentType(Object.class);
-        
-        if (String.class.isInstance(index) && !indexedAccess)
-        {
-            String key = indexStr.replaceAll("\"", "");
+        context.setCurrentAccessor( Map.class );
+        context.setCurrentType( Object.class );
 
-            if (key.equals("size")) {
-                context.setCurrentType(int.class);
+        if ( String.class.isInstance( index ) && !indexedAccess )
+        {
+            String key = indexStr.replaceAll( "\"", "" );
+
+            if ( key.equals( "size" ) )
+            {
+                context.setCurrentType( int.class );
                 return ".size()";
-            } else if (key.equals("keys") || key.equals("keySet")) {
-                context.setCurrentType(Set.class);
+            }
+            else if ( key.equals( "keys" ) || key.equals( "keySet" ) )
+            {
+                context.setCurrentType( Set.class );
                 return ".keySet()";
-            } else if (key.equals("values")) {
-                context.setCurrentType(Collection.class);
+            }
+            else if ( key.equals( "values" ) )
+            {
+                context.setCurrentType( Collection.class );
                 return ".values()";
-            } else if (key.equals("isEmpty")) {
-                context.setCurrentType(boolean.class);
+            }
+            else if ( key.equals( "isEmpty" ) )
+            {
+                context.setCurrentType( boolean.class );
                 return ".isEmpty()";
             }
         }
-        
+
         return ".get(" + indexStr + ")";
     }
 
-    public String getSourceSetter(OgnlContext context, Object target, Object index)
+    public String getSourceSetter( OgnlContext context, Object target, Object index )
     {
-        context.setCurrentAccessor(Map.class);
-        context.setCurrentType(Object.class);
+        context.setCurrentAccessor( Map.class );
+        context.setCurrentType( Object.class );
 
         String indexStr = index.toString();
 
-        if (String.class.isInstance(index))
+        if ( String.class.isInstance( index ) )
         {
-            String key = indexStr.replaceAll("\"", "");
-            
-            if (key.equals("size"))
+            String key = indexStr.replaceAll( "\"", "" );
+
+            if ( key.equals( "size" ) )
                 return "";
-            else if (key.equals("keys") || key.equals("keySet"))
+            else if ( key.equals( "keys" ) || key.equals( "keySet" ) )
                 return "";
-            else if (key.equals("values"))
+            else if ( key.equals( "values" ) )
                 return "";
-            else if (key.equals("isEmpty"))
+            else if ( key.equals( "isEmpty" ) )
                 return "";
         }
 

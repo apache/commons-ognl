@@ -29,28 +29,34 @@ import java.util.List;
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-class ASTSelectLast extends SimpleNode
+class ASTSelectLast
+    extends SimpleNode
 {
-    public ASTSelectLast(int id) {
-        super(id);
-    }
-
-    public ASTSelectLast(OgnlParser p, int id) {
-        super(p, id);
-    }
-
-    protected Object getValueBody( OgnlContext context, Object source ) throws OgnlException
+    public ASTSelectLast( int id )
     {
-        Node                expr = _children[0];
-        List                answer = new ArrayList();
-        ElementsAccessor    elementsAccessor = OgnlRuntime.getElementsAccessor( OgnlRuntime.getTargetClass(source) );
+        super( id );
+    }
 
-        for ( Enumeration e = elementsAccessor.getElements(source); e.hasMoreElements(); ) {
-            Object      next = e.nextElement();
+    public ASTSelectLast( OgnlParser p, int id )
+    {
+        super( p, id );
+    }
 
-            if (OgnlOps.booleanValue(expr.getValue(context, next))) {
+    protected Object getValueBody( OgnlContext context, Object source )
+        throws OgnlException
+    {
+        Node expr = _children[0];
+        List answer = new ArrayList();
+        ElementsAccessor elementsAccessor = OgnlRuntime.getElementsAccessor( OgnlRuntime.getTargetClass( source ) );
+
+        for ( Enumeration e = elementsAccessor.getElements( source ); e.hasMoreElements(); )
+        {
+            Object next = e.nextElement();
+
+            if ( OgnlOps.booleanValue( expr.getValue( context, next ) ) )
+            {
                 answer.clear();
-                answer.add(next);
+                answer.add( next );
             }
         }
         return answer;
@@ -60,14 +66,14 @@ class ASTSelectLast extends SimpleNode
     {
         return "{$ " + _children[0] + " }";
     }
-    
-    public String toGetSourceString(OgnlContext context, Object target)
+
+    public String toGetSourceString( OgnlContext context, Object target )
     {
-        throw new UnsupportedCompilationException("Eval expressions not supported as native java yet.");
+        throw new UnsupportedCompilationException( "Eval expressions not supported as native java yet." );
     }
-    
-    public String toSetSourceString(OgnlContext context, Object target)
+
+    public String toSetSourceString( OgnlContext context, Object target )
     {
-        throw new UnsupportedCompilationException("Eval expressions not supported as native java yet.");
+        throw new UnsupportedCompilationException( "Eval expressions not supported as native java yet." );
     }
 }

@@ -22,7 +22,8 @@ package org.apache.commons.ognl.test.objects;
 /**
  *
  */
-public interface Inherited {
+public interface Inherited
+{
 
     String getMyString();
 }

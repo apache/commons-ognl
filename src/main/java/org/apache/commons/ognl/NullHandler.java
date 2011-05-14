@@ -22,23 +22,21 @@ package org.apache.commons.ognl;
 import java.util.Map;
 
 /**
- * Interface for handling null results from Chains.
- * Object has the opportunity to substitute an object for the
- * null and continue.
+ * Interface for handling null results from Chains. Object has the opportunity to substitute an object for the null and
+ * continue.
+ * 
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
 public interface NullHandler
 {
     /**
-        Method called on target returned null.
+     * Method called on target returned null.
      */
-    public Object nullMethodResult(Map context, Object target, String methodName, Object[] args);
+    public Object nullMethodResult( Map context, Object target, String methodName, Object[] args );
 
     /**
-        Property in target evaluated to null.  Property can be a constant
-        String property name or a DynamicSubscript.
+     * Property in target evaluated to null. Property can be a constant String property name or a DynamicSubscript.
      */
-    public Object nullPropertyValue(Map context, Object target, Object property);
+    public Object nullPropertyValue( Map context, Object target, Object property );
 }
-

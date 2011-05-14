@@ -26,114 +26,136 @@ import java.lang.reflect.Modifier;
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-public class ASTStaticField extends SimpleNode implements NodeType
+public class ASTStaticField
+    extends SimpleNode
+    implements NodeType
 {
 
     private String className;
+
     private String fieldName;
 
     private Class _getterClass;
 
-    public ASTStaticField(int id)
+    public ASTStaticField( int id )
     {
-        super(id);
+        super( id );
     }
 
-    public ASTStaticField(OgnlParser p, int id)
+    public ASTStaticField( OgnlParser p, int id )
     {
-        super(p, id);
+        super( p, id );
     }
 
     /** Called from parser action. */
-    void init(String className, String fieldName)
+    void init( String className, String fieldName )
     {
         this.className = className;
         this.fieldName = fieldName;
     }
 
-    protected Object getValueBody(OgnlContext context, Object source)
-            throws OgnlException
+    protected Object getValueBody( OgnlContext context, Object source )
+        throws OgnlException
     {
-        return OgnlRuntime.getStaticField(context, className, fieldName);
+        return OgnlRuntime.getStaticField( context, className, fieldName );
     }
 
-    public boolean isNodeConstant(OgnlContext context)
-            throws OgnlException
+    public boolean isNodeConstant( OgnlContext context )
+        throws OgnlException
     {
         boolean result = false;
         Exception reason = null;
 
-        try {
-            Class c = OgnlRuntime.classForName(context, className);
+        try
+        {
+            Class c = OgnlRuntime.classForName( context, className );
 
             /*
-            * Check for virtual static field "class"; this cannot interfere with normal static
-            * fields because it is a reserved word. It is considered constant.
-            */
-            if (fieldName.equals("class"))
+             * Check for virtual static field "class"; this cannot interfere with normal static fields because it is a
+             * reserved word. It is considered constant.
+             */
+            if ( fieldName.equals( "class" ) )
             {
                 result = true;
-            } else if (OgnlRuntime.isJdk15() && c.isEnum())
-            {
-                result = true;
-            } else
-            {
-                Field f = c.getField(fieldName);
-
-                if (!Modifier.isStatic(f.getModifiers()))
-                    throw new OgnlException("Field " + fieldName + " of class " + className + " is not static");
-
-                result = Modifier.isFinal(f.getModifiers());
             }
-        } catch (ClassNotFoundException e) {
+            else if ( OgnlRuntime.isJdk15() && c.isEnum() )
+            {
+                result = true;
+            }
+            else
+            {
+                Field f = c.getField( fieldName );
+
+                if ( !Modifier.isStatic( f.getModifiers() ) )
+                    throw new OgnlException( "Field " + fieldName + " of class " + className + " is not static" );
+
+                result = Modifier.isFinal( f.getModifiers() );
+            }
+        }
+        catch ( ClassNotFoundException e )
+        {
             reason = e;
-        } catch (NoSuchFieldException e) {
+        }
+        catch ( NoSuchFieldException e )
+        {
             reason = e;
-        } catch (SecurityException e) {
+        }
+        catch ( SecurityException e )
+        {
             reason = e;
         }
 
-        if (reason != null)
-            throw new OgnlException("Could not get static field " + fieldName
-                                    + " from class " + className, reason);
+        if ( reason != null )
+            throw new OgnlException( "Could not get static field " + fieldName + " from class " + className, reason );
 
         return result;
     }
 
-    Class getFieldClass(OgnlContext context)
-            throws OgnlException
+    Class getFieldClass( OgnlContext context )
+        throws OgnlException
     {
         Exception reason = null;
 
-        try {
-            Class c = OgnlRuntime.classForName(context, className);
+        try
+        {
+            Class c = OgnlRuntime.classForName( context, className );
 
             /*
-            * Check for virtual static field "class"; this cannot interfere with normal static
-            * fields because it is a reserved word. It is considered constant.
-            */
-            if (fieldName.equals("class"))
+             * Check for virtual static field "class"; this cannot interfere with normal static fields because it is a
+             * reserved word. It is considered constant.
+             */
+            if ( fieldName.equals( "class" ) )
             {
                 return c;
-            } else if (OgnlRuntime.isJdk15() && c.isEnum())
+            }
+            else if ( OgnlRuntime.isJdk15() && c.isEnum() )
             {
                 return c;
-            } else
+            }
+            else
             {
-                Field f = c.getField(fieldName);
+                Field f = c.getField( fieldName );
 
                 return f.getType();
             }
-        } catch (ClassNotFoundException e) {
+        }
+        catch ( ClassNotFoundException e )
+        {
             reason = e;
-        } catch (NoSuchFieldException e) {
+        }
+        catch ( NoSuchFieldException e )
+        {
             reason = e;
-        } catch (SecurityException e) {
+        }
+        catch ( SecurityException e )
+        {
             reason = e;
         }
 
-        if (reason != null) { throw new OgnlException("Could not get static field " + fieldName + " from class "
-                                                      + className, reason); }
+        if ( reason != null )
+        {
+            throw new OgnlException( "Could not get static field " + fieldName + " from class " + className, reason );
+        }
 
         return null;
     }
@@ -153,43 +175,47 @@ public class ASTStaticField extends SimpleNode implements NodeType
         return "@" + className + "@" + fieldName;
     }
 
-    public String toGetSourceString(OgnlContext context, Object target)
+    public String toGetSourceString( OgnlContext context, Object target )
     {
-        try {
-
-            Object obj = OgnlRuntime.getStaticField(context, className, fieldName);
-
-            context.setCurrentObject(obj);
-
-            _getterClass = getFieldClass(context);
-
-            context.setCurrentType(_getterClass);
-
-        } catch (Throwable t)
+        try
         {
-            throw OgnlOps.castToRuntime(t);
+
+            Object obj = OgnlRuntime.getStaticField( context, className, fieldName );
+
+            context.setCurrentObject( obj );
+
+            _getterClass = getFieldClass( context );
+
+            context.setCurrentType( _getterClass );
+
+        }
+        catch ( Throwable t )
+        {
+            throw OgnlOps.castToRuntime( t );
         }
 
         return className + "." + fieldName;
     }
 
-    public String toSetSourceString(OgnlContext context, Object target)
+    public String toSetSourceString( OgnlContext context, Object target )
     {
-        try {
-
-            Object obj = OgnlRuntime.getStaticField(context, className, fieldName);
-
-            context.setCurrentObject(obj);
-
-            _getterClass = getFieldClass(context);
-
-            context.setCurrentType(_getterClass);
-
-        } catch (Throwable t)
+        try
         {
-            throw OgnlOps.castToRuntime(t);
+
+            Object obj = OgnlRuntime.getStaticField( context, className, fieldName );
+
+            context.setCurrentObject( obj );
+
+            _getterClass = getFieldClass( context );
+
+            context.setCurrentType( _getterClass );
+
         }
-        
+        catch ( Throwable t )
+        {
+            throw OgnlOps.castToRuntime( t );
+        }
+
         return className + "." + fieldName;
     }
 }

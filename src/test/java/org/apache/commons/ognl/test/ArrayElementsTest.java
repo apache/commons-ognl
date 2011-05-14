@@ -25,31 +25,35 @@ import org.apache.commons.ognl.test.objects.Root;
 
 import java.util.Arrays;
 
-public class ArrayElementsTest extends OgnlTestCase {
+public class ArrayElementsTest
+    extends OgnlTestCase
+{
 
-    private static String[] STRING_ARRAY = new String[]{"hello", "world"};
-    private static int[] INT_ARRAY = new int[]{10, 20};
+    private static String[] STRING_ARRAY = new String[] { "hello", "world" };
+
+    private static int[] INT_ARRAY = new int[] { 10, 20 };
+
     private static Root ROOT = new Root();
 
     private static Object[][] TESTS = {
-            // Array elements test
-            {STRING_ARRAY, "length", new Integer(2)},
-            {STRING_ARRAY, "#root[1]", "world"},
-            {INT_ARRAY, "#root[1]", new Integer(20)},
-            {INT_ARRAY, "#root[1]", new Integer(20), "50", new Integer(50)},
-            {INT_ARRAY, "#root[1]", new Integer(50), new String[]{"50", "100"}, new Integer(50)},
-            {ROOT, "intValue", new Integer(0), new String[]{"50", "100"}, new Integer(50)},
-            {ROOT, "array", ROOT.getArray(), new String[]{"50", "100"}, new int[]{50, 100}},
-            {null, "\"{Hello}\".toCharArray()[6]", new Character('}')},
-            {null, "\"Tapestry\".toCharArray()[2]", new Character('p')},
-            {null, "{'1','2','3'}", Arrays.asList(new Object[]{new Character('1'), new Character('2'), new Character('3')})},
-            {null, "{ true, !false }", Arrays.asList(new Boolean[] { Boolean.TRUE, Boolean.TRUE }) }
-    };
+        // Array elements test
+        { STRING_ARRAY, "length", new Integer( 2 ) },
+        { STRING_ARRAY, "#root[1]", "world" },
+        { INT_ARRAY, "#root[1]", new Integer( 20 ) },
+        { INT_ARRAY, "#root[1]", new Integer( 20 ), "50", new Integer( 50 ) },
+        { INT_ARRAY, "#root[1]", new Integer( 50 ), new String[] { "50", "100" }, new Integer( 50 ) },
+        { ROOT, "intValue", new Integer( 0 ), new String[] { "50", "100" }, new Integer( 50 ) },
+        { ROOT, "array", ROOT.getArray(), new String[] { "50", "100" }, new int[] { 50, 100 } },
+        { null, "\"{Hello}\".toCharArray()[6]", new Character( '}' ) },
+        { null, "\"Tapestry\".toCharArray()[2]", new Character( 'p' ) },
+        { null, "{'1','2','3'}",
+            Arrays.asList( new Object[] { new Character( '1' ), new Character( '2' ), new Character( '3' ) } ) },
+        { null, "{ true, !false }", Arrays.asList( new Boolean[] { Boolean.TRUE, Boolean.TRUE } ) } };
 
     /*
-    * =================================================================== Private static methods
-    * ===================================================================
-    */
+     * =================================================================== Private static methods
+     * ===================================================================
+     */
     /*
      * =================================================================== Public static methods
      * ===================================================================
@@ -58,20 +62,30 @@ public class ArrayElementsTest extends OgnlTestCase {
     {
         TestSuite result = new TestSuite();
 
-        for (int i = 0; i < TESTS.length; i++) {
-            if (TESTS[i].length == 3) {
-                result.addTest(new ArrayElementsTest((String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                                                     TESTS[i][2]));
-            } else {
-                if (TESTS[i].length == 4) {
-                    result.addTest(new ArrayElementsTest((String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                                                         TESTS[i][2], TESTS[i][3]));
-                } else {
-                    if (TESTS[i].length == 5) {
-                        result.addTest(new ArrayElementsTest((String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                                                             TESTS[i][2], TESTS[i][3], TESTS[i][4]));
-                    } else {
-                        throw new RuntimeException("don't understand TEST format");
+        for ( int i = 0; i < TESTS.length; i++ )
+        {
+            if ( TESTS[i].length == 3 )
+            {
+                result.addTest( new ArrayElementsTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
+                                                       TESTS[i][2] ) );
+            }
+            else
+            {
+                if ( TESTS[i].length == 4 )
+                {
+                    result.addTest( new ArrayElementsTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
+                                                           TESTS[i][2], TESTS[i][3] ) );
+                }
+                else
+                {
+                    if ( TESTS[i].length == 5 )
+                    {
+                        result.addTest( new ArrayElementsTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
+                                                               TESTS[i][2], TESTS[i][3], TESTS[i][4] ) );
+                    }
+                    else
+                    {
+                        throw new RuntimeException( "don't understand TEST format" );
                     }
                 }
             }
@@ -88,25 +102,25 @@ public class ArrayElementsTest extends OgnlTestCase {
         super();
     }
 
-    public ArrayElementsTest(String name)
+    public ArrayElementsTest( String name )
     {
-        super(name);
+        super( name );
     }
 
-    public ArrayElementsTest(String name, Object root, String expressionString, Object expectedResult, Object setValue,
-                             Object expectedAfterSetResult)
+    public ArrayElementsTest( String name, Object root, String expressionString, Object expectedResult,
+                              Object setValue, Object expectedAfterSetResult )
     {
-        super(name, root, expressionString, expectedResult, setValue, expectedAfterSetResult);
+        super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
     }
 
-    public ArrayElementsTest(String name, Object root, String expressionString, Object expectedResult, Object setValue)
+    public ArrayElementsTest( String name, Object root, String expressionString, Object expectedResult, Object setValue )
     {
-        super(name, root, expressionString, expectedResult, setValue);
+        super( name, root, expressionString, expectedResult, setValue );
     }
 
-    public ArrayElementsTest(String name, Object root, String expressionString, Object expectedResult)
+    public ArrayElementsTest( String name, Object root, String expressionString, Object expectedResult )
     {
-        super(name, root, expressionString, expectedResult);
+        super( name, root, expressionString, expectedResult );
     }
 
     /*
@@ -119,19 +133,10 @@ public class ArrayElementsTest extends OgnlTestCase {
 
         super.setUp();
         /**
-         arrayConverter = new DefaultTypeConverter() {
-
-         public Object convertValue(Map context, Object target, Member member, String propertyName, Object value,
-         Class toType)
-         {
-         if (value.getClass().isArray()) {
-         if (!toType.isArray()) {
-         value = Array.get(value, 0);
-         }
-         }
-         return super.convertValue(context, target, member, propertyName, value, toType);
-         }
-         };
-         _context.setTypeConverter(arrayConverter); */
+         * arrayConverter = new DefaultTypeConverter() { public Object convertValue(Map context, Object target, Member
+         * member, String propertyName, Object value, Class toType) { if (value.getClass().isArray()) { if
+         * (!toType.isArray()) { value = Array.get(value, 0); } } return super.convertValue(context, target, member,
+         * propertyName, value, toType); } }; _context.setTypeConverter(arrayConverter);
+         */
     }
 }

@@ -27,27 +27,25 @@ import org.apache.commons.ognl.test.objects.ListSource;
 import org.apache.commons.ognl.test.objects.ListSourceImpl;
 import org.apache.commons.ognl.test.objects.Simple;
 
-public class MethodTest extends OgnlTestCase
+public class MethodTest
+    extends OgnlTestCase
 {
 
     private static Simple ROOT = new Simple();
+
     private static ListSource LIST = new ListSourceImpl();
+
     private static BaseGeneric<GameGenericObject, Long> GENERIC = new GameGeneric();
 
-    private static Object[][] TESTS = {
-            { "hashCode()", new Integer(ROOT.hashCode()) } ,
-            { "getBooleanValue() ? \"here\" : \"\"", ""},
-            { "getValueIsTrue(!false) ? \"\" : \"here\" ", ""},
-            { "messages.format('ShowAllCount', one)", "foo"},
-            { "getTestValue(@org.apache.commons.ognl.test.objects.SimpleEnum@ONE.value)", new Integer(2)},
-            { "@org.apache.commons.ognl.test.MethodTest@getA().isProperty()", Boolean.FALSE},
-            { "isDisabled()", Boolean.TRUE},
-            { "isEditorDisabled()", Boolean.FALSE},
-            { LIST, "addValue(name)", Boolean.TRUE},
-            { "getDisplayValue(methodsTest.allowDisplay)", "test"},
-            { "isThisVarArgsWorking(three, rootValue)", Boolean.TRUE},
-            { GENERIC, "service.getFullMessageFor(value, null)", "Halo 3"}
-    };
+    private static Object[][] TESTS = { { "hashCode()", new Integer( ROOT.hashCode() ) },
+        { "getBooleanValue() ? \"here\" : \"\"", "" }, { "getValueIsTrue(!false) ? \"\" : \"here\" ", "" },
+        { "messages.format('ShowAllCount', one)", "foo" },
+        { "getTestValue(@org.apache.commons.ognl.test.objects.SimpleEnum@ONE.value)", new Integer( 2 ) },
+        { "@org.apache.commons.ognl.test.MethodTest@getA().isProperty()", Boolean.FALSE },
+        { "isDisabled()", Boolean.TRUE }, { "isEditorDisabled()", Boolean.FALSE },
+        { LIST, "addValue(name)", Boolean.TRUE }, { "getDisplayValue(methodsTest.allowDisplay)", "test" },
+        { "isThisVarArgsWorking(three, rootValue)", Boolean.TRUE },
+        { GENERIC, "service.getFullMessageFor(value, null)", "Halo 3" } };
 
     public static class A
     {
@@ -63,20 +61,24 @@ public class MethodTest extends OgnlTestCase
     }
 
     /*
-    * =================================================================== Public static methods
-    * ===================================================================
-    */
+     * =================================================================== Public static methods
+     * ===================================================================
+     */
     public static TestSuite suite()
     {
         TestSuite result = new TestSuite();
 
-        for(int i = 0; i < TESTS.length; i++) {
-            if (TESTS[i].length == 3)
+        for ( int i = 0; i < TESTS.length; i++ )
+        {
+            if ( TESTS[i].length == 3 )
             {
-                result.addTest(new MethodTest((String) TESTS[i][1] + " (" + TESTS[i][2] + ")", TESTS[i][0], (String) TESTS[i][1], TESTS[i][2]));
-            } else
+                result.addTest( new MethodTest( (String) TESTS[i][1] + " (" + TESTS[i][2] + ")", TESTS[i][0],
+                                                (String) TESTS[i][1], TESTS[i][2] ) );
+            }
+            else
             {
-                result.addTest(new MethodTest((String) TESTS[i][0] + " (" + TESTS[i][1] + ")", ROOT, (String) TESTS[i][0], TESTS[i][1]));
+                result.addTest( new MethodTest( (String) TESTS[i][0] + " (" + TESTS[i][1] + ")", ROOT,
+                                                (String) TESTS[i][0], TESTS[i][1] ) );
             }
         }
         return result;
@@ -91,24 +93,24 @@ public class MethodTest extends OgnlTestCase
         super();
     }
 
-    public MethodTest(String name)
+    public MethodTest( String name )
     {
-        super(name);
+        super( name );
     }
 
-    public MethodTest(String name, Object root, String expressionString, Object expectedResult, Object setValue,
-                      Object expectedAfterSetResult)
+    public MethodTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,
+                       Object expectedAfterSetResult )
     {
-        super(name, root, expressionString, expectedResult, setValue, expectedAfterSetResult);
+        super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
     }
 
-    public MethodTest(String name, Object root, String expressionString, Object expectedResult, Object setValue)
+    public MethodTest( String name, Object root, String expressionString, Object expectedResult, Object setValue )
     {
-        super(name, root, expressionString, expectedResult, setValue);
+        super( name, root, expressionString, expectedResult, setValue );
     }
 
-    public MethodTest(String name, Object root, String expressionString, Object expectedResult)
+    public MethodTest( String name, Object root, String expressionString, Object expectedResult )
     {
-        super(name, root, expressionString, expectedResult);
+        super( name, root, expressionString, expectedResult );
     }
 }

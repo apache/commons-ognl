@@ -19,9 +19,10 @@
  */
 package org.apache.commons.ognl.test.objects;
 
-public class Bean2 extends Object
+public class Bean2
+    extends Object
 {
-    private Bean3       bean3 = new Bean3();
+    private Bean3 bean3 = new Bean3();
 
     private boolean _pageBreakAfter = false;
 
@@ -50,7 +51,7 @@ public class Bean2 extends Object
         return _pageBreakAfter;
     }
 
-    public void setPageBreakAfter(boolean value)
+    public void setPageBreakAfter( boolean value )
     {
         _pageBreakAfter = value;
     }
@@ -60,20 +61,23 @@ public class Bean2 extends Object
         _pageBreakAfter ^= true;
     }
 
-    public boolean equals(Object o)
+    public boolean equals( Object o )
     {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if ( this == o )
+            return true;
+        if ( o == null || getClass() != o.getClass() )
+            return false;
 
         Bean2 bean2 = (Bean2) o;
 
-        if (_pageBreakAfter != bean2._pageBreakAfter) return false;
+        if ( _pageBreakAfter != bean2._pageBreakAfter )
+            return false;
 
         return true;
     }
 
     public int hashCode()
     {
-        return (_pageBreakAfter ? 1 : 0);
+        return ( _pageBreakAfter ? 1 : 0 );
     }
 }

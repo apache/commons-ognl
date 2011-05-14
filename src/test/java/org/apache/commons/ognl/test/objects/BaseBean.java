@@ -22,11 +22,11 @@
  */
 package org.apache.commons.ognl.test.objects;
 
-
 /**
  * Base class used to test inheritance class casting.
  */
-public abstract class BaseBean {
+public abstract class BaseBean
+{
 
     public abstract String getName();
 
@@ -45,12 +45,12 @@ public abstract class BaseBean {
         return new Two();
     }
 
-    public String getMessage(String mes)
+    public String getMessage( String mes )
     {
         return "[" + mes + "]";
     }
 
-    public boolean hasChildren(String name)
+    public boolean hasChildren( String name )
     {
         return name.length() > 2;
     }

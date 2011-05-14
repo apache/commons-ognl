@@ -22,24 +22,25 @@ package org.apache.commons.ognl;
 import java.util.Enumeration;
 
 /**
- * This interface defines a method for getting the "elements" of an object, which means
- * any objects that naturally would be considered to be contained by the object.  So for a
- * collection, you would expect this method to return all the objects in that collection;
- * while for an ordinary object you would expect this method to return just that object.
- *
- * <p> An implementation of this interface will often require that its target objects all
- * be of some particular type.  For example, the MapElementsAccessor class requires that
- * its targets all implement the Map interface.
+ * This interface defines a method for getting the "elements" of an object, which means any objects that naturally would
+ * be considered to be contained by the object. So for a collection, you would expect this method to return all the
+ * objects in that collection; while for an ordinary object you would expect this method to return just that object.
+ * <p>
+ * An implementation of this interface will often require that its target objects all be of some particular type. For
+ * example, the MapElementsAccessor class requires that its targets all implement the Map interface.
+ * 
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
 public interface ElementsAccessor
 {
-      /**
-       * Returns an iterator over the elements of the given target object.
-       * @param target  the object to get the elements of
-       * @return        an iterator over the elements of the given object
-       * @exception OgnlException if there is an error getting the given object's elements
-       */
-    public Enumeration getElements( Object target ) throws OgnlException;
+    /**
+     * Returns an iterator over the elements of the given target object.
+     * 
+     * @param target the object to get the elements of
+     * @return an iterator over the elements of the given object
+     * @exception OgnlException if there is an error getting the given object's elements
+     */
+    public Enumeration getElements( Object target )
+        throws OgnlException;
 }

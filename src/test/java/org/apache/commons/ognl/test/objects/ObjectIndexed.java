@@ -19,13 +19,14 @@
  */
 package org.apache.commons.ognl.test.objects;
 
-public class ObjectIndexed extends BaseObjectIndexed
+public class ObjectIndexed
+    extends BaseObjectIndexed
 {
     public ObjectIndexed()
     {
         super();
-        setAttribute("foo", "bar");
-        setAttribute("bar", "baz");
-        setAttribute("other", new OtherObjectIndexed());
+        setAttribute( "foo", "bar" );
+        setAttribute( "bar", "baz" );
+        setAttribute( "other", new OtherObjectIndexed() );
     }
 }

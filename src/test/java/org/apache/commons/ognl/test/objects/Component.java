@@ -19,29 +19,33 @@
  */
 package org.apache.commons.ognl.test.objects;
 
-public class Component extends Object
+public class Component
+    extends Object
 {
-    private URLStorage          toDisplay = new URLStorage();
-    private Page                page = new Page();
+    private URLStorage toDisplay = new URLStorage();
 
-    public static class URLStorage extends Object
+    private Page page = new Page();
+
+    public static class URLStorage
+        extends Object
     {
-        private String          pictureUrl = "http://www.picturespace.com/pictures/100";
+        private String pictureUrl = "http://www.picturespace.com/pictures/100";
 
         public String getPictureUrl()
         {
             return pictureUrl;
         }
 
-        public void setPictureUrl(String value)
+        public void setPictureUrl( String value )
         {
             pictureUrl = value;
         }
     }
 
-    public static class Page extends Object
+    public static class Page
+        extends Object
     {
-        public Object createRelativeAsset(String value)
+        public Object createRelativeAsset( String value )
         {
             return "/toplevel/" + value;
         }
@@ -57,7 +61,7 @@ public class Component extends Object
         return page;
     }
 
-    public void setPage(Page value)
+    public void setPage( Page value )
     {
         page = value;
     }
@@ -67,7 +71,7 @@ public class Component extends Object
         return toDisplay;
     }
 
-    public void setToDisplay(URLStorage value)
+    public void setToDisplay( URLStorage value )
     {
         toDisplay = value;
     }

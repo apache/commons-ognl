@@ -22,11 +22,12 @@ package org.apache.commons.ognl.test.objects;
 /**
  * Test for OGNL-131.
  */
-public class SearchCriteria {
+public class SearchCriteria
+{
 
     String _displayName;
 
-    public SearchCriteria(String name)
+    public SearchCriteria( String name )
     {
         _displayName = name;
     }

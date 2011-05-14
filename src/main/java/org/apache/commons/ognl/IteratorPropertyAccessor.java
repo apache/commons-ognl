@@ -22,36 +22,48 @@ package org.apache.commons.ognl;
 import java.util.*;
 
 /**
- * Implementation of PropertyAccessor that provides "property" reference to
- * "next" and "hasNext".
+ * Implementation of PropertyAccessor that provides "property" reference to "next" and "hasNext".
+ * 
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-public class IteratorPropertyAccessor extends ObjectPropertyAccessor
+public class IteratorPropertyAccessor
+    extends ObjectPropertyAccessor
     implements PropertyAccessor // This is here to make javadoc show this class as an implementor
 {
-    public Object getProperty( Map context, Object target, Object name ) throws OgnlException
+    public Object getProperty( Map context, Object target, Object name )
+        throws OgnlException
     {
-        Object      result;
-        Iterator    iterator = (Iterator)target;
+        Object result;
+        Iterator iterator = (Iterator) target;
 
-        if ( name instanceof String ) {
-            if (name.equals("next")) {
+        if ( name instanceof String )
+        {
+            if ( name.equals( "next" ) )
+            {
                 result = iterator.next();
-            } else {
-                if (name.equals("hasNext")) {
+            }
+            else
+            {
+                if ( name.equals( "hasNext" ) )
+                {
                     result = iterator.hasNext() ? Boolean.TRUE : Boolean.FALSE;
-                } else {
+                }
+                else
+                {
                     result = super.getProperty( context, target, name );
                 }
             }
-        } else {
-            result = super.getProperty(context, target, name);
+        }
+        else
+        {
+            result = super.getProperty( context, target, name );
         }
         return result;
     }
 
-    public void setProperty( Map context, Object target, Object name, Object value ) throws OgnlException
+    public void setProperty( Map context, Object target, Object name, Object value )
+        throws OgnlException
     {
         throw new IllegalArgumentException( "can't set property " + name + " on Iterator" );
     }

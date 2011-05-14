@@ -23,29 +23,34 @@ package org.apache.commons.ognl;
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-class ASTXor extends NumericExpression
+class ASTXor
+    extends NumericExpression
 {
-    public ASTXor(int id) {
-        super(id);
+    public ASTXor( int id )
+    {
+        super( id );
     }
 
-    public ASTXor(OgnlParser p, int id) {
-        super(p, id);
+    public ASTXor( OgnlParser p, int id )
+    {
+        super( p, id );
     }
 
-    public void jjtClose() {
+    public void jjtClose()
+    {
         flattenTree();
     }
 
-    protected Object getValueBody( OgnlContext context, Object source ) throws OgnlException
+    protected Object getValueBody( OgnlContext context, Object source )
+        throws OgnlException
     {
         Object result = _children[0].getValue( context, source );
-        for ( int i=1; i < _children.length; ++i )
-            result = OgnlOps.binaryXor( result, _children[i].getValue(context, source) );
+        for ( int i = 1; i < _children.length; ++i )
+            result = OgnlOps.binaryXor( result, _children[i].getValue( context, source ) );
         return result;
     }
 
-    public String getExpressionOperator(int index)
+    public String getExpressionOperator( int index )
     {
         return "^";
     }

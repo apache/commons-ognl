@@ -25,33 +25,44 @@ import org.apache.commons.ognl.enhance.ExpressionCompiler;
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-public abstract class ExpressionNode extends SimpleNode
+public abstract class ExpressionNode
+    extends SimpleNode
 {
-    public ExpressionNode(int i) {
-        super(i);
+    public ExpressionNode( int i )
+    {
+        super( i );
     }
 
-    public ExpressionNode(OgnlParser p, int i) {
-        super(p, i);
+    public ExpressionNode( OgnlParser p, int i )
+    {
+        super( p, i );
     }
+
     /**
-        Returns true iff this node is constant without respect to the children.
+     * Returns true iff this node is constant without respect to the children.
      */
-    public boolean isNodeConstant( OgnlContext context ) throws OgnlException
+    public boolean isNodeConstant( OgnlContext context )
+        throws OgnlException
     {
         return false;
     }
 
-    public boolean isConstant( OgnlContext context ) throws OgnlException
+    public boolean isConstant( OgnlContext context )
+        throws OgnlException
     {
-        boolean     result = isNodeConstant(context);
+        boolean result = isNodeConstant( context );
 
-        if ((_children != null) && (_children.length > 0)) {
+        if ( ( _children != null ) && ( _children.length > 0 ) )
+        {
             result = true;
-            for ( int i=0; result && (i < _children.length); ++i ) {
-                if (_children[i] instanceof SimpleNode) {
-                    result = ((SimpleNode)_children[i]).isConstant( context );
-                } else {
+            for ( int i = 0; result && ( i < _children.length ); ++i )
+            {
+                if ( _children[i] instanceof SimpleNode )
+                {
+                    result = ( (SimpleNode) _children[i] ).isConstant( context );
+                }
+                else
+                {
                     result = false;
                 }
             }
@@ -59,89 +70,107 @@ public abstract class ExpressionNode extends SimpleNode
         return result;
     }
 
-    public String getExpressionOperator(int index)
+    public String getExpressionOperator( int index )
     {
-        throw new RuntimeException("unknown operator for " + OgnlParserTreeConstants.jjtNodeName[_id]);
+        throw new RuntimeException( "unknown operator for " + OgnlParserTreeConstants.jjtNodeName[_id] );
     }
 
     public String toString()
     {
-        StringBuilder result = new StringBuilder (_parent == null ? "" : "(" );
-        
-        if ((_children != null) && (_children.length > 0)) {
-            for ( int i = 0; i < _children.length; ++i ) {
-                if (i > 0) {
-                    result.append(" ").append(getExpressionOperator(i)).append(" ");
+        StringBuilder result = new StringBuilder( _parent == null ? "" : "(" );
+
+        if ( ( _children != null ) && ( _children.length > 0 ) )
+        {
+            for ( int i = 0; i < _children.length; ++i )
+            {
+                if ( i > 0 )
+                {
+                    result.append( " " ).append( getExpressionOperator( i ) ).append( " " );
                 }
-                result.append(_children[i].toString());
+                result.append( _children[i].toString() );
             }
         }
-        if (_parent != null) {
-            result.append(')');
+        if ( _parent != null )
+        {
+            result.append( ')' );
         }
         return result.toString();
     }
-    
-    public String toGetSourceString(OgnlContext context, Object target)
+
+    public String toGetSourceString( OgnlContext context, Object target )
     {
-        StringBuilder result = new StringBuilder ((_parent == null || NumericExpression.class.isAssignableFrom(_parent.getClass())) ? "" : "(");
+        StringBuilder result =
+            new StringBuilder(
+                               ( _parent == null || NumericExpression.class.isAssignableFrom( _parent.getClass() ) ) ? ""
+                                               : "(" );
 
-        if ((_children != null) && (_children.length > 0)) {
-            for ( int i = 0; i < _children.length; ++i ) {
-                if (i > 0) {
-                    result.append(" ").append(getExpressionOperator(i)).append(" ");
+        if ( ( _children != null ) && ( _children.length > 0 ) )
+        {
+            for ( int i = 0; i < _children.length; ++i )
+            {
+                if ( i > 0 )
+                {
+                    result.append( " " ).append( getExpressionOperator( i ) ).append( " " );
                 }
-                
-                String value = _children[i].toGetSourceString(context, target);
 
-                if ((ASTProperty.class.isInstance(_children[i]) || ASTMethod.class.isInstance(_children[i])
-                     || ASTSequence.class.isInstance(_children[i]) || ASTChain.class.isInstance(_children[i]))
-                    && value != null && value.trim().length() > 0) {
+                String value = _children[i].toGetSourceString( context, target );
+
+                if ( ( ASTProperty.class.isInstance( _children[i] ) || ASTMethod.class.isInstance( _children[i] )
+                    || ASTSequence.class.isInstance( _children[i] ) || ASTChain.class.isInstance( _children[i] ) )
+                    && value != null && value.trim().length() > 0 )
+                {
 
                     String pre = null;
-                    if (ASTMethod.class.isInstance(_children[i]))
+                    if ( ASTMethod.class.isInstance( _children[i] ) )
                     {
-                        pre = (String)context.get("_currentChain");
+                        pre = (String) context.get( "_currentChain" );
                     }
 
-                    if (pre == null)
+                    if ( pre == null )
                         pre = "";
 
-                    String cast = (String)context.remove(ExpressionCompiler.PRE_CAST);
-                    if (cast == null)
+                    String cast = (String) context.remove( ExpressionCompiler.PRE_CAST );
+                    if ( cast == null )
                         cast = "";
 
-                    value = cast + ExpressionCompiler.getRootExpression(_children[i], context.getRoot(), context) + pre + value;
-                } 
+                    value =
+                        cast + ExpressionCompiler.getRootExpression( _children[i], context.getRoot(), context ) + pre
+                            + value;
+                }
 
-                result.append(value);
+                result.append( value );
             }
         }
 
-        if (_parent != null && !NumericExpression.class.isAssignableFrom(_parent.getClass())) {
-            result.append(")");
+        if ( _parent != null && !NumericExpression.class.isAssignableFrom( _parent.getClass() ) )
+        {
+            result.append( ")" );
         }
-        
+
         return result.toString();
     }
-    
-    public String toSetSourceString(OgnlContext context, Object target)
+
+    public String toSetSourceString( OgnlContext context, Object target )
     {
-        String result = (_parent == null) ? "" : "(";
-        
-        if ((_children != null) && (_children.length > 0)) {
-            for ( int i = 0; i < _children.length; ++i ) {
-                if (i > 0) {
-                    result += " " + getExpressionOperator(i) + " ";
+        String result = ( _parent == null ) ? "" : "(";
+
+        if ( ( _children != null ) && ( _children.length > 0 ) )
+        {
+            for ( int i = 0; i < _children.length; ++i )
+            {
+                if ( i > 0 )
+                {
+                    result += " " + getExpressionOperator( i ) + " ";
                 }
-                
-                result += _children[i].toSetSourceString(context, target);
+
+                result += _children[i].toSetSourceString( context, target );
             }
         }
-        if (_parent != null) {
+        if ( _parent != null )
+        {
             result = result + ")";
         }
-        
+
         return result;
     }
 }

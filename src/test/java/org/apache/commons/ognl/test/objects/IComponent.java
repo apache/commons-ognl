@@ -22,13 +22,14 @@ package org.apache.commons.ognl.test.objects;
 /**
  *
  */
-public interface IComponent {
+public interface IComponent
+{
 
     String getClientId();
 
-    void setClientId(String id);
+    void setClientId( String id );
 
-    int getCount(String index);
-    
-    void setCount(String index, int count);
+    int getCount( String index );
+
+    void setCount( String index, int count );
 }

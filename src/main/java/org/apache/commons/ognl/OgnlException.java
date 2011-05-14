@@ -21,23 +21,29 @@ package org.apache.commons.ognl;
 
 import java.lang.reflect.Method;
 
-
 /**
  * Superclass for OGNL exceptions, incorporating an optional encapsulated exception.
- *
+ * 
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-public class OgnlException extends Exception
+public class OgnlException
+    extends Exception
 {
     // cache initCause method - if available..to be used during throwable constructor
     // to properly setup superclass.
 
     static Method _initCause;
-    static {
-        try {
-            _initCause = OgnlException.class.getMethod("initCause", new Class[] { Throwable.class});
-        } catch (NoSuchMethodException e) { /** ignore */ }
+    static
+    {
+        try
+        {
+            _initCause = OgnlException.class.getMethod( "initCause", new Class[] { Throwable.class } );
+        }
+        catch ( NoSuchMethodException e )
+        {
+            /** ignore */
+        }
     }
 
     /**
@@ -47,6 +53,7 @@ public class OgnlException extends Exception
 
     /**
      * Why this exception was thrown.
+     * 
      * @serial
      */
     private Throwable _reason;
@@ -59,6 +66,7 @@ public class OgnlException extends Exception
 
     /**
      * Constructs an OgnlException with the given message but no encapsulated exception.
+     * 
      * @param msg the exception's detail message
      */
     public OgnlException( String msg )
@@ -68,24 +76,31 @@ public class OgnlException extends Exception
 
     /**
      * Constructs an OgnlException with the given message and encapsulated exception.
-     * @param msg     the exception's detail message
-     * @param reason  the encapsulated exception
+     * 
+     * @param msg the exception's detail message
+     * @param reason the encapsulated exception
      */
     public OgnlException( String msg, Throwable reason )
     {
         super( msg );
         this._reason = reason;
 
-        if (_initCause != null)
+        if ( _initCause != null )
         {
-            try {
-                _initCause.invoke(this, new Object[] { reason });
-            } catch (Exception t) { /** ignore */ }
+            try
+            {
+                _initCause.invoke( this, new Object[] { reason } );
+            }
+            catch ( Exception t )
+            {
+                /** ignore */
+            }
         }
     }
 
     /**
      * Returns the encapsulated exception, or null if there is none.
+     * 
      * @return the encapsulated exception
      */
     public Throwable getReason()
@@ -94,8 +109,8 @@ public class OgnlException extends Exception
     }
 
     /**
-     * Returns the Evaluation that was the root evaluation when the exception was
-     * thrown.
+     * Returns the Evaluation that was the root evaluation when the exception was thrown.
+     * 
      * @return The {@link Evaluation}.
      */
     public Evaluation getEvaluation()
@@ -105,16 +120,17 @@ public class OgnlException extends Exception
 
     /**
      * Sets the Evaluation that was current when this exception was thrown.
-     *
+     * 
      * @param value The {@link Evaluation}.
      */
-    public void setEvaluation(Evaluation value)
+    public void setEvaluation( Evaluation value )
     {
         _evaluation = value;
     }
 
     /**
      * Returns a string representation of this exception.
+     * 
      * @return a string representation of this exception
      */
     public String toString()
@@ -125,10 +141,8 @@ public class OgnlException extends Exception
         return super.toString() + " [" + _reason + "]";
     }
 
-
     /**
-     * Prints the stack trace for this (and possibly the encapsulated) exception on
-     * System.err.
+     * Prints the stack trace for this (and possibly the encapsulated) exception on System.err.
      */
     public void printStackTrace()
     {
@@ -136,34 +150,34 @@ public class OgnlException extends Exception
     }
 
     /**
-     * Prints the stack trace for this (and possibly the encapsulated) exception on the
-     * given print stream.
+     * Prints the stack trace for this (and possibly the encapsulated) exception on the given print stream.
      */
-    public void printStackTrace(java.io.PrintStream s)
+    public void printStackTrace( java.io.PrintStream s )
     {
-        synchronized (s)
+        synchronized ( s )
         {
-            super.printStackTrace(s);
-            if ( _reason != null ) {
-                s.println(  "/-- Encapsulated exception ------------\\" );
-                _reason.printStackTrace(s);
+            super.printStackTrace( s );
+            if ( _reason != null )
+            {
+                s.println( "/-- Encapsulated exception ------------\\" );
+                _reason.printStackTrace( s );
                 s.println( "\\--------------------------------------/" );
             }
         }
     }
 
     /**
-     * Prints the stack trace for this (and possibly the encapsulated) exception on the
-     * given print writer.
+     * Prints the stack trace for this (and possibly the encapsulated) exception on the given print writer.
      */
-    public void printStackTrace(java.io.PrintWriter s)
+    public void printStackTrace( java.io.PrintWriter s )
     {
-        synchronized (s)
+        synchronized ( s )
         {
-            super.printStackTrace(s);
-            if ( _reason != null ) {
-                s.println(  "/-- Encapsulated exception ------------\\" );
-                _reason.printStackTrace(s);
+            super.printStackTrace( s );
+            if ( _reason != null )
+            {
+                s.println( "/-- Encapsulated exception ------------\\" );
+                _reason.printStackTrace( s );
                 s.println( "\\--------------------------------------/" );
             }
         }

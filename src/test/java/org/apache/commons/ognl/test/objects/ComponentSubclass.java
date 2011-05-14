@@ -22,7 +22,9 @@ package org.apache.commons.ognl.test.objects;
 /**
  *
  */
-public class ComponentSubclass extends ComponentImpl {
+public class ComponentSubclass
+    extends ComponentImpl
+{
 
     int _count = 0;
 
@@ -31,7 +33,7 @@ public class ComponentSubclass extends ComponentImpl {
         return _count;
     }
 
-    public void setCount(int count)
+    public void setCount( int count )
     {
         _count = count;
     }

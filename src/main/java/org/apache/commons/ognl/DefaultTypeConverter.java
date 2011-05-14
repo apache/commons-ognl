@@ -23,25 +23,27 @@ import java.lang.reflect.Member;
 import java.util.Map;
 
 /**
- * Default type conversion.  Converts among numeric types and also strings.
+ * Default type conversion. Converts among numeric types and also strings.
+ * 
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-public class DefaultTypeConverter implements TypeConverter
+public class DefaultTypeConverter
+    implements TypeConverter
 {
     public DefaultTypeConverter()
     {
         super();
     }
 
-    public Object convertValue(Map context, Object value, Class toType)
+    public Object convertValue( Map context, Object value, Class toType )
     {
-        return OgnlOps.convertValue(value, toType);
+        return OgnlOps.convertValue( value, toType );
     }
 
-    public Object convertValue(Map context, Object target, Member member, String propertyName, Object value, Class toType)
+    public Object convertValue( Map context, Object target, Member member, String propertyName, Object value,
+                                Class toType )
     {
-        return convertValue(context, value, toType);
+        return convertValue( context, value, toType );
     }
 }
-

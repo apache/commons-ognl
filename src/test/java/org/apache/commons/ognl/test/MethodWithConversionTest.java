@@ -22,21 +22,19 @@ package org.apache.commons.ognl.test;
 import junit.framework.TestSuite;
 import org.apache.commons.ognl.test.objects.Simple;
 
-public class MethodWithConversionTest extends OgnlTestCase
+public class MethodWithConversionTest
+    extends OgnlTestCase
 {
 
     private static Simple SIMPLE = new Simple();
 
     private static Object[][] TESTS = {
-            // Method call with conversion
-            { SIMPLE, "setValues(new Integer(10), \"10.56\", new Double(34.225))", null },
-            { SIMPLE, "stringValue", "10" },
-            { SIMPLE, "stringValue", "10", new Character('x'), "x" },
-            { SIMPLE, "setStringValue('x')", null }, // set by calling setStringValue() directly 
-            { SIMPLE, "floatValue", new Float(10.56) },
-            { SIMPLE, "getValueIsTrue(rootValue)", Boolean.TRUE},
-            { SIMPLE, "messages.format('Testing', one, two, three)", "blah" }
-    };
+        // Method call with conversion
+        { SIMPLE, "setValues(new Integer(10), \"10.56\", new Double(34.225))", null }, { SIMPLE, "stringValue", "10" },
+        { SIMPLE, "stringValue", "10", new Character( 'x' ), "x" },
+        { SIMPLE, "setStringValue('x')", null }, // set by calling setStringValue() directly
+        { SIMPLE, "floatValue", new Float( 10.56 ) }, { SIMPLE, "getValueIsTrue(rootValue)", Boolean.TRUE },
+        { SIMPLE, "messages.format('Testing', one, two, three)", "blah" } };
 
     /*
      * =================================================================== Public static methods
@@ -46,20 +44,31 @@ public class MethodWithConversionTest extends OgnlTestCase
     {
         TestSuite result = new TestSuite();
 
-        for(int i = 0; i < TESTS.length; i++) {
-            if (TESTS[i].length == 3) {
-                result.addTest(new MethodWithConversionTest((String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                        TESTS[i][2]));
-            } else {
-                if (TESTS[i].length == 4) {
-                    result.addTest(new MethodWithConversionTest((String) TESTS[i][1], TESTS[i][0],
-                            (String) TESTS[i][1], TESTS[i][2], TESTS[i][3]));
-                } else {
-                    if (TESTS[i].length == 5) {
-                        result.addTest(new MethodWithConversionTest((String) TESTS[i][1], TESTS[i][0],
-                                (String) TESTS[i][1], TESTS[i][2], TESTS[i][3], TESTS[i][4]));
-                    } else {
-                        throw new RuntimeException("don't understand TEST format");
+        for ( int i = 0; i < TESTS.length; i++ )
+        {
+            if ( TESTS[i].length == 3 )
+            {
+                result.addTest( new MethodWithConversionTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
+                                                              TESTS[i][2] ) );
+            }
+            else
+            {
+                if ( TESTS[i].length == 4 )
+                {
+                    result.addTest( new MethodWithConversionTest( (String) TESTS[i][1], TESTS[i][0],
+                                                                  (String) TESTS[i][1], TESTS[i][2], TESTS[i][3] ) );
+                }
+                else
+                {
+                    if ( TESTS[i].length == 5 )
+                    {
+                        result.addTest( new MethodWithConversionTest( (String) TESTS[i][1], TESTS[i][0],
+                                                                      (String) TESTS[i][1], TESTS[i][2], TESTS[i][3],
+                                                                      TESTS[i][4] ) );
+                    }
+                    else
+                    {
+                        throw new RuntimeException( "don't understand TEST format" );
                     }
                 }
             }
@@ -76,25 +85,25 @@ public class MethodWithConversionTest extends OgnlTestCase
         super();
     }
 
-    public MethodWithConversionTest(String name)
+    public MethodWithConversionTest( String name )
     {
-        super(name);
+        super( name );
     }
 
-    public MethodWithConversionTest(String name, Object root, String expressionString, Object expectedResult,
-                                    Object setValue, Object expectedAfterSetResult)
+    public MethodWithConversionTest( String name, Object root, String expressionString, Object expectedResult,
+                                     Object setValue, Object expectedAfterSetResult )
     {
-        super(name, root, expressionString, expectedResult, setValue, expectedAfterSetResult);
+        super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
     }
 
-    public MethodWithConversionTest(String name, Object root, String expressionString, Object expectedResult,
-                                    Object setValue)
+    public MethodWithConversionTest( String name, Object root, String expressionString, Object expectedResult,
+                                     Object setValue )
     {
-        super(name, root, expressionString, expectedResult, setValue);
+        super( name, root, expressionString, expectedResult, setValue );
     }
 
-    public MethodWithConversionTest(String name, Object root, String expressionString, Object expectedResult)
+    public MethodWithConversionTest( String name, Object root, String expressionString, Object expectedResult )
     {
-        super(name, root, expressionString, expectedResult);
+        super( name, root, expressionString, expectedResult );
     }
 }

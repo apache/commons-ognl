@@ -27,18 +27,22 @@ import org.apache.commons.ognl.PropertyAccessor;
 
 import java.util.Map;
 
-public class PropertyNotFoundTest extends OgnlTestCase {
+public class PropertyNotFoundTest
+    extends OgnlTestCase
+{
     private static final Blah BLAH = new Blah();
 
-    private static Object[][] TESTS = {
-            {BLAH, "webwork.token.name", OgnlException.class, "W value", OgnlException.class},
-    };
+    private static Object[][] TESTS = { { BLAH, "webwork.token.name", OgnlException.class, "W value",
+        OgnlException.class }, };
 
-    /*===================================================================
-        Public static classes
-      ===================================================================*/
-    public static class Blah {
+    /*
+     * =================================================================== Public static classes
+     * ===================================================================
+     */
+    public static class Blah
+    {
         String x;
+
         String y;
 
         public String getX()
@@ -46,7 +50,7 @@ public class PropertyNotFoundTest extends OgnlTestCase {
             return x;
         }
 
-        public void setX(String x)
+        public void setX( String x )
         {
             this.x = x;
         }
@@ -56,54 +60,74 @@ public class PropertyNotFoundTest extends OgnlTestCase {
             return y;
         }
 
-        public void setY(String y)
+        public void setY( String y )
         {
             this.y = y;
         }
     }
 
-    public static class BlahPropertyAccessor implements PropertyAccessor {
-        public void setProperty(Map context, Object target, Object name, Object value) throws OgnlException
+    public static class BlahPropertyAccessor
+        implements PropertyAccessor
+    {
+        public void setProperty( Map context, Object target, Object name, Object value )
+            throws OgnlException
         {
         }
 
-        public Object getProperty(Map context, Object target, Object name) throws OgnlException
+        public Object getProperty( Map context, Object target, Object name )
+            throws OgnlException
         {
-            if ("x".equals(name) || "y".equals(name)) {
-                return OgnlRuntime.getProperty((OgnlContext) context, target, name);
+            if ( "x".equals( name ) || "y".equals( name ) )
+            {
+                return OgnlRuntime.getProperty( (OgnlContext) context, target, name );
             }
             return null;
         }
 
-        public String getSourceAccessor(OgnlContext context, Object target, Object index)
+        public String getSourceAccessor( OgnlContext context, Object target, Object index )
         {
             return index.toString();
         }
 
-        public String getSourceSetter(OgnlContext context, Object target, Object index)
+        public String getSourceSetter( OgnlContext context, Object target, Object index )
         {
             return index.toString();
         }
     }
 
-    /*===================================================================
-      Public static methods
-    ===================================================================*/
+    /*
+     * =================================================================== Public static methods
+     * ===================================================================
+     */
     public static TestSuite suite()
     {
         TestSuite result = new TestSuite();
 
-        for (int i = 0; i < TESTS.length; i++) {
-            if (TESTS[i].length == 3) {
-                result.addTest(new PropertyNotFoundTest((String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1], TESTS[i][2]));
-            } else {
-                if (TESTS[i].length == 4) {
-                    result.addTest(new PropertyNotFoundTest((String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1], TESTS[i][2], TESTS[i][3]));
-                } else {
-                    if (TESTS[i].length == 5) {
-                        result.addTest(new PropertyNotFoundTest((String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1], TESTS[i][2], TESTS[i][3], TESTS[i][4]));
-                    } else {
-                        throw new RuntimeException("don't understand TEST format");
+        for ( int i = 0; i < TESTS.length; i++ )
+        {
+            if ( TESTS[i].length == 3 )
+            {
+                result.addTest( new PropertyNotFoundTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
+                                                          TESTS[i][2] ) );
+            }
+            else
+            {
+                if ( TESTS[i].length == 4 )
+                {
+                    result.addTest( new PropertyNotFoundTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
+                                                              TESTS[i][2], TESTS[i][3] ) );
+                }
+                else
+                {
+                    if ( TESTS[i].length == 5 )
+                    {
+                        result.addTest( new PropertyNotFoundTest( (String) TESTS[i][1], TESTS[i][0],
+                                                                  (String) TESTS[i][1], TESTS[i][2], TESTS[i][3],
+                                                                  TESTS[i][4] ) );
+                    }
+                    else
+                    {
+                        throw new RuntimeException( "don't understand TEST format" );
                     }
                 }
             }
@@ -111,37 +135,40 @@ public class PropertyNotFoundTest extends OgnlTestCase {
         return result;
     }
 
-    /*===================================================================
-        Constructors
-      ===================================================================*/
+    /*
+     * =================================================================== Constructors
+     * ===================================================================
+     */
     public PropertyNotFoundTest()
     {
         super();
     }
 
-    public PropertyNotFoundTest(String name)
+    public PropertyNotFoundTest( String name )
     {
-        super(name);
+        super( name );
     }
 
-    public PropertyNotFoundTest(String name, Object root, String expressionString, Object expectedResult, Object setValue, Object expectedAfterSetResult)
+    public PropertyNotFoundTest( String name, Object root, String expressionString, Object expectedResult,
+                                 Object setValue, Object expectedAfterSetResult )
     {
-        super(name, root, expressionString, expectedResult, setValue, expectedAfterSetResult);
+        super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
     }
 
-    public PropertyNotFoundTest(String name, Object root, String expressionString, Object expectedResult, Object setValue)
+    public PropertyNotFoundTest( String name, Object root, String expressionString, Object expectedResult,
+                                 Object setValue )
     {
-        super(name, root, expressionString, expectedResult, setValue);
+        super( name, root, expressionString, expectedResult, setValue );
     }
 
-    public PropertyNotFoundTest(String name, Object root, String expressionString, Object expectedResult)
+    public PropertyNotFoundTest( String name, Object root, String expressionString, Object expectedResult )
     {
-        super(name, root, expressionString, expectedResult);
+        super( name, root, expressionString, expectedResult );
     }
 
     protected void setUp()
     {
         super.setUp();
-        OgnlRuntime.setPropertyAccessor(Blah.class, new BlahPropertyAccessor());
+        OgnlRuntime.setPropertyAccessor( Blah.class, new BlahPropertyAccessor() );
     }
 }

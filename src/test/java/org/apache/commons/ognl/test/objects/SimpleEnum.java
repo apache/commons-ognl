@@ -22,13 +22,14 @@ package org.apache.commons.ognl.test.objects;
 /**
  *
  */
-public enum SimpleEnum {
+public enum SimpleEnum
+{
 
-    ONE (1);
+    ONE( 1 );
 
     private int _value;
 
-    private SimpleEnum(int value)
+    private SimpleEnum( int value )
     {
         _value = value;
     }

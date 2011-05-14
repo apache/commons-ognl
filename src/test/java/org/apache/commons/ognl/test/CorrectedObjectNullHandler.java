@@ -23,35 +23,41 @@ import org.apache.commons.ognl.NullHandler;
 
 import java.util.Map;
 
-public class CorrectedObjectNullHandler extends Object implements NullHandler
+public class CorrectedObjectNullHandler
+    extends Object
+    implements NullHandler
 {
-    private String          defaultValue;
+    private String defaultValue;
 
-    /*===================================================================
-        Constructors
-      ===================================================================*/
-    public CorrectedObjectNullHandler(String defaultValue)
+    /*
+     * =================================================================== Constructors
+     * ===================================================================
+     */
+    public CorrectedObjectNullHandler( String defaultValue )
     {
         super();
         this.defaultValue = defaultValue;
     }
 
-    /*===================================================================
-        TypeConverter interface (overridden)
-      ===================================================================*/
-    public Object nullMethodResult(Map context, Object target, String methodName, Object[] args)
+    /*
+     * =================================================================== TypeConverter interface (overridden)
+     * ===================================================================
+     */
+    public Object nullMethodResult( Map context, Object target, String methodName, Object[] args )
     {
-        if (methodName.equals("getStringValue")) {
+        if ( methodName.equals( "getStringValue" ) )
+        {
             return defaultValue;
         }
         return null;
     }
 
-    public Object nullPropertyValue(Map context, Object target, Object property)
+    public Object nullPropertyValue( Map context, Object target, Object property )
     {
-        Object      result = null;
+        Object result = null;
 
-        if (property.equals("stringValue")) {
+        if ( property.equals( "stringValue" ) )
+        {
             return defaultValue;
         }
         return null;

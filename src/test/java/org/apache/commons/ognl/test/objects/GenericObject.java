@@ -22,7 +22,8 @@ package org.apache.commons.ognl.test.objects;
 /**
  * Used by {@link BaseGeneric} to reference a class type.
  */
-public interface GenericObject {
+public interface GenericObject
+{
 
     int getId();
 

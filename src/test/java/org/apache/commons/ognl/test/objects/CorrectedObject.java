@@ -25,7 +25,7 @@ public class CorrectedObject
     {
     }
 
-    public void setStringValue(String value)
+    public void setStringValue( String value )
     {
     }
 
@@ -34,12 +34,12 @@ public class CorrectedObject
         return null;
     }
 
-    public String getIndexedStringValue(String key)
+    public String getIndexedStringValue( String key )
     {
         return null;
     }
 
-    public void setIndexedStringValue(String key, String value)
+    public void setIndexedStringValue( String key, String value )
     {
     }
 }

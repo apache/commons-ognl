@@ -29,109 +29,143 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class Root extends Object
+public class Root
+    extends Object
 {
-    public static final String      SIZE_STRING = "size";
-    public static final int         STATIC_INT = 23;
+    public static final String SIZE_STRING = "size";
 
-    private int[]                   array = { 1, 2, 3, 4 };
-    private Map                     map = new HashMap(23);
-    private MyMap                   myMap = new MyMapImpl();
-    private List                    list = Arrays.asList(new Object[] { null, this, array });
-    private List                    settableList = new ArrayList(Arrays.asList(new Object[] { "foo", "bar", "baz" }));
-    private int                     index = 1;
-    private int                     intValue = 0;
-    private String                  stringValue;
-    private int                     yetAnotherIntValue = 46;
-    private boolean                 privateAccessorBooleanValue = true;
-    private int                     privateAccessorIntValue = 67;
-    private int                     privateAccessorIntValue2 = 67;
-    private int                     privateAccessorIntValue3 = 67;
-    public String                   anotherStringValue = "foo";
-    public int                      anotherIntValue = 123;
-    public int                      six = 6;
+    public static final int STATIC_INT = 23;
+
+    private int[] array = { 1, 2, 3, 4 };
+
+    private Map map = new HashMap( 23 );
+
+    private MyMap myMap = new MyMapImpl();
+
+    private List list = Arrays.asList( new Object[] { null, this, array } );
+
+    private List settableList = new ArrayList( Arrays.asList( new Object[] { "foo", "bar", "baz" } ) );
+
+    private int index = 1;
+
+    private int intValue = 0;
+
+    private String stringValue;
+
+    private int yetAnotherIntValue = 46;
+
+    private boolean privateAccessorBooleanValue = true;
+
+    private int privateAccessorIntValue = 67;
+
+    private int privateAccessorIntValue2 = 67;
+
+    private int privateAccessorIntValue3 = 67;
+
+    public String anotherStringValue = "foo";
+
+    public int anotherIntValue = 123;
+
+    public int six = 6;
+
     private boolean _disabled;
+
     private Locale _selected = Locale.getDefault();
+
     private List<List<Boolean>> _booleanValues = new ArrayList<List<Boolean>>();
 
-    private boolean[] _booleanArray = {true, false, true, true};
+    private boolean[] _booleanArray = { true, false, true, true };
+
     private List _list;
+
     private int verbosity = 87;
+
     private BeanProvider _beanProvider = new BeanProviderImpl();
+
     private boolean _render;
+
     private Boolean _readOnly = Boolean.FALSE;
-    private Integer _objIndex = new Integer(1);
-    private Object _genericObjIndex = new Integer(2);
+
+    private Integer _objIndex = new Integer( 1 );
+
+    private Object _genericObjIndex = new Integer( 2 );
+
     private Date _date = new Date();
+
     private boolean _openWindow = false;
 
     private ITreeContentProvider _contentProvider = new TreeContentProvider();
-    private Indexed _indexed = new Indexed();
-    private SearchTab _tab = new SearchTab();
-    
-    /*===================================================================
-		Public static methods
-	  ===================================================================*/
-	public static int getStaticInt()
-	{
-	    return STATIC_INT;
-	}
 
-	/*===================================================================
-		Constructors
-	  ===================================================================*/
+    private Indexed _indexed = new Indexed();
+
+    private SearchTab _tab = new SearchTab();
+
+    /*
+     * =================================================================== Public static methods
+     * ===================================================================
+     */
+    public static int getStaticInt()
+    {
+        return STATIC_INT;
+    }
+
+    /*
+     * =================================================================== Constructors
+     * ===================================================================
+     */
     public Root()
     {
         super();
     }
 
-    /*===================================================================
-		Private methods
-	  ===================================================================*/
+    /*
+     * =================================================================== Private methods
+     * ===================================================================
+     */
     {
         map.put( "test", this );
         map.put( "array", array );
         map.put( "list", list );
-        map.put( "size", new Integer(5000) );
-        map.put( DynamicSubscript.first, new Integer(99) );
-        map.put( "baz", array);
-        map.put("value", new Bean2());
-        map.put("bar", new Bean3());
-        map.put(new Long(82), "StringStuff=someValue");
+        map.put( "size", new Integer( 5000 ) );
+        map.put( DynamicSubscript.first, new Integer( 99 ) );
+        map.put( "baz", array );
+        map.put( "value", new Bean2() );
+        map.put( "bar", new Bean3() );
+        map.put( new Long( 82 ), "StringStuff=someValue" );
 
         IFormComponent comp = new FormComponentImpl();
-        comp.setClientId("formComponent");
+        comp.setClientId( "formComponent" );
 
         IForm form = new FormImpl();
-        form.setClientId("form1");
-        comp.setForm(form);
+        form.setClientId( "form1" );
+        comp.setForm( form );
 
-        map.put("comp", comp);
+        map.put( "comp", comp );
 
         Map newMap = new HashMap();
         Map chain = new HashMap();
-        newMap.put("deep", chain);
-        
-        chain.put("last", Boolean.TRUE);
+        newMap.put( "deep", chain );
 
-        map.put("nested", newMap);
+        chain.put( "last", Boolean.TRUE );
+
+        map.put( "nested", newMap );
 
         /* make myMap identical */
         myMap.putAll( map );
 
         List<Boolean> bool1 = new ArrayList<Boolean>();
-        bool1.add(Boolean.TRUE);
-        bool1.add(Boolean.FALSE);
-        bool1.add(Boolean.TRUE);
+        bool1.add( Boolean.TRUE );
+        bool1.add( Boolean.FALSE );
+        bool1.add( Boolean.TRUE );
 
-        _booleanValues.add(bool1);
+        _booleanValues.add( bool1 );
 
         List<Boolean> bool2 = new ArrayList<Boolean>();
-        bool2.add(Boolean.TRUE);
-        bool2.add(Boolean.FALSE);
-        bool2.add(Boolean.TRUE);
+        bool2.add( Boolean.TRUE );
+        bool2.add( Boolean.FALSE );
+        bool2.add( Boolean.TRUE );
 
-        _booleanValues.add(bool2);
+        _booleanValues.add( bool2 );
     }
 
     private boolean isPrivateAccessorBooleanValue()
@@ -139,7 +173,7 @@ public class Root extends Object
         return privateAccessorBooleanValue;
     }
 
-    private void setPrivateAccessorBooleanValue(boolean value)
+    private void setPrivateAccessorBooleanValue( boolean value )
     {
         privateAccessorBooleanValue = value;
     }
@@ -149,40 +183,43 @@ public class Root extends Object
         return privateAccessorIntValue;
     }
 
-    private void setPrivateAccessorIntValue(int value)
+    private void setPrivateAccessorIntValue( int value )
     {
         privateAccessorIntValue = value;
     }
 
-	/*===================================================================
-		Protected methods
-	  ===================================================================*/
+    /*
+     * =================================================================== Protected methods
+     * ===================================================================
+     */
     protected int getPrivateAccessorIntValue2()
     {
         return privateAccessorIntValue2;
     }
 
-    protected void setPrivateAccessorIntValue2(int value)
+    protected void setPrivateAccessorIntValue2( int value )
     {
         privateAccessorIntValue2 = value;
     }
 
-	/*===================================================================
-		Package protected methods
-	  ===================================================================*/
+    /*
+     * =================================================================== Package protected methods
+     * ===================================================================
+     */
     int getPrivateAccessorIntValue3()
     {
         return privateAccessorIntValue3;
     }
 
-    void setPrivateAccessorIntValue3(int value)
+    void setPrivateAccessorIntValue3( int value )
     {
         privateAccessorIntValue3 = value;
     }
 
-    /*===================================================================
-		Public methods
-	  ===================================================================*/
+    /*
+     * =================================================================== Public methods
+     * ===================================================================
+     */
     public int[] getArray()
     {
         return array;
@@ -193,29 +230,29 @@ public class Root extends Object
         return _booleanArray;
     }
 
-    public void setArray(int[] value)
+    public void setArray( int[] value )
     {
         array = value;
     }
 
-    public String format(String key, Object value)
+    public String format( String key, Object value )
     {
-        return format(key, new Object[] { value });
+        return format( key, new Object[] { value } );
     }
 
-    public String format(String key, Object[] value)
+    public String format( String key, Object[] value )
     {
         return "formatted";
     }
 
-    public String getCurrentClass(String value)
+    public String getCurrentClass( String value )
     {
         return value + " stop";
     }
 
     public Messages getMessages()
     {
-        return new Messages(map);
+        return new Messages( map );
     }
 
     public Map getMap()
@@ -233,7 +270,7 @@ public class Root extends Object
         return list;
     }
 
-    public Object getAsset(String key)
+    public Object getAsset( String key )
     {
         return key;
     }
@@ -268,7 +305,7 @@ public class Root extends Object
         return intValue;
     }
 
-    public void setIntValue(int value)
+    public void setIntValue( int value )
     {
         intValue = value;
     }
@@ -283,16 +320,16 @@ public class Root extends Object
         return stringValue;
     }
 
-    public void setStringValue(String value)
+    public void setStringValue( String value )
     {
         stringValue = value;
     }
-    
+
     public String getIndexedStringValue()
     {
         return "array";
     }
-    
+
     public Object getNullObject()
     {
         return null;
@@ -313,9 +350,9 @@ public class Root extends Object
         return new Bean2();
     }
 
-    public Object getIndexedProperty(String name)
+    public Object getIndexedProperty( String name )
     {
-        return myMap.get(name);
+        return myMap.get( name );
     }
 
     public Indexed getIndexer()
@@ -333,7 +370,7 @@ public class Root extends Object
         return _disabled;
     }
 
-    public void setBooleanValue(boolean value)
+    public void setBooleanValue( boolean value )
     {
         _disabled = value;
     }
@@ -342,27 +379,27 @@ public class Root extends Object
     {
         return _disabled;
     }
-    
-    public void setDisabled(boolean disabled)
+
+    public void setDisabled( boolean disabled )
     {
         _disabled = disabled;
     }
-    
+
     public Locale getSelected()
     {
         return _selected;
     }
-    
-    public void setSelected(Locale locale)
+
+    public void setSelected( Locale locale )
     {
         _selected = locale;
     }
-    
+
     public Locale getCurrLocale()
     {
         return Locale.getDefault();
     }
-    
+
     public int getCurrentLocaleVerbosity()
     {
         return verbosity;
@@ -373,7 +410,7 @@ public class Root extends Object
         return _render;
     }
 
-    public void setSelectedList(List selected)
+    public void setSelectedList( List selected )
     {
         _list = selected;
     }
@@ -388,7 +425,7 @@ public class Root extends Object
         return _readOnly;
     }
 
-    public void setReadonly(Boolean value)
+    public void setReadonly( Boolean value )
     {
         _readOnly = value;
     }
@@ -410,7 +447,7 @@ public class Root extends Object
 
     public Long getTheLong()
     {
-        return new Long(4);
+        return new Long( 4 );
     }
 
     public boolean isSorted()
@@ -455,20 +492,20 @@ public class Root extends Object
 
     public Long getMapKey()
     {
-        return new Long(82);
+        return new Long( 82 );
     }
 
     public Object getArrayValue()
     {
-        return new Object[] {new Integer("2"), new Integer("2")};
+        return new Object[] { new Integer( "2" ), new Integer( "2" ) };
     }
-    
+
     public List getResult()
     {
         List list = new ArrayList();
-        list.add(new Object[]{new Integer("2"), new Integer("2")});
-        list.add(new Object[]{new Integer("2"), new Integer("2")});
-        list.add(new Object[]{new Integer("2"), new Integer("2")});
+        list.add( new Object[] { new Integer( "2" ), new Integer( "2" ) } );
+        list.add( new Object[] { new Integer( "2" ), new Integer( "2" ) } );
+        list.add( new Object[] { new Integer( "2" ), new Integer( "2" ) } );
 
         return list;
     }
@@ -476,7 +513,7 @@ public class Root extends Object
     public boolean isEditorDisabled()
     {
         return false;
-    }    
+    }
 
     public boolean isDisabled()
     {
@@ -488,12 +525,12 @@ public class Root extends Object
         return _openWindow;
     }
 
-    public void setOpenTransitionWin(boolean value)
+    public void setOpenTransitionWin( boolean value )
     {
         _openWindow = value;
     }
 
-    public boolean isOk(SimpleEnum value, String otherValue)
+    public boolean isOk( SimpleEnum value, String otherValue )
     {
         return true;
     }
@@ -518,14 +555,14 @@ public class Root extends Object
         return _tab;
     }
 
-    public void setTab(SearchTab tab)
+    public void setTab( SearchTab tab )
     {
         _tab = tab;
     }
 
     public static class A
     {
-        public int methodOfA(B b)
+        public int methodOfA( B b )
         {
             return 0;
         }
@@ -538,7 +575,7 @@ public class Root extends Object
 
     public static class B
     {
-        public int methodOfB(int i)
+        public int methodOfB( int i )
         {
             return 0;
         }

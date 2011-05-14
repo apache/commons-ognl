@@ -22,33 +22,38 @@ package org.apache.commons.ognl;
 import java.util.*;
 
 /**
- * Implementation of ElementsAccessor that returns a single-element iterator, containing
- * the original target object.
+ * Implementation of ElementsAccessor that returns a single-element iterator, containing the original target object.
+ * 
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-public class ObjectElementsAccessor implements ElementsAccessor
+public class ObjectElementsAccessor
+    implements ElementsAccessor
 {
     public Enumeration getElements( Object target )
     {
-    	final Object		object = target;
+        final Object object = target;
 
-        return new Enumeration() {
-        	private boolean seen = false;
+        return new Enumeration()
+        {
+            private boolean seen = false;
 
-	        public boolean hasMoreElements() {
-	            return !seen;
-	        }
+            public boolean hasMoreElements()
+            {
+                return !seen;
+            }
 
-	        public Object nextElement() {
-	        	Object		result = null;
+            public Object nextElement()
+            {
+                Object result = null;
 
-	        	if (!seen) {
-	        		result = object;
-	        		seen = true;
-	        	}
-	            return result;
-	        }
-	    };
+                if ( !seen )
+                {
+                    result = object;
+                    seen = true;
+                }
+                return result;
+            }
+        };
     }
 }

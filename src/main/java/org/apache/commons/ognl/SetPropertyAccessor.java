@@ -23,30 +23,42 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Implementation of PropertyAccessor that uses numbers and dynamic subscripts as
- * properties to index into Lists.
+ * Implementation of PropertyAccessor that uses numbers and dynamic subscripts as properties to index into Lists.
+ * 
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-public class SetPropertyAccessor extends ObjectPropertyAccessor
+public class SetPropertyAccessor
+    extends ObjectPropertyAccessor
     implements PropertyAccessor // This is here to make javadoc show this class as an implementor
 {
-    public Object getProperty( Map context, Object target, Object name ) throws OgnlException
+    public Object getProperty( Map context, Object target, Object name )
+        throws OgnlException
     {
-        Set     set = (Set)target;
+        Set set = (Set) target;
 
-        if ( name instanceof String ) {
-            Object      result;
-            
-            if (name.equals("size")) {
-                result = new Integer(set.size());
-            } else {
-                if (name.equals("iterator")) {
+        if ( name instanceof String )
+        {
+            Object result;
+
+            if ( name.equals( "size" ) )
+            {
+                result = new Integer( set.size() );
+            }
+            else
+            {
+                if ( name.equals( "iterator" ) )
+                {
                     result = set.iterator();
-                } else {
-                    if (name.equals("isEmpty")) {
+                }
+                else
+                {
+                    if ( name.equals( "isEmpty" ) )
+                    {
                         result = set.isEmpty() ? Boolean.TRUE : Boolean.FALSE;
-                    } else {
+                    }
+                    else
+                    {
                         result = super.getProperty( context, target, name );
                     }
                 }
@@ -56,6 +68,5 @@ public class SetPropertyAccessor extends ObjectPropertyAccessor
 
         throw new NoSuchPropertyException( target, name );
     }
-    
-    
+
 }

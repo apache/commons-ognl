@@ -33,7 +33,9 @@ import java.util.List;
 /**
  * Tests functionality of various built in object accessors.
  */
-public class ListPropertyAccessorTest extends TestCase {
+public class ListPropertyAccessorTest
+    extends TestCase
+{
 
     public void test_Get_Source_String_Number_Index()
     {
@@ -41,17 +43,17 @@ public class ListPropertyAccessorTest extends TestCase {
 
         Root root = new Root();
 
-        OgnlContext context = (OgnlContext) Ognl.createDefaultContext(null);
-        context.setRoot(root);
-        context.setCurrentObject(root);
-        context.setCurrentType(Integer.TYPE);
+        OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
+        context.setRoot( root );
+        context.setCurrentObject( root );
+        context.setCurrentType( Integer.TYPE );
 
-        assertEquals(".get(0)", pa.getSourceAccessor(context, root.getList(), "0"));
+        assertEquals( ".get(0)", pa.getSourceAccessor( context, root.getList(), "0" ) );
 
-        assertEquals(List.class, context.getCurrentAccessor());
-        assertEquals(Object.class, context.getCurrentType());
-        assertEquals(Integer.TYPE, context.getPreviousType());
-        assertEquals(null, context.getPreviousAccessor());
+        assertEquals( List.class, context.getCurrentAccessor() );
+        assertEquals( Object.class, context.getCurrentType() );
+        assertEquals( Integer.TYPE, context.getPreviousType() );
+        assertEquals( null, context.getPreviousAccessor() );
     }
 
     public void test_Get_Source_Object_Number_Index()
@@ -60,33 +62,34 @@ public class ListPropertyAccessorTest extends TestCase {
 
         Root root = new Root();
 
-        OgnlContext context = (OgnlContext) Ognl.createDefaultContext(null);
-        context.setRoot(root);
-        context.setCurrentObject(root);
-        context.setCurrentType(Integer.class);
+        OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
+        context.setRoot( root );
+        context.setCurrentObject( root );
+        context.setCurrentType( Integer.class );
 
-        assertEquals(".get(indexValue.intValue())", pa.getSourceAccessor(context, root.getList(), "indexValue"));
+        assertEquals( ".get(indexValue.intValue())", pa.getSourceAccessor( context, root.getList(), "indexValue" ) );
 
-        assertEquals(List.class, context.getCurrentAccessor());
-        assertEquals(Object.class, context.getCurrentType());
-        assertEquals(Integer.class, context.getPreviousType());
-        assertEquals(null, context.getPreviousAccessor());
+        assertEquals( List.class, context.getCurrentAccessor() );
+        assertEquals( Object.class, context.getCurrentType() );
+        assertEquals( Integer.class, context.getPreviousType() );
+        assertEquals( null, context.getPreviousAccessor() );
     }
 
-    public void test_List_To_Object_Property_Accessor_Read() throws Exception
+    public void test_List_To_Object_Property_Accessor_Read()
+        throws Exception
     {
         ListPropertyAccessor pa = new ListPropertyAccessor();
-        
+
         ListSource list = new ListSourceImpl();
 
-        OgnlContext context = (OgnlContext) Ognl.createDefaultContext(null);
-        context.setRoot(list);
-        context.setCurrentObject(list);
+        OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
+        context.setRoot( list );
+        context.setCurrentObject( list );
 
-        assertEquals(".getTotal()", pa.getSourceAccessor(context, list, "total"));
+        assertEquals( ".getTotal()", pa.getSourceAccessor( context, list, "total" ) );
 
-        assertNull(context.get(ExpressionCompiler.PRE_CAST));
-        assertEquals(int.class, context.getCurrentType());
-        assertEquals(ListSource.class, context.getCurrentAccessor());
-   }
+        assertNull( context.get( ExpressionCompiler.PRE_CAST ) );
+        assertEquals( int.class, context.getCurrentType() );
+        assertEquals( ListSource.class, context.getCurrentAccessor() );
+    }
 }

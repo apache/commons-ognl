@@ -29,34 +29,36 @@ import java.util.List;
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-class ASTSelect extends SimpleNode
+class ASTSelect
+    extends SimpleNode
 {
 
-    public ASTSelect(int id)
+    public ASTSelect( int id )
     {
-        super(id);
+        super( id );
     }
 
-    public ASTSelect(OgnlParser p, int id)
+    public ASTSelect( OgnlParser p, int id )
     {
-        super(p, id);
+        super( p, id );
     }
 
-    protected Object getValueBody(OgnlContext context, Object source)
+    protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
         Node expr = _children[0];
         List answer = new ArrayList();
-        
-        ElementsAccessor elementsAccessor = OgnlRuntime.getElementsAccessor(OgnlRuntime.getTargetClass(source));
-        
-        for(Enumeration e = elementsAccessor.getElements(source); e.hasMoreElements();) {
+
+        ElementsAccessor elementsAccessor = OgnlRuntime.getElementsAccessor( OgnlRuntime.getTargetClass( source ) );
+
+        for ( Enumeration e = elementsAccessor.getElements( source ); e.hasMoreElements(); )
+        {
             Object next = e.nextElement();
-            
-            if (OgnlOps.booleanValue(expr.getValue(context, next))) 
-                answer.add(next);
+
+            if ( OgnlOps.booleanValue( expr.getValue( context, next ) ) )
+                answer.add( next );
         }
-        
+
         return answer;
     }
 
@@ -65,13 +67,13 @@ class ASTSelect extends SimpleNode
         return "{? " + _children[0] + " }";
     }
 
-    public String toGetSourceString(OgnlContext context, Object target)
+    public String toGetSourceString( OgnlContext context, Object target )
     {
-        throw new UnsupportedCompilationException("Eval expressions not supported as native java yet.");
+        throw new UnsupportedCompilationException( "Eval expressions not supported as native java yet." );
     }
 
-    public String toSetSourceString(OgnlContext context, Object target)
+    public String toSetSourceString( OgnlContext context, Object target )
     {
-        throw new UnsupportedCompilationException("Eval expressions not supported as native java yet.");
+        throw new UnsupportedCompilationException( "Eval expressions not supported as native java yet." );
     }
 }

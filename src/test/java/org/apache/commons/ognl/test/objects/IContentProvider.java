@@ -24,7 +24,8 @@ import java.util.List;
 /**
  *
  */
-public interface IContentProvider {
+public interface IContentProvider
+{
 
     public List getElements();
 }

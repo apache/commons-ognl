@@ -21,30 +21,38 @@ package org.apache.commons.ognl;
 
 import java.util.*;
 
-public final class ObjectArrayPool extends Object
+public final class ObjectArrayPool
+    extends Object
 {
-    private IntHashMap      pools = new IntHashMap(23);
+    private IntHashMap pools = new IntHashMap( 23 );
 
-    public static class SizePool extends Object
+    public static class SizePool
+        extends Object
     {
-        private List        arrays = new ArrayList();
-        private int         arraySize;
-        private int         size;
-        private int         created = 0;
-        private int         recovered = 0;
-        private int         recycled = 0;
+        private List arrays = new ArrayList();
 
-        public SizePool(int arraySize)
+        private int arraySize;
+
+        private int size;
+
+        private int created = 0;
+
+        private int recovered = 0;
+
+        private int recycled = 0;
+
+        public SizePool( int arraySize )
         {
-            this(arraySize, 0);
+            this( arraySize, 0 );
         }
 
-        public SizePool(int arraySize, int initialSize)
+        public SizePool( int arraySize, int initialSize )
         {
             super();
             this.arraySize = arraySize;
-            for (int i = 0; i < initialSize; i++) {
-                arrays.add(new Object[arraySize]);
+            for ( int i = 0; i < initialSize; i++ )
+            {
+                arrays.add( new Object[arraySize] );
             }
             created = size = initialSize;
         }
@@ -56,36 +64,44 @@ public final class ObjectArrayPool extends Object
 
         public Object[] create()
         {
-            Object[]        result;
+            Object[] result;
 
-            if (size > 0) {
-                result = (Object[])arrays.remove(size - 1);
+            if ( size > 0 )
+            {
+                result = (Object[]) arrays.remove( size - 1 );
                 size--;
                 recovered++;
-            } else {
+            }
+            else
+            {
                 result = new Object[arraySize];
                 created++;
             }
             return result;
         }
 
-        public synchronized void recycle(Object[] value)
+        public synchronized void recycle( Object[] value )
         {
-            if (value != null) {
-                if (value.length != arraySize) {
-                    throw new IllegalArgumentException("recycled array size " + value.length + " inappropriate for pool array size " + arraySize);
+            if ( value != null )
+            {
+                if ( value.length != arraySize )
+                {
+                    throw new IllegalArgumentException( "recycled array size " + value.length
+                        + " inappropriate for pool array size " + arraySize );
                 }
-                Arrays.fill(value, null);
-                arrays.add(value);
+                Arrays.fill( value, null );
+                arrays.add( value );
                 size++;
                 recycled++;
-            } else {
-                throw new IllegalArgumentException("cannot recycle null object");
+            }
+            else
+            {
+                throw new IllegalArgumentException( "cannot recycle null object" );
             }
         }
 
         /**
-            Returns the number of items in the pool
+         * Returns the number of items in the pool
          */
         public int getSize()
         {
@@ -93,8 +109,7 @@ public final class ObjectArrayPool extends Object
         }
 
         /**
-            Returns the number of items this pool has created since
-            it's construction.
+         * Returns the number of items this pool has created since it's construction.
          */
         public int getCreatedCount()
         {
@@ -102,8 +117,7 @@ public final class ObjectArrayPool extends Object
         }
 
         /**
-            Returns the number of items this pool has recovered from
-            the pool since its construction.
+         * Returns the number of items this pool has recovered from the pool since its construction.
          */
         public int getRecoveredCount()
         {
@@ -111,8 +125,7 @@ public final class ObjectArrayPool extends Object
         }
 
         /**
-            Returns the number of items this pool has recycled since
-            it's construction.
+         * Returns the number of items this pool has recycled since it's construction.
          */
         public int getRecycledCount()
         {
@@ -130,41 +143,42 @@ public final class ObjectArrayPool extends Object
         return pools;
     }
 
-    public synchronized SizePool getSizePool(int arraySize)
+    public synchronized SizePool getSizePool( int arraySize )
     {
-        SizePool     result = (SizePool)pools.get(arraySize);
+        SizePool result = (SizePool) pools.get( arraySize );
 
-        if (result == null) {
-            pools.put(arraySize, result = new SizePool(arraySize));
+        if ( result == null )
+        {
+            pools.put( arraySize, result = new SizePool( arraySize ) );
         }
         return result;
     }
 
-    public synchronized Object[] create(int arraySize)
+    public synchronized Object[] create( int arraySize )
     {
-        return getSizePool(arraySize).create();
+        return getSizePool( arraySize ).create();
     }
 
-    public synchronized Object[] create(Object singleton)
+    public synchronized Object[] create( Object singleton )
     {
-        Object[]        result = create(1);
+        Object[] result = create( 1 );
 
         result[0] = singleton;
         return result;
     }
 
-    public synchronized Object[] create(Object object1, Object object2)
+    public synchronized Object[] create( Object object1, Object object2 )
     {
-        Object[]        result = create(2);
+        Object[] result = create( 2 );
 
         result[0] = object1;
         result[1] = object2;
         return result;
     }
 
-    public synchronized Object[] create(Object object1, Object object2, Object object3)
+    public synchronized Object[] create( Object object1, Object object2, Object object3 )
     {
-        Object[]        result = create(3);
+        Object[] result = create( 3 );
 
         result[0] = object1;
         result[1] = object2;
@@ -172,9 +186,9 @@ public final class ObjectArrayPool extends Object
         return result;
     }
 
-    public synchronized Object[] create(Object object1, Object object2, Object object3, Object object4)
+    public synchronized Object[] create( Object object1, Object object2, Object object3, Object object4 )
     {
-        Object[]        result = create(4);
+        Object[] result = create( 4 );
 
         result[0] = object1;
         result[1] = object2;
@@ -183,9 +197,9 @@ public final class ObjectArrayPool extends Object
         return result;
     }
 
-    public synchronized Object[] create(Object object1, Object object2, Object object3, Object object4, Object object5)
+    public synchronized Object[] create( Object object1, Object object2, Object object3, Object object4, Object object5 )
     {
-        Object[]        result = create(5);
+        Object[] result = create( 5 );
 
         result[0] = object1;
         result[1] = object2;
@@ -195,10 +209,11 @@ public final class ObjectArrayPool extends Object
         return result;
     }
 
-    public synchronized void recycle(Object[] value)
+    public synchronized void recycle( Object[] value )
     {
-        if (value != null) {
-            getSizePool(value.length).recycle(value);
+        if ( value != null )
+        {
+            getSizePool( value.length ).recycle( value );
         }
     }
 }

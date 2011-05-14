@@ -22,7 +22,9 @@ package org.apache.commons.ognl.test.objects;
 /**
  *
  */
-public class GameGenericObject implements GenericObject {
+public class GameGenericObject
+    implements GenericObject
+{
 
     public GameGenericObject()
     {

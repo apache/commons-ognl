@@ -25,54 +25,56 @@ import org.apache.commons.ognl.enhance.ExpressionCompiler;
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-public class ASTRootVarRef extends ASTVarRef
+public class ASTRootVarRef
+    extends ASTVarRef
 {
-    public ASTRootVarRef(int id)
+    public ASTRootVarRef( int id )
     {
-        super(id);
+        super( id );
     }
 
-    public ASTRootVarRef(OgnlParser p, int id)
+    public ASTRootVarRef( OgnlParser p, int id )
     {
-        super(p, id);
+        super( p, id );
     }
 
-    protected Object getValueBody(OgnlContext context, Object source)
+    protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
         return context.getRoot();
     }
 
-    protected void setValueBody(OgnlContext context, Object target, Object value)
+    protected void setValueBody( OgnlContext context, Object target, Object value )
         throws OgnlException
     {
-        context.setRoot(value);
+        context.setRoot( value );
     }
 
     public String toString()
     {
         return "#root";
     }
-    
-    public String toGetSourceString(OgnlContext context, Object target)
+
+    public String toGetSourceString( OgnlContext context, Object target )
     {
-        if (target != null)
+        if ( target != null )
             _getterClass = target.getClass();
-        
-        if (_getterClass != null) {
-            
-            context.setCurrentType(_getterClass);
+
+        if ( _getterClass != null )
+        {
+
+            context.setCurrentType( _getterClass );
         }
 
-        if (_parent == null || (_getterClass != null && _getterClass.isArray()))
+        if ( _parent == null || ( _getterClass != null && _getterClass.isArray() ) )
             return "";
         else
-            return ExpressionCompiler.getRootExpression(this, target, context);
+            return ExpressionCompiler.getRootExpression( this, target, context );
     }
-    
-    public String toSetSourceString(OgnlContext context, Object target)
+
+    public String toSetSourceString( OgnlContext context, Object target )
     {
-        if (_parent == null || (_getterClass != null && _getterClass.isArray()))
+        if ( _parent == null || ( _getterClass != null && _getterClass.isArray() ) )
             return "";
         else
             return "$3";

@@ -22,7 +22,8 @@ package org.apache.commons.ognl.test.objects;
 /**
  *
  */
-public class TestModel {
+public class TestModel
+{
 
     public Copy getCopy()
     {

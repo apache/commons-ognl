@@ -21,43 +21,49 @@ package org.apache.commons.ognl.test;
 
 import junit.framework.TestSuite;
 
-public class OperatorTest extends OgnlTestCase {
-    private static Object[][] TESTS = {
-            {null, "\"one\" > \"two\"", Boolean.FALSE},
-            {null, "\"one\" >= \"two\"", Boolean.FALSE},
-            {null, "\"one\" < \"two\"", Boolean.TRUE},
-            {null, "\"one\" <= \"two\"", Boolean.TRUE},
-            {null, "\"one\" == \"two\"", Boolean.FALSE},
-            {null, "\"o\" > \"o\"", Boolean.FALSE},
-            {null, "\"o\" gt \"o\"", Boolean.FALSE},
-            {null, "\"o\" >= \"o\"", Boolean.TRUE},
-            {null, "\"o\" gte \"o\"", Boolean.TRUE},
-            {null, "\"o\" < \"o\"", Boolean.FALSE},
-            {null, "\"o\" lt \"o\"", Boolean.FALSE},
-            {null, "\"o\" <= \"o\"", Boolean.TRUE},
-            {null, "\"o\" lte \"o\"", Boolean.TRUE},
-            {null, "\"o\" == \"o\"", Boolean.TRUE},
-            {null, "\"o\" eq \"o\"", Boolean.TRUE},
-    };
+public class OperatorTest
+    extends OgnlTestCase
+{
+    private static Object[][] TESTS = { { null, "\"one\" > \"two\"", Boolean.FALSE },
+        { null, "\"one\" >= \"two\"", Boolean.FALSE }, { null, "\"one\" < \"two\"", Boolean.TRUE },
+        { null, "\"one\" <= \"two\"", Boolean.TRUE }, { null, "\"one\" == \"two\"", Boolean.FALSE },
+        { null, "\"o\" > \"o\"", Boolean.FALSE }, { null, "\"o\" gt \"o\"", Boolean.FALSE },
+        { null, "\"o\" >= \"o\"", Boolean.TRUE }, { null, "\"o\" gte \"o\"", Boolean.TRUE },
+        { null, "\"o\" < \"o\"", Boolean.FALSE }, { null, "\"o\" lt \"o\"", Boolean.FALSE },
+        { null, "\"o\" <= \"o\"", Boolean.TRUE }, { null, "\"o\" lte \"o\"", Boolean.TRUE },
+        { null, "\"o\" == \"o\"", Boolean.TRUE }, { null, "\"o\" eq \"o\"", Boolean.TRUE }, };
 
-    /*===================================================================
-        Public static methods
-      ===================================================================*/
+    /*
+     * =================================================================== Public static methods
+     * ===================================================================
+     */
     public static TestSuite suite()
     {
         TestSuite result = new TestSuite();
 
-        for (int i = 0; i < TESTS.length; i++) {
-            if (TESTS[i].length == 3) {
-                result.addTest(new OperatorTest((String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1], TESTS[i][2]));
-            } else {
-                if (TESTS[i].length == 4) {
-                    result.addTest(new OperatorTest((String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1], TESTS[i][2], TESTS[i][3]));
-                } else {
-                    if (TESTS[i].length == 5) {
-                        result.addTest(new OperatorTest((String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1], TESTS[i][2], TESTS[i][3], TESTS[i][4]));
-                    } else {
-                        throw new RuntimeException("don't understand TEST format");
+        for ( int i = 0; i < TESTS.length; i++ )
+        {
+            if ( TESTS[i].length == 3 )
+            {
+                result.addTest( new OperatorTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1], TESTS[i][2] ) );
+            }
+            else
+            {
+                if ( TESTS[i].length == 4 )
+                {
+                    result.addTest( new OperatorTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
+                                                      TESTS[i][2], TESTS[i][3] ) );
+                }
+                else
+                {
+                    if ( TESTS[i].length == 5 )
+                    {
+                        result.addTest( new OperatorTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
+                                                          TESTS[i][2], TESTS[i][3], TESTS[i][4] ) );
+                    }
+                    else
+                    {
+                        throw new RuntimeException( "don't understand TEST format" );
                     }
                 }
             }
@@ -65,31 +71,33 @@ public class OperatorTest extends OgnlTestCase {
         return result;
     }
 
-    /*===================================================================
-        Constructors
-      ===================================================================*/
+    /*
+     * =================================================================== Constructors
+     * ===================================================================
+     */
     public OperatorTest()
     {
         super();
     }
 
-    public OperatorTest(String name)
+    public OperatorTest( String name )
     {
-        super(name);
+        super( name );
     }
 
-    public OperatorTest(String name, Object root, String expressionString, Object expectedResult, Object setValue, Object expectedAfterSetResult)
+    public OperatorTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,
+                         Object expectedAfterSetResult )
     {
-        super(name, root, expressionString, expectedResult, setValue, expectedAfterSetResult);
+        super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
     }
 
-    public OperatorTest(String name, Object root, String expressionString, Object expectedResult, Object setValue)
+    public OperatorTest( String name, Object root, String expressionString, Object expectedResult, Object setValue )
     {
-        super(name, root, expressionString, expectedResult, setValue);
+        super( name, root, expressionString, expectedResult, setValue );
     }
 
-    public OperatorTest(String name, Object root, String expressionString, Object expectedResult)
+    public OperatorTest( String name, Object root, String expressionString, Object expectedResult )
     {
-        super(name, root, expressionString, expectedResult);
+        super( name, root, expressionString, expectedResult );
     }
 }

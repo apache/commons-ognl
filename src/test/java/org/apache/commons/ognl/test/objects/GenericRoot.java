@@ -22,9 +22,11 @@ package org.apache.commons.ognl.test.objects;
 /**
  *
  */
-public class GenericRoot {
+public class GenericRoot
+{
 
     Root _root = new Root();
+
     GenericCracker _cracker = new GenericCracker();
 
     public Root getRoot()
@@ -32,7 +34,7 @@ public class GenericRoot {
         return _root;
     }
 
-    public void setRoot(Root root)
+    public void setRoot( Root root )
     {
         _root = root;
     }
@@ -42,7 +44,7 @@ public class GenericRoot {
         return _cracker;
     }
 
-    public void setCracker(GenericCracker cracker)
+    public void setCracker( GenericCracker cracker )
     {
         _cracker = cracker;
     }

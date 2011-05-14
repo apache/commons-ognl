@@ -23,19 +23,23 @@ package org.apache.commons.ognl;
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-class ASTNegate extends NumericExpression
+class ASTNegate
+    extends NumericExpression
 {
-    public ASTNegate(int id) {
-        super(id);
-    }
-
-    public ASTNegate(OgnlParser p, int id) {
-        super(p, id);
-    }
-
-    protected Object getValueBody( OgnlContext context, Object source ) throws OgnlException
+    public ASTNegate( int id )
     {
-        return OgnlOps.negate( _children[0].getValue(context, source) );
+        super( id );
+    }
+
+    public ASTNegate( OgnlParser p, int id )
+    {
+        super( p, id );
+    }
+
+    protected Object getValueBody( OgnlContext context, Object source )
+        throws OgnlException
+    {
+        return OgnlOps.negate( _children[0].getValue( context, source ) );
     }
 
     public String toString()
@@ -43,14 +47,15 @@ class ASTNegate extends NumericExpression
         return "-" + _children[0];
     }
 
-    public String toGetSourceString(OgnlContext context, Object target)
+    public String toGetSourceString( OgnlContext context, Object target )
     {
-        String source = _children[0].toGetSourceString(context, target);
+        String source = _children[0].toGetSourceString( context, target );
 
-        if (!ASTNegate.class.isInstance(_children[0]))
+        if ( !ASTNegate.class.isInstance( _children[0] ) )
         {
             return "-" + source;
-        } else
+        }
+        else
         {
             return "-(" + source + ")";
         }

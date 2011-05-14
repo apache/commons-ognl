@@ -21,28 +21,33 @@ package org.apache.commons.ognl.enhance;
 
 import org.apache.commons.ognl.OgnlContext;
 
-public class ContextClassLoader extends ClassLoader
+public class ContextClassLoader
+    extends ClassLoader
 {
-    private OgnlContext         context;
+    private OgnlContext context;
 
-    /*===================================================================
-        Constructors
-      ===================================================================*/
-    public ContextClassLoader(ClassLoader parentClassLoader, OgnlContext context)
+    /*
+     * =================================================================== Constructors
+     * ===================================================================
+     */
+    public ContextClassLoader( ClassLoader parentClassLoader, OgnlContext context )
     {
-        super(parentClassLoader);
+        super( parentClassLoader );
         this.context = context;
     }
 
-    /*===================================================================
-        Overridden methods
-      ===================================================================*/
-    protected Class findClass(String name) throws ClassNotFoundException
+    /*
+     * =================================================================== Overridden methods
+     * ===================================================================
+     */
+    protected Class findClass( String name )
+        throws ClassNotFoundException
     {
-        if ((context != null) && (context.getClassResolver() != null)) {
-            return context.getClassResolver().classForName(name, context);
+        if ( ( context != null ) && ( context.getClassResolver() != null ) )
+        {
+            return context.getClassResolver().classForName( name, context );
         }
-        return super.findClass(name);
+        return super.findClass( name );
     }
 
 }

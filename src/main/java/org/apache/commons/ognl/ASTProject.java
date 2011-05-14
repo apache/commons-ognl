@@ -29,32 +29,34 @@ import java.util.List;
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-class ASTProject extends SimpleNode
+class ASTProject
+    extends SimpleNode
 {
 
-    public ASTProject(int id)
+    public ASTProject( int id )
     {
-        super(id);
+        super( id );
     }
 
-    public ASTProject(OgnlParser p, int id)
+    public ASTProject( OgnlParser p, int id )
     {
-        super(p, id);
+        super( p, id );
     }
-    
-    protected Object getValueBody(OgnlContext context, Object source)
+
+    protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
         Node expr = _children[0];
         List answer = new ArrayList();
-        
-        ElementsAccessor elementsAccessor = OgnlRuntime.getElementsAccessor(OgnlRuntime.getTargetClass(source));
-        
-        for(Enumeration e = elementsAccessor.getElements(source); e.hasMoreElements();) {
-            
-            answer.add(expr.getValue(context, e.nextElement()));
+
+        ElementsAccessor elementsAccessor = OgnlRuntime.getElementsAccessor( OgnlRuntime.getTargetClass( source ) );
+
+        for ( Enumeration e = elementsAccessor.getElements( source ); e.hasMoreElements(); )
+        {
+
+            answer.add( expr.getValue( context, e.nextElement() ) );
         }
-        
+
         return answer;
     }
 
@@ -62,14 +64,14 @@ class ASTProject extends SimpleNode
     {
         return "{ " + _children[0] + " }";
     }
-    
-    public String toGetSourceString(OgnlContext context, Object target)
+
+    public String toGetSourceString( OgnlContext context, Object target )
     {
-        throw new UnsupportedCompilationException("Projection expressions not supported as native java yet.");
+        throw new UnsupportedCompilationException( "Projection expressions not supported as native java yet." );
     }
 
-    public String toSetSourceString(OgnlContext context, Object target)
+    public String toSetSourceString( OgnlContext context, Object target )
     {
-        throw new UnsupportedCompilationException("Projection expressions not supported as native java yet.");
+        throw new UnsupportedCompilationException( "Projection expressions not supported as native java yet." );
     }
 }

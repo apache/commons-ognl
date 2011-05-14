@@ -25,40 +25,49 @@ import java.util.List;
 /**
  *
  */
-public class MenuItem {
+public class MenuItem
+{
 
     private String page;
-	private String label;
-	private List<MenuItem> children = new ArrayList<MenuItem>();
 
-	public MenuItem(String page, String label){
-		this(page, label, new ArrayList<MenuItem>());
-	}
+    private String label;
 
-	public MenuItem(String page, String label, List<MenuItem> children){
-		this.page = page;
-		this.label = label;
-		this.children = children;
-	}
+    private List<MenuItem> children = new ArrayList<MenuItem>();
 
-	public List<MenuItem> getChildren() {
-		return children;
-	}
+    public MenuItem( String page, String label )
+    {
+        this( page, label, new ArrayList<MenuItem>() );
+    }
 
-	public String getLabel() {
-		return label;
-	}
+    public MenuItem( String page, String label, List<MenuItem> children )
+    {
+        this.page = page;
+        this.label = label;
+        this.children = children;
+    }
 
-	public String getPage() {
-		return page;
-	}
-	
-	public String toString(){
-		StringBuffer sb = new StringBuffer("MenuItem[");
-		sb.append("page="+getPage());
-		sb.append(",label="+getLabel());
-		sb.append(",children="+getChildren().size());
-		sb.append("]");
-		return sb.toString();
-	}
+    public List<MenuItem> getChildren()
+    {
+        return children;
+    }
+
+    public String getLabel()
+    {
+        return label;
+    }
+
+    public String getPage()
+    {
+        return page;
+    }
+
+    public String toString()
+    {
+        StringBuffer sb = new StringBuffer( "MenuItem[" );
+        sb.append( "page=" + getPage() );
+        sb.append( ",label=" + getLabel() );
+        sb.append( ",children=" + getChildren().size() );
+        sb.append( "]" );
+        return sb.toString();
+    }
 }

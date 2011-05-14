@@ -19,9 +19,10 @@
  */
 package org.apache.commons.ognl.test.objects;
 
-public class Bean1 extends Object
+public class Bean1
+    extends Object
 {
-    private Bean2       bean2 = new Bean2();
+    private Bean2 bean2 = new Bean2();
 
     public Bean2 getBean2()
     {

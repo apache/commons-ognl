@@ -22,7 +22,9 @@ package org.apache.commons.ognl.test.objects;
 /**
  *
  */
-public class GenericCracker implements Cracker<Integer> {
+public class GenericCracker
+    implements Cracker<Integer>
+{
 
     Integer _param;
 
@@ -31,7 +33,7 @@ public class GenericCracker implements Cracker<Integer> {
         return _param;
     }
 
-    public void setParam(Integer param)
+    public void setParam( Integer param )
     {
         _param = param;
     }

@@ -24,30 +24,29 @@ import org.apache.commons.ognl.test.objects.Root;
 
 import java.util.Arrays;
 
-public class CollectionDirectPropertyTest extends OgnlTestCase {
+public class CollectionDirectPropertyTest
+    extends OgnlTestCase
+{
 
     private static Root ROOT = new Root();
 
     private static Object[][] TESTS = {
-            // Collection direct properties
-            {Arrays.asList(new String[]{"hello", "world"}), "size", new Integer(2)},
-            {Arrays.asList(new String[]{"hello", "world"}), "isEmpty", Boolean.FALSE},
-            {Arrays.asList(new String[]{}), "isEmpty", Boolean.TRUE},
-            {Arrays.asList(new String[]{"hello", "world"}), "iterator.next", "hello"},
-            {Arrays.asList(new String[]{"hello", "world"}), "iterator.hasNext", Boolean.TRUE},
-            {Arrays.asList(new String[]{"hello", "world"}), "#it = iterator, #it.next, #it.next, #it.hasNext",
-                    Boolean.FALSE},
-            {Arrays.asList(new String[]{"hello", "world"}), "#it = iterator, #it.next, #it.next", "world"},
-            {Arrays.asList(new String[]{"hello", "world"}), "size", new Integer(2)},
-            {ROOT, "map[\"test\"]", ROOT},
-            {ROOT, "map.size", new Integer(ROOT.getMap().size())},
-            {ROOT, "map.keySet", ROOT.getMap().keySet()},
-            {ROOT, "map.values", ROOT.getMap().values()},
-            {ROOT, "map.keys.size", new Integer(ROOT.getMap().keySet().size())},
-            {ROOT, "map[\"size\"]", ROOT.getMap().get("size")},
-            {ROOT, "map.isEmpty", ROOT.getMap().isEmpty() ? Boolean.TRUE : Boolean.FALSE},
-            {ROOT, "map[\"isEmpty\"]", null},
-    };
+        // Collection direct properties
+        { Arrays.asList( new String[] { "hello", "world" } ), "size", new Integer( 2 ) },
+        { Arrays.asList( new String[] { "hello", "world" } ), "isEmpty", Boolean.FALSE },
+        { Arrays.asList( new String[] {} ), "isEmpty", Boolean.TRUE },
+        { Arrays.asList( new String[] { "hello", "world" } ), "iterator.next", "hello" },
+        { Arrays.asList( new String[] { "hello", "world" } ), "iterator.hasNext", Boolean.TRUE },
+        { Arrays.asList( new String[] { "hello", "world" } ), "#it = iterator, #it.next, #it.next, #it.hasNext",
+            Boolean.FALSE },
+        { Arrays.asList( new String[] { "hello", "world" } ), "#it = iterator, #it.next, #it.next", "world" },
+        { Arrays.asList( new String[] { "hello", "world" } ), "size", new Integer( 2 ) },
+        { ROOT, "map[\"test\"]", ROOT }, { ROOT, "map.size", new Integer( ROOT.getMap().size() ) },
+        { ROOT, "map.keySet", ROOT.getMap().keySet() }, { ROOT, "map.values", ROOT.getMap().values() },
+        { ROOT, "map.keys.size", new Integer( ROOT.getMap().keySet().size() ) },
+        { ROOT, "map[\"size\"]", ROOT.getMap().get( "size" ) },
+        { ROOT, "map.isEmpty", ROOT.getMap().isEmpty() ? Boolean.TRUE : Boolean.FALSE },
+        { ROOT, "map[\"isEmpty\"]", null }, };
 
     /*
      * =================================================================== Public static methods
@@ -57,20 +56,31 @@ public class CollectionDirectPropertyTest extends OgnlTestCase {
     {
         TestSuite result = new TestSuite();
 
-        for (int i = 0; i < TESTS.length; i++) {
-            if (TESTS[i].length == 3) {
-                result.addTest(new CollectionDirectPropertyTest((String) TESTS[i][1], TESTS[i][0],
-                        (String) TESTS[i][1], TESTS[i][2]));
-            } else {
-                if (TESTS[i].length == 4) {
-                    result.addTest(new CollectionDirectPropertyTest((String) TESTS[i][1], TESTS[i][0],
-                            (String) TESTS[i][1], TESTS[i][2], TESTS[i][3]));
-                } else {
-                    if (TESTS[i].length == 5) {
-                        result.addTest(new CollectionDirectPropertyTest((String) TESTS[i][1], TESTS[i][0],
-                                (String) TESTS[i][1], TESTS[i][2], TESTS[i][3], TESTS[i][4]));
-                    } else {
-                        throw new RuntimeException("don't understand TEST format");
+        for ( int i = 0; i < TESTS.length; i++ )
+        {
+            if ( TESTS[i].length == 3 )
+            {
+                result.addTest( new CollectionDirectPropertyTest( (String) TESTS[i][1], TESTS[i][0],
+                                                                  (String) TESTS[i][1], TESTS[i][2] ) );
+            }
+            else
+            {
+                if ( TESTS[i].length == 4 )
+                {
+                    result.addTest( new CollectionDirectPropertyTest( (String) TESTS[i][1], TESTS[i][0],
+                                                                      (String) TESTS[i][1], TESTS[i][2], TESTS[i][3] ) );
+                }
+                else
+                {
+                    if ( TESTS[i].length == 5 )
+                    {
+                        result.addTest( new CollectionDirectPropertyTest( (String) TESTS[i][1], TESTS[i][0],
+                                                                          (String) TESTS[i][1], TESTS[i][2],
+                                                                          TESTS[i][3], TESTS[i][4] ) );
+                    }
+                    else
+                    {
+                        throw new RuntimeException( "don't understand TEST format" );
                     }
                 }
             }
@@ -87,25 +97,25 @@ public class CollectionDirectPropertyTest extends OgnlTestCase {
         super();
     }
 
-    public CollectionDirectPropertyTest(String name)
+    public CollectionDirectPropertyTest( String name )
     {
-        super(name);
+        super( name );
     }
 
-    public CollectionDirectPropertyTest(String name, Object root, String expressionString, Object expectedResult,
-                                        Object setValue, Object expectedAfterSetResult)
+    public CollectionDirectPropertyTest( String name, Object root, String expressionString, Object expectedResult,
+                                         Object setValue, Object expectedAfterSetResult )
     {
-        super(name, root, expressionString, expectedResult, setValue, expectedAfterSetResult);
+        super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
     }
 
-    public CollectionDirectPropertyTest(String name, Object root, String expressionString, Object expectedResult,
-                                        Object setValue)
+    public CollectionDirectPropertyTest( String name, Object root, String expressionString, Object expectedResult,
+                                         Object setValue )
     {
-        super(name, root, expressionString, expectedResult, setValue);
+        super( name, root, expressionString, expectedResult, setValue );
     }
 
-    public CollectionDirectPropertyTest(String name, Object root, String expressionString, Object expectedResult)
+    public CollectionDirectPropertyTest( String name, Object root, String expressionString, Object expectedResult )
     {
-        super(name, root, expressionString, expectedResult);
+        super( name, root, expressionString, expectedResult );
     }
 }

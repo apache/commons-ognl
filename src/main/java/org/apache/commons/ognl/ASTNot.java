@@ -23,42 +23,48 @@ package org.apache.commons.ognl;
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-class ASTNot extends BooleanExpression
+class ASTNot
+    extends BooleanExpression
 {
-    public ASTNot(int id) {
-        super(id);
-    }
-
-    public ASTNot(OgnlParser p, int id) {
-        super(p, id);
-    }
-
-    protected Object getValueBody( OgnlContext context, Object source ) throws OgnlException
+    public ASTNot( int id )
     {
-        return OgnlOps.booleanValue( _children[0].getValue(context, source) ) ? Boolean.FALSE : Boolean.TRUE;
+        super( id );
     }
 
-    public String getExpressionOperator(int index)
+    public ASTNot( OgnlParser p, int id )
+    {
+        super( p, id );
+    }
+
+    protected Object getValueBody( OgnlContext context, Object source )
+        throws OgnlException
+    {
+        return OgnlOps.booleanValue( _children[0].getValue( context, source ) ) ? Boolean.FALSE : Boolean.TRUE;
+    }
+
+    public String getExpressionOperator( int index )
     {
         return "!";
     }
-    
-    public String toGetSourceString(OgnlContext context, Object target)
+
+    public String toGetSourceString( OgnlContext context, Object target )
     {
-        try {
-            
-            String srcString = super.toGetSourceString(context, target);
-            
-            if (srcString == null || srcString.trim().length() < 1)
+        try
+        {
+
+            String srcString = super.toGetSourceString( context, target );
+
+            if ( srcString == null || srcString.trim().length() < 1 )
                 srcString = "null";
-            
-            context.setCurrentType(Boolean.TYPE);
+
+            context.setCurrentType( Boolean.TYPE );
 
             return "(! org.apache.commons.ognl.OgnlOps.booleanValue(" + srcString + ") )";
-            
-        } catch (Throwable t)
+
+        }
+        catch ( Throwable t )
         {
-            throw OgnlOps.castToRuntime(t);
+            throw OgnlOps.castToRuntime( t );
         }
     }
 }

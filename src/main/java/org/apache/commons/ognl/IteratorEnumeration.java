@@ -23,24 +23,29 @@ import java.util.*;
 
 /**
  * Maps an Iterator to an Enumeration
+ * 
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-public class IteratorEnumeration extends Object implements Enumeration
+public class IteratorEnumeration
+    extends Object
+    implements Enumeration
 {
-	private Iterator			it;
+    private Iterator it;
 
-	public IteratorEnumeration(Iterator it)
-	{
-		super();
-		this.it = it;
-	}
+    public IteratorEnumeration( Iterator it )
+    {
+        super();
+        this.it = it;
+    }
 
-    public boolean hasMoreElements() {
+    public boolean hasMoreElements()
+    {
         return it.hasNext();
     }
 
-    public Object nextElement() {
+    public Object nextElement()
+    {
         return it.next();
     }
 }

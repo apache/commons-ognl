@@ -23,66 +23,74 @@ package org.apache.commons.ognl;
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-public class ASTInstanceof extends SimpleNode implements NodeType
+public class ASTInstanceof
+    extends SimpleNode
+    implements NodeType
 {
     private String targetType;
 
-    public ASTInstanceof(int id) {
-        super(id);
+    public ASTInstanceof( int id )
+    {
+        super( id );
     }
 
-    public ASTInstanceof(OgnlParser p, int id) {
-        super(p, id);
+    public ASTInstanceof( OgnlParser p, int id )
+    {
+        super( p, id );
     }
 
-    void setTargetType( String targetType ) {
+    void setTargetType( String targetType )
+    {
         this.targetType = targetType;
     }
 
-    protected Object getValueBody( OgnlContext context, Object source ) throws OgnlException
+    protected Object getValueBody( OgnlContext context, Object source )
+        throws OgnlException
     {
         Object value = _children[0].getValue( context, source );
-        return OgnlRuntime.isInstance(context, value, targetType) ? Boolean.TRUE : Boolean.FALSE;
+        return OgnlRuntime.isInstance( context, value, targetType ) ? Boolean.TRUE : Boolean.FALSE;
     }
 
     public String toString()
     {
         return _children[0] + " instanceof " + targetType;
     }
-    
+
     public Class getGetterClass()
     {
         return boolean.class;
     }
-    
+
     public Class getSetterClass()
     {
         return null;
     }
-    
-    public String toGetSourceString(OgnlContext context, Object target)
+
+    public String toGetSourceString( OgnlContext context, Object target )
     {
-        try {
+        try
+        {
 
             String ret = "";
 
-            if (ASTConst.class.isInstance(_children[0]))
-                ret = ((Boolean)getValueBody(context, target)).toString();
+            if ( ASTConst.class.isInstance( _children[0] ) )
+                ret = ( (Boolean) getValueBody( context, target ) ).toString();
             else
-                ret = _children[0].toGetSourceString(context, target) + " instanceof " + targetType;
-            
-            context.setCurrentType(Boolean.TYPE);
+                ret = _children[0].toGetSourceString( context, target ) + " instanceof " + targetType;
+
+            context.setCurrentType( Boolean.TYPE );
 
             return ret;
 
-        } catch (Throwable t)
+        }
+        catch ( Throwable t )
         {
-            throw OgnlOps.castToRuntime(t);
+            throw OgnlOps.castToRuntime( t );
         }
     }
-    
-    public String toSetSourceString(OgnlContext context, Object target)
+
+    public String toSetSourceString( OgnlContext context, Object target )
     {
-        return toGetSourceString(context, target);
+        return toGetSourceString( context, target );
     }
 }

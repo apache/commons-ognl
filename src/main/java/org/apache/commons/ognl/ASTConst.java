@@ -28,25 +28,27 @@ import java.math.BigInteger;
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-public class ASTConst extends SimpleNode implements NodeType
+public class ASTConst
+    extends SimpleNode
+    implements NodeType
 {
 
     private Object value;
 
     private Class _getterClass;
 
-    public ASTConst(int id)
+    public ASTConst( int id )
     {
-        super(id);
+        super( id );
     }
 
-    public ASTConst(OgnlParser p, int id)
+    public ASTConst( OgnlParser p, int id )
     {
-        super(p, id);
+        super( p, id );
     }
 
     /** Called from parser actions. */
-    public void setValue(Object value)
+    public void setValue( Object value )
     {
         this.value = value;
     }
@@ -56,21 +58,21 @@ public class ASTConst extends SimpleNode implements NodeType
         return value;
     }
 
-    protected Object getValueBody(OgnlContext context, Object source)
-            throws OgnlException
+    protected Object getValueBody( OgnlContext context, Object source )
+        throws OgnlException
     {
         return this.value;
     }
 
-    public boolean isNodeConstant(OgnlContext context)
-            throws OgnlException
+    public boolean isNodeConstant( OgnlContext context )
+        throws OgnlException
     {
         return true;
     }
 
     public Class getGetterClass()
     {
-        if (_getterClass == null)
+        if ( _getterClass == null )
             return null;
 
         return _getterClass;
@@ -85,38 +87,45 @@ public class ASTConst extends SimpleNode implements NodeType
     {
         String result;
 
-        if (value == null)
+        if ( value == null )
         {
             result = "null";
-        } else
+        }
+        else
         {
-            if (value instanceof String)
+            if ( value instanceof String )
             {
-                result = '\"' + OgnlOps.getEscapeString(value.toString()) + '\"';
-            } else {
-                if (value instanceof Character)
+                result = '\"' + OgnlOps.getEscapeString( value.toString() ) + '\"';
+            }
+            else
+            {
+                if ( value instanceof Character )
                 {
-                    result = '\'' + OgnlOps.getEscapedChar(((Character) value).charValue()) + '\'';
-                } else
+                    result = '\'' + OgnlOps.getEscapedChar( ( (Character) value ).charValue() ) + '\'';
+                }
+                else
                 {
                     result = value.toString();
 
-                    if (value instanceof Long)
+                    if ( value instanceof Long )
                     {
                         result = result + "L";
-                    } else
+                    }
+                    else
                     {
-                        if (value instanceof BigDecimal)
+                        if ( value instanceof BigDecimal )
                         {
                             result = result + "B";
-                        } else
+                        }
+                        else
                         {
-                            if (value instanceof BigInteger)
+                            if ( value instanceof BigInteger )
                             {
                                 result = result + "H";
-                            } else
+                            }
+                            else
                             {
-                                if (value instanceof Node)
+                                if ( value instanceof Node )
                                 {
                                     result = ":[ " + result + " ]";
                                 }
@@ -129,64 +138,67 @@ public class ASTConst extends SimpleNode implements NodeType
         return result;
     }
 
-    public String toGetSourceString(OgnlContext context, Object target)
+    public String toGetSourceString( OgnlContext context, Object target )
     {
-        if (value == null && _parent != null && ExpressionNode.class.isInstance(_parent))
+        if ( value == null && _parent != null && ExpressionNode.class.isInstance( _parent ) )
         {
-            context.setCurrentType(null);
+            context.setCurrentType( null );
             return "null";
-        } else if (value == null)
+        }
+        else if ( value == null )
         {
-            context.setCurrentType(null);
+            context.setCurrentType( null );
             return "";
         }
 
         _getterClass = value.getClass();
 
         Object retval = value;
-        if (_parent != null && ASTProperty.class.isInstance(_parent))
+        if ( _parent != null && ASTProperty.class.isInstance( _parent ) )
         {
-            context.setCurrentObject(value);
+            context.setCurrentObject( value );
 
             return value.toString();
-        } else if (value != null && Number.class.isAssignableFrom(value.getClass()))
+        }
+        else if ( value != null && Number.class.isAssignableFrom( value.getClass() ) )
         {
-            context.setCurrentType(OgnlRuntime.getPrimitiveWrapperClass(value.getClass()));
-            context.setCurrentObject(value);
+            context.setCurrentType( OgnlRuntime.getPrimitiveWrapperClass( value.getClass() ) );
+            context.setCurrentObject( value );
 
             return value.toString();
-        } else if (!(_parent != null && value != null
-                     && NumericExpression.class.isAssignableFrom(_parent.getClass()))
-                   && String.class.isAssignableFrom(value.getClass()))
+        }
+        else if ( !( _parent != null && value != null && NumericExpression.class.isAssignableFrom( _parent.getClass() ) )
+            && String.class.isAssignableFrom( value.getClass() ) )
         {
-            context.setCurrentType(String.class);
+            context.setCurrentType( String.class );
 
-            retval = '\"' + OgnlOps.getEscapeString(value.toString()) + '\"';
+            retval = '\"' + OgnlOps.getEscapeString( value.toString() ) + '\"';
 
-            context.setCurrentObject(retval.toString());
+            context.setCurrentObject( retval.toString() );
 
             return retval.toString();
-        } else if (Character.class.isInstance(value))
+        }
+        else if ( Character.class.isInstance( value ) )
         {
-            Character val = (Character)value;
+            Character val = (Character) value;
 
-            context.setCurrentType(Character.class);
+            context.setCurrentType( Character.class );
 
-            if (Character.isLetterOrDigit(val.charValue()))
-                retval = "'" + ((Character) value).charValue() + "'";
+            if ( Character.isLetterOrDigit( val.charValue() ) )
+                retval = "'" + ( (Character) value ).charValue() + "'";
             else
-                retval = "'" + OgnlOps.getEscapedChar(((Character) value).charValue()) + "'";
+                retval = "'" + OgnlOps.getEscapedChar( ( (Character) value ).charValue() ) + "'";
 
-            context.setCurrentObject(retval);
+            context.setCurrentObject( retval );
             return retval.toString();
         }
 
-        if (Boolean.class.isAssignableFrom(value.getClass()))
+        if ( Boolean.class.isAssignableFrom( value.getClass() ) )
         {
             _getterClass = Boolean.TYPE;
 
-            context.setCurrentType(Boolean.TYPE);
-            context.setCurrentObject(value);
+            context.setCurrentType( Boolean.TYPE );
+            context.setCurrentObject( value );
 
             return value.toString();
         }
@@ -194,11 +206,11 @@ public class ASTConst extends SimpleNode implements NodeType
         return value.toString();
     }
 
-    public String toSetSourceString(OgnlContext context, Object target)
+    public String toSetSourceString( OgnlContext context, Object target )
     {
-        if (_parent == null)
-            throw new UnsupportedCompilationException("Can't modify constant values.");
-        
-        return toGetSourceString(context, target);
+        if ( _parent == null )
+            throw new UnsupportedCompilationException( "Can't modify constant values." );
+
+        return toGetSourceString( context, target );
     }
 }

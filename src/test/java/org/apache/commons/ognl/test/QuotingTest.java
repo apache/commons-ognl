@@ -21,36 +21,46 @@ package org.apache.commons.ognl.test;
 
 import junit.framework.TestSuite;
 
-public class QuotingTest extends OgnlTestCase
+public class QuotingTest
+    extends OgnlTestCase
 {
     private static Object[][] TESTS = {
-            // Quoting
-            { null, "`c`", new Character('c') },
-            { null, "'s'", new Character('s') },
-            { null, "'string'", "string" },
-            { null, "\"string\"", "string" },
-            { null, "'' + 'bar'", "bar"},
-            { null, "'yyyy\u539Add\u5EA6'", "yyyy\u539Add\u5EA6"}
-    };
+        // Quoting
+        { null, "`c`", new Character( 'c' ) }, { null, "'s'", new Character( 's' ) }, { null, "'string'", "string" },
+        { null, "\"string\"", "string" }, { null, "'' + 'bar'", "bar" },
+        { null, "'yyyy\u539Add\u5EA6'", "yyyy\u539Add\u5EA6" } };
 
-    /*===================================================================
-         Public static methods
-       ===================================================================*/
+    /*
+     * =================================================================== Public static methods
+     * ===================================================================
+     */
     public static TestSuite suite()
     {
-        TestSuite       result = new TestSuite();
+        TestSuite result = new TestSuite();
 
-        for (int i = 0; i < TESTS.length; i++) {
-            if (TESTS[i].length == 3) {
-                result.addTest(new QuotingTest((String)TESTS[i][1], TESTS[i][0], (String)TESTS[i][1], TESTS[i][2]));
-            } else {
-                if (TESTS[i].length == 4) {
-                    result.addTest(new QuotingTest((String)TESTS[i][1], TESTS[i][0], (String)TESTS[i][1], TESTS[i][2], TESTS[i][3]));
-                } else {
-                    if (TESTS[i].length == 5) {
-                        result.addTest(new QuotingTest((String)TESTS[i][1], TESTS[i][0], (String)TESTS[i][1], TESTS[i][2], TESTS[i][3], TESTS[i][4]));
-                    } else {
-                        throw new RuntimeException("don't understand TEST format");
+        for ( int i = 0; i < TESTS.length; i++ )
+        {
+            if ( TESTS[i].length == 3 )
+            {
+                result.addTest( new QuotingTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1], TESTS[i][2] ) );
+            }
+            else
+            {
+                if ( TESTS[i].length == 4 )
+                {
+                    result.addTest( new QuotingTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
+                                                     TESTS[i][2], TESTS[i][3] ) );
+                }
+                else
+                {
+                    if ( TESTS[i].length == 5 )
+                    {
+                        result.addTest( new QuotingTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
+                                                         TESTS[i][2], TESTS[i][3], TESTS[i][4] ) );
+                    }
+                    else
+                    {
+                        throw new RuntimeException( "don't understand TEST format" );
                     }
                 }
             }
@@ -58,31 +68,33 @@ public class QuotingTest extends OgnlTestCase
         return result;
     }
 
-    /*===================================================================
-         Constructors
-       ===================================================================*/
+    /*
+     * =================================================================== Constructors
+     * ===================================================================
+     */
     public QuotingTest()
     {
         super();
     }
 
-    public QuotingTest(String name)
+    public QuotingTest( String name )
     {
-        super(name);
+        super( name );
     }
 
-    public QuotingTest(String name, Object root, String expressionString, Object expectedResult, Object setValue, Object expectedAfterSetResult)
+    public QuotingTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,
+                        Object expectedAfterSetResult )
     {
-        super(name, root, expressionString, expectedResult, setValue, expectedAfterSetResult);
+        super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
     }
 
-    public QuotingTest(String name, Object root, String expressionString, Object expectedResult, Object setValue)
+    public QuotingTest( String name, Object root, String expressionString, Object expectedResult, Object setValue )
     {
-        super(name, root, expressionString, expectedResult, setValue);
+        super( name, root, expressionString, expectedResult, setValue );
     }
 
-    public QuotingTest(String name, Object root, String expressionString, Object expectedResult)
+    public QuotingTest( String name, Object root, String expressionString, Object expectedResult )
     {
-        super(name, root, expressionString, expectedResult);
+        super( name, root, expressionString, expectedResult );
     }
 }

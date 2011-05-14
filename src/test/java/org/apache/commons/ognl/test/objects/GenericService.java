@@ -22,9 +22,10 @@ package org.apache.commons.ognl.test.objects;
 /**
  *
  */
-public interface GenericService {
+public interface GenericService
+{
 
-    String getFullMessageFor(PersonGenericObject person, Object...arguments);
+    String getFullMessageFor( PersonGenericObject person, Object... arguments );
 
-    String getFullMessageFor(GameGenericObject game, Object...arguments);    
+    String getFullMessageFor( GameGenericObject game, Object... arguments );
 }

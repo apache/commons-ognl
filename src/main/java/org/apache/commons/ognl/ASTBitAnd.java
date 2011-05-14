@@ -23,35 +23,40 @@ package org.apache.commons.ognl;
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-class ASTBitAnd extends NumericExpression
+class ASTBitAnd
+    extends NumericExpression
 {
-    public ASTBitAnd(int id) {
-        super(id);
+    public ASTBitAnd( int id )
+    {
+        super( id );
     }
 
-    public ASTBitAnd(OgnlParser p, int id) {
-        super(p, id);
+    public ASTBitAnd( OgnlParser p, int id )
+    {
+        super( p, id );
     }
 
-    public void jjtClose() {
+    public void jjtClose()
+    {
         flattenTree();
     }
 
-    protected Object getValueBody( OgnlContext context, Object source ) throws OgnlException
+    protected Object getValueBody( OgnlContext context, Object source )
+        throws OgnlException
     {
         Object result = _children[0].getValue( context, source );
-        for ( int i=1; i < _children.length; ++i )
-            result = OgnlOps.binaryAnd( result, _children[i].getValue(context, source) );
+        for ( int i = 1; i < _children.length; ++i )
+            result = OgnlOps.binaryAnd( result, _children[i].getValue( context, source ) );
         return result;
     }
 
-    public String getExpressionOperator(int index)
+    public String getExpressionOperator( int index )
     {
         return "&";
     }
-    
-    public String coerceToNumeric(String source, OgnlContext context, Node child)
+
+    public String coerceToNumeric( String source, OgnlContext context, Node child )
     {
-        return "(long)" + super.coerceToNumeric(source, context, child);
+        return "(long)" + super.coerceToNumeric( source, context, child );
     }
 }

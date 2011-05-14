@@ -25,49 +25,56 @@ import org.apache.commons.ognl.enhance.UnsupportedCompilationException;
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-class ASTEval extends SimpleNode
+class ASTEval
+    extends SimpleNode
 {
 
-    public ASTEval(int id)
+    public ASTEval( int id )
     {
-        super(id);
+        super( id );
     }
 
-    public ASTEval(OgnlParser p, int id)
+    public ASTEval( OgnlParser p, int id )
     {
-        super(p, id);
+        super( p, id );
     }
 
-    protected Object getValueBody(OgnlContext context, Object source)
+    protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
-        Object result, expr = _children[0].getValue(context, source), previousRoot = context.getRoot();
+        Object result, expr = _children[0].getValue( context, source ), previousRoot = context.getRoot();
         Node node;
 
-        source = _children[1].getValue(context, source);
-        node = (expr instanceof Node) ? (Node) expr : (Node) Ognl.parseExpression(expr.toString());
-        try {
-            context.setRoot(source);
-            result = node.getValue(context, source);
-        } finally {
-            context.setRoot(previousRoot);
+        source = _children[1].getValue( context, source );
+        node = ( expr instanceof Node ) ? (Node) expr : (Node) Ognl.parseExpression( expr.toString() );
+        try
+        {
+            context.setRoot( source );
+            result = node.getValue( context, source );
+        }
+        finally
+        {
+            context.setRoot( previousRoot );
         }
         return result;
     }
 
-    protected void setValueBody(OgnlContext context, Object target, Object value)
+    protected void setValueBody( OgnlContext context, Object target, Object value )
         throws OgnlException
     {
-        Object expr = _children[0].getValue(context, target), previousRoot = context.getRoot();
+        Object expr = _children[0].getValue( context, target ), previousRoot = context.getRoot();
         Node node;
 
-        target = _children[1].getValue(context, target);
-        node = (expr instanceof Node) ? (Node) expr : (Node) Ognl.parseExpression(expr.toString());
-        try {
-            context.setRoot(target);
-            node.setValue(context, target, value);
-        } finally {
-            context.setRoot(previousRoot);
+        target = _children[1].getValue( context, target );
+        node = ( expr instanceof Node ) ? (Node) expr : (Node) Ognl.parseExpression( expr.toString() );
+        try
+        {
+            context.setRoot( target );
+            node.setValue( context, target, value );
+        }
+        finally
+        {
+            context.setRoot( previousRoot );
         }
     }
 
@@ -75,14 +82,14 @@ class ASTEval extends SimpleNode
     {
         return "(" + _children[0] + ")(" + _children[1] + ")";
     }
-    
-    public String toGetSourceString(OgnlContext context, Object target)
+
+    public String toGetSourceString( OgnlContext context, Object target )
     {
-        throw new UnsupportedCompilationException("Eval expressions not supported as native java yet.");
+        throw new UnsupportedCompilationException( "Eval expressions not supported as native java yet." );
     }
-    
-    public String toSetSourceString(OgnlContext context, Object target)
+
+    public String toSetSourceString( OgnlContext context, Object target )
     {
-        throw new UnsupportedCompilationException("Map expressions not supported as native java yet.");
+        throw new UnsupportedCompilationException( "Map expressions not supported as native java yet." );
     }
 }

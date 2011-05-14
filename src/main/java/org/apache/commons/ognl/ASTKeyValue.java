@@ -23,14 +23,17 @@ package org.apache.commons.ognl;
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-class ASTKeyValue extends SimpleNode
+class ASTKeyValue
+    extends SimpleNode
 {
-    public ASTKeyValue(int id) {
-        super(id);
+    public ASTKeyValue( int id )
+    {
+        super( id );
     }
 
-    public ASTKeyValue(OgnlParser p, int id) {
-        super(p, id);
+    public ASTKeyValue( OgnlParser p, int id )
+    {
+        super( p, id );
     }
 
     protected Node getKey()
@@ -40,13 +43,14 @@ class ASTKeyValue extends SimpleNode
 
     protected Node getValue()
     {
-        return (jjtGetNumChildren() > 1) ? _children[1] : null;
+        return ( jjtGetNumChildren() > 1 ) ? _children[1] : null;
     }
 
     /**
-        Returns null because this is a parser construct and does not evaluate
+     * Returns null because this is a parser construct and does not evaluate
      */
-    protected Object getValueBody( OgnlContext context, Object source ) throws OgnlException
+    protected Object getValueBody( OgnlContext context, Object source )
+        throws OgnlException
     {
         return null;
     }

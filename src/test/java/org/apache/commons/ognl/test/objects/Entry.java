@@ -22,7 +22,8 @@ package org.apache.commons.ognl.test.objects;
 /**
  *
  */
-public class Entry {
+public class Entry
+{
 
     private int _size = 1;
 
@@ -36,11 +37,11 @@ public class Entry {
         return new Copy();
     }
 
-    public boolean equals(Object o)
+    public boolean equals( Object o )
     {
-        if (this == o)
+        if ( this == o )
             return true;
-        if (o == null || getClass() != o.getClass())
+        if ( o == null || getClass() != o.getClass() )
             return false;
 
         Entry entry = (Entry) o;

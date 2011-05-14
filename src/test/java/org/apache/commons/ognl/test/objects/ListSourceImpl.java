@@ -24,7 +24,10 @@ import java.util.ArrayList;
 /**
  *
  */
-public class ListSourceImpl extends ArrayList implements ListSource {
+public class ListSourceImpl
+    extends ArrayList
+    implements ListSource
+{
 
     public ListSourceImpl()
     {
@@ -35,9 +38,9 @@ public class ListSourceImpl extends ArrayList implements ListSource {
         return super.size();
     }
 
-    public Object addValue(Object value)
+    public Object addValue( Object value )
     {
-        return super.add(value);
+        return super.add( value );
     }
 
     public Object getName()

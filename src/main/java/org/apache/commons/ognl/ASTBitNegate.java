@@ -23,19 +23,23 @@ package org.apache.commons.ognl;
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-class ASTBitNegate extends NumericExpression
+class ASTBitNegate
+    extends NumericExpression
 {
-    public ASTBitNegate(int id) {
-        super(id);
-    }
-
-    public ASTBitNegate(OgnlParser p, int id) {
-        super(p, id);
-    }
-
-    protected Object getValueBody( OgnlContext context, Object source ) throws OgnlException
+    public ASTBitNegate( int id )
     {
-        return OgnlOps.bitNegate( _children[0].getValue(context, source) );
+        super( id );
+    }
+
+    public ASTBitNegate( OgnlParser p, int id )
+    {
+        super( p, id );
+    }
+
+    protected Object getValueBody( OgnlContext context, Object source )
+        throws OgnlException
+    {
+        return OgnlOps.bitNegate( _children[0].getValue( context, source ) );
     }
 
     public String toString()
@@ -43,14 +47,15 @@ class ASTBitNegate extends NumericExpression
         return "~" + _children[0];
     }
 
-    public String toGetSourceString(OgnlContext context, Object target)
+    public String toGetSourceString( OgnlContext context, Object target )
     {
-        String source = _children[0].toGetSourceString(context, target);
+        String source = _children[0].toGetSourceString( context, target );
 
-        if (!ASTBitNegate.class.isInstance(_children[0]))
+        if ( !ASTBitNegate.class.isInstance( _children[0] ) )
         {
-            return "~(" + super.coerceToNumeric(source, context, _children[0]) + ")";
-        } else
+            return "~(" + super.coerceToNumeric( source, context, _children[0] ) + ")";
+        }
+        else
         {
             return "~(" + source + ")";
         }

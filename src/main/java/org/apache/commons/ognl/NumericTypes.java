@@ -19,46 +19,54 @@
  */
 package org.apache.commons.ognl;
 
-
 /**
- * This interface defines some useful constants for describing the various possible
- * numeric types of OGNL.
+ * This interface defines some useful constants for describing the various possible numeric types of OGNL.
+ * 
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
 public interface NumericTypes
 {
-      // Order does matter here... see the getNumericType methods in ognl.g.
+    // Order does matter here... see the getNumericType methods in ognl.g.
 
-      /** Type tag meaning boolean. */
-    int BOOL    = 0;
-      /** Type tag meaning byte. */
-    int BYTE    = 1;
-      /** Type tag meaning char. */
-    int CHAR    = 2;
-      /** Type tag meaning short. */
-    int SHORT   = 3;
-      /** Type tag meaning int. */
-    int INT     = 4;
-      /** Type tag meaning long. */
-    int LONG    = 5;
-      /** Type tag meaning java.math.BigInteger. */
-    int BIGINT  = 6;
-      /** Type tag meaning float. */
-    int FLOAT   = 7;
-      /** Type tag meaning double. */
-    int DOUBLE  = 8;
-      /** Type tag meaning java.math.BigDecimal. */
-    int BIGDEC  = 9;
-      /** Type tag meaning something other than a number. */
+    /** Type tag meaning boolean. */
+    int BOOL = 0;
+
+    /** Type tag meaning byte. */
+    int BYTE = 1;
+
+    /** Type tag meaning char. */
+    int CHAR = 2;
+
+    /** Type tag meaning short. */
+    int SHORT = 3;
+
+    /** Type tag meaning int. */
+    int INT = 4;
+
+    /** Type tag meaning long. */
+    int LONG = 5;
+
+    /** Type tag meaning java.math.BigInteger. */
+    int BIGINT = 6;
+
+    /** Type tag meaning float. */
+    int FLOAT = 7;
+
+    /** Type tag meaning double. */
+    int DOUBLE = 8;
+
+    /** Type tag meaning java.math.BigDecimal. */
+    int BIGDEC = 9;
+
+    /** Type tag meaning something other than a number. */
     int NONNUMERIC = 10;
 
-      /**
-       * The smallest type tag that represents reals as opposed to integers.  You can see
-       * whether a type tag represents reals or integers by comparing the tag to this
-       * constant: all tags less than this constant represent integers, and all tags
-       * greater than or equal to this constant represent reals.  Of course, you must also
-       * check for NONNUMERIC, which means it is not a number at all.
-       */
+    /**
+     * The smallest type tag that represents reals as opposed to integers. You can see whether a type tag represents
+     * reals or integers by comparing the tag to this constant: all tags less than this constant represent integers, and
+     * all tags greater than or equal to this constant represent reals. Of course, you must also check for NONNUMERIC,
+     * which means it is not a number at all.
+     */
     int MIN_REAL_TYPE = FLOAT;
 }

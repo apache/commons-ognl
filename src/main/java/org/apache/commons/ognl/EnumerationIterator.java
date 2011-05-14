@@ -23,31 +23,33 @@ import java.util.*;
 
 /**
  * Object that implements Iterator from an Enumeration
+ * 
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-public class EnumerationIterator implements Iterator
+public class EnumerationIterator
+    implements Iterator
 {
-	private Enumeration			e;
+    private Enumeration e;
 
-	public EnumerationIterator(Enumeration e)
-	{
-		super();
-		this.e = e;
-	}
+    public EnumerationIterator( Enumeration e )
+    {
+        super();
+        this.e = e;
+    }
 
-	public boolean hasNext()
-	{
-		return e.hasMoreElements();
-	}
+    public boolean hasNext()
+    {
+        return e.hasMoreElements();
+    }
 
- 	public Object next()
- 	{
- 		return e.nextElement();
- 	}
+    public Object next()
+    {
+        return e.nextElement();
+    }
 
-	public void remove()
-	{
-		throw new UnsupportedOperationException("remove() not supported by Enumeration");
-	}
+    public void remove()
+    {
+        throw new UnsupportedOperationException( "remove() not supported by Enumeration" );
+    }
 }

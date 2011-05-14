@@ -22,36 +22,38 @@ package org.apache.commons.ognl.test.objects;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Bean3 extends Object
+public class Bean3
+    extends Object
 {
     private int value = 100;
-    
+
     private Map map;
     {
         map = new HashMap();
-        map.put("foo", "bar");
-        map.put("bar", "baz");
+        map.put( "foo", "bar" );
+        map.put( "bar", "baz" );
     }
-    
+
     private String _nullValue;
+
     private Object _indexValue;
-    
+
     public int getValue()
     {
         return value;
     }
 
-    public void setValue(int value)
+    public void setValue( int value )
     {
         this.value = value;
     }
 
-    public Object getIndexedValue(int index)
+    public Object getIndexedValue( int index )
     {
         return _indexValue;
     }
 
-    public void setIndexedValue(int index, Object value)
+    public void setIndexedValue( int index, Object value )
     {
         _indexValue = value;
     }
@@ -60,40 +62,49 @@ public class Bean3 extends Object
     {
         return map;
     }
-    
-    public void setNullValue(String value)
+
+    public void setNullValue( String value )
     {
         _nullValue = value;
     }
-    
+
     public String getNullValue()
     {
         return _nullValue;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#hashCode()
      */
     public int hashCode()
     {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((_indexValue == null) ? 0 : _indexValue.hashCode());
+        result = prime * result + ( ( _indexValue == null ) ? 0 : _indexValue.hashCode() );
         return result;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#equals(java.lang.Object)
      */
-    public boolean equals(Object obj)
+    public boolean equals( Object obj )
     {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
+        if ( this == obj )
+            return true;
+        if ( obj == null )
+            return false;
+        if ( getClass() != obj.getClass() )
+            return false;
         final Bean3 other = (Bean3) obj;
-        if (_indexValue == null) {
-            if (other._indexValue != null) return false;
-        } else if (!_indexValue.equals(other._indexValue)) return false;
+        if ( _indexValue == null )
+        {
+            if ( other._indexValue != null )
+                return false;
+        }
+        else if ( !_indexValue.equals( other._indexValue ) )
+            return false;
         return true;
     }
 }

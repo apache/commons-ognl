@@ -23,14 +23,16 @@ import junit.framework.TestSuite;
 import org.apache.commons.ognl.test.objects.Root;
 import org.apache.commons.ognl.test.objects.Simple;
 
-public class StaticsAndConstructorsTest extends OgnlTestCase
+public class StaticsAndConstructorsTest
+    extends OgnlTestCase
 {
     private static Root ROOT = new Root();
 
-    private static Object[][]       TESTS = {
+    private static Object[][] TESTS =
+        {
             { "@java.lang.Class@forName(\"java.lang.Object\")", Object.class },
-            { "@java.lang.Integer@MAX_VALUE", new Integer(Integer.MAX_VALUE) },
-            { "@@max(3,4)", new Integer(4) },
+            { "@java.lang.Integer@MAX_VALUE", new Integer( Integer.MAX_VALUE ) },
+            { "@@max(3,4)", new Integer( 4 ) },
             { "new java.lang.StringBuffer().append(55).toString()", "55" },
             { "class", ROOT.getClass() },
             { "@org.apache.commons.ognl.test.objects.Root@class", ROOT.getClass() },
@@ -40,22 +42,27 @@ public class StaticsAndConstructorsTest extends OgnlTestCase
             { "class.getSuperclass()", ROOT.getClass().getSuperclass() },
             { "class.superclass", ROOT.getClass().getSuperclass() },
             { "class.name", ROOT.getClass().getName() },
-            { "getStaticInt()", new Integer(Root.getStaticInt()) },
-            { "@org.apache.commons.ognl.test.objects.Root@getStaticInt()", new Integer(Root.getStaticInt()) },
-            { "new org.apache.commons.ognl.test.objects.Simple(property).getStringValue()", new Simple().getStringValue() },
-            { "new org.apache.commons.ognl.test.objects.Simple(map['test'].property).getStringValue()", new Simple().getStringValue() },
-            { "map.test.getCurrentClass(@org.apache.commons.ognl.test.StaticsAndConstructorsTest@KEY.toString())", "size stop"},
-            { "new org.apache.commons.ognl.test.StaticsAndConstructorsTest$IntWrapper(index)", new IntWrapper(ROOT.getIndex()) },
-            { "new org.apache.commons.ognl.test.StaticsAndConstructorsTest$IntObjectWrapper(index)", new IntObjectWrapper(ROOT.getIndex()) },
-            { "new org.apache.commons.ognl.test.StaticsAndConstructorsTest$A(#root)", new A(ROOT)},
-            {"@org.apache.commons.ognl.test.StaticsAndConstructorsTest$Animals@values().length != 2", Boolean.TRUE},
-            {"isOk(@org.apache.commons.ognl.test.objects.SimpleEnum@ONE, null)", Boolean.TRUE},
-    };
+            { "getStaticInt()", new Integer( Root.getStaticInt() ) },
+            { "@org.apache.commons.ognl.test.objects.Root@getStaticInt()", new Integer( Root.getStaticInt() ) },
+            { "new org.apache.commons.ognl.test.objects.Simple(property).getStringValue()",
+                new Simple().getStringValue() },
+            { "new org.apache.commons.ognl.test.objects.Simple(map['test'].property).getStringValue()",
+                new Simple().getStringValue() },
+            { "map.test.getCurrentClass(@org.apache.commons.ognl.test.StaticsAndConstructorsTest@KEY.toString())",
+                "size stop" },
+            { "new org.apache.commons.ognl.test.StaticsAndConstructorsTest$IntWrapper(index)",
+                new IntWrapper( ROOT.getIndex() ) },
+            { "new org.apache.commons.ognl.test.StaticsAndConstructorsTest$IntObjectWrapper(index)",
+                new IntObjectWrapper( ROOT.getIndex() ) },
+            { "new org.apache.commons.ognl.test.StaticsAndConstructorsTest$A(#root)", new A( ROOT ) },
+            { "@org.apache.commons.ognl.test.StaticsAndConstructorsTest$Animals@values().length != 2", Boolean.TRUE },
+            { "isOk(@org.apache.commons.ognl.test.objects.SimpleEnum@ONE, null)", Boolean.TRUE }, };
 
     public static final String KEY = "size";
 
-    public static class IntWrapper {
-        public IntWrapper(int value)
+    public static class IntWrapper
+    {
+        public IntWrapper( int value )
         {
             this.value = value;
         }
@@ -64,14 +71,14 @@ public class StaticsAndConstructorsTest extends OgnlTestCase
 
         public String toString()
         {
-            return Integer.toString(value);
+            return Integer.toString( value );
         }
 
-        public boolean equals(Object o)
+        public boolean equals( Object o )
         {
-            if (this == o)
+            if ( this == o )
                 return true;
-            if (o == null || getClass() != o.getClass())
+            if ( o == null || getClass() != o.getClass() )
                 return false;
 
             IntWrapper that = (IntWrapper) o;
@@ -80,9 +87,10 @@ public class StaticsAndConstructorsTest extends OgnlTestCase
         }
     }
 
-    public static class IntObjectWrapper {
+    public static class IntObjectWrapper
+    {
 
-        public IntObjectWrapper(Integer value)
+        public IntObjectWrapper( Integer value )
         {
             this.value = value;
         }
@@ -94,16 +102,16 @@ public class StaticsAndConstructorsTest extends OgnlTestCase
             return value.toString();
         }
 
-        public boolean equals(Object o)
+        public boolean equals( Object o )
         {
-            if (this == o)
+            if ( this == o )
                 return true;
-            if (o == null || getClass() != o.getClass())
+            if ( o == null || getClass() != o.getClass() )
                 return false;
 
             IntObjectWrapper that = (IntObjectWrapper) o;
 
-            return value.equals(that.value);
+            return value.equals( that.value );
         }
     }
 
@@ -111,67 +119,77 @@ public class StaticsAndConstructorsTest extends OgnlTestCase
     {
         String key = "A";
 
-        public A(Root root)
+        public A( Root root )
         {
 
         }
 
-        public boolean equals(Object o)
+        public boolean equals( Object o )
         {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if ( this == o )
+                return true;
+            if ( o == null || getClass() != o.getClass() )
+                return false;
 
             A a = (A) o;
 
-            if (key != null ? !key.equals(a.key) : a.key != null) return false;
+            if ( key != null ? !key.equals( a.key ) : a.key != null )
+                return false;
 
             return true;
         }
     }
 
-    public enum Animals {
+    public enum Animals
+    {
 
         Dog, Cat, Wallabee, Bear
     }
 
-    /*===================================================================
-         Public static methods
-       ===================================================================*/
+    /*
+     * =================================================================== Public static methods
+     * ===================================================================
+     */
     public static TestSuite suite()
     {
-        TestSuite       result = new TestSuite();
+        TestSuite result = new TestSuite();
 
-        for (int i = 0; i < TESTS.length; i++) {
-            result.addTest(new StaticsAndConstructorsTest((String)TESTS[i][0] + " (" + TESTS[i][1] + ")", ROOT, (String)TESTS[i][0], TESTS[i][1]));
+        for ( int i = 0; i < TESTS.length; i++ )
+        {
+            result.addTest( new StaticsAndConstructorsTest( (String) TESTS[i][0] + " (" + TESTS[i][1] + ")", ROOT,
+                                                            (String) TESTS[i][0], TESTS[i][1] ) );
         }
         return result;
     }
 
-    /*===================================================================
-         Constructors
-       ===================================================================*/
+    /*
+     * =================================================================== Constructors
+     * ===================================================================
+     */
     public StaticsAndConstructorsTest()
     {
         super();
     }
 
-    public StaticsAndConstructorsTest(String name)
+    public StaticsAndConstructorsTest( String name )
     {
-        super(name);
+        super( name );
     }
 
-    public StaticsAndConstructorsTest(String name, Object root, String expressionString, Object expectedResult, Object setValue, Object expectedAfterSetResult)
+    public StaticsAndConstructorsTest( String name, Object root, String expressionString, Object expectedResult,
+                                       Object setValue, Object expectedAfterSetResult )
     {
-        super(name, root, expressionString, expectedResult, setValue, expectedAfterSetResult);
+        super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
     }
 
-    public StaticsAndConstructorsTest(String name, Object root, String expressionString, Object expectedResult, Object setValue)
+    public StaticsAndConstructorsTest( String name, Object root, String expressionString, Object expectedResult,
+                                       Object setValue )
     {
-        super(name, root, expressionString, expectedResult, setValue);
+        super( name, root, expressionString, expectedResult, setValue );
     }
 
-    public StaticsAndConstructorsTest(String name, Object root, String expressionString, Object expectedResult)
+    public StaticsAndConstructorsTest( String name, Object root, String expressionString, Object expectedResult )
     {
-        super(name, root, expressionString, expectedResult);
+        super( name, root, expressionString, expectedResult );
     }
 }

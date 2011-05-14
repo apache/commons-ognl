@@ -22,24 +22,23 @@ package org.apache.commons.ognl;
 import java.security.*;
 
 /**
- * BasicPermission subclass that defines a permission token for invoking
- * methods within OGNL.  This does not override any methods (except
- * constructors) and does not implement actions.  It is similar in spirit
- * to the {@link java.lang.reflect.ReflectPermission} class in that it
- * guards access to methods.
+ * BasicPermission subclass that defines a permission token for invoking methods within OGNL. This does not override any
+ * methods (except constructors) and does not implement actions. It is similar in spirit to the
+ * {@link java.lang.reflect.ReflectPermission} class in that it guards access to methods.
+ * 
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-public class OgnlInvokePermission extends BasicPermission
+public class OgnlInvokePermission
+    extends BasicPermission
 {
-    public OgnlInvokePermission(String name)
+    public OgnlInvokePermission( String name )
     {
-        super(name);
+        super( name );
     }
 
-    public OgnlInvokePermission(String name, String actions)
+    public OgnlInvokePermission( String name, String actions )
     {
-        super(name, actions);
+        super( name, actions );
     }
 }
-

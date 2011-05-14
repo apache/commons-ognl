@@ -22,20 +22,22 @@ package org.apache.commons.ognl;
 import java.util.*;
 
 /**
- * Implementation of NullHandler that returns null in all cases,
- * so that NullPointerException will be thrown by the caller.
+ * Implementation of NullHandler that returns null in all cases, so that NullPointerException will be thrown by the
+ * caller.
+ * 
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-public class ObjectNullHandler implements NullHandler
+public class ObjectNullHandler
+    implements NullHandler
 {
     /* NullHandler interface */
-    public Object nullMethodResult(Map context, Object target, String methodName, Object[] args)
+    public Object nullMethodResult( Map context, Object target, String methodName, Object[] args )
     {
         return null;
     }
 
-    public Object nullPropertyValue(Map context, Object target, Object property)
+    public Object nullPropertyValue( Map context, Object target, Object property )
     {
         return null;
     }

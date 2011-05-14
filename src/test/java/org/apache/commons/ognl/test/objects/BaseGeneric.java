@@ -24,10 +24,13 @@ import java.io.Serializable;
 /**
  * Used to test ognl handling of java generics.
  */
-public class BaseGeneric<E extends GenericObject, I extends Serializable> {
+public class BaseGeneric<E extends GenericObject, I extends Serializable>
+{
 
     E _value;
+
     GenericService _service;
+
     protected I[] ids;
 
     public BaseGeneric()
@@ -35,7 +38,7 @@ public class BaseGeneric<E extends GenericObject, I extends Serializable> {
         _service = new GenericServiceImpl();
     }
 
-    public void setIds(I[] ids)
+    public void setIds( I[] ids )
     {
         this.ids = ids;
     }
@@ -60,7 +63,7 @@ public class BaseGeneric<E extends GenericObject, I extends Serializable> {
         return _service;
     }
 
-    public String format(Object value)
+    public String format( Object value )
     {
         return value.toString();
     }

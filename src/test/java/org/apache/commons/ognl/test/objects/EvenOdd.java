@@ -22,14 +22,14 @@ package org.apache.commons.ognl.test.objects;
 /**
  *
  */
-public class EvenOdd {
+public class EvenOdd
+{
 
     private boolean even = true;
 
     /**
-     * Returns "even" or "odd". Whatever it returns on one invocation, it will
-     * return the opposite on the next. By default, the first value returned is
-     * "even".
+     * Returns "even" or "odd". Whatever it returns on one invocation, it will return the opposite on the next. By
+     * default, the first value returned is "even".
      */
     public String getNext()
     {
@@ -49,7 +49,7 @@ public class EvenOdd {
      * Overrides the even flag.
      */
 
-    public void setEven(boolean value)
+    public void setEven( boolean value )
     {
         even = value;
     }

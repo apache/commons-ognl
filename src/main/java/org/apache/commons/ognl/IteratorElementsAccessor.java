@@ -22,15 +22,16 @@ package org.apache.commons.ognl;
 import java.util.*;
 
 /**
- * Implementation of the ElementsAccessor interface for Iterators, which simply returns
- * the target iterator itself.
+ * Implementation of the ElementsAccessor interface for Iterators, which simply returns the target iterator itself.
+ * 
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-public class IteratorElementsAccessor implements ElementsAccessor
+public class IteratorElementsAccessor
+    implements ElementsAccessor
 {
     public Enumeration getElements( Object target )
     {
-    	return new IteratorEnumeration( (Iterator)target );
+        return new IteratorEnumeration( (Iterator) target );
     }
 }

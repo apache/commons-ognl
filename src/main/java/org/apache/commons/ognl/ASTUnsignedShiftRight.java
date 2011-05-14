@@ -23,44 +23,49 @@ package org.apache.commons.ognl;
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-class ASTUnsignedShiftRight extends NumericExpression
+class ASTUnsignedShiftRight
+    extends NumericExpression
 {
-    public ASTUnsignedShiftRight(int id) {
-        super(id);
+    public ASTUnsignedShiftRight( int id )
+    {
+        super( id );
     }
 
-    public ASTUnsignedShiftRight(OgnlParser p, int id) {
-        super(p, id);
+    public ASTUnsignedShiftRight( OgnlParser p, int id )
+    {
+        super( p, id );
     }
 
-    protected Object getValueBody( OgnlContext context, Object source ) throws OgnlException
+    protected Object getValueBody( OgnlContext context, Object source )
+        throws OgnlException
     {
         Object v1 = _children[0].getValue( context, source );
         Object v2 = _children[1].getValue( context, source );
         return OgnlOps.unsignedShiftRight( v1, v2 );
     }
 
-    public String getExpressionOperator(int index)
+    public String getExpressionOperator( int index )
     {
         return ">>>";
     }
 
-    public String toGetSourceString(OgnlContext context, Object target)
+    public String toGetSourceString( OgnlContext context, Object target )
     {
         String result = "";
 
-        try {
+        try
+        {
 
-            String child1 = OgnlRuntime.getChildSource(context, target, _children[0]);
-            child1 = coerceToNumeric(child1, context, _children[0]);
+            String child1 = OgnlRuntime.getChildSource( context, target, _children[0] );
+            child1 = coerceToNumeric( child1, context, _children[0] );
 
-            String child2 = OgnlRuntime.getChildSource(context, target, _children[1]);
-            child2 = coerceToNumeric(child2, context, _children[1]);
-            
-            Object v1 = _children[0].getValue(context, target);
-            int type = OgnlOps.getNumericType(v1);
+            String child2 = OgnlRuntime.getChildSource( context, target, _children[1] );
+            child2 = coerceToNumeric( child2, context, _children[1] );
 
-            if (type <= OgnlOps.INT)
+            Object v1 = _children[0].getValue( context, target );
+            int type = OgnlOps.getNumericType( v1 );
+
+            if ( type <= OgnlOps.INT )
             {
                 child1 = "(int)" + child1;
                 child2 = "(int)" + child2;
@@ -68,12 +73,13 @@ class ASTUnsignedShiftRight extends NumericExpression
 
             result = child1 + " >>> " + child2;
 
-            context.setCurrentType(Integer.TYPE);
-            context.setCurrentObject(getValueBody(context, target));
+            context.setCurrentType( Integer.TYPE );
+            context.setCurrentObject( getValueBody( context, target ) );
 
-        } catch (Throwable t)
+        }
+        catch ( Throwable t )
         {
-            throw OgnlOps.castToRuntime(t);
+            throw OgnlOps.castToRuntime( t );
         }
 
         return result;

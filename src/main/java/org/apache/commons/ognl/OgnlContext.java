@@ -29,119 +29,153 @@ import java.util.*;
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-public class OgnlContext extends Object implements Map
+public class OgnlContext
+    extends Object
+    implements Map
 {
 
     public static final String CONTEXT_CONTEXT_KEY = "context";
+
     public static final String ROOT_CONTEXT_KEY = "root";
+
     public static final String THIS_CONTEXT_KEY = "this";
+
     public static final String TRACE_EVALUATIONS_CONTEXT_KEY = "_traceEvaluations";
+
     public static final String LAST_EVALUATION_CONTEXT_KEY = "_lastEvaluation";
+
     public static final String KEEP_LAST_EVALUATION_CONTEXT_KEY = "_keepLastEvaluation";
+
     public static final String CLASS_RESOLVER_CONTEXT_KEY = "_classResolver";
+
     public static final String TYPE_CONVERTER_CONTEXT_KEY = "_typeConverter";
+
     public static final String MEMBER_ACCESS_CONTEXT_KEY = "_memberAccess";
 
     private static final String PROPERTY_KEY_PREFIX = "ognl";
+
     private static boolean DEFAULT_TRACE_EVALUATIONS = false;
+
     private static boolean DEFAULT_KEEP_LAST_EVALUATION = false;
 
     public static final ClassResolver DEFAULT_CLASS_RESOLVER = new DefaultClassResolver();
-    public static final TypeConverter DEFAULT_TYPE_CONVERTER = new DefaultTypeConverter();
-    public static final MemberAccess DEFAULT_MEMBER_ACCESS = new DefaultMemberAccess(false);
-    
-    private static final Set<String> RESERVED_KEYS = new HashSet<String>(11);
-    
-    private Object _root;
-    private Object _currentObject;
-    private Node _currentNode;
-    private boolean _traceEvaluations = DEFAULT_TRACE_EVALUATIONS;
-    private Evaluation _rootEvaluation;
-    private Evaluation _currentEvaluation;
-    private Evaluation _lastEvaluation;
-    private boolean _keepLastEvaluation = DEFAULT_KEEP_LAST_EVALUATION;
-    
-    private Map _values = new HashMap(23);
-    
-    private ClassResolver _classResolver = DEFAULT_CLASS_RESOLVER;
-    private TypeConverter _typeConverter = DEFAULT_TYPE_CONVERTER;
-    private MemberAccess _memberAccess = DEFAULT_MEMBER_ACCESS;
-    
-    static {
-        String s;
-        
-        RESERVED_KEYS.add(CONTEXT_CONTEXT_KEY);
-        RESERVED_KEYS.add(ROOT_CONTEXT_KEY);
-        RESERVED_KEYS.add(THIS_CONTEXT_KEY);
-        RESERVED_KEYS.add(TRACE_EVALUATIONS_CONTEXT_KEY);
-        RESERVED_KEYS.add(LAST_EVALUATION_CONTEXT_KEY);
-        RESERVED_KEYS.add(KEEP_LAST_EVALUATION_CONTEXT_KEY);
-        RESERVED_KEYS.add(CLASS_RESOLVER_CONTEXT_KEY);
-        RESERVED_KEYS.add(TYPE_CONVERTER_CONTEXT_KEY);
-        RESERVED_KEYS.add(MEMBER_ACCESS_CONTEXT_KEY);
 
-        try {
-            if ((s = System.getProperty(PROPERTY_KEY_PREFIX + ".traceEvaluations")) != null) {
-                DEFAULT_TRACE_EVALUATIONS = Boolean.valueOf(s.trim()).booleanValue();
+    public static final TypeConverter DEFAULT_TYPE_CONVERTER = new DefaultTypeConverter();
+
+    public static final MemberAccess DEFAULT_MEMBER_ACCESS = new DefaultMemberAccess( false );
+
+    private static final Set<String> RESERVED_KEYS = new HashSet<String>( 11 );
+
+    private Object _root;
+
+    private Object _currentObject;
+
+    private Node _currentNode;
+
+    private boolean _traceEvaluations = DEFAULT_TRACE_EVALUATIONS;
+
+    private Evaluation _rootEvaluation;
+
+    private Evaluation _currentEvaluation;
+
+    private Evaluation _lastEvaluation;
+
+    private boolean _keepLastEvaluation = DEFAULT_KEEP_LAST_EVALUATION;
+
+    private Map _values = new HashMap( 23 );
+
+    private ClassResolver _classResolver = DEFAULT_CLASS_RESOLVER;
+
+    private TypeConverter _typeConverter = DEFAULT_TYPE_CONVERTER;
+
+    private MemberAccess _memberAccess = DEFAULT_MEMBER_ACCESS;
+
+    static
+    {
+        String s;
+
+        RESERVED_KEYS.add( CONTEXT_CONTEXT_KEY );
+        RESERVED_KEYS.add( ROOT_CONTEXT_KEY );
+        RESERVED_KEYS.add( THIS_CONTEXT_KEY );
+        RESERVED_KEYS.add( TRACE_EVALUATIONS_CONTEXT_KEY );
+        RESERVED_KEYS.add( LAST_EVALUATION_CONTEXT_KEY );
+        RESERVED_KEYS.add( KEEP_LAST_EVALUATION_CONTEXT_KEY );
+        RESERVED_KEYS.add( CLASS_RESOLVER_CONTEXT_KEY );
+        RESERVED_KEYS.add( TYPE_CONVERTER_CONTEXT_KEY );
+        RESERVED_KEYS.add( MEMBER_ACCESS_CONTEXT_KEY );
+
+        try
+        {
+            if ( ( s = System.getProperty( PROPERTY_KEY_PREFIX + ".traceEvaluations" ) ) != null )
+            {
+                DEFAULT_TRACE_EVALUATIONS = Boolean.valueOf( s.trim() ).booleanValue();
             }
-            if ((s = System.getProperty(PROPERTY_KEY_PREFIX + ".keepLastEvaluation")) != null) {
-                DEFAULT_KEEP_LAST_EVALUATION = Boolean.valueOf(s.trim()).booleanValue();
+            if ( ( s = System.getProperty( PROPERTY_KEY_PREFIX + ".keepLastEvaluation" ) ) != null )
+            {
+                DEFAULT_KEEP_LAST_EVALUATION = Boolean.valueOf( s.trim() ).booleanValue();
             }
-        } catch (SecurityException ex) {
+        }
+        catch ( SecurityException ex )
+        {
             // restricted access environment, just keep defaults
         }
     }
 
     private Stack<Class<?>> _typeStack = new Stack<Class<?>>();
+
     private Stack<Class<?>> _accessorStack = new Stack<Class<?>>();
 
     private int _localReferenceCounter = 0;
+
     private Map<String, LocalReference> _localReferenceMap = null;
 
     /**
-     * Constructs a new OgnlContext with the default class resolver, type converter and member
-     * access.
+     * Constructs a new OgnlContext with the default class resolver, type converter and member access.
      */
     public OgnlContext()
     {
     }
 
     /**
-     * Constructs a new OgnlContext with the given class resolver, type converter and member access.
-     * If any of these parameters is null the default will be used.
+     * Constructs a new OgnlContext with the given class resolver, type converter and member access. If any of these
+     * parameters is null the default will be used.
      */
-    public OgnlContext(ClassResolver classResolver, TypeConverter typeConverter, MemberAccess memberAccess)
+    public OgnlContext( ClassResolver classResolver, TypeConverter typeConverter, MemberAccess memberAccess )
     {
         this();
-        if (classResolver != null) {
+        if ( classResolver != null )
+        {
             this._classResolver = classResolver;
         }
-        if (typeConverter != null) {
+        if ( typeConverter != null )
+        {
             this._typeConverter = typeConverter;
         }
-        if (memberAccess != null) {
+        if ( memberAccess != null )
+        {
             this._memberAccess = memberAccess;
         }
     }
 
-    public OgnlContext(Map values)
+    public OgnlContext( Map values )
     {
         super();
         this._values = values;
     }
 
-    public OgnlContext(ClassResolver classResolver, TypeConverter typeConverter, MemberAccess memberAccess, Map values)
+    public OgnlContext( ClassResolver classResolver, TypeConverter typeConverter, MemberAccess memberAccess, Map values )
     {
-        this(classResolver, typeConverter, memberAccess);
+        this( classResolver, typeConverter, memberAccess );
         this._values = values;
     }
 
-    public void setValues(Map value)
+    public void setValues( Map value )
     {
-        for(Iterator it = value.keySet().iterator(); it.hasNext();) {
+        for ( Iterator it = value.keySet().iterator(); it.hasNext(); )
+        {
             Object k = it.next();
 
-            _values.put(k, value.get(k));
+            _values.put( k, value.get( k ) );
         }
     }
 
@@ -150,9 +184,12 @@ public class OgnlContext extends Object implements Map
         return _values;
     }
 
-    public void setClassResolver(ClassResolver value)
+    public void setClassResolver( ClassResolver value )
     {
-        if (value == null) { throw new IllegalArgumentException("cannot set ClassResolver to null"); }
+        if ( value == null )
+        {
+            throw new IllegalArgumentException( "cannot set ClassResolver to null" );
+        }
         _classResolver = value;
     }
 
@@ -161,9 +198,12 @@ public class OgnlContext extends Object implements Map
         return _classResolver;
     }
 
-    public void setTypeConverter(TypeConverter value)
+    public void setTypeConverter( TypeConverter value )
     {
-        if (value == null) { throw new IllegalArgumentException("cannot set TypeConverter to null"); }
+        if ( value == null )
+        {
+            throw new IllegalArgumentException( "cannot set TypeConverter to null" );
+        }
         _typeConverter = value;
     }
 
@@ -172,9 +212,12 @@ public class OgnlContext extends Object implements Map
         return _typeConverter;
     }
 
-    public void setMemberAccess(MemberAccess value)
+    public void setMemberAccess( MemberAccess value )
     {
-        if (value == null) { throw new IllegalArgumentException("cannot set MemberAccess to null"); }
+        if ( value == null )
+        {
+            throw new IllegalArgumentException( "cannot set MemberAccess to null" );
+        }
         _memberAccess = value;
     }
 
@@ -183,16 +226,16 @@ public class OgnlContext extends Object implements Map
         return _memberAccess;
     }
 
-    public void setRoot(Object value)
+    public void setRoot( Object value )
     {
         _root = value;
         _accessorStack.clear();
         _typeStack.clear();
         _currentObject = value;
 
-        if (_currentObject != null)
+        if ( _currentObject != null )
         {
-            setCurrentType(_currentObject.getClass());
+            setCurrentType( _currentObject.getClass() );
         }
     }
 
@@ -206,7 +249,7 @@ public class OgnlContext extends Object implements Map
         return _traceEvaluations;
     }
 
-    public void setTraceEvaluations(boolean value)
+    public void setTraceEvaluations( boolean value )
     {
         _traceEvaluations = value;
     }
@@ -216,26 +259,25 @@ public class OgnlContext extends Object implements Map
         return _lastEvaluation;
     }
 
-    public void setLastEvaluation(Evaluation value)
+    public void setLastEvaluation( Evaluation value )
     {
         _lastEvaluation = value;
     }
 
     /**
-     * This method can be called when the last evaluation has been used and can be returned for
-     * reuse in the free pool maintained by the runtime. This is not a necessary step, but is useful
-     * for keeping memory usage down. This will recycle the last evaluation and then set the last
-     * evaluation to null.
+     * This method can be called when the last evaluation has been used and can be returned for reuse in the free pool
+     * maintained by the runtime. This is not a necessary step, but is useful for keeping memory usage down. This will
+     * recycle the last evaluation and then set the last evaluation to null.
      */
     public void recycleLastEvaluation()
     {
-        OgnlRuntime.getEvaluationPool().recycleAll(_lastEvaluation);
+        OgnlRuntime.getEvaluationPool().recycleAll( _lastEvaluation );
         _lastEvaluation = null;
     }
 
     /**
-     * Returns true if the last evaluation that was done on this context is retained and available
-     * through <code>getLastEvaluation()</code>. The default is true.
+     * Returns true if the last evaluation that was done on this context is retained and available through
+     * <code>getLastEvaluation()</code>. The default is true.
      */
     public boolean getKeepLastEvaluation()
     {
@@ -243,48 +285,49 @@ public class OgnlContext extends Object implements Map
     }
 
     /**
-     * Sets whether the last evaluation that was done on this context is retained and available
-     * through <code>getLastEvaluation()</code>. The default is true.
+     * Sets whether the last evaluation that was done on this context is retained and available through
+     * <code>getLastEvaluation()</code>. The default is true.
      */
-    public void setKeepLastEvaluation(boolean value)
+    public void setKeepLastEvaluation( boolean value )
     {
         _keepLastEvaluation = value;
     }
 
-    public void setCurrentObject(Object value)
+    public void setCurrentObject( Object value )
     {
         _currentObject = value;
     }
-    
+
     public Object getCurrentObject()
     {
         return _currentObject;
     }
-    
-    public void setCurrentAccessor(Class<?> type)
+
+    public void setCurrentAccessor( Class<?> type )
     {
-        _accessorStack.add(type);        
+        _accessorStack.add( type );
     }
-    
+
     public Class<?> getCurrentAccessor()
     {
-        if (_accessorStack.isEmpty())
+        if ( _accessorStack.isEmpty() )
         {
             return null;
         }
 
         return _accessorStack.peek();
     }
-    
+
     public Class<?> getPreviousAccessor()
     {
-        if (_accessorStack.isEmpty())
+        if ( _accessorStack.isEmpty() )
         {
             return null;
         }
 
-        if (_accessorStack.size() > 1) {
-            return _accessorStack.get(_accessorStack.size() - 2);
+        if ( _accessorStack.size() > 1 )
+        {
+            return _accessorStack.get( _accessorStack.size() - 2 );
         }
 
         return null;
@@ -292,12 +335,12 @@ public class OgnlContext extends Object implements Map
 
     public Class<?> getFirstAccessor()
     {
-        if (_accessorStack.isEmpty())
+        if ( _accessorStack.isEmpty() )
         {
             return null;
         }
 
-        return _accessorStack.get(0);
+        return _accessorStack.get( 0 );
     }
 
     /**
@@ -307,61 +350,61 @@ public class OgnlContext extends Object implements Map
      */
     public Class<?> getCurrentType()
     {
-        if (_typeStack.isEmpty())
+        if ( _typeStack.isEmpty() )
         {
             return null;
         }
 
-       return _typeStack.peek(); 
+        return _typeStack.peek();
     }
-    
-    public void setCurrentType(Class<?> type)
+
+    public void setCurrentType( Class<?> type )
     {
-        _typeStack.add(type);
+        _typeStack.add( type );
     }
-    
+
     /**
-     * Represents the last known object type on the evaluation stack, will be the value of
-     * the last known {@link #getCurrentType()}.
+     * Represents the last known object type on the evaluation stack, will be the value of the last known
+     * {@link #getCurrentType()}.
      * 
      * @return The previous type of object on the stack, may be null.
      */
     public Class<?> getPreviousType()
     {
-        if (_typeStack.isEmpty())
+        if ( _typeStack.isEmpty() )
         {
             return null;
         }
 
-        if (_typeStack.size() > 1)
+        if ( _typeStack.size() > 1 )
         {
-            return _typeStack.get(_typeStack.size() - 2);
+            return _typeStack.get( _typeStack.size() - 2 );
         }
 
         return null;
     }
-    
-    public void setPreviousType(Class<?> type)
+
+    public void setPreviousType( Class<?> type )
     {
-        if (_typeStack.isEmpty() || _typeStack.size() < 2)
+        if ( _typeStack.isEmpty() || _typeStack.size() < 2 )
         {
             return;
         }
 
-        _typeStack.set(_typeStack.size() - 2, type);
+        _typeStack.set( _typeStack.size() - 2, type );
     }
 
     public Class<?> getFirstType()
     {
-        if (_typeStack.isEmpty())
+        if ( _typeStack.isEmpty() )
         {
             return null;
         }
 
-        return _typeStack.get(0);
+        return _typeStack.get( 0 );
     }
 
-    public void setCurrentNode(Node value)
+    public void setCurrentNode( Node value )
     {
         _currentNode = value;
     }
@@ -372,45 +415,45 @@ public class OgnlContext extends Object implements Map
     }
 
     /**
-     * Gets the current Evaluation from the top of the stack. This is the Evaluation that is in
-     * process of evaluating.
+     * Gets the current Evaluation from the top of the stack. This is the Evaluation that is in process of evaluating.
      */
     public Evaluation getCurrentEvaluation()
     {
         return _currentEvaluation;
     }
 
-    public void setCurrentEvaluation(Evaluation value)
+    public void setCurrentEvaluation( Evaluation value )
     {
         _currentEvaluation = value;
     }
 
     /**
-     * Gets the root of the evaluation stack. This Evaluation contains the node representing the
-     * root expression and the source is the root source object.
+     * Gets the root of the evaluation stack. This Evaluation contains the node representing the root expression and the
+     * source is the root source object.
      */
     public Evaluation getRootEvaluation()
     {
         return _rootEvaluation;
     }
 
-    public void setRootEvaluation(Evaluation value)
+    public void setRootEvaluation( Evaluation value )
     {
         _rootEvaluation = value;
     }
 
     /**
-     * Returns the Evaluation at the relative index given. This should be zero or a negative number
-     * as a relative reference back up the evaluation stack. Therefore getEvaluation(0) returns the
-     * current Evaluation.
+     * Returns the Evaluation at the relative index given. This should be zero or a negative number as a relative
+     * reference back up the evaluation stack. Therefore getEvaluation(0) returns the current Evaluation.
      */
-    public Evaluation getEvaluation(int relativeIndex)
+    public Evaluation getEvaluation( int relativeIndex )
     {
         Evaluation result = null;
 
-        if (relativeIndex <= 0) {
+        if ( relativeIndex <= 0 )
+        {
             result = _currentEvaluation;
-            while((++relativeIndex < 0) && (result != null)) {
+            while ( ( ++relativeIndex < 0 ) && ( result != null ) )
+            {
                 result = result.getParent();
             }
         }
@@ -418,33 +461,36 @@ public class OgnlContext extends Object implements Map
     }
 
     /**
-     * Pushes a new Evaluation onto the stack. This is done before a node evaluates. When evaluation
-     * is complete it should be popped from the stack via <code>popEvaluation()</code>.
+     * Pushes a new Evaluation onto the stack. This is done before a node evaluates. When evaluation is complete it
+     * should be popped from the stack via <code>popEvaluation()</code>.
      */
-    public void pushEvaluation(Evaluation value)
+    public void pushEvaluation( Evaluation value )
     {
-        if (_currentEvaluation != null) {
-            _currentEvaluation.addChild(value);
-        } else {
-            setRootEvaluation(value);
+        if ( _currentEvaluation != null )
+        {
+            _currentEvaluation.addChild( value );
         }
-        setCurrentEvaluation(value);
+        else
+        {
+            setRootEvaluation( value );
+        }
+        setCurrentEvaluation( value );
     }
 
     /**
-     * Pops the current Evaluation off of the top of the stack. This is done after a node has
-     * completed its evaluation.
+     * Pops the current Evaluation off of the top of the stack. This is done after a node has completed its evaluation.
      */
     public Evaluation popEvaluation()
     {
         Evaluation result;
 
         result = _currentEvaluation;
-        setCurrentEvaluation(result.getParent());
-        if (_currentEvaluation == null) {
-            setLastEvaluation(getKeepLastEvaluation() ? result : null);
-            setRootEvaluation(null);
-            setCurrentNode(null);
+        setCurrentEvaluation( result.getParent() );
+        if ( _currentEvaluation == null )
+        {
+            setLastEvaluation( getKeepLastEvaluation() ? result : null );
+            setRootEvaluation( null );
+            setCurrentNode( null );
         }
         return result;
     }
@@ -454,14 +500,14 @@ public class OgnlContext extends Object implements Map
         return ++_localReferenceCounter;
     }
 
-    public void addLocalReference(String key, LocalReference reference)
+    public void addLocalReference( String key, LocalReference reference )
     {
-        if (_localReferenceMap == null)
+        if ( _localReferenceMap == null )
         {
             _localReferenceMap = new LinkedHashMap<String, LocalReference>();
         }
 
-        _localReferenceMap.put(key, reference);
+        _localReferenceMap.put( key, reference );
     }
 
     public Map<String, LocalReference> getLocalReferences()
@@ -480,17 +526,17 @@ public class OgnlContext extends Object implements Map
         return _values.isEmpty();
     }
 
-    public boolean containsKey(Object key)
+    public boolean containsKey( Object key )
     {
-        return _values.containsKey(key);
+        return _values.containsKey( key );
     }
 
-    public boolean containsValue(Object value)
+    public boolean containsValue( Object value )
     {
-        return _values.containsValue(value);
+        return _values.containsValue( value );
     }
 
-    public Object get(Object key)
+    public Object get( Object key )
     {
         Object result = null;
 
@@ -609,8 +655,7 @@ public class OgnlContext extends Object implements Map
         // FIXME: complexity is O(n)
         if ( RESERVED_KEYS.contains( key ) )
         {
-            if ( CONTEXT_CONTEXT_KEY.equals( key )
-                || TRACE_EVALUATIONS_CONTEXT_KEY.equals( key )
+            if ( CONTEXT_CONTEXT_KEY.equals( key ) || TRACE_EVALUATIONS_CONTEXT_KEY.equals( key )
                 || KEEP_LAST_EVALUATION_CONTEXT_KEY.equals( key ) )
             {
                 throw new IllegalArgumentException( "can't remove " + key + " from context" );
@@ -654,12 +699,13 @@ public class OgnlContext extends Object implements Map
         return result;
     }
 
-    public void putAll(Map t)
+    public void putAll( Map t )
     {
-        for(Iterator it = t.keySet().iterator(); it.hasNext();) {
+        for ( Iterator it = t.keySet().iterator(); it.hasNext(); )
+        {
             Object k = it.next();
 
-            put(k, t.get(k));
+            put( k, t.get( k ) );
         }
     }
 
@@ -670,20 +716,20 @@ public class OgnlContext extends Object implements Map
         _accessorStack.clear();
 
         _localReferenceCounter = 0;
-        if (_localReferenceMap != null)
+        if ( _localReferenceMap != null )
         {
             _localReferenceMap.clear();
         }
 
-        setRoot(null);
-        setCurrentObject(null);
-        setRootEvaluation(null);
-        setCurrentEvaluation(null);
-        setLastEvaluation(null);
-        setCurrentNode(null);
-        setClassResolver(DEFAULT_CLASS_RESOLVER);
-        setTypeConverter(DEFAULT_TYPE_CONVERTER);
-        setMemberAccess(DEFAULT_MEMBER_ACCESS);
+        setRoot( null );
+        setCurrentObject( null );
+        setRootEvaluation( null );
+        setCurrentEvaluation( null );
+        setLastEvaluation( null );
+        setCurrentNode( null );
+        setClassResolver( DEFAULT_CLASS_RESOLVER );
+        setTypeConverter( DEFAULT_TYPE_CONVERTER );
+        setMemberAccess( DEFAULT_MEMBER_ACCESS );
     }
 
     public Set keySet()
@@ -705,9 +751,9 @@ public class OgnlContext extends Object implements Map
     }
 
     @Override
-    public boolean equals(Object o)
+    public boolean equals( Object o )
     {
-        return _values.equals(o);
+        return _values.equals( o );
     }
 
     @Override

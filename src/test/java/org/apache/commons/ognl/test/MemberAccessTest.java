@@ -28,17 +28,17 @@ import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-public class MemberAccessTest extends OgnlTestCase {
+public class MemberAccessTest
+    extends OgnlTestCase
+{
 
     private static Simple ROOT = new Simple();
 
-    private static Object[][] TESTS = {
-            {"@Runtime@getRuntime()", OgnlException.class},
-            {"@System@getProperty('java.specification.version')", System.getProperty("java.specification.version")},
-            {"bigIntValue", OgnlException.class},
-            {"bigIntValue", OgnlException.class, new Integer(25), OgnlException.class},
-            {"getBigIntValue()", OgnlException.class}, {"stringValue", ROOT.getStringValue()},
-    };
+    private static Object[][] TESTS = { { "@Runtime@getRuntime()", OgnlException.class },
+        { "@System@getProperty('java.specification.version')", System.getProperty( "java.specification.version" ) },
+        { "bigIntValue", OgnlException.class },
+        { "bigIntValue", OgnlException.class, new Integer( 25 ), OgnlException.class },
+        { "getBigIntValue()", OgnlException.class }, { "stringValue", ROOT.getStringValue() }, };
 
     /*
      * =================================================================== Public static methods
@@ -48,12 +48,12 @@ public class MemberAccessTest extends OgnlTestCase {
     {
         TestSuite result = new TestSuite();
 
-        for (int i = 0; i < TESTS.length; i++)
+        for ( int i = 0; i < TESTS.length; i++ )
         {
-            result.addTest(new MemberAccessTest((String) TESTS[i][0] + " (" + TESTS[i][1] + ")", ROOT,
-                                                (String) TESTS[i][0], TESTS[i][1]));
+            result.addTest( new MemberAccessTest( (String) TESTS[i][0] + " (" + TESTS[i][1] + ")", ROOT,
+                                                  (String) TESTS[i][0], TESTS[i][1] ) );
         }
-        
+
         return result;
     }
 
@@ -66,25 +66,25 @@ public class MemberAccessTest extends OgnlTestCase {
         super();
     }
 
-    public MemberAccessTest(String name)
+    public MemberAccessTest( String name )
     {
-        super(name);
+        super( name );
     }
 
-    public MemberAccessTest(String name, Object root, String expressionString, Object expectedResult, Object setValue,
-                            Object expectedAfterSetResult)
+    public MemberAccessTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,
+                             Object expectedAfterSetResult )
     {
-        super(name, root, expressionString, expectedResult, setValue, expectedAfterSetResult);
+        super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
     }
 
-    public MemberAccessTest(String name, Object root, String expressionString, Object expectedResult, Object setValue)
+    public MemberAccessTest( String name, Object root, String expressionString, Object expectedResult, Object setValue )
     {
-        super(name, root, expressionString, expectedResult, setValue);
+        super( name, root, expressionString, expectedResult, setValue );
     }
 
-    public MemberAccessTest(String name, Object root, String expressionString, Object expectedResult)
+    public MemberAccessTest( String name, Object root, String expressionString, Object expectedResult )
     {
-        super(name, root, expressionString, expectedResult);
+        super( name, root, expressionString, expectedResult );
     }
 
     /*
@@ -94,29 +94,36 @@ public class MemberAccessTest extends OgnlTestCase {
     public void setUp()
     {
         super.setUp();
-        
-        /* Should allow access at all to the Simple class except for the bigIntValue property */
-        _context.setMemberAccess(new DefaultMemberAccess(false) {
 
-            public boolean isAccessible(Map context, Object target, Member member, String propertyName)
+        /* Should allow access at all to the Simple class except for the bigIntValue property */
+        _context.setMemberAccess( new DefaultMemberAccess( false )
+        {
+
+            public boolean isAccessible( Map context, Object target, Member member, String propertyName )
             {
-                if (target == Runtime.class) {
+                if ( target == Runtime.class )
+                {
                     return false;
                 }
-                if (target instanceof Simple) {
-                    if (propertyName != null) {
-                        return !propertyName.equals("bigIntValue")
-                               && super.isAccessible(context, target, member, propertyName);
-                    } else {
-                        if (member instanceof Method) {
-                            return !member.getName().equals("getBigIntValue")
-                                   && !member.getName().equals("setBigIntValue")
-                                   && super.isAccessible(context, target, member, propertyName);
+                if ( target instanceof Simple )
+                {
+                    if ( propertyName != null )
+                    {
+                        return !propertyName.equals( "bigIntValue" )
+                            && super.isAccessible( context, target, member, propertyName );
+                    }
+                    else
+                    {
+                        if ( member instanceof Method )
+                        {
+                            return !member.getName().equals( "getBigIntValue" )
+                                && !member.getName().equals( "setBigIntValue" )
+                                && super.isAccessible( context, target, member, propertyName );
                         }
                     }
                 }
-                return super.isAccessible(context, target, member, propertyName);
+                return super.isAccessible( context, target, member, propertyName );
             }
-        });
+        } );
     }
 }
