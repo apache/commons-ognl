@@ -704,11 +704,13 @@ public class OgnlContext extends Object implements Map
         return _values.entrySet();
     }
 
+    @Override
     public boolean equals(Object o)
     {
         return _values.equals(o);
     }
 
+    @Override
     public int hashCode()
     {
         return _values.hashCode();
