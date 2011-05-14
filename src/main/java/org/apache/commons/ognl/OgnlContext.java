@@ -600,59 +600,53 @@ public class OgnlContext extends Object implements Map
         return result;
     }
 
-    public Object remove(Object key)
+    public Object remove( Object key )
     {
-        Object result;
+        Object result = null;
 
-        if (RESERVED_KEYS.contains(key)) {
-            if (key.equals(OgnlContext.THIS_CONTEXT_KEY)) {
-                result = getCurrentObject();
-                setCurrentObject(null);
-            } else {
-                if (key.equals(OgnlContext.ROOT_CONTEXT_KEY)) {
-                    result = getRoot();
-                    setRoot(null);
-                } else {
-                    if (key.equals(OgnlContext.CONTEXT_CONTEXT_KEY)) {
-                        throw new IllegalArgumentException("can't remove " + OgnlContext.CONTEXT_CONTEXT_KEY
-                                + " from context");
-                    } else {
-                        if (key.equals(OgnlContext.TRACE_EVALUATIONS_CONTEXT_KEY)) {
-                            throw new IllegalArgumentException("can't remove "
-                                    + OgnlContext.TRACE_EVALUATIONS_CONTEXT_KEY + " from context");
-                        } else {
-                            if (key.equals(OgnlContext.LAST_EVALUATION_CONTEXT_KEY)) {
-                                result = _lastEvaluation;
-                                setLastEvaluation(null);
-                            } else {
-                                if (key.equals(OgnlContext.KEEP_LAST_EVALUATION_CONTEXT_KEY)) {
-                                    throw new IllegalArgumentException("can't remove "
-                                            + OgnlContext.KEEP_LAST_EVALUATION_CONTEXT_KEY + " from context");
-                                } else {
-                                    if (key.equals(OgnlContext.CLASS_RESOLVER_CONTEXT_KEY)) {
-                                        result = getClassResolver();
-                                        setClassResolver(null);
-                                    } else {
-                                        if (key.equals(OgnlContext.TYPE_CONVERTER_CONTEXT_KEY)) {
-                                            result = getTypeConverter();
-                                            setTypeConverter(null);
-                                        } else {
-                                            if (key.equals(OgnlContext.MEMBER_ACCESS_CONTEXT_KEY)) {
-                                                result = getMemberAccess();
-                                                setMemberAccess(null);
-                                            } else {
-                                                throw new IllegalArgumentException("unknown reserved key '" + key + "'");
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+        if ( RESERVED_KEYS.contains( key ) )
+        {
+            if ( key.equals( OgnlContext.CONTEXT_CONTEXT_KEY )
+                || key.equals( OgnlContext.TRACE_EVALUATIONS_CONTEXT_KEY )
+                || key.equals( OgnlContext.KEEP_LAST_EVALUATION_CONTEXT_KEY ) )
+            {
+                throw new IllegalArgumentException( "can't remove " + OgnlContext.CONTEXT_CONTEXT_KEY + " from context" );
             }
-        } else {
-            result = _values.remove(key);
+
+            if ( key.equals( OgnlContext.THIS_CONTEXT_KEY ) )
+            {
+                result = getCurrentObject();
+                setCurrentObject( null );
+            }
+            else if ( key.equals( OgnlContext.ROOT_CONTEXT_KEY ) )
+            {
+                result = getRoot();
+                setRoot( null );
+            }
+            else if ( key.equals( OgnlContext.LAST_EVALUATION_CONTEXT_KEY ) )
+            {
+                result = _lastEvaluation;
+                setLastEvaluation( null );
+            }
+            else if ( key.equals( OgnlContext.CLASS_RESOLVER_CONTEXT_KEY ) )
+            {
+                result = getClassResolver();
+                setClassResolver( null );
+            }
+            else if ( key.equals( OgnlContext.TYPE_CONVERTER_CONTEXT_KEY ) )
+            {
+                result = getTypeConverter();
+                setTypeConverter( null );
+            }
+            else if ( key.equals( OgnlContext.MEMBER_ACCESS_CONTEXT_KEY ) )
+            {
+                result = getMemberAccess();
+                setMemberAccess( null );
+            }
+        }
+        else
+        {
+            result = _values.remove( key );
         }
         return result;
     }
