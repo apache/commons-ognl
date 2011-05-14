@@ -540,61 +540,63 @@ public class OgnlContext extends Object implements Map
         return result;
     }
 
-    public Object put(Object key, Object value)
+    public Object put( Object key, Object value )
     {
-        Object result;
-        
-        if (RESERVED_KEYS.contains(key)) {
-            if (key.equals(OgnlContext.THIS_CONTEXT_KEY)) {
-                result = getCurrentObject();
-                setCurrentObject(value);
-            } else {
-                if (key.equals(OgnlContext.ROOT_CONTEXT_KEY)) {
-                    result = getRoot();
-                    setRoot(value);
-                } else {
-                    if (key.equals(OgnlContext.CONTEXT_CONTEXT_KEY)) {
-                        throw new IllegalArgumentException("can't change " + OgnlContext.CONTEXT_CONTEXT_KEY
-                                + " in context");
-                    } else {
-                        if (key.equals(OgnlContext.TRACE_EVALUATIONS_CONTEXT_KEY)) {
-                            result = getTraceEvaluations() ? Boolean.TRUE : Boolean.FALSE;
-                            setTraceEvaluations(OgnlOps.booleanValue(value));
-                        } else {
-                            if (key.equals(OgnlContext.LAST_EVALUATION_CONTEXT_KEY)) {
-                                result = getLastEvaluation();
-                                _lastEvaluation = (Evaluation) value;
-                            } else {
-                                if (key.equals(OgnlContext.KEEP_LAST_EVALUATION_CONTEXT_KEY)) {
-                                    result = getKeepLastEvaluation() ? Boolean.TRUE : Boolean.FALSE;
-                                    setKeepLastEvaluation(OgnlOps.booleanValue(value));
-                                } else {
-                                    if (key.equals(OgnlContext.CLASS_RESOLVER_CONTEXT_KEY)) {
-                                        result = getClassResolver();
-                                        setClassResolver((ClassResolver) value);
-                                    } else {
-                                        if (key.equals(OgnlContext.TYPE_CONVERTER_CONTEXT_KEY)) {
-                                            result = getTypeConverter();
-                                            setTypeConverter((TypeConverter) value);
-                                        } else {
-                                            if (key.equals(OgnlContext.MEMBER_ACCESS_CONTEXT_KEY)) {
-                                                result = getMemberAccess();
-                                                setMemberAccess((MemberAccess) value);
-                                            } else {
-                                                throw new IllegalArgumentException("unknown reserved key '" + key + "'");
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+        Object result = null;
+
+        if ( RESERVED_KEYS.contains( key ) )
+        {
+            if ( key.equals( OgnlContext.CONTEXT_CONTEXT_KEY ) )
+            {
+                throw new IllegalArgumentException( "can't change " + OgnlContext.CONTEXT_CONTEXT_KEY + " in context" );
             }
-        } else {
-            result = _values.put(key, value);
+
+            if ( key.equals( OgnlContext.THIS_CONTEXT_KEY ) )
+            {
+                result = getCurrentObject();
+                setCurrentObject( value );
+            }
+            else if ( key.equals( OgnlContext.ROOT_CONTEXT_KEY ) )
+            {
+                result = getRoot();
+                setRoot( value );
+            }
+            else if ( key.equals( OgnlContext.TRACE_EVALUATIONS_CONTEXT_KEY ) )
+            {
+                result = getTraceEvaluations() ? Boolean.TRUE : Boolean.FALSE;
+                setTraceEvaluations( OgnlOps.booleanValue( value ) );
+            }
+            else if ( key.equals( OgnlContext.LAST_EVALUATION_CONTEXT_KEY ) )
+            {
+                result = getLastEvaluation();
+                _lastEvaluation = (Evaluation) value;
+            }
+            else if ( key.equals( OgnlContext.KEEP_LAST_EVALUATION_CONTEXT_KEY ) )
+            {
+                result = getKeepLastEvaluation() ? Boolean.TRUE : Boolean.FALSE;
+                setKeepLastEvaluation( OgnlOps.booleanValue( value ) );
+            }
+            else if ( key.equals( OgnlContext.CLASS_RESOLVER_CONTEXT_KEY ) )
+            {
+                result = getClassResolver();
+                setClassResolver( (ClassResolver) value );
+            }
+            else if ( key.equals( OgnlContext.TYPE_CONVERTER_CONTEXT_KEY ) )
+            {
+                result = getTypeConverter();
+                setTypeConverter( (TypeConverter) value );
+            }
+            else if ( key.equals( OgnlContext.MEMBER_ACCESS_CONTEXT_KEY ) )
+            {
+                result = getMemberAccess();
+                setMemberAccess( (MemberAccess) value );
+            }
         }
-        
+        else
+        {
+            result = _values.put( key, value );
+        }
+
         return result;
     }
 
