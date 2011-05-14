@@ -27,16 +27,18 @@ limitations under the License.
 
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-ognl</artifactId>
-  <packaging>jar</packaging>
   <version>4.0-incubating-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
   <name>Apache Commons OGNL - Object Graph Navigation Library</name>
   <description>The Apache Commons OGNL library is a Java development framework for Object-Graph Navigation Language,
   plus other extras such as list projection and selection and lambda expressions.</description>
-
-  <inceptionYear>1997</inceptionYear>
-
   <url>http://incubator.apache.org/ognl/</url>
-
+  <inceptionYear>1997</inceptionYear>
+  <organization>
+    <name>The Apache Software Foundation</name>
+    <url>http://www.apache.org/</url>
+  </organization>
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
@@ -44,34 +46,6 @@ limitations under the License.
       <distribution>repo</distribution>
     </license>
   </licenses>
-
-  <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/incubator/ognl/trunk/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/incubator/ognl/trunk/</developerConnection>
-    <url>http://svn.apache.org/viewvc/incubator/ognl/trunk/</url>
-  </scm>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <commons.javadoc.version>2.8</commons.javadoc.version>
-    <maven.compile.source>1.5</maven.compile.source>
-    <maven.compile.target>1.5</maven.compile.target>
-  </properties>
-
-  <organization>
-    <name>The Apache Software Foundation</name>
-    <url>http://www.apache.org/</url>
-  </organization>
-
-  <issueManagement>
-    <system>jira</system>
-    <url>https://issues.apache.org/jira/browse/OGNL</url>
-  </issueManagement>
-
-  <ciManagement>
-    <system>Jenkins</system>
-    <url>https://builds.apache.org/hudson/job/ognl/</url>
-  </ciManagement>
 
   <developers>
     <developer>
@@ -171,16 +145,26 @@ limitations under the License.
     </developer>
   </developers>
 
-  <pluginRepositories>
-    <pluginRepository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>mc-release</id>
-      <name>Mathieu Carbou repository</name>
-      <url>http://mc-repo.googlecode.com/svn/maven2/releases</url>
-    </pluginRepository>
-  </pluginRepositories>
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/incubator/ognl/trunk/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/incubator/ognl/trunk/</developerConnection>
+    <url>http://svn.apache.org/viewvc/incubator/ognl/trunk/</url>
+  </scm>
+  <issueManagement>
+    <system>jira</system>
+    <url>https://issues.apache.org/jira/browse/OGNL</url>
+  </issueManagement>
+  <ciManagement>
+    <system>Jenkins</system>
+    <url>https://builds.apache.org/hudson/job/ognl/</url>
+  </ciManagement>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <commons.javadoc.version>2.8</commons.javadoc.version>
+    <maven.compile.source>1.5</maven.compile.source>
+    <maven.compile.target>1.5</maven.compile.target>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -202,8 +186,18 @@ limitations under the License.
     </dependency>
   </dependencies>
 
-  <build>
+  <pluginRepositories>
+    <pluginRepository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>mc-release</id>
+      <name>Mathieu Carbou repository</name>
+      <url>http://mc-repo.googlecode.com/svn/maven2/releases</url>
+    </pluginRepository>
+  </pluginRepositories>
 
+  <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -283,8 +277,6 @@ limitations under the License.
       </plugins>
     </pluginManagement>
   </build>
-
-
 
   <profiles>
     <profile>
@@ -374,7 +366,6 @@ limitations under the License.
           </plugin>
         </plugins>
       </reporting>
-
     </profile>
   </profiles>
 
