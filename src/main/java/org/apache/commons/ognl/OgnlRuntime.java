@@ -2728,31 +2728,33 @@ public class OgnlRuntime
 
             Method m = null;
 
-            for ( int i = 0; i < methods.length; i++ )
+            for ( MethodDescriptor method : methods )
             {
-                if ( !isMethodCallable( methods[i].getMethod() ) )
-                    continue;
-
-                if ( ( methods[i].getName().equalsIgnoreCase( name )
-                    || methods[i].getName().toLowerCase().equals( name )
-                    || methods[i].getName().toLowerCase().equals( "get" + name )
-                    || methods[i].getName().toLowerCase().equals( "has" + name )
-                    || methods[i].getName().toLowerCase().equals( "is" + name ) )
-                    && !methods[i].getName().startsWith( "set" ) )
+                if ( !isMethodCallable( method.getMethod() ) )
                 {
-                    if ( numParms > 0 && methods[i].getMethod().getParameterTypes().length == numParms )
-                        return methods[i].getMethod();
+                    continue;
+                }
+
+                String methodName = method.getName();
+                String lowerMethodName = methodName.toLowerCase();
+                if ( ( methodName.equalsIgnoreCase( name ) || lowerMethodName.equals( name )
+                    || lowerMethodName.equals( "get" + name ) || lowerMethodName.equals( "has" + name )
+                    || lowerMethodName.equals( "is" + name ) ) && !methodName.startsWith( "set" ) )
+                {
+                    if ( numParms > 0 && method.getMethod().getParameterTypes().length == numParms )
+                    {
+                        return method.getMethod();
+                    }
                     else if ( numParms < 0 )
                     {
-                        if ( methods[i].getName().equals( name ) )
+                        if ( methodName.equals( name ) )
                         {
-                            return methods[i].getMethod();
+                            return method.getMethod();
                         }
-                        else if ( ( m != null
-                                && m.getParameterTypes().length > methods[i].getMethod().getParameterTypes().length )
-                            || m == null )
+                        else if ( m == null ||
+                            ( m != null && m.getParameterTypes().length > method.getMethod().getParameterTypes().length ) )
                         {
-                            m = methods[i].getMethod();
+                            m = method.getMethod();
                         }
                     }
                 }
@@ -2761,23 +2763,28 @@ public class OgnlRuntime
             if ( m != null )
                 return m;
 
-            for ( int i = 0; i < methods.length; i++ )
+            for ( MethodDescriptor method : methods )
             {
-                if ( !isMethodCallable( methods[i].getMethod() ) )
+                if ( !isMethodCallable( method.getMethod() ) )
+                {
                     continue;
+                }
 
-                if ( methods[i].getName().toLowerCase().endsWith( name ) && !methods[i].getName().startsWith( "set" )
-                    && methods[i].getMethod().getReturnType() != Void.TYPE )
+                if ( method.getName().toLowerCase().endsWith( name ) && !method.getName().startsWith( "set" )
+                    && method.getMethod().getReturnType() != Void.TYPE )
                 {
 
-                    if ( numParms > 0 && methods[i].getMethod().getParameterTypes().length == numParms )
-                        return methods[i].getMethod();
+                    if ( numParms > 0 && method.getMethod().getParameterTypes().length == numParms )
+                    {
+                        return method.getMethod();
+                    }
                     else if ( numParms < 0 )
                     {
-                        if ( ( m != null && m.getParameterTypes().length > methods[i].getMethod().getParameterTypes().length )
+                        if ( ( m != null
+                            && m.getParameterTypes().length > method.getMethod().getParameterTypes().length )
                             || m == null )
                         {
-                            m = methods[i].getMethod();
+                            m = method.getMethod();
                         }
                     }
                 }
