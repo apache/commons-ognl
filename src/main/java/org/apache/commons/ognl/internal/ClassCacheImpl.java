@@ -89,7 +89,7 @@ public class ClassCacheImpl
 
         while ( entry != null )
         {
-            if ( entry.getKey() == key )
+            if ( key == entry.getKey() )
             {
                 result = entry.getValue();
                 break;
@@ -124,7 +124,7 @@ public class ClassCacheImpl
         }
         else
         {
-            if ( entry.getKey() == key )
+            if ( key == entry.getKey() )
             {
                 result = entry.getValue();
                 entry.setValue( value );
@@ -133,7 +133,7 @@ public class ClassCacheImpl
             {
                 while ( true )
                 {
-                    if ( entry.getKey() == key )
+                    if ( key == entry.getKey() )
                     {
                         /* replace value */
                         result = entry.getValue();
