@@ -187,13 +187,13 @@ public abstract class OgnlOps
         Class c = value.getClass();
 
         if ( c == Boolean.class )
-            return ( (Boolean) value ).booleanValue();
+            return (Boolean) value;
 
         // if ( c == String.class )
         // return ((String)value).length() > 0;
 
         if ( c == Character.class )
-            return ( (Character) value ).charValue() != 0;
+            return (Character) value != 0;
         if ( value instanceof Number )
             return ( (Number) value ).doubleValue() != 0;
 
@@ -216,9 +216,9 @@ public abstract class OgnlOps
         if ( c.getSuperclass() == Number.class )
             return ( (Number) value ).longValue();
         if ( c == Boolean.class )
-            return ( (Boolean) value ).booleanValue() ? 1 : 0;
+            return (Boolean) value ? 1 : 0;
         if ( c == Character.class )
-            return ( (Character) value ).charValue();
+            return (Character) value;
         return Long.parseLong( stringValue( value, true ) );
     }
 
@@ -238,9 +238,9 @@ public abstract class OgnlOps
         if ( c.getSuperclass() == Number.class )
             return ( (Number) value ).doubleValue();
         if ( c == Boolean.class )
-            return ( (Boolean) value ).booleanValue() ? 1 : 0;
+            return (Boolean) value ? 1 : 0;
         if ( c == Character.class )
-            return ( (Character) value ).charValue();
+            return (Character) value;
         String s = stringValue( value, true );
 
         return ( s.length() == 0 ) ? 0.0 : Double.parseDouble( s );
@@ -266,9 +266,9 @@ public abstract class OgnlOps
         if ( c.getSuperclass() == Number.class )
             return BigInteger.valueOf( ( (Number) value ).longValue() );
         if ( c == Boolean.class )
-            return BigInteger.valueOf( ( (Boolean) value ).booleanValue() ? 1 : 0 );
+            return BigInteger.valueOf( (Boolean) value ? 1 : 0 );
         if ( c == Character.class )
-            return BigInteger.valueOf( ( (Character) value ).charValue() );
+            return BigInteger.valueOf( (Character) value );
         return new BigInteger( stringValue( value, true ) );
     }
 
@@ -290,7 +290,7 @@ public abstract class OgnlOps
         if ( c == BigInteger.class )
             return new BigDecimal( (BigInteger) value );
         if ( c == Boolean.class )
-            return BigDecimal.valueOf( ( (Boolean) value ).booleanValue() ? 1 : 0 );
+            return BigDecimal.valueOf( (Boolean) value ? 1 : 0 );
         if ( c == Character.class )
             return BigDecimal.valueOf( ( (Character) value ).charValue() );
         return new BigDecimal( stringValue( value, true ) );
@@ -401,7 +401,7 @@ public abstract class OgnlOps
 
     public static Object toArray( boolean value, Class toType )
     {
-        return toArray( new Boolean( value ), toType );
+        return toArray( Boolean.valueOf( value ), toType );
     }
 
     public static Object convertValue( char value, Class toType )
@@ -436,7 +436,7 @@ public abstract class OgnlOps
 
     public static Object convertValue( boolean value, Class toType )
     {
-        return convertValue( new Boolean( value ), toType );
+        return convertValue( Boolean.valueOf( value ), toType );
     }
 
     // //////////////////////////////////////////////////////////////
@@ -473,7 +473,7 @@ public abstract class OgnlOps
 
     public static Object convertValue( boolean value, Class toType, boolean preventNull )
     {
-        return convertValue( new Boolean( value ), toType, preventNull );
+        return convertValue( Boolean.valueOf( value ), toType, preventNull );
     }
 
     // ///////////////////////////////////////////////////////////////
@@ -510,7 +510,7 @@ public abstract class OgnlOps
 
     public static Object toArray( boolean value, Class toType, boolean preventNull )
     {
-        return toArray( new Boolean( value ), toType, preventNull );
+        return toArray( Boolean.valueOf( value ), toType, preventNull );
     }
 
     /**
@@ -607,20 +607,20 @@ public abstract class OgnlOps
             {
                 if ( ( toType == Integer.class ) || ( toType == Integer.TYPE ) )
                 {
-                    result = new Integer( (int) longValue( value ) );
+                    result = (int) longValue( value );
                 }
                 if ( ( toType == Double.class ) || ( toType == Double.TYPE ) )
-                    result = new Double( doubleValue( value ) );
+                    result = doubleValue( value );
                 if ( ( toType == Boolean.class ) || ( toType == Boolean.TYPE ) )
                     result = booleanValue( value ) ? Boolean.TRUE : Boolean.FALSE;
                 if ( ( toType == Byte.class ) || ( toType == Byte.TYPE ) )
-                    result = new Byte( (byte) longValue( value ) );
+                    result = (byte) longValue( value );
                 if ( ( toType == Character.class ) || ( toType == Character.TYPE ) )
-                    result = new Character( (char) longValue( value ) );
+                    result = (char) longValue( value );
                 if ( ( toType == Short.class ) || ( toType == Short.TYPE ) )
-                    result = new Short( (short) longValue( value ) );
+                    result = (short) longValue( value );
                 if ( ( toType == Long.class ) || ( toType == Long.TYPE ) )
-                    result = new Long( longValue( value ) );
+                    result = longValue( value );
                 if ( ( toType == Float.class ) || ( toType == Float.TYPE ) )
                     result = new Float( doubleValue( value ) );
                 if ( toType == BigInteger.class )
@@ -780,28 +780,28 @@ public abstract class OgnlOps
             case BOOL:
             case CHAR:
             case INT:
-                return new Integer( (int) value );
+                return (int) value;
 
             case FLOAT:
                 if ( (long) (float) value == value )
                 {
-                    return new Float( (float) value );
+                    return (float) value;
                 }
                 // else fall through:
             case DOUBLE:
                 if ( (long) (double) value == value )
                 {
-                    return new Double( (double) value );
+                    return (double) value;
                 }
                 // else fall through:
             case LONG:
-                return new Long( value );
+                return value;
 
             case BYTE:
-                return new Byte( (byte) value );
+                return (byte) value;
 
             case SHORT:
-                return new Short( (short) value );
+                return (short) value;
 
             default:
                 return BigInteger.valueOf( value );
@@ -820,8 +820,8 @@ public abstract class OgnlOps
     public static Number newReal( int type, double value )
     {
         if ( type == FLOAT )
-            return new Float( (float) value );
-        return new Double( value );
+            return (float) value;
+        return value;
     }
 
     public static Object binaryOr( Object v1, Object v2 )
@@ -1107,7 +1107,7 @@ public abstract class OgnlOps
                 }
                 else
                 {
-                    result = new String( ch + "" );
+                    result = ch + "";
                 }
                 break;
         }
