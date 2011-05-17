@@ -42,4 +42,5 @@ class Entry<T>
     {
         return "Entry[" + "next=" + next + '\n' + ", key=" + key + '\n' + ", value=" + value + '\n' + ']';
     }
+
 }
