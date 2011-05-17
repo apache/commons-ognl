@@ -139,6 +139,7 @@ public class ClassCacheImpl
         return result;
     }
 
+    @Override
     public String toString()
     {
         return "ClassCacheImpl[" + "_table=" + ( _table == null ? null : Arrays.asList( _table ) ) + '\n'
