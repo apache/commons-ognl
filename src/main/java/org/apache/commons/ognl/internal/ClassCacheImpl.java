@@ -123,15 +123,14 @@ public class ClassCacheImpl
                         entry.value = value;
                         break;
                     }
-                    else
+
+                    if ( entry.next == null )
                     {
-                        if ( entry.next == null )
-                        {
-                            /* add value */
-                            entry.next = new Entry<T>( key, value );
-                            break;
-                        }
+                        /* add value */
+                        entry.next = new Entry<T>( key, value );
+                        break;
                     }
+
                     entry = entry.next;
                 }
             }
