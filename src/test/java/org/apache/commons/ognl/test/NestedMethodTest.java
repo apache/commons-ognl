@@ -19,9 +19,17 @@
  */
 package org.apache.commons.ognl.test;
 
-import junit.framework.TestSuite;
-import org.apache.commons.ognl.test.objects.Component;
+import java.util.ArrayList;
+import java.util.Collection;
 
+import org.apache.commons.ognl.test.objects.Component;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+
+@RunWith(value = Parameterized.class)
 public class NestedMethodTest
     extends OgnlTestCase
 {
@@ -38,68 +46,60 @@ public class NestedMethodTest
      * =================================================================== Public static methods
      * ===================================================================
      */
-    public static TestSuite suite()
+    @Parameters
+    public static Collection<Object[]> data()
     {
-        TestSuite result = new TestSuite();
-
+        Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
         for ( int i = 0; i < TESTS.length; i++ )
         {
-            if ( TESTS[i].length == 3 )
+            Object[] tmp = new Object[6];
+            tmp[0] = TESTS[i][1];
+            tmp[1] = TESTS[i][0];
+            tmp[2] = TESTS[i][1];
+
+            switch ( TESTS[i].length )
             {
-                result.addTest( new NestedMethodTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                                                      TESTS[i][2] ) );
+                case 3:
+                    tmp[3] = TESTS[i][2];
+                    break;
+
+                case 4:
+                    tmp[3] = TESTS[i][2];
+                    tmp[4] = TESTS[i][3];
+                    break;
+
+                case 5:
+                    tmp[3] = TESTS[i][2];
+                    tmp[4] = TESTS[i][3];
+                    tmp[5] = TESTS[i][4];
+                    break;
+
+                default:
+                    throw new RuntimeException( "don't understand TEST format with length " + TESTS[i].length );
             }
-            else
-            {
-                if ( TESTS[i].length == 4 )
-                {
-                    result.addTest( new NestedMethodTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                                                          TESTS[i][2], TESTS[i][3] ) );
-                }
-                else
-                {
-                    if ( TESTS[i].length == 5 )
-                    {
-                        result.addTest( new NestedMethodTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                                                              TESTS[i][2], TESTS[i][3], TESTS[i][4] ) );
-                    }
-                    else
-                    {
-                        throw new RuntimeException( "don't understand TEST format" );
-                    }
-                }
-            }
+
+            data.add( tmp );
         }
-        return result;
+        return data;
     }
 
     /*
      * =================================================================== Constructors
      * ===================================================================
      */
-    public NestedMethodTest()
-    {
-        super();
-    }
-
-    public NestedMethodTest( String name )
-    {
-        super( name );
-    }
-
     public NestedMethodTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,
                              Object expectedAfterSetResult )
     {
         super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
     }
 
-    public NestedMethodTest( String name, Object root, String expressionString, Object expectedResult, Object setValue )
+    @Test
+
+    @Override
+    public void runTest()
+        throws Exception
     {
-        super( name, root, expressionString, expectedResult, setValue );
+        super.runTest();
     }
 
-    public NestedMethodTest( String name, Object root, String expressionString, Object expectedResult )
-    {
-        super( name, root, expressionString, expectedResult );
-    }
 }

@@ -19,7 +19,19 @@
  */
 package org.apache.commons.ognl;
 
-import junit.framework.TestCase;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNotSame;
+import static junit.framework.Assert.assertSame;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
+
+import java.beans.PropertyDescriptor;
+import java.io.Serializable;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.commons.ognl.test.objects.BaseGeneric;
 import org.apache.commons.ognl.test.objects.Bean2;
 import org.apache.commons.ognl.test.objects.FormImpl;
@@ -36,20 +48,15 @@ import org.apache.commons.ognl.test.objects.ListSourceImpl;
 import org.apache.commons.ognl.test.objects.Root;
 import org.apache.commons.ognl.test.objects.SetterReturns;
 import org.apache.commons.ognl.test.objects.SubclassSyntheticObject;
-
-import java.beans.PropertyDescriptor;
-import java.io.Serializable;
-import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.List;
+import org.junit.Test;
 
 /**
  * Tests various methods / functionality of {@link org.apache.commons.ognl.OgnlRuntime}.
  */
 public class TestOgnlRuntime
-    extends TestCase
 {
 
+    @Test
     public void test_Get_Super_Or_Interface_Class()
         throws Exception
     {
@@ -61,6 +68,7 @@ public class TestOgnlRuntime
         assertEquals( ListSource.class, OgnlRuntime.getCompiler().getSuperOrInterfaceClass( m, list.getClass() ) );
     }
 
+    @Test
     public void test_Get_Private_Class()
         throws Exception
     {
@@ -72,6 +80,7 @@ public class TestOgnlRuntime
         assertEquals( Iterable.class, OgnlRuntime.getCompiler().getSuperOrInterfaceClass( m, list.getClass() ) );
     }
 
+    @Test
     public void test_Complicated_Inheritance()
         throws Exception
     {
@@ -83,6 +92,7 @@ public class TestOgnlRuntime
         assertEquals( IComponent.class, OgnlRuntime.getCompiler().getSuperOrInterfaceClass( m, form.getClass() ) );
     }
 
+    @Test
     public void test_Get_Read_Method()
         throws Exception
     {
@@ -115,6 +125,7 @@ public class TestOgnlRuntime
         }
     }
 
+    @Test
     public void test_Get_Read_Method_Multiple()
         throws Exception
     {
@@ -124,6 +135,7 @@ public class TestOgnlRuntime
         assertEquals( "isDisabled", m.getName() );
     }
 
+    @Test
     public void test_Get_Read_Method_Multiple_Boolean_Getters()
         throws Exception
     {
@@ -138,6 +150,7 @@ public class TestOgnlRuntime
         assertEquals( "isNotAvailable", m.getName() );
     }
 
+    @Test
     public void test_Find_Method_Mixed_Boolean_Getters()
         throws Exception
     {
@@ -147,6 +160,7 @@ public class TestOgnlRuntime
         assertEquals( "getAllowDisplay", m.getName() );
     }
 
+    @Test
     public void test_Get_Appropriate_Method()
         throws Exception
     {
@@ -158,6 +172,7 @@ public class TestOgnlRuntime
         assert ret != null;
     }
 
+    @Test
     public void test_Call_Static_Method_Invalid_Class()
     {
 
@@ -177,6 +192,7 @@ public class TestOgnlRuntime
         }
     }
 
+    @Test
     public void test_Setter_Returns()
         throws Exception
     {
@@ -190,6 +206,7 @@ public class TestOgnlRuntime
         assertEquals( Ognl.getValue( "value", context, root ), "12__" );
     }
 
+    @Test
     public void test_Call_Method_VarArgs()
         throws Exception
     {
@@ -204,6 +221,7 @@ public class TestOgnlRuntime
         assertEquals( "Halo 3", OgnlRuntime.callMethod( context, service, "getFullMessageFor", args ) );
     }
 
+    @Test
     public void test_Class_Cache_Inspector()
         throws Exception
     {
@@ -245,6 +263,7 @@ public class TestOgnlRuntime
         }
     }
 
+    @Test
     public void test_Set_Generic_Parameter_Types()
         throws Exception
     {
@@ -258,6 +277,7 @@ public class TestOgnlRuntime
         assertEquals( Integer.class, types[0] );
     }
 
+    @Test
     public void test_Get_Generic_Parameter_Types()
         throws Exception
     {
@@ -269,6 +289,7 @@ public class TestOgnlRuntime
         assertEquals( Integer.class, m.getReturnType() );
     }
 
+    @Test
     public void test_Find_Parameter_Types()
         throws Exception
     {
@@ -282,6 +303,7 @@ public class TestOgnlRuntime
         assertEquals( new Long[0].getClass(), types[0] );
     }
 
+    @Test
     public void test_Find_Parameter_Types_Superclass()
         throws Exception
     {
@@ -295,6 +317,7 @@ public class TestOgnlRuntime
         assertEquals( new Serializable[0].getClass(), types[0] );
     }
 
+    @Test
     public void test_Get_Declared_Methods_With_Synthetic_Methods()
         throws Exception
     {
@@ -307,6 +330,7 @@ public class TestOgnlRuntime
         assertEquals( 2, result.size() );
     }
 
+    @Test
     public void test_Get_Property_Descriptors_With_Synthetic_Methods()
         throws Exception
     {
@@ -339,6 +363,7 @@ public class TestOgnlRuntime
     /**
      * Tests OGNL parameter discovery.
      */
+    @Test
     public void testOGNLParameterDiscovery()
         throws NoSuchMethodException
     {

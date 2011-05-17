@@ -25,6 +25,7 @@ import org.apache.commons.ognl.DefaultMemberAccess;
 import org.apache.commons.ognl.Ognl;
 import org.apache.commons.ognl.OgnlContext;
 import org.apache.commons.ognl.OgnlException;
+import org.junit.Before;
 
 /**
  * This is a test program for private access in OGNL. shows the failures and a summary.
@@ -79,6 +80,8 @@ public class PrivateMemberTest
      * =================================================================== Overridden methods
      * ===================================================================
      */
+    @Before
+    @Override
     public void setUp()
     {
         context = (OgnlContext) Ognl.createDefaultContext( null );

@@ -19,17 +19,18 @@
  */
 package org.apache.commons.ognl.test;
 
-import junit.framework.TestCase;
+import junit.framework.Assert;
 import org.apache.commons.ognl.Ognl;
 import org.apache.commons.ognl.OgnlContext;
 import org.apache.commons.ognl.SimpleNode;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Array;
 
-public class OgnlTestCase
-    extends TestCase
+public abstract class OgnlTestCase
 {
 
     protected OgnlContext _context;
@@ -56,37 +57,28 @@ public class OgnlTestCase
      * =================================================================== Public static methods
      * ===================================================================
      */
+
     /**
      * Returns true if object1 is equal to object2 in either the sense that they are the same object or, if both are
      * non-null if they are equal in the <CODE>equals()</CODE> sense.
      */
-    public static boolean isEqual( Object object1, Object object2 )
-    {
+    public static boolean isEqual(Object object1, Object object2) {
         boolean result = false;
 
-        if ( object1 == object2 )
-        {
+        if (object1 == object2) {
             result = true;
-        }
-        else
-        {
-            if ( ( object1 != null ) && object1.getClass().isArray() )
-            {
-                if ( ( object2 != null ) && object2.getClass().isArray() && ( object2.getClass() == object1.getClass() ) )
-                {
-                    result = ( Array.getLength( object1 ) == Array.getLength( object2 ) );
-                    if ( result )
-                    {
-                        for ( int i = 0, icount = Array.getLength( object1 ); result && ( i < icount ); i++ )
-                        {
-                            result = isEqual( Array.get( object1, i ), Array.get( object2, i ) );
+        } else {
+            if ((object1 != null) && object1.getClass().isArray()) {
+                if ((object2 != null) && object2.getClass().isArray() && (object2.getClass() == object1.getClass())) {
+                    result = (Array.getLength(object1) == Array.getLength(object2));
+                    if (result) {
+                        for (int i = 0, icount = Array.getLength(object1); result && (i < icount); i++) {
+                            result = isEqual(Array.get(object1, i), Array.get(object2, i));
                         }
                     }
                 }
-            }
-            else
-            {
-                result = ( object1 != null ) && ( object2 != null ) && object1.equals( object2 );
+            } else {
+                result = (object1 != null) && (object2 != null) && object1.equals(object2);
             }
         }
         return result;
@@ -96,109 +88,87 @@ public class OgnlTestCase
      * =================================================================== Constructors
      * ===================================================================
      */
-    public OgnlTestCase()
+    public OgnlTestCase(String name, Object root, String expressionString, Object expectedResult)
     {
-        super();
-    }
-
-    public OgnlTestCase( String name )
-    {
-        super( name );
+        this( name, root, expressionString, expectedResult, null, false, null, false);
     }
 
     public OgnlTestCase( String name, Object root, String expressionString, Object expectedResult, Object setValue,
                          Object expectedAfterSetResult )
     {
-        this( name, root, expressionString, expectedResult, setValue );
-        this.hasExpectedAfterSetResult = true;
-        this.expectedAfterSetResult = expectedAfterSetResult;
+        this( name, root, expressionString, expectedResult, setValue, setValue != null, expectedAfterSetResult,
+              expectedAfterSetResult != null );
     }
 
-    public OgnlTestCase( String name, Object root, String expressionString, Object expectedResult, Object setValue )
+    public OgnlTestCase( String name, Object root, String expressionString, Object expectedResult, Object setValue,
+                         boolean hasSetValue, Object expectedAfterSetResult, boolean hasExpectedAfterSetResult )
     {
-        this( name, root, expressionString, expectedResult );
-        this.hasSetValue = true;
-        this.setValue = setValue;
-    }
-
-    public OgnlTestCase( String name, Object root, String expressionString, Object expectedResult )
-    {
-        this( name );
         this._root = root;
         this._expressionString = expressionString;
         this._expectedResult = expectedResult;
+
+        this.hasExpectedAfterSetResult = hasExpectedAfterSetResult;
+        this.expectedAfterSetResult = expectedAfterSetResult;
+        this.hasSetValue = hasSetValue;
+        this.setValue = setValue;
+
     }
 
     /*
      * =================================================================== Public methods
      * ===================================================================
      */
-    public String getExpressionDump( SimpleNode node )
-    {
+    public String getExpressionDump(SimpleNode node) {
         StringWriter writer = new StringWriter();
 
-        node.dump( new PrintWriter( writer ), "   " );
+        node.dump(new PrintWriter(writer), "   ");
         return writer.toString();
     }
 
-    public String getExpressionString()
-    {
+    public String getExpressionString() {
         return _expressionString;
     }
 
     public SimpleNode getExpression()
-        throws Exception
-    {
-        if ( _expression == null )
-        {
-            _expression = (SimpleNode) Ognl.parseExpression( _expressionString );
+            throws Exception {
+        if (_expression == null) {
+            _expression = (SimpleNode) Ognl.parseExpression(_expressionString);
         }
 
-        if ( _compileExpressions )
-        {
-            _expression = (SimpleNode) Ognl.compileExpression( _context, _root, _expressionString );
+        if (_compileExpressions) {
+            _expression = (SimpleNode) Ognl.compileExpression(_context, _root, _expressionString);
         }
 
         return _expression;
     }
 
-    public Object getExpectedResult()
-    {
+    public Object getExpectedResult() {
         return _expectedResult;
     }
 
-    public static void assertEquals( Object expected, Object actual )
-    {
-        if ( expected != null && expected.getClass().isArray() && actual != null && actual.getClass().isArray() )
-        {
+    public static void assertEquals(Object expected, Object actual) {
+        if (expected != null && expected.getClass().isArray() && actual != null && actual.getClass().isArray()) {
 
-            TestCase.assertEquals( Array.getLength( expected ), Array.getLength( actual ) );
+            Assert.assertEquals(Array.getLength(expected), Array.getLength(actual));
 
-            int length = Array.getLength( expected );
+            int length = Array.getLength(expected);
 
-            for ( int i = 0; i < length; i++ )
-            {
-                Object aexpected = Array.get( expected, i );
-                Object aactual = Array.get( actual, i );
+            for (int i = 0; i < length; i++) {
+                Object aexpected = Array.get(expected, i);
+                Object aactual = Array.get(actual, i);
 
-                if ( aexpected != null && aactual != null && Boolean.class.isAssignableFrom( aexpected.getClass() ) )
-                {
-                    TestCase.assertEquals( aexpected.toString(), aactual.toString() );
-                }
-                else
-                    OgnlTestCase.assertEquals( aexpected, aactual );
+                if (aexpected != null && aactual != null && Boolean.class.isAssignableFrom(aexpected.getClass())) {
+                    Assert.assertEquals(aexpected.toString(), aactual.toString());
+                } else
+                    OgnlTestCase.assertEquals(aexpected, aactual);
             }
-        }
-        else if ( expected != null && actual != null && Character.class.isInstance( expected )
-            && Character.class.isInstance( actual ) )
-        {
+        } else if (expected != null && actual != null && Character.class.isInstance(expected)
+                && Character.class.isInstance(actual)) {
 
-            TestCase.assertEquals( ( (Character) expected ).charValue(), ( (Character) actual ).charValue() );
-        }
-        else
-        {
+            Assert.assertEquals(((Character) expected).charValue(), ((Character) actual).charValue());
+        } else {
 
-            TestCase.assertEquals( expected, actual );
+            Assert.assertEquals(expected, actual);
         }
     }
 
@@ -206,50 +176,44 @@ public class OgnlTestCase
      * =================================================================== Overridden methods
      * ===================================================================
      */
-    protected void runTest()
-        throws Exception
-    {
+    @Test
+    public void runTest()
+            throws Exception {
         Object testedResult = null;
 
-        try
-        {
+        try {
             SimpleNode expr;
 
             testedResult = _expectedResult;
             expr = getExpression();
 
-            assertEquals( _expectedResult, Ognl.getValue( expr, _context, _root ) );
+            assertEquals(_expectedResult, Ognl.getValue(expr, _context, _root));
 
-            if ( hasSetValue )
-            {
+            if (hasSetValue) {
                 testedResult = hasExpectedAfterSetResult ? expectedAfterSetResult : setValue;
-                Ognl.setValue( expr, _context, _root, setValue );
+                Ognl.setValue(expr, _context, _root, setValue);
 
-                assertEquals( testedResult, Ognl.getValue( expr, _context, _root ) );
+                assertEquals(testedResult, Ognl.getValue(expr, _context, _root));
             }
 
-        }
-        catch ( Exception ex )
-        {
-            System.out.println( "Caught exception " + ex );
-            if ( NullPointerException.class.isInstance( ex ) )
+        } catch (Exception ex) {
+            System.out.println("Caught exception " + ex);
+            if (NullPointerException.class.isInstance(ex))
                 ex.printStackTrace();
 
-            if ( RuntimeException.class.isInstance( ex ) && ( (RuntimeException) ex ).getCause() != null
-                && Exception.class.isAssignableFrom( ( (RuntimeException) ex ).getCause().getClass() ) )
-                ex = (Exception) ( (RuntimeException) ex ).getCause();
+            if (RuntimeException.class.isInstance(ex) && ex.getCause() != null
+                    && Exception.class.isAssignableFrom( ex.getCause().getClass()))
+                ex = (Exception) ((RuntimeException) ex).getCause();
 
-            if ( testedResult instanceof Class )
-            {
-                assertTrue( Exception.class.isAssignableFrom( (Class) testedResult ) );
-            }
-            else
+            if (testedResult instanceof Class) {
+                Assert.assertTrue(Exception.class.isAssignableFrom((Class) testedResult));
+            } else
                 throw ex;
         }
     }
 
-    protected void setUp()
-    {
-        _context = (OgnlContext) Ognl.createDefaultContext( null );
+    @Before
+    public void setUp() {
+        _context = (OgnlContext) Ognl.createDefaultContext(null);
     }
 }

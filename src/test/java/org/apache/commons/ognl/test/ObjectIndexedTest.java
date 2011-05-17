@@ -26,6 +26,7 @@ import org.apache.commons.ognl.OgnlContext;
 import org.apache.commons.ognl.OgnlException;
 import org.apache.commons.ognl.OgnlRuntime;
 import org.apache.commons.ognl.SimpleNode;
+import org.junit.Before;
 
 public class ObjectIndexedTest
     extends TestCase
@@ -252,6 +253,8 @@ public class ObjectIndexedTest
      * =================================================================== Overridden methods
      * ===================================================================
      */
+    @Override
+    @Before
     protected void setUp()
     {
         context = (OgnlContext) Ognl.createDefaultContext( null );

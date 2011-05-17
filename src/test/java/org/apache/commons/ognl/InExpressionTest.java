@@ -19,15 +19,17 @@
  */
 package org.apache.commons.ognl;
 
-import junit.framework.TestCase;
+import static junit.framework.Assert.assertEquals;
+
+import org.junit.Test;
 
 /**
  * Test for OGNL-118.
  */
 public class InExpressionTest
-    extends TestCase
 {
 
+    @Test
     public void test_String_In()
         throws Exception
     {

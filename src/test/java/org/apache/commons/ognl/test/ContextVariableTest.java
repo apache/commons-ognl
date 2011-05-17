@@ -19,9 +19,16 @@
  */
 package org.apache.commons.ognl.test;
 
-import junit.framework.TestSuite;
 import org.apache.commons.ognl.test.objects.Simple;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+@RunWith(value = Parameterized.class)
 public class ContextVariableTest
     extends OgnlTestCase
 {
@@ -38,46 +45,32 @@ public class ContextVariableTest
      * =================================================================== Public static methods
      * ===================================================================
      */
-    public static TestSuite suite()
+    @Parameters
+    public static Collection<Object[]> data()
     {
-        TestSuite result = new TestSuite();
-
+        Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
         for ( int i = 0; i < TESTS.length; i++ )
         {
-            result.addTest( new ContextVariableTest( (String) TESTS[i][0] + " (" + TESTS[i][1] + ")", ROOT,
-                                                     (String) TESTS[i][0], TESTS[i][1] ) );
+            Object[] tmp = new Object[6];
+            tmp[0] = TESTS[i][0] + " (" + TESTS[i][1] + ")";
+            tmp[1] = ROOT;
+            tmp[2] = TESTS[i][0];
+            tmp[3] = TESTS[i][1];
+            tmp[4] = null;
+            tmp[5] = null;
+
+            data.add( tmp );
         }
-        return result;
+        return data;
     }
 
     /*
      * =================================================================== Constructors
      * ===================================================================
      */
-    public ContextVariableTest()
-    {
-        super();
-    }
-
-    public ContextVariableTest( String name )
-    {
-        super( name );
-    }
-
     public ContextVariableTest( String name, Object root, String expressionString, Object expectedResult,
                                 Object setValue, Object expectedAfterSetResult )
     {
         super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
-    }
-
-    public ContextVariableTest( String name, Object root, String expressionString, Object expectedResult,
-                                Object setValue )
-    {
-        super( name, root, expressionString, expectedResult, setValue );
-    }
-
-    public ContextVariableTest( String name, Object root, String expressionString, Object expectedResult )
-    {
-        super( name, root, expressionString, expectedResult );
     }
 }

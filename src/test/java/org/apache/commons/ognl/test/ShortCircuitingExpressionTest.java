@@ -19,10 +19,16 @@
  */
 package org.apache.commons.ognl.test;
 
-import junit.framework.TestSuite;
 import org.apache.commons.ognl.NoSuchPropertyException;
 import org.apache.commons.ognl.OgnlException;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+@RunWith(value = Parameterized.class)
 public class ShortCircuitingExpressionTest
     extends OgnlTestCase
 {
@@ -37,46 +43,30 @@ public class ShortCircuitingExpressionTest
      * =================================================================== Public static methods
      * ===================================================================
      */
-    public static TestSuite suite()
+    @Parameters
+    public static Collection<Object[]> data()
     {
-        TestSuite result = new TestSuite();
-
+        Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
         for ( int i = 0; i < TESTS.length; i++ )
         {
-            result.addTest( new ShortCircuitingExpressionTest( (String) TESTS[i][0] + " (" + TESTS[i][1] + ")", null,
-                                                               (String) TESTS[i][0], TESTS[i][1] ) );
+            Object[] tmp = new Object[6];
+            tmp[0] = TESTS[i][0] + " (" + TESTS[i][1] + ")";
+            tmp[1] = null;
+            tmp[2] = TESTS[i][0];
+            tmp[3] = TESTS[i][1];
+
+            data.add( tmp );
         }
-        return result;
+        return data;
     }
 
     /*
      * =================================================================== Constructors
      * ===================================================================
      */
-    public ShortCircuitingExpressionTest()
-    {
-        super();
-    }
-
-    public ShortCircuitingExpressionTest( String name )
-    {
-        super( name );
-    }
-
     public ShortCircuitingExpressionTest( String name, Object root, String expressionString, Object expectedResult,
                                           Object setValue, Object expectedAfterSetResult )
     {
         super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
-    }
-
-    public ShortCircuitingExpressionTest( String name, Object root, String expressionString, Object expectedResult,
-                                          Object setValue )
-    {
-        super( name, root, expressionString, expectedResult, setValue );
-    }
-
-    public ShortCircuitingExpressionTest( String name, Object root, String expressionString, Object expectedResult )
-    {
-        super( name, root, expressionString, expectedResult );
     }
 }

@@ -19,10 +19,17 @@
  */
 package org.apache.commons.ognl.test;
 
-import junit.framework.TestSuite;
 import org.apache.commons.ognl.test.objects.Root;
 import org.apache.commons.ognl.test.objects.Simple;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+@RunWith(value = Parameterized.class)
 public class StaticsAndConstructorsTest
     extends OgnlTestCase
 {
@@ -150,46 +157,39 @@ public class StaticsAndConstructorsTest
      * =================================================================== Public static methods
      * ===================================================================
      */
-    public static TestSuite suite()
+    @Parameters
+    public static Collection<Object[]> data()
     {
-        TestSuite result = new TestSuite();
-
+        Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
         for ( int i = 0; i < TESTS.length; i++ )
         {
-            result.addTest( new StaticsAndConstructorsTest( (String) TESTS[i][0] + " (" + TESTS[i][1] + ")", ROOT,
-                                                            (String) TESTS[i][0], TESTS[i][1] ) );
+            Object[] tmp = new Object[6];
+            tmp[0] = TESTS[i][0] + " (" + TESTS[i][1] + ")";
+            tmp[1] = ROOT;
+            tmp[2] = TESTS[i][0];
+            tmp[3] = TESTS[i][1];
+
+            data.add( tmp );
         }
-        return result;
+        return data;
     }
 
     /*
      * =================================================================== Constructors
      * ===================================================================
      */
-    public StaticsAndConstructorsTest()
-    {
-        super();
-    }
-
-    public StaticsAndConstructorsTest( String name )
-    {
-        super( name );
-    }
-
     public StaticsAndConstructorsTest( String name, Object root, String expressionString, Object expectedResult,
                                        Object setValue, Object expectedAfterSetResult )
     {
         super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
     }
 
-    public StaticsAndConstructorsTest( String name, Object root, String expressionString, Object expectedResult,
-                                       Object setValue )
-    {
-        super( name, root, expressionString, expectedResult, setValue );
-    }
+    @Test
 
-    public StaticsAndConstructorsTest( String name, Object root, String expressionString, Object expectedResult )
+    @Override
+    public void runTest()
+        throws Exception
     {
-        super( name, root, expressionString, expectedResult );
+        super.runTest();
     }
 }

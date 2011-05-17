@@ -19,10 +19,16 @@
  */
 package org.apache.commons.ognl.test;
 
-import junit.framework.TestSuite;
 import org.apache.commons.ognl.test.objects.Indexed;
 import org.apache.commons.ognl.test.objects.Root;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+@RunWith(value = Parameterized.class)
 public class IndexedPropertyTest
     extends OgnlTestCase
 {
@@ -52,40 +58,41 @@ public class IndexedPropertyTest
      * =================================================================== Public static methods
      * ===================================================================
      */
-    public static TestSuite suite()
+    @Parameters
+    public static Collection<Object[]> data()
     {
-        TestSuite result = new TestSuite();
-
+        Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
         for ( int i = 0; i < TESTS.length; i++ )
         {
-            if ( TESTS[i].length == 3 )
+            Object[] tmp = new Object[6];
+            tmp[0] = TESTS[i][1];
+            tmp[1] = TESTS[i][0];
+            tmp[2] = TESTS[i][1];
+
+            switch ( TESTS[i].length )
             {
-                result.addTest( new IndexedPropertyTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                                                         TESTS[i][2] ) );
+                case 3:
+                    tmp[3] = TESTS[i][2];
+                    break;
+
+                case 4:
+                    tmp[3] = TESTS[i][2];
+                    tmp[4] = TESTS[i][3];
+                    break;
+
+                case 5:
+                    tmp[3] = TESTS[i][2];
+                    tmp[4] = TESTS[i][3];
+                    tmp[5] = TESTS[i][4];
+                    break;
+
+                default:
+                    throw new RuntimeException( "don't understand TEST format with length " + TESTS[i].length );
             }
-            else
-            {
-                if ( TESTS[i].length == 4 )
-                {
-                    result.addTest( new IndexedPropertyTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                                                             TESTS[i][2], TESTS[i][3] ) );
-                }
-                else
-                {
-                    if ( TESTS[i].length == 5 )
-                    {
-                        result.addTest( new IndexedPropertyTest( (String) TESTS[i][1], TESTS[i][0],
-                                                                 (String) TESTS[i][1], TESTS[i][2], TESTS[i][3],
-                                                                 TESTS[i][4] ) );
-                    }
-                    else
-                    {
-                        throw new RuntimeException( "don't understand TEST format" );
-                    }
-                }
-            }
+
+            data.add( tmp );
         }
-        return result;
+        return data;
     }
 
     /*
@@ -96,16 +103,5 @@ public class IndexedPropertyTest
                                 Object setValue, Object expectedAfterSetResult )
     {
         super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
-    }
-
-    public IndexedPropertyTest( String name, Object root, String expressionString, Object expectedResult,
-                                Object setValue )
-    {
-        super( name, root, expressionString, expectedResult, setValue );
-    }
-
-    public IndexedPropertyTest( String name, Object root, String expressionString, Object expectedResult )
-    {
-        super( name, root, expressionString, expectedResult );
     }
 }

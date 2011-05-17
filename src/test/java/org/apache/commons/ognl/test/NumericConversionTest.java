@@ -19,13 +19,22 @@
  */
 package org.apache.commons.ognl.test;
 
-import junit.framework.TestSuite;
-import org.apache.commons.ognl.OgnlException;
-import org.apache.commons.ognl.OgnlOps;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collection;
 
+import org.apache.commons.ognl.OgnlException;
+import org.apache.commons.ognl.OgnlOps;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+
+@RunWith(value = Parameterized.class)
 public class NumericConversionTest
     extends OgnlTestCase
 {
@@ -152,17 +161,21 @@ public class NumericConversionTest
      * =================================================================== Public static methods
      * ===================================================================
      */
-    public static TestSuite suite()
+    @Parameters
+    public static Collection<Object[]> data()
     {
-        TestSuite result = new TestSuite();
-
+        Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
         for ( int i = 0; i < TESTS.length; i++ )
         {
-            result.addTest( new NumericConversionTest( TESTS[i][0], (Class) TESTS[i][1], TESTS[i][2],
-                                                       ( TESTS[i].length > 3 ) ? ( (Integer) TESTS[i][3] ).intValue()
-                                                                       : -1 ) );
+            Object[] tmp = new Object[4];
+            tmp[0] = TESTS[i][0];
+            tmp[1] = TESTS[i][1];
+            tmp[2] = TESTS[i][2];
+            tmp[3] = ( TESTS[i].length > 3 ) ? ( (Integer) TESTS[i][3] ).intValue() : -1 ;
+
+            data.add( tmp );
         }
-        return result;
+        return data;
     }
 
     /*
@@ -173,7 +186,7 @@ public class NumericConversionTest
     {
         super( value + " [" + value.getClass().getName() + "] -> " + toClass.getName() + " == " + expectedValue + " ["
             + expectedValue.getClass().getName() + "]"
-            + ( ( scale >= 0 ) ? ( " (to within " + scale + " decimal places)" ) : "" ) );
+            + ( ( scale >= 0 ) ? ( " (to within " + scale + " decimal places)" ) : "" ), null, null, null, null, null );
         this.value = value;
         this.toClass = toClass;
         this.expectedValue = expectedValue;
@@ -184,7 +197,9 @@ public class NumericConversionTest
      * =================================================================== Overridden methods
      * ===================================================================
      */
-    protected void runTest()
+    @Test
+    @Override
+    public void runTest()
         throws OgnlException
     {
         Object result;

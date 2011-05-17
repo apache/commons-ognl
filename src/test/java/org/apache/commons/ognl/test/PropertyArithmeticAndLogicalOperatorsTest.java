@@ -19,16 +19,21 @@
  */
 package org.apache.commons.ognl.test;
 
-import junit.framework.TestSuite;
 import org.apache.commons.ognl.test.objects.Root;
 import org.apache.commons.ognl.test.objects.SimpleNumeric;
 import org.apache.commons.ognl.test.objects.TestModel;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
 /**
  *
  */
+@RunWith(value = Parameterized.class)
 public class PropertyArithmeticAndLogicalOperatorsTest
     extends OgnlTestCase
 {
@@ -64,56 +69,38 @@ public class PropertyArithmeticAndLogicalOperatorsTest
         { NUMERIC, "budget - timeBilled", new Double( NUMERIC.getBudget() - NUMERIC.getTimeBilled() ) },
         { NUMERIC, "(budget % tableSize) == 0", Boolean.TRUE } };
 
-    public static TestSuite suite()
-    {
-        TestSuite result = new TestSuite();
 
+    @Parameters
+    public static Collection<Object[]> data()
+    {
+        Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
         for ( int i = 0; i < TESTS.length; i++ )
         {
+            Object[] tmp = new Object[6];
+            tmp[0] = TESTS[i][1];
+            tmp[1] = TESTS[i][0];
+            tmp[2] = TESTS[i][1];
+            tmp[3] = TESTS[i][2];
+
             if ( TESTS[i].length == 5 )
             {
-                result.addTest( new PropertyArithmeticAndLogicalOperatorsTest( (String) TESTS[i][1], TESTS[i][0],
-                                                                               (String) TESTS[i][1], TESTS[i][2],
-                                                                               TESTS[i][3], TESTS[i][4] ) );
+                tmp[4] = TESTS[i][3];
+                tmp[5] = TESTS[i][4];
             }
-            else
-                result.addTest( new PropertyArithmeticAndLogicalOperatorsTest( (String) TESTS[i][1], TESTS[i][0],
-                                                                               (String) TESTS[i][1], TESTS[i][2] ) );
-        }
 
-        return result;
+            data.add( tmp );
+        }
+        return data;
     }
 
     /*
      * =================================================================== Constructors
      * ===================================================================
      */
-    public PropertyArithmeticAndLogicalOperatorsTest()
-    {
-        super();
-    }
-
-    public PropertyArithmeticAndLogicalOperatorsTest( String name )
-    {
-        super( name );
-    }
-
     public PropertyArithmeticAndLogicalOperatorsTest( String name, Object root, String expressionString,
                                                       Object expectedResult, Object setValue,
                                                       Object expectedAfterSetResult )
     {
         super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
-    }
-
-    public PropertyArithmeticAndLogicalOperatorsTest( String name, Object root, String expressionString,
-                                                      Object expectedResult, Object setValue )
-    {
-        super( name, root, expressionString, expectedResult, setValue );
-    }
-
-    public PropertyArithmeticAndLogicalOperatorsTest( String name, Object root, String expressionString,
-                                                      Object expectedResult )
-    {
-        super( name, root, expressionString, expectedResult );
     }
 }

@@ -19,9 +19,17 @@
  */
 package org.apache.commons.ognl.test;
 
-import junit.framework.TestSuite;
 import org.apache.commons.ognl.test.objects.CorrectedObject;
+import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+
+@RunWith(value = Parameterized.class)
 public class ClassMethodTest
     extends OgnlTestCase
 {
@@ -41,44 +49,41 @@ public class ClassMethodTest
      * =================================================================== Public static methods
      * ===================================================================
      */
-    public static TestSuite suite()
+    @Parameters
+    public static Collection<Object[]> data()
     {
-        TestSuite result = new TestSuite();
-
+        Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
         for ( int i = 0; i < TESTS.length; i++ )
         {
-            result.addTest( new ClassMethodTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1], TESTS[i][2] ) );
+            Object[] tmp = new Object[6];
+            tmp[0] = TESTS[i][1];
+            tmp[1] = TESTS[i][0];
+            tmp[2] = TESTS[i][1];
+            tmp[3] = TESTS[i][2];
+            tmp[4] = null;
+            tmp[5] = null;
+
+            data.add( tmp );
         }
-        return result;
+        return data;
     }
 
     /*
      * =================================================================== Constructors
      * ===================================================================
      */
-    public ClassMethodTest()
-    {
-        super();
-    }
-
-    public ClassMethodTest( String name )
-    {
-        super( name );
-    }
-
     public ClassMethodTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,
                             Object expectedAfterSetResult )
     {
         super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
     }
 
-    public ClassMethodTest( String name, Object root, String expressionString, Object expectedResult, Object setValue )
+    @Before
+    @Override
+    public void setUp()
     {
-        super( name, root, expressionString, expectedResult, setValue );
-    }
-
-    public ClassMethodTest( String name, Object root, String expressionString, Object expectedResult )
-    {
-        super( name, root, expressionString, expectedResult );
+        super.setUp();
+        _context.put( "x", "1" );
+        _context.put( "y", new BigDecimal( 1 ) );
     }
 }

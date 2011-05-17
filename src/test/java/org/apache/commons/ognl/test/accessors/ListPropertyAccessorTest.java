@@ -19,7 +19,6 @@
  */
 package org.apache.commons.ognl.test.accessors;
 
-import junit.framework.TestCase;
 import org.apache.commons.ognl.ListPropertyAccessor;
 import org.apache.commons.ognl.Ognl;
 import org.apache.commons.ognl.OgnlContext;
@@ -27,16 +26,20 @@ import org.apache.commons.ognl.enhance.ExpressionCompiler;
 import org.apache.commons.ognl.test.objects.ListSource;
 import org.apache.commons.ognl.test.objects.ListSourceImpl;
 import org.apache.commons.ognl.test.objects.Root;
+import org.junit.Test;
 
 import java.util.List;
+
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNull;
 
 /**
  * Tests functionality of various built in object accessors.
  */
 public class ListPropertyAccessorTest
-    extends TestCase
 {
 
+    @Test
     public void test_Get_Source_String_Number_Index()
     {
         ListPropertyAccessor pa = new ListPropertyAccessor();
@@ -56,6 +59,7 @@ public class ListPropertyAccessorTest
         assertEquals( null, context.getPreviousAccessor() );
     }
 
+    @Test
     public void test_Get_Source_Object_Number_Index()
     {
         ListPropertyAccessor pa = new ListPropertyAccessor();
@@ -75,6 +79,7 @@ public class ListPropertyAccessorTest
         assertEquals( null, context.getPreviousAccessor() );
     }
 
+    @Test
     public void test_List_To_Object_Property_Accessor_Read()
         throws Exception
     {

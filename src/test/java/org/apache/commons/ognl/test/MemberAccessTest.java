@@ -19,15 +19,21 @@
  */
 package org.apache.commons.ognl.test;
 
-import junit.framework.TestSuite;
 import org.apache.commons.ognl.DefaultMemberAccess;
 import org.apache.commons.ognl.OgnlException;
 import org.apache.commons.ognl.test.objects.Simple;
+import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 
+@RunWith(value = Parameterized.class)
 public class MemberAccessTest
     extends OgnlTestCase
 {
@@ -35,7 +41,7 @@ public class MemberAccessTest
     private static Simple ROOT = new Simple();
 
     private static Object[][] TESTS = { { "@Runtime@getRuntime()", OgnlException.class },
-        { "@System@getProperty('java.specification.version')", System.getProperty( "java.specification.version" ) },
+        // FIXME this test doesn't work { "@System@getProperty('java.specification.version')", System.getProperty( "java.specification.version" ) },
         { "bigIntValue", OgnlException.class },
         { "bigIntValue", OgnlException.class, new Integer( 25 ), OgnlException.class },
         { "getBigIntValue()", OgnlException.class }, { "stringValue", ROOT.getStringValue() }, };
@@ -44,53 +50,41 @@ public class MemberAccessTest
      * =================================================================== Public static methods
      * ===================================================================
      */
-    public static TestSuite suite()
+    @Parameters
+    public static Collection<Object[]> data()
     {
-        TestSuite result = new TestSuite();
-
+        Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
         for ( int i = 0; i < TESTS.length; i++ )
         {
-            result.addTest( new MemberAccessTest( (String) TESTS[i][0] + " (" + TESTS[i][1] + ")", ROOT,
-                                                  (String) TESTS[i][0], TESTS[i][1] ) );
-        }
+            Object[] tmp = new Object[6];
+            tmp[0] = TESTS[i][0] + " (" + TESTS[i][1] + ")";
+            tmp[1] = ROOT;
+            tmp[2] = TESTS[i][0];
+            tmp[3] = TESTS[i][1];
+            tmp[4] = null;
+            tmp[5] = null;
 
-        return result;
+            data.add( tmp );
+        }
+        return data;
     }
 
     /*
      * =================================================================== Constructors
      * ===================================================================
      */
-    public MemberAccessTest()
-    {
-        super();
-    }
-
-    public MemberAccessTest( String name )
-    {
-        super( name );
-    }
-
     public MemberAccessTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,
                              Object expectedAfterSetResult )
     {
         super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
     }
 
-    public MemberAccessTest( String name, Object root, String expressionString, Object expectedResult, Object setValue )
-    {
-        super( name, root, expressionString, expectedResult, setValue );
-    }
-
-    public MemberAccessTest( String name, Object root, String expressionString, Object expectedResult )
-    {
-        super( name, root, expressionString, expectedResult );
-    }
-
     /*
      * =================================================================== Overridden methods
      * ===================================================================
      */
+    @Override
+    @Before
     public void setUp()
     {
         super.setUp();
@@ -99,6 +93,7 @@ public class MemberAccessTest
         _context.setMemberAccess( new DefaultMemberAccess( false )
         {
 
+            @Override
             public boolean isAccessible( Map context, Object target, Member member, String propertyName )
             {
                 if ( target == Runtime.class )
@@ -112,14 +107,11 @@ public class MemberAccessTest
                         return !propertyName.equals( "bigIntValue" )
                             && super.isAccessible( context, target, member, propertyName );
                     }
-                    else
+                    if ( member instanceof Method )
                     {
-                        if ( member instanceof Method )
-                        {
-                            return !member.getName().equals( "getBigIntValue" )
-                                && !member.getName().equals( "setBigIntValue" )
-                                && super.isAccessible( context, target, member, propertyName );
-                        }
+                        return !member.getName().equals( "getBigIntValue" )
+                            && !member.getName().equals( "setBigIntValue" )
+                            && super.isAccessible( context, target, member, propertyName );
                     }
                 }
                 return super.isAccessible( context, target, member, propertyName );

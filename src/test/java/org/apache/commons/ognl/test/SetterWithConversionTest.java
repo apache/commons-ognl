@@ -19,9 +19,15 @@
  */
 package org.apache.commons.ognl.test;
 
-import junit.framework.TestSuite;
 import org.apache.commons.ognl.test.objects.Root;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+@RunWith(value = Parameterized.class)
 public class SetterWithConversionTest
     extends OgnlTestCase
 {
@@ -47,70 +53,49 @@ public class SetterWithConversionTest
      * =================================================================== Public static methods
      * ===================================================================
      */
-    public static TestSuite suite()
+    @Parameters
+    public static Collection<Object[]> data()
     {
-        TestSuite result = new TestSuite();
-
-        for ( int i = 0; i < TESTS.length; i++ )
+        Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
+        for ( Object[] TEST : TESTS )
         {
-            if ( TESTS[i].length == 3 )
-            {
-                result.addTest( new SetterWithConversionTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                                                              TESTS[i][2] ) );
+            Object[] tmp = new Object[6];
+            tmp[0] = TEST[1];
+            tmp[1] = TEST[0];
+            tmp[2] = TEST[1];
+
+            switch (TEST.length) {
+                case 3:
+                    tmp[3] = TEST[2];
+                    break;
+
+                case 4:
+                    tmp[3] = TEST[2];
+                    tmp[4] = TEST[3];
+                    break;
+
+                case 5:
+                    tmp[3] = TEST[2];
+                    tmp[4] = TEST[3];
+                    tmp[5] = TEST[4];
+                    break;
+
+                default:
+                    throw new RuntimeException("don't understand TEST format with length " + TEST.length);
             }
-            else
-            {
-                if ( TESTS[i].length == 4 )
-                {
-                    result.addTest( new SetterWithConversionTest( (String) TESTS[i][1], TESTS[i][0],
-                                                                  (String) TESTS[i][1], TESTS[i][2], TESTS[i][3] ) );
-                }
-                else
-                {
-                    if ( TESTS[i].length == 5 )
-                    {
-                        result.addTest( new SetterWithConversionTest( (String) TESTS[i][1], TESTS[i][0],
-                                                                      (String) TESTS[i][1], TESTS[i][2], TESTS[i][3],
-                                                                      TESTS[i][4] ) );
-                    }
-                    else
-                    {
-                        throw new RuntimeException( "don't understand TEST format" );
-                    }
-                }
-            }
+
+            data.add(tmp);
         }
-        return result;
+        return data;
     }
 
     /*
      * =================================================================== Constructors
      * ===================================================================
      */
-    public SetterWithConversionTest()
-    {
-        super();
-    }
-
-    public SetterWithConversionTest( String name )
-    {
-        super( name );
-    }
-
     public SetterWithConversionTest( String name, Object root, String expressionString, Object expectedResult,
                                      Object setValue, Object expectedAfterSetResult )
     {
         super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
-    }
-
-    public SetterWithConversionTest( String name, Object root, String expressionString, Object expectedResult,
-                                     Object setValue )
-    {
-        super( name, root, expressionString, expectedResult, setValue );
-    }
-
-    public SetterWithConversionTest( String name, Object root, String expressionString, Object expectedResult )
-    {
-        super( name, root, expressionString, expectedResult );
     }
 }

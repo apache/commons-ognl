@@ -19,15 +19,21 @@
  */
 package org.apache.commons.ognl.test;
 
-import junit.framework.TestSuite;
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.apache.commons.ognl.test.objects.BaseGeneric;
 import org.apache.commons.ognl.test.objects.GameGeneric;
 import org.apache.commons.ognl.test.objects.GameGenericObject;
 import org.apache.commons.ognl.test.objects.GenericRoot;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 /**
  * Tests java >= 1.5 generics support in ognl.
  */
+@RunWith(value = Parameterized.class)
 public class GenericsTest
     extends OgnlTestCase
 {
@@ -41,20 +47,23 @@ public class GenericsTest
     /* { GENERIC, "ids", new Long[] {1l, 101l}, new String[] {"2", "34"}, new Long[]{2l, 34l}}, */
     };
 
-    public static TestSuite suite()
+    @Parameters
+    public static Collection<Object[]> data()
     {
-        TestSuite result = new TestSuite();
-
+        Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
         for ( int i = 0; i < TESTS.length; i++ )
         {
-            if ( TESTS[i].length == 5 )
-            {
-                result.addTest( new GenericsTest( (String) TESTS[i][1] + " (" + TESTS[i][2] + ")", TESTS[i][0],
-                                                  (String) TESTS[i][1], TESTS[i][2], TESTS[i][3], TESTS[i][4] ) );
-            }
-        }
+            Object[] tmp = new Object[6];
+            tmp[0] = TESTS[i][1] + " (" + TESTS[i][2] + ")";
+            tmp[1] = TESTS[i][0];
+            tmp[2] = TESTS[i][1];
+            tmp[3] = TESTS[i][2];
+            tmp[4] = TESTS[i][3];
+            tmp[5] = TESTS[i][4];
 
-        return result;
+            data.add( tmp );
+        }
+        return data;
     }
 
     public GenericsTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,

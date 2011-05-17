@@ -22,33 +22,43 @@
  */
 package org.apache.commons.ognl.test.enhance;
 
-import junit.framework.TestCase;
 import org.apache.commons.ognl.Node;
 import org.apache.commons.ognl.Ognl;
 import org.apache.commons.ognl.OgnlContext;
 import org.apache.commons.ognl.enhance.ExpressionCompiler;
 import org.apache.commons.ognl.enhance.OgnlExpressionCompiler;
-import org.apache.commons.ognl.test.objects.*;
+import org.apache.commons.ognl.test.objects.Bean1;
+import org.apache.commons.ognl.test.objects.GenericRoot;
+import org.apache.commons.ognl.test.objects.IndexedMapObject;
+import org.apache.commons.ognl.test.objects.Inherited;
+import org.apache.commons.ognl.test.objects.Root;
+import org.apache.commons.ognl.test.objects.TestInherited1;
+import org.apache.commons.ognl.test.objects.TestInherited2;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import static junit.framework.Assert.*;
+
 /**
  * Tests functionality of {@link ExpressionCompiler}.
  */
 public class TestExpressionCompiler
-    extends TestCase
 {
     OgnlExpressionCompiler _compiler;
 
     OgnlContext _context = (OgnlContext) Ognl.createDefaultContext( null );
 
+    @Before
     public void setUp()
     {
         _compiler = new ExpressionCompiler();
     }
 
+    @Test
     public void test_Get_Property_Access()
         throws Throwable
     {
@@ -60,6 +70,7 @@ public class TestExpressionCompiler
         assertNotNull( expr.getAccessor().get( _context, root ) );
     }
 
+    @Test
     public void test_Get_Indexed_Property()
         throws Throwable
     {
@@ -73,6 +84,7 @@ public class TestExpressionCompiler
         assertNull( expr.getAccessor().get( _context, root ) );
     }
 
+    @Test
     public void test_Set_Indexed_Property()
         throws Throwable
     {
@@ -88,6 +100,7 @@ public class TestExpressionCompiler
         assertEquals( "test string", expr.getAccessor().get( _context, root ) );
     }
 
+    @Test
     public void test_Expression()
         throws Throwable
     {
@@ -101,6 +114,7 @@ public class TestExpressionCompiler
         assertEquals( Boolean.FALSE, expr.getAccessor().get( _context, root ) );
     }
 
+    @Test
     public void test_Get_Context_Property()
         throws Throwable
     {
@@ -120,6 +134,7 @@ public class TestExpressionCompiler
         assertEquals( "baz", expr.getAccessor().get( _context, root ) );
     }
 
+    @Test
     public void test_Set_Context_Property()
         throws Throwable
     {
@@ -138,6 +153,7 @@ public class TestExpressionCompiler
         assertEquals( "bam", expr.getAccessor().get( _context, root ) );
     }
 
+    @Test
     public void test_Property_Index()
         throws Throwable
     {
@@ -149,6 +165,7 @@ public class TestExpressionCompiler
         assertTrue( Collection.class.isInstance( ret ) );
     }
 
+    @Test
     public void test_Root_Expression_Inheritance()
         throws Throwable
     {
@@ -161,6 +178,7 @@ public class TestExpressionCompiler
         assertEquals( expr.getAccessor().get( _context, obj2 ), "inherited2" );
     }
 
+    @Test
     public void test_Create_Empty_Collection()
         throws Throwable
     {
@@ -177,6 +195,7 @@ public class TestExpressionCompiler
         return "key";
     }
 
+    @Test
     public void test_Indexed_Property()
         throws Throwable
     {
@@ -199,6 +218,7 @@ public class TestExpressionCompiler
         return "property";
     }
 
+    @Test
     public void test_Indexed_Map_Property()
         throws Throwable
     {
@@ -213,6 +233,7 @@ public class TestExpressionCompiler
         assertEquals( "propertyValue", expression.getAccessor().get( _context, this ) );
     }
 
+    @Test
     public void test_Set_Generic_Property()
         throws Exception
     {

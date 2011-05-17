@@ -19,12 +19,17 @@
  */
 package org.apache.commons.ognl.test;
 
-import junit.framework.TestSuite;
 import org.apache.commons.ognl.test.objects.Root;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
+@RunWith(value = Parameterized.class)
 public class ProjectionSelectionTest
     extends OgnlTestCase
 {
@@ -45,46 +50,30 @@ public class ProjectionSelectionTest
      * =================================================================== Public static methods
      * ===================================================================
      */
-    public static TestSuite suite()
+    @Parameters
+    public static Collection<Object[]> data()
     {
-        TestSuite result = new TestSuite();
-
+        Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
         for ( int i = 0; i < TESTS.length; i++ )
         {
-            result.addTest( new ProjectionSelectionTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                                                         TESTS[i][2] ) );
+            Object[] tmp = new Object[6];
+            tmp[0] = TESTS[i][1];
+            tmp[1] = TESTS[i][0];
+            tmp[2] = TESTS[i][1];
+            tmp[3] = TESTS[i][2];
+
+            data.add( tmp );
         }
-        return result;
+        return data;
     }
 
     /*
      * =================================================================== Constructors
      * ===================================================================
      */
-    public ProjectionSelectionTest()
-    {
-        super();
-    }
-
-    public ProjectionSelectionTest( String name )
-    {
-        super( name );
-    }
-
     public ProjectionSelectionTest( String name, Object root, String expressionString, Object expectedResult,
                                     Object setValue, Object expectedAfterSetResult )
     {
         super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
-    }
-
-    public ProjectionSelectionTest( String name, Object root, String expressionString, Object expectedResult,
-                                    Object setValue )
-    {
-        super( name, root, expressionString, expectedResult, setValue );
-    }
-
-    public ProjectionSelectionTest( String name, Object root, String expressionString, Object expectedResult )
-    {
-        super( name, root, expressionString, expectedResult );
     }
 }

@@ -19,7 +19,10 @@
  */
 package org.apache.commons.ognl.test;
 
-import junit.framework.TestSuite;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.apache.commons.ognl.OgnlRuntime;
 import org.apache.commons.ognl.test.objects.Bean1;
 import org.apache.commons.ognl.test.objects.BeanProvider;
@@ -27,9 +30,14 @@ import org.apache.commons.ognl.test.objects.BeanProviderAccessor;
 import org.apache.commons.ognl.test.objects.EvenOdd;
 import org.apache.commons.ognl.test.objects.ListSourceImpl;
 import org.apache.commons.ognl.test.objects.Root;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
-import java.util.List;
-
+@RunWith(value = Parameterized.class)
 public class InterfaceInheritanceTest
     extends OgnlTestCase
 {
@@ -65,78 +73,68 @@ public class InterfaceInheritanceTest
      * =================================================================== Public static methods
      * ===================================================================
      */
-    public static TestSuite suite()
+    @Parameters
+    public static Collection<Object[]> data()
     {
-        TestSuite result = new TestSuite();
-
+        Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
         for ( int i = 0; i < TESTS.length; i++ )
         {
-            if ( TESTS[i].length == 3 )
-            {
-                result.addTest( new InterfaceInheritanceTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                                                              TESTS[i][2] ) );
-            }
-            else
-            {
-                if ( TESTS[i].length == 4 )
-                {
-                    result.addTest( new InterfaceInheritanceTest( (String) TESTS[i][1], TESTS[i][0],
-                                                                  (String) TESTS[i][1], TESTS[i][2], TESTS[i][3] ) );
-                }
-                else
-                {
-                    if ( TESTS[i].length == 5 )
-                    {
-                        result.addTest( new InterfaceInheritanceTest( (String) TESTS[i][1], TESTS[i][0],
-                                                                      (String) TESTS[i][1], TESTS[i][2], TESTS[i][3],
-                                                                      TESTS[i][4] ) );
-                    }
-                    else
-                    {
-                        throw new RuntimeException( "don't understand TEST format" );
-                    }
-                }
-            }
-        }
+            Object[] tmp = new Object[6];
+            tmp[0] = TESTS[i][1];
+            tmp[1] = TESTS[i][0];
+            tmp[2] = TESTS[i][1];
 
-        return result;
+            switch ( TESTS[i].length )
+            {
+                case 3:
+                    tmp[3] = TESTS[i][2];
+                    break;
+
+                case 4:
+                    tmp[3] = TESTS[i][2];
+                    tmp[4] = TESTS[i][3];
+                    break;
+
+                case 5:
+                    tmp[3] = TESTS[i][2];
+                    tmp[4] = TESTS[i][3];
+                    tmp[5] = TESTS[i][4];
+                    break;
+
+                default:
+                    throw new RuntimeException( "don't understand TEST format with length " + TESTS[i].length );
+            }
+
+            data.add( tmp );
+        }
+        return data;
     }
 
     /*
      * =================================================================== Constructors
      * ===================================================================
      */
-    public InterfaceInheritanceTest()
-    {
-        super();
-    }
-
-    public InterfaceInheritanceTest( String name )
-    {
-        super( name );
-    }
-
     public InterfaceInheritanceTest( String name, Object root, String expressionString, Object expectedResult,
                                      Object setValue, Object expectedAfterSetResult )
     {
         super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
     }
 
-    public InterfaceInheritanceTest( String name, Object root, String expressionString, Object expectedResult,
-                                     Object setValue )
-    {
-        super( name, root, expressionString, expectedResult, setValue );
-    }
-
-    public InterfaceInheritanceTest( String name, Object root, String expressionString, Object expectedResult )
-    {
-        super( name, root, expressionString, expectedResult );
-    }
-
+    @Override
+    @Before
     public void setUp()
     {
         super.setUp();
 
         OgnlRuntime.setPropertyAccessor( BeanProvider.class, new BeanProviderAccessor() );
+    }
+
+    @Override
+    @Test
+
+    public void runTest()
+        throws Exception
+    {
+        super.runTest();
     }
 }

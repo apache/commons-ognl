@@ -19,10 +19,16 @@
  */
 package org.apache.commons.ognl.test;
 
-import junit.framework.TestSuite;
+import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
 
+@RunWith(value = Parameterized.class)
 public class ArithmeticAndLogicalOperatorsTest
     extends OgnlTestCase
 {
@@ -135,57 +141,42 @@ public class ArithmeticAndLogicalOperatorsTest
      * =================================================================== Public static methods
      * ===================================================================
      */
-    public static TestSuite suite()
+    @Parameters
+    public static Collection<Object[]> data()
     {
-        TestSuite result = new TestSuite();
-
-        for ( int i = 0; i < TESTS.length; i++ )
+        Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
+        for ( Object[] TEST : TESTS )
         {
-            result.addTest( new ArithmeticAndLogicalOperatorsTest( (String) TESTS[i][0] + " (" + TESTS[i][1] + ")",
-                                                                   null, (String) TESTS[i][0], TESTS[i][1] ) );
+            Object[] tmp = new Object[4];
+            tmp[0] = TEST[0] + " (" + TEST[1] + ")";
+            tmp[1] = null;
+            tmp[2] = TEST[0];
+            tmp[3] = TEST[1];
+
+            data.add( tmp );
         }
-        return result;
+        return data;
     }
 
     /*
      * =================================================================== Constructors
      * ===================================================================
      */
-    public ArithmeticAndLogicalOperatorsTest()
-    {
-        super();
-    }
-
-    public ArithmeticAndLogicalOperatorsTest( String name )
-    {
-        super( name );
-    }
-
-    public ArithmeticAndLogicalOperatorsTest( String name, Object root, String expressionString, Object expectedResult,
-                                              Object setValue, Object expectedAfterSetResult )
-    {
-        super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
-    }
-
-    public ArithmeticAndLogicalOperatorsTest( String name, Object root, String expressionString, Object expectedResult,
-                                              Object setValue )
-    {
-        super( name, root, expressionString, expectedResult, setValue );
-    }
 
     public ArithmeticAndLogicalOperatorsTest( String name, Object root, String expressionString, Object expectedResult )
     {
         super( name, root, expressionString, expectedResult );
     }
-
     /*
      * =================================================================== Overridden methods
      * ===================================================================
      */
-    protected void setUp()
+    @Before
+    @Override
+    public void setUp()
     {
         super.setUp();
         _context.put( "x", "1" );
-        _context.put( "y", new BigDecimal( 1 ) );
+        _context.put("y", new BigDecimal(1));
     }
 }

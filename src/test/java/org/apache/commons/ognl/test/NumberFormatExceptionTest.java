@@ -19,13 +19,18 @@
  */
 package org.apache.commons.ognl.test;
 
-import junit.framework.TestSuite;
 import org.apache.commons.ognl.OgnlException;
 import org.apache.commons.ognl.test.objects.Simple;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collection;
 
+@RunWith(value = Parameterized.class)
 public class NumberFormatExceptionTest
     extends OgnlTestCase
 {
@@ -33,14 +38,14 @@ public class NumberFormatExceptionTest
 
     private static Object[][] TESTS = {
         // NumberFormatException handling (default is to throw NumberFormatException on bad string conversions)
-        { SIMPLE, "floatValue", new Float( 0f ), new Float( 10f ), new Float( 10f ) },
-        { SIMPLE, "floatValue", new Float( 10f ), "x10x", OgnlException.class },
+        { SIMPLE, "floatValue", 0f, 10f, 10f },
+        { SIMPLE, "floatValue", 10f, "x10x", OgnlException.class },
 
-        { SIMPLE, "intValue", new Integer( 0 ), new Integer( 34 ), new Integer( 34 ) },
-        { SIMPLE, "intValue", new Integer( 34 ), "foobar", OgnlException.class },
-        { SIMPLE, "intValue", new Integer( 34 ), "", OgnlException.class },
-        { SIMPLE, "intValue", new Integer( 34 ), "       \t", OgnlException.class },
-        { SIMPLE, "intValue", new Integer( 34 ), "       \t1234\t\t", new Integer( 1234 ) },
+        { SIMPLE, "intValue", 0, 34, 34 },
+        { SIMPLE, "intValue", 34, "foobar", OgnlException.class },
+        { SIMPLE, "intValue", 34, "", OgnlException.class },
+        { SIMPLE, "intValue", 34, "       \t", OgnlException.class },
+        { SIMPLE, "intValue", 34, "       \t1234\t\t", 1234 },
 
         { SIMPLE, "bigIntValue", BigInteger.valueOf( 0 ), BigInteger.valueOf( 34 ), BigInteger.valueOf( 34 ) },
         { SIMPLE, "bigIntValue", BigInteger.valueOf( 34 ), null, null },
@@ -58,70 +63,50 @@ public class NumberFormatExceptionTest
      * =================================================================== Public static methods
      * ===================================================================
      */
-    public static TestSuite suite()
+    @Parameters
+    public static Collection<Object[]> data()
     {
-        TestSuite result = new TestSuite();
-
-        for ( int i = 0; i < TESTS.length; i++ )
+        Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
+        for ( Object[] TEST : TESTS )
         {
-            if ( TESTS[i].length == 3 )
+            Object[] tmp = new Object[6];
+            tmp[0] = TEST[1];
+            tmp[1] = TEST[0];
+            tmp[2] = TEST[1];
+
+            switch ( TEST.length )
             {
-                result.addTest( new NumberFormatExceptionTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                                                               TESTS[i][2] ) );
+                case 3:
+                    tmp[3] = TEST[2];
+                    break;
+
+                case 4:
+                    tmp[3] = TEST[2];
+                    tmp[4] = TEST[3];
+                    break;
+
+                case 5:
+                    tmp[3] = TEST[2];
+                    tmp[4] = TEST[3];
+                    tmp[5] = TEST[4];
+                    break;
+
+                default:
+                    throw new RuntimeException( "don't understand TEST format with length " + TEST.length );
             }
-            else
-            {
-                if ( TESTS[i].length == 4 )
-                {
-                    result.addTest( new NumberFormatExceptionTest( (String) TESTS[i][1], TESTS[i][0],
-                                                                   (String) TESTS[i][1], TESTS[i][2], TESTS[i][3] ) );
-                }
-                else
-                {
-                    if ( TESTS[i].length == 5 )
-                    {
-                        result.addTest( new NumberFormatExceptionTest( (String) TESTS[i][1], TESTS[i][0],
-                                                                       (String) TESTS[i][1], TESTS[i][2], TESTS[i][3],
-                                                                       TESTS[i][4] ) );
-                    }
-                    else
-                    {
-                        throw new RuntimeException( "don't understand TEST format" );
-                    }
-                }
-            }
+
+            data.add( tmp );
         }
-        return result;
+        return data;
     }
 
     /*
      * =================================================================== Constructors
      * ===================================================================
      */
-    public NumberFormatExceptionTest()
-    {
-        super();
-    }
-
-    public NumberFormatExceptionTest( String name )
-    {
-        super( name );
-    }
-
     public NumberFormatExceptionTest( String name, Object root, String expressionString, Object expectedResult,
                                       Object setValue, Object expectedAfterSetResult )
     {
-        super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
-    }
-
-    public NumberFormatExceptionTest( String name, Object root, String expressionString, Object expectedResult,
-                                      Object setValue )
-    {
-        super( name, root, expressionString, expectedResult, setValue );
-    }
-
-    public NumberFormatExceptionTest( String name, Object root, String expressionString, Object expectedResult )
-    {
-        super( name, root, expressionString, expectedResult );
+        super( name, root, expressionString, expectedResult, setValue, true, expectedAfterSetResult, true );
     }
 }

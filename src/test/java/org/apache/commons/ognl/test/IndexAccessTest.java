@@ -19,12 +19,19 @@
  */
 package org.apache.commons.ognl.test;
 
-import junit.framework.TestSuite;
 import org.apache.commons.ognl.MethodFailedException;
 import org.apache.commons.ognl.NoSuchPropertyException;
 import org.apache.commons.ognl.test.objects.IndexedSetObject;
 import org.apache.commons.ognl.test.objects.Root;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+@RunWith(value = Parameterized.class)
 public class IndexAccessTest
     extends OgnlTestCase
 {
@@ -57,58 +64,36 @@ public class IndexAccessTest
      * =================================================================== Public static methods
      * ===================================================================
      */
-    public static TestSuite suite()
+    @Parameters
+    public static Collection<Object[]> data()
     {
-        TestSuite result = new TestSuite();
-
+        Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
         for ( int i = 0; i < TESTS.length; i++ )
         {
+            Object[] tmp = new Object[6];
+            tmp[0] = TESTS[i][1];
+            tmp[1] = TESTS[i][0];
+            tmp[2] = TESTS[i][1];
+            tmp[3] = TESTS[i][2];
+
             if ( TESTS[i].length == 5 )
             {
-                result.addTest( new IndexAccessTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                                                     TESTS[i][2], TESTS[i][3], TESTS[i][4] ) );
+                tmp[4] = TESTS[i][3];
+                tmp[5] = TESTS[i][4];
             }
-            else
-            {
-                result.addTest( new IndexAccessTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                                                     TESTS[i][2] ) );
-            }
+
+            data.add( tmp );
         }
-        return result;
+        return data;
     }
 
     /*
      * =================================================================== Constructors
      * ===================================================================
      */
-    public IndexAccessTest()
-    {
-        super();
-    }
-
-    public IndexAccessTest( String name )
-    {
-        super( name );
-    }
-
     public IndexAccessTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,
                             Object expectedAfterSetResult )
     {
         super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
-    }
-
-    public IndexAccessTest( String name, Object root, String expressionString, Object expectedResult, Object setValue )
-    {
-        super( name, root, expressionString, expectedResult, setValue );
-    }
-
-    public IndexAccessTest( String name, Object root, String expressionString, Object expectedResult )
-    {
-        super( name, root, expressionString, expectedResult );
-    }
-
-    public void setUp()
-    {
-        super.setUp();
     }
 }

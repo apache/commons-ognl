@@ -19,16 +19,23 @@
  */
 package org.apache.commons.ognl.test;
 
-import junit.framework.TestSuite;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.apache.commons.ognl.test.objects.BaseBean;
 import org.apache.commons.ognl.test.objects.Bean2;
 import org.apache.commons.ognl.test.objects.FirstBean;
 import org.apache.commons.ognl.test.objects.PropertyHolder;
 import org.apache.commons.ognl.test.objects.Root;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-
+@RunWith(value = Parameterized.class)
 public class PropertyTest
     extends OgnlTestCase
 {
@@ -132,53 +139,36 @@ public class PropertyTest
      * =================================================================== Public static methods
      * ===================================================================
      */
-    public static TestSuite suite()
+    @Parameters
+    public static Collection<Object[]> data()
     {
-        TestSuite result = new TestSuite();
-
+        Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
         for ( int i = 0; i < TESTS.length; i++ )
         {
+            Object[] tmp = new Object[6];
+            tmp[0] = TESTS[i][1];
+            tmp[1] = TESTS[i][0];
+            tmp[2] = TESTS[i][1];
+            tmp[3] = TESTS[i][2];
 
             if ( TESTS[i].length == 5 )
             {
-
-                result.addTest( new PropertyTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1], TESTS[i][2],
-                                                  TESTS[i][3], TESTS[i][4] ) );
+                tmp[4] = TESTS[i][3];
+                tmp[5] = TESTS[i][4];
             }
-            else
-                result.addTest( new PropertyTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1], TESTS[i][2] ) );
-        }
 
-        return result;
+            data.add( tmp );
+        }
+        return data;
     }
 
     /*
      * =================================================================== Constructors
      * ===================================================================
      */
-    public PropertyTest()
-    {
-        super();
-    }
-
-    public PropertyTest( String name )
-    {
-        super( name );
-    }
-
     public PropertyTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,
                          Object expectedAfterSetResult )
     {
         super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
-    }
-
-    public PropertyTest( String name, Object root, String expressionString, Object expectedResult, Object setValue )
-    {
-        super( name, root, expressionString, expectedResult, setValue );
-    }
-
-    public PropertyTest( String name, Object root, String expressionString, Object expectedResult )
-    {
-        super( name, root, expressionString, expectedResult );
     }
 }

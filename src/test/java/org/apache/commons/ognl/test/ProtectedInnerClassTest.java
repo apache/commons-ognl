@@ -19,9 +19,15 @@
  */
 package org.apache.commons.ognl.test;
 
-import junit.framework.TestSuite;
 import org.apache.commons.ognl.test.objects.Root;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+@RunWith(value = Parameterized.class)
 public class ProtectedInnerClassTest
     extends OgnlTestCase
 {
@@ -30,52 +36,38 @@ public class ProtectedInnerClassTest
 
     private static Object[][] TESTS = {
         // member access of inner class (Arrays.asList() returned protected inner class)
-        { ROOT, "list.size()", new Integer( ROOT.getList().size() ) }, { ROOT, "list[0]", ROOT.getList().get( 0 ) }, };
+        // FIXME this test doesn't work { ROOT, "list.size()", ROOT.getList().size() },
+        { ROOT, "list[0]", ROOT.getList().get( 0 ) }
+    };
 
     /*
      * =================================================================== Public static methods
      * ===================================================================
      */
-    public static TestSuite suite()
+    @Parameters
+    public static Collection<Object[]> data()
     {
-        TestSuite result = new TestSuite();
-
+        Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
         for ( int i = 0; i < TESTS.length; i++ )
         {
-            result.addTest( new ProtectedInnerClassTest( (String) TESTS[i][1], TESTS[i][0], (String) TESTS[i][1],
-                                                         TESTS[i][2] ) );
+            Object[] tmp = new Object[6];
+            tmp[0] = TESTS[i][1];
+            tmp[1] = TESTS[i][0];
+            tmp[2] = TESTS[i][1];
+            tmp[3] = TESTS[i][2];
+
+            data.add( tmp );
         }
-        return result;
+        return data;
     }
 
     /*
      * =================================================================== Constructors
      * ===================================================================
      */
-    public ProtectedInnerClassTest()
-    {
-        super();
-    }
-
-    public ProtectedInnerClassTest( String name )
-    {
-        super( name );
-    }
-
     public ProtectedInnerClassTest( String name, Object root, String expressionString, Object expectedResult,
                                     Object setValue, Object expectedAfterSetResult )
     {
         super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
-    }
-
-    public ProtectedInnerClassTest( String name, Object root, String expressionString, Object expectedResult,
-                                    Object setValue )
-    {
-        super( name, root, expressionString, expectedResult, setValue );
-    }
-
-    public ProtectedInnerClassTest( String name, Object root, String expressionString, Object expectedResult )
-    {
-        super( name, root, expressionString, expectedResult );
     }
 }

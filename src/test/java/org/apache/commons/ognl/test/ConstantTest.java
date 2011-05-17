@@ -19,11 +19,18 @@
  */
 package org.apache.commons.ognl.test;
 
-import junit.framework.TestSuite;
 import org.apache.commons.ognl.ExpressionSyntaxException;
+import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
+@RunWith(value = Parameterized.class)
 public class ConstantTest
     extends OgnlTestCase
 {
@@ -62,45 +69,41 @@ public class ConstantTest
      * =================================================================== Public static methods
      * ===================================================================
      */
-    public static TestSuite suite()
+    @Parameters
+    public static Collection<Object[]> data()
     {
-        TestSuite result = new TestSuite();
-
+        Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
         for ( int i = 0; i < TESTS.length; i++ )
         {
-            result.addTest( new ConstantTest( (String) TESTS[i][0] + " (" + TESTS[i][1] + ")", null,
-                                              (String) TESTS[i][0], TESTS[i][1] ) );
+            Object[] tmp = new Object[6];
+            tmp[0] = TESTS[i][0] + " (" + TESTS[i][1] + ")";
+            tmp[1] = null;
+            tmp[2] = TESTS[i][0];
+            tmp[3] = TESTS[i][1];
+            tmp[4] = null;
+            tmp[5] = null;
+
+            data.add( tmp );
         }
-        return result;
+        return data;
     }
 
     /*
      * =================================================================== Constructors
      * ===================================================================
      */
-    public ConstantTest()
-    {
-        super();
-    }
-
-    public ConstantTest( String name )
-    {
-        super( name );
-    }
-
     public ConstantTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,
                          Object expectedAfterSetResult )
     {
         super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
     }
 
-    public ConstantTest( String name, Object root, String expressionString, Object expectedResult, Object setValue )
+    @Before
+    @Override
+    public void setUp()
     {
-        super( name, root, expressionString, expectedResult, setValue );
-    }
-
-    public ConstantTest( String name, Object root, String expressionString, Object expectedResult )
-    {
-        super( name, root, expressionString, expectedResult );
+        super.setUp();
+        _context.put( "x", "1" );
+        _context.put( "y", new BigDecimal( 1 ) );
     }
 }

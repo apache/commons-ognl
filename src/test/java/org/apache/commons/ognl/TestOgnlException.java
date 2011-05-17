@@ -19,15 +19,17 @@
  */
 package org.apache.commons.ognl;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+
+import static junit.framework.Assert.assertTrue;
 
 /**
  * Tests {@link OgnlException}.
  */
 public class TestOgnlException
-    extends TestCase
 {
 
+    @Test
     public void test_Throwable_Reason()
     {
         try
