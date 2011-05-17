@@ -47,11 +47,17 @@ public class ClassCacheImpl
         _table = new Entry[TABLE_SIZE];
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void setClassInspector( ClassCacheInspector inspector )
     {
         _classInspector = inspector;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void clear()
     {
         for ( int i = 0; i < _table.length; i++ )
@@ -62,11 +68,17 @@ public class ClassCacheImpl
         _size = 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public int getSize()
     {
         return _size;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final <T> T get( Class<T> key )
     {
         T result = null;
@@ -89,6 +101,9 @@ public class ClassCacheImpl
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final <T> T put( Class<T> key, T value )
     {
         if ( _classInspector != null && !_classInspector.shouldCache( key ) )
@@ -139,6 +154,9 @@ public class ClassCacheImpl
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString()
     {
