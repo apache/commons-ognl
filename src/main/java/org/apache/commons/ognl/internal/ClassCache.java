@@ -33,7 +33,7 @@ public interface ClassCache
 
     int getSize();
 
-    Object get( Class key );
+    <T> T get( Class<T> key );
 
-    Object put( Class key, Object value );
+    <T> T put( Class<T> key, T value );
 }

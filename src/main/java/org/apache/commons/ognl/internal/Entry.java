@@ -22,16 +22,16 @@ package org.apache.commons.ognl.internal;
 /**
  * Used by {@link ClassCacheImpl} to store entries in the cache.
  */
-class Entry
+class Entry<T>
 {
 
-    Entry next;
+    Entry<T> next;
 
-    Class key;
+    Class<T> key;
 
-    Object value;
+    T value;
 
-    public Entry( Class key, Object value )
+    public Entry( Class<T> key, T value )
     {
         this.key = key;
         this.value = value;

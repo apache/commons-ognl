@@ -36,7 +36,7 @@ public class ClassCacheImpl
     /* ...and now you see why. The table size is used as a mask for generating hashes */
     private static final int TABLE_SIZE_MASK = TABLE_SIZE - 1;
 
-    private Entry[] _table;
+    private Entry<?>[] _table;
 
     private ClassCacheInspector _classInspector;
 
@@ -67,35 +67,42 @@ public class ClassCacheImpl
         return _size;
     }
 
-    public final Object get( Class key )
+    public final <T> T get( Class<T> key )
     {
-        Object result = null;
+        T result = null;
         int i = key.hashCode() & TABLE_SIZE_MASK;
 
-        for ( Entry entry = _table[i]; entry != null; entry = entry.next )
+        @SuppressWarnings( "unchecked" ) // entry type is driven by the class
+        Entry<T> entry = (Entry<T>) _table[i];
+
+        while ( entry != null )
         {
             if ( entry.key == key )
             {
                 result = entry.value;
                 break;
             }
+
+            entry = entry.next;
         }
 
         return result;
     }
 
-    public final Object put( Class key, Object value )
+    public final <T> T put( Class<T> key, T value )
     {
         if ( _classInspector != null && !_classInspector.shouldCache( key ) )
             return value;
 
-        Object result = null;
+        T result = null;
         int i = key.hashCode() & TABLE_SIZE_MASK;
-        Entry entry = _table[i];
+
+        @SuppressWarnings( "unchecked" ) // entry type is driven by the class
+        Entry<T> entry = (Entry<T>) _table[i];
 
         if ( entry == null )
         {
-            _table[i] = new Entry( key, value );
+            _table[i] = new Entry<T>( key, value );
             _size++;
         }
         else
@@ -121,7 +128,7 @@ public class ClassCacheImpl
                         if ( entry.next == null )
                         {
                             /* add value */
-                            entry.next = new Entry( key, value );
+                            entry.next = new Entry<T>( key, value );
                             break;
                         }
                     }
