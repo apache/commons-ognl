@@ -58,18 +58,28 @@ public class LocalReferenceImpl
     public boolean equals( Object o )
     {
         if ( this == o )
+        {
             return true;
+        }
         if ( o == null || getClass() != o.getClass() )
+        {
             return false;
+        }
 
         LocalReferenceImpl that = (LocalReferenceImpl) o;
 
         if ( _expression != null ? !_expression.equals( that._expression ) : that._expression != null )
+        {
             return false;
+        }
         if ( _name != null ? !_name.equals( that._name ) : that._name != null )
+        {
             return false;
+        }
         if ( _type != null ? !_type.equals( that._type ) : that._type != null )
+        {
             return false;
+        }
 
         return true;
     }
