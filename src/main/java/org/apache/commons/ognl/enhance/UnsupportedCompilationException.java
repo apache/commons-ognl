@@ -32,6 +32,11 @@ public class UnsupportedCompilationException
     extends RuntimeException
 {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 4961625077128174947L;
+
     public UnsupportedCompilationException( String message )
     {
         super( message );
@@ -41,4 +46,5 @@ public class UnsupportedCompilationException
     {
         super( message, cause );
     }
+
 }
