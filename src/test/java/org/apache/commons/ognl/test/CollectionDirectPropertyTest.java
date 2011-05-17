@@ -40,7 +40,7 @@ public class CollectionDirectPropertyTest
         { Arrays.asList( "hello", "world" ), "size", 2 },
         { Arrays.asList( "hello", "world" ), "isEmpty", Boolean.FALSE },
         { Arrays.asList(), "isEmpty", Boolean.TRUE },
-//FIXME        { Arrays.asList( "hello", "world" ), "iterator.next", "hello" },
+        { Arrays.asList( "hello", "world" ), "iterator.next", "hello" },
         { Arrays.asList( "hello", "world" ), "iterator.hasNext", Boolean.TRUE },
         { Arrays.asList( "hello", "world" ), "#it = iterator, #it.next, #it.next, #it.hasNext", Boolean.FALSE },
         { Arrays.asList( "hello", "world" ), "#it = iterator, #it.next, #it.next", "world" },
