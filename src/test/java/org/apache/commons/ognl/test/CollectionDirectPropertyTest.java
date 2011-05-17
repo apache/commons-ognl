@@ -37,18 +37,17 @@ public class CollectionDirectPropertyTest
 
     private static Object[][] TESTS = {
         // Collection direct properties
-        { Arrays.asList( new String[] { "hello", "world" } ), "size", new Integer( 2 ) },
-        { Arrays.asList( new String[] { "hello", "world" } ), "isEmpty", Boolean.FALSE },
-        { Arrays.asList( new String[] {} ), "isEmpty", Boolean.TRUE },
-        { Arrays.asList( new String[] { "hello", "world" } ), "iterator.next", "hello" },
-        { Arrays.asList( new String[] { "hello", "world" } ), "iterator.hasNext", Boolean.TRUE },
-        { Arrays.asList( new String[] { "hello", "world" } ), "#it = iterator, #it.next, #it.next, #it.hasNext",
-            Boolean.FALSE },
-        { Arrays.asList( new String[] { "hello", "world" } ), "#it = iterator, #it.next, #it.next", "world" },
-        { Arrays.asList( new String[] { "hello", "world" } ), "size", new Integer( 2 ) },
-        { ROOT, "map[\"test\"]", ROOT }, { ROOT, "map.size", new Integer( ROOT.getMap().size() ) },
+        { Arrays.asList( "hello", "world" ), "size", 2 },
+        { Arrays.asList( "hello", "world" ), "isEmpty", Boolean.FALSE },
+        { Arrays.asList(), "isEmpty", Boolean.TRUE },
+//FIXME        { Arrays.asList( "hello", "world" ), "iterator.next", "hello" },
+        { Arrays.asList( "hello", "world" ), "iterator.hasNext", Boolean.TRUE },
+        { Arrays.asList( "hello", "world" ), "#it = iterator, #it.next, #it.next, #it.hasNext", Boolean.FALSE },
+        { Arrays.asList( "hello", "world" ), "#it = iterator, #it.next, #it.next", "world" },
+        { Arrays.asList( "hello", "world" ), "size", 2 },
+        { ROOT, "map[\"test\"]", ROOT }, { ROOT, "map.size", ROOT.getMap().size() },
         { ROOT, "map.keySet", ROOT.getMap().keySet() }, { ROOT, "map.values", ROOT.getMap().values() },
-        { ROOT, "map.keys.size", new Integer( ROOT.getMap().keySet().size() ) },
+        { ROOT, "map.keys.size", ROOT.getMap().keySet().size() },
         { ROOT, "map[\"size\"]", ROOT.getMap().get( "size" ) },
         { ROOT, "map.isEmpty", ROOT.getMap().isEmpty() ? Boolean.TRUE : Boolean.FALSE },
         { ROOT, "map[\"isEmpty\"]", null }, };
@@ -61,28 +60,28 @@ public class CollectionDirectPropertyTest
     public static Collection<Object[]> data()
     {
         Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
-        for ( int i = 0; i < TESTS.length; i++ )
+        for ( Object[] TEST : TESTS )
         {
             Object[] tmp = new Object[6];
-            tmp[0] = TESTS[i][1];
-            tmp[1] = TESTS[i][0];
-            tmp[2] = TESTS[i][1];
+            tmp[0] = TEST[1];
+            tmp[1] = TEST[0];
+            tmp[2] = TEST[1];
 
-            switch ( TESTS[i].length )
+            switch ( TEST.length )
             {
                 case 3:
-                    tmp[3] = TESTS[i][2];
+                    tmp[3] = TEST[2];
                     break;
 
                 case 4:
-                    tmp[3] = TESTS[i][2];
-                    tmp[4] = TESTS[i][3];
+                    tmp[3] = TEST[2];
+                    tmp[4] = TEST[3];
                     break;
 
                 case 5:
-                    tmp[3] = TESTS[i][2];
-                    tmp[4] = TESTS[i][3];
-                    tmp[5] = TESTS[i][4];
+                    tmp[3] = TEST[2];
+                    tmp[4] = TEST[3];
+                    tmp[5] = TEST[4];
                     break;
 
                 default:
