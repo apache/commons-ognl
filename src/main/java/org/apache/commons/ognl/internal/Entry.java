@@ -37,6 +37,7 @@ class Entry<T>
         this.value = value;
     }
 
+    @Override
     public String toString()
     {
         return "Entry[" + "next=" + next + '\n' + ", key=" + key + '\n' + ", value=" + value + '\n' + ']';
