@@ -54,6 +54,7 @@ public class LocalReferenceImpl
         return _type;
     }
 
+    @Override
     public boolean equals( Object o )
     {
         if ( this == o )
@@ -73,6 +74,7 @@ public class LocalReferenceImpl
         return true;
     }
 
+    @Override
     public int hashCode()
     {
         int result;
@@ -82,6 +84,7 @@ public class LocalReferenceImpl
         return result;
     }
 
+    @Override
     public String toString()
     {
         return "LocalReferenceImpl[" + "_name='" + _name + '\'' + '\n' + ", _type=" + _type + '\n' + ", _expression='"
