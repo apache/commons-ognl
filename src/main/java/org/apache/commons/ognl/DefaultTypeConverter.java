@@ -55,6 +55,9 @@ public class DefaultTypeConverter
         return toType.cast( ret );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public <T> T convertValue( Map context, Object target, Member member, String propertyName, Object value,
                                 Class<T> toType )
     {
