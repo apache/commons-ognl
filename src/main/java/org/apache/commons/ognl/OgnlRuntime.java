@@ -2737,9 +2737,9 @@ public class OgnlRuntime
 
                 String methodName = method.getName();
                 String lowerMethodName = methodName.toLowerCase();
-                if ( ( methodName.equalsIgnoreCase( name ) || lowerMethodName.equals( name )
-                    || lowerMethodName.equals( "get" + name ) || lowerMethodName.equals( "has" + name )
-                    || lowerMethodName.equals( "is" + name ) ) && !methodName.startsWith( "set" ) )
+                if ( ( methodName.equalsIgnoreCase( name ) || lowerMethodName.equals( "get" + name )
+                    || lowerMethodName.equals( "has" + name ) || lowerMethodName.equals( "is" + name ) )
+                    && !methodName.startsWith( "set" ) )
                 {
                     if ( numParms > 0 && method.getMethod().getParameterTypes().length == numParms )
                     {
