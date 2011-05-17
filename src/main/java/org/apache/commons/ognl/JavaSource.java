@@ -1,5 +1,3 @@
-package org.apache.commons.ognl;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,6 +16,7 @@ package org.apache.commons.ognl;
  * specific language governing permissions and limitations
  * under the License.
  */
+package org.apache.commons.ognl;
 
 import org.apache.commons.ognl.enhance.ExpressionAccessor;
 
@@ -45,4 +44,5 @@ public interface JavaSource
      * @return Literal java string representation of an object get.
      */
     String toSetSourceString( OgnlContext context, Object target );
+
 }
