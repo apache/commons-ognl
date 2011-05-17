@@ -41,9 +41,9 @@ public class MemberAccessTest
     private static Simple ROOT = new Simple();
 
     private static Object[][] TESTS = { { "@Runtime@getRuntime()", OgnlException.class },
-        // FIXME this test doesn't work { "@System@getProperty('java.specification.version')", System.getProperty( "java.specification.version" ) },
+        { "@System@getProperty('java.specification.version')", System.getProperty( "java.specification.version" ) },
         { "bigIntValue", OgnlException.class },
-        { "bigIntValue", OgnlException.class, new Integer( 25 ), OgnlException.class },
+        { "bigIntValue", OgnlException.class, 25, OgnlException.class },
         { "getBigIntValue()", OgnlException.class }, { "stringValue", ROOT.getStringValue() }, };
 
     /*
@@ -54,13 +54,13 @@ public class MemberAccessTest
     public static Collection<Object[]> data()
     {
         Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
-        for ( int i = 0; i < TESTS.length; i++ )
+        for ( Object[] TEST : TESTS )
         {
             Object[] tmp = new Object[6];
-            tmp[0] = TESTS[i][0] + " (" + TESTS[i][1] + ")";
+            tmp[0] = TEST[0] + " (" + TEST[1] + ")";
             tmp[1] = ROOT;
-            tmp[2] = TESTS[i][0];
-            tmp[3] = TESTS[i][1];
+            tmp[2] = TEST[0];
+            tmp[3] = TEST[1];
             tmp[4] = null;
             tmp[5] = null;
 

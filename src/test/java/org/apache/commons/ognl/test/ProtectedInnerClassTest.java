@@ -36,7 +36,7 @@ public class ProtectedInnerClassTest
 
     private static Object[][] TESTS = {
         // member access of inner class (Arrays.asList() returned protected inner class)
-        // FIXME this test doesn't work { ROOT, "list.size()", ROOT.getList().size() },
+        { ROOT, "list.size()", ROOT.getList().size() },
         { ROOT, "list[0]", ROOT.getList().get( 0 ) }
     };
 
@@ -48,13 +48,13 @@ public class ProtectedInnerClassTest
     public static Collection<Object[]> data()
     {
         Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
-        for ( int i = 0; i < TESTS.length; i++ )
+        for ( Object[] TEST : TESTS )
         {
             Object[] tmp = new Object[6];
-            tmp[0] = TESTS[i][1];
-            tmp[1] = TESTS[i][0];
-            tmp[2] = TESTS[i][1];
-            tmp[3] = TESTS[i][2];
+            tmp[0] = TEST[1];
+            tmp[1] = TEST[0];
+            tmp[2] = TEST[1];
+            tmp[3] = TEST[2];
 
             data.add( tmp );
         }
