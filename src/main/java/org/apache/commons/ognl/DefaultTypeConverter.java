@@ -19,6 +19,8 @@ package org.apache.commons.ognl;
  * under the License.
  */
 
+import static java.lang.String.format;
+
 import java.lang.reflect.Member;
 import java.util.Map;
 
@@ -36,13 +38,26 @@ public class DefaultTypeConverter
         super();
     }
 
-    public Object convertValue( Map context, Object value, Class toType )
+    public <T> T convertValue( Map context, Object value, Class<T> toType )
     {
-        return OgnlOps.convertValue( value, toType );
+        Object ret = OgnlOps.convertValue( value, toType );
+
+        if ( ret == null )
+        {
+            return null;
+        }
+
+        if ( !toType.isAssignableFrom( ret.getClass() ) )
+        {
+            throw new ClassCastException( format( "value '%s' can not be coverted to class '%s'",
+                                                  ( value != null ? value : "null" ), toType.getName() ) );
+        }
+
+        return toType.cast( ret );
     }
 
-    public Object convertValue( Map context, Object target, Member member, String propertyName, Object value,
-                                Class toType )
+    public <T> T convertValue( Map context, Object target, Member member, String propertyName, Object value,
+                                Class<T> toType )
     {
         return convertValue( context, value, toType );
     }
