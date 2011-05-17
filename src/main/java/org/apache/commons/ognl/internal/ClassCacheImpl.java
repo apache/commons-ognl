@@ -89,13 +89,13 @@ public class ClassCacheImpl
 
         while ( entry != null )
         {
-            if ( entry.key == key )
+            if ( entry.getKey() == key )
             {
-                result = entry.value;
+                result = entry.getValue();
                 break;
             }
 
-            entry = entry.next;
+            entry = entry.getNext();
         }
 
         return result;
@@ -122,31 +122,31 @@ public class ClassCacheImpl
         }
         else
         {
-            if ( entry.key == key )
+            if ( entry.getKey() == key )
             {
-                result = entry.value;
-                entry.value = value;
+                result = entry.getValue();
+                entry.setValue( value );
             }
             else
             {
                 while ( true )
                 {
-                    if ( entry.key == key )
+                    if ( entry.getKey() == key )
                     {
                         /* replace value */
-                        result = entry.value;
-                        entry.value = value;
+                        result = entry.getValue();
+                        entry.setValue( value );
                         break;
                     }
 
-                    if ( entry.next == null )
+                    if ( entry.getNext() == null )
                     {
                         /* add value */
-                        entry.next = new Entry<T>( key, value );
+                        entry.setNext( new Entry<T>( key, value ) );
                         break;
                     }
 
-                    entry = entry.next;
+                    entry = entry.getNext();
                 }
             }
         }

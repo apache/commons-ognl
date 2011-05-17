@@ -25,16 +25,41 @@ package org.apache.commons.ognl.internal;
 class Entry<T>
 {
 
-    Entry<T> next;
+    private Entry<T> next;
 
-    Class<T> key;
+    private final Class<T> key;
 
-    T value;
+    private T value;
 
     public Entry( Class<T> key, T value )
     {
         this.key = key;
         this.value = value;
+    }
+
+    public Class<T> getKey()
+    {
+        return key;
+    }
+
+    public T getValue()
+    {
+        return value;
+    }
+
+    public void setValue( T value )
+    {
+        this.value = value;
+    }
+
+    public Entry<T> getNext()
+    {
+        return next;
+    }
+
+    public void setNext( Entry<T> next )
+    {
+        this.next = next;
     }
 
     @Override
