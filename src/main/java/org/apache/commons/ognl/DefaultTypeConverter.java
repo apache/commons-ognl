@@ -32,10 +32,6 @@ import java.util.Map;
 public class DefaultTypeConverter
     implements TypeConverter
 {
-    public DefaultTypeConverter()
-    {
-        super();
-    }
 
     public <T> T convertValue( Map context, Object value, Class<T> toType )
     {
