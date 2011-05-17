@@ -107,7 +107,9 @@ public class ClassCacheImpl
     public final <T> T put( Class<T> key, T value )
     {
         if ( _classInspector != null && !_classInspector.shouldCache( key ) )
+        {
             return value;
+        }
 
         T result = null;
         int i = key.hashCode() & TABLE_SIZE_MASK;
