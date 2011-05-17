@@ -163,4 +163,5 @@ public class ClassCacheImpl
         return "ClassCacheImpl[" + "_table=" + ( _table == null ? null : Arrays.asList( _table ) ) + '\n'
             + ", _classInspector=" + _classInspector + '\n' + ", _size=" + _size + '\n' + ']';
     }
+
 }
