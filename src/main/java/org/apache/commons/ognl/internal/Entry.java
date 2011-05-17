@@ -22,7 +22,7 @@ package org.apache.commons.ognl.internal;
 /**
  * Used by {@link ClassCacheImpl} to store entries in the cache.
  */
-class Entry<T>
+final class Entry<T>
 {
 
     private Entry<T> next;
