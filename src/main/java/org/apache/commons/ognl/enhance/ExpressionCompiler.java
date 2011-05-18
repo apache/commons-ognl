@@ -19,6 +19,8 @@ package org.apache.commons.ognl.enhance;
  * under the License.
  */
 
+import static java.lang.String.format;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
@@ -684,11 +686,7 @@ public class ExpressionCompiler
 
             String widener = ref.getType().isPrimitive() ? " " : " ($w) ";
 
-            String body = "{";
-            body += " return  " + widener + ref.getExpression() + ";";
-            body += "}";
-
-            body = body.replaceAll( "\\.\\.", "." );
+            String body = format( "{ return %s %s; }", widener, ref.getExpression() ).replaceAll( "\\.\\.", "." );
 
             // System.out.println("adding method " + ref.getName() + " with body:\n" + body + " and return type: " +
             // ref.getType());
