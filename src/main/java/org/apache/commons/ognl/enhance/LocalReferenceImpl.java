@@ -26,11 +26,11 @@ public class LocalReferenceImpl
     implements LocalReference
 {
 
-    String _name;
+    private final String _name;
 
-    Class _type;
+    private final Class _type;
 
-    String _expression;
+    private final String _expression;
 
     public LocalReferenceImpl( String name, String expression, Class type )
     {
