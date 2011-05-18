@@ -670,17 +670,17 @@ public class ExpressionCompiler
     void createLocalReferences( OgnlContext context, ClassPool pool, CtClass clazz, CtClass objClass, CtClass[] params )
         throws CannotCompileException, NotFoundException
     {
-        Map referenceMap = context.getLocalReferences();
+        Map<String, LocalReference> referenceMap = context.getLocalReferences();
         if ( referenceMap == null || referenceMap.size() < 1 )
         {
             return;
         }
 
-        Iterator it = referenceMap.values().iterator();
+        Iterator<LocalReference> it = referenceMap.values().iterator();
 
         while ( it.hasNext() )
         {
-            LocalReference ref = (LocalReference) it.next();
+            LocalReference ref = it.next();
 
             String widener = ref.getType().isPrimitive() ? " " : " ($w) ";
 
