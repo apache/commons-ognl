@@ -96,7 +96,7 @@ public class ExpressionCompiler
      * @param context The current execution context.
      * @param cast The java source string to store in to the context.
      */
-    public static void addCastString( org.apache.commons.ognl.OgnlContext context, String cast )
+    public static void addCastString( OgnlContext context, String cast )
     {
         String value = (String) context.get( PRE_CAST );
 
