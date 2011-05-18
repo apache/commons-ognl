@@ -19,6 +19,15 @@ package org.apache.commons.ognl.enhance;
  * under the License.
  */
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -28,6 +37,7 @@ import javassist.CtNewConstructor;
 import javassist.CtNewMethod;
 import javassist.LoaderClassPath;
 import javassist.NotFoundException;
+
 import org.apache.commons.ognl.ASTAnd;
 import org.apache.commons.ognl.ASTChain;
 import org.apache.commons.ognl.ASTConst;
@@ -45,15 +55,6 @@ import org.apache.commons.ognl.ExpressionNode;
 import org.apache.commons.ognl.Node;
 import org.apache.commons.ognl.OgnlContext;
 import org.apache.commons.ognl.OgnlRuntime;
-
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Responsible for managing/providing functionality related to compiling generated java source expressions via bytecode
