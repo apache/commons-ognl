@@ -519,11 +519,8 @@ public class ExpressionCompiler
 
             getBody = generateOgnlGetter( newClass, valueGetter, nodeMember );
 
-            if ( setExpression == null )
-            {
-                setExpression = CtNewMethod.setter( "setExpression", nodeMember );
-                newClass.addMethod( setExpression );
-            }
+            setExpression = CtNewMethod.setter( "setExpression", nodeMember );
+            newClass.addMethod( setExpression );
         }
 
         try
