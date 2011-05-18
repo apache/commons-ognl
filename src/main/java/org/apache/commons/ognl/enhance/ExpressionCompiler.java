@@ -83,13 +83,6 @@ public class ExpressionCompiler
     protected int _classCounter = 0;
 
     /**
-     * Default constructor, does nothing.
-     */
-    public ExpressionCompiler()
-    {
-    }
-
-    /**
      * Used by {@link #castExpression(org.apache.commons.ognl.OgnlContext, org.apache.commons.ognl.Node, String)} to
      * store the cast java source string in to the current {@link org.apache.commons.ognl.OgnlContext}. This will either
      * add to the existing string present if it already exists or create a new instance and store it using the static
