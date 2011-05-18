@@ -101,9 +101,13 @@ public class ExpressionCompiler
         String value = (String) context.get( PRE_CAST );
 
         if ( value != null )
+        {
             value = cast + value;
+        }
         else
+        {
             value = cast;
+        }
 
         context.put( PRE_CAST, value );
     }
@@ -121,7 +125,9 @@ public class ExpressionCompiler
     public static String getCastString( Class type )
     {
         if ( type == null )
+        {
             return null;
+        }
 
         return type.isArray() ? type.getComponentType().getName() + "[]" : type.getName();
     }
@@ -142,7 +148,10 @@ public class ExpressionCompiler
         String rootExpr = "";
 
         if ( !shouldCast( expression ) )
+        {
             return rootExpr;
+            
+        }
 
         if ( ( !ASTList.class.isInstance( expression ) && !ASTVarRef.class.isInstance( expression )
             && !ASTStaticMethod.class.isInstance( expression ) && !ASTStaticField.class.isInstance( expression )
@@ -234,23 +243,33 @@ public class ExpressionCompiler
     public String getClassName( Class clazz )
     {
         if ( clazz.getName().equals( "java.util.AbstractList$Itr" ) )
+        {
             return Iterator.class.getName();
+        }
 
         if ( Modifier.isPublic( clazz.getModifiers() ) && clazz.isInterface() )
+        {
             return clazz.getName();
+        }
 
         Class[] intf = clazz.getInterfaces();
 
         for ( int i = 0; i < intf.length; i++ )
         {
             if ( intf[i].getName().indexOf( "util.List" ) > 0 )
+            {
                 return intf[i].getName();
+            }
             else if ( intf[i].getName().indexOf( "Iterator" ) > 0 )
+            {
                 return intf[i].getName();
+            }
         }
 
         if ( clazz.getSuperclass() != null && clazz.getSuperclass().getInterfaces().length > 0 )
+        {
             return getClassName( clazz.getSuperclass() );
+        }
 
         return clazz.getName();
     }
@@ -267,10 +286,14 @@ public class ExpressionCompiler
                 intClass = getSuperOrInterfaceClass( m, intfs[i] );
 
                 if ( intClass != null )
+                {
                     return intClass;
+                }
 
                 if ( Modifier.isPublic( intfs[i].getModifiers() ) && containsMethod( m, intfs[i] ) )
+                {
                     return intfs[i];
+                }
             }
         }
 
@@ -279,11 +302,15 @@ public class ExpressionCompiler
             Class superClass = getSuperOrInterfaceClass( m, clazz.getSuperclass() );
 
             if ( superClass != null )
+            {
                 return superClass;
+            }
         }
 
         if ( Modifier.isPublic( clazz.getModifiers() ) && containsMethod( m, clazz ) )
+        {
             return clazz;
+        }
 
         return null;
     }
@@ -301,7 +328,9 @@ public class ExpressionCompiler
         Method[] methods = clazz.getMethods();
 
         if ( methods == null )
+        {
             return false;
+        }
 
         for ( int i = 0; i < methods.length; i++ )
         {
@@ -309,11 +338,15 @@ public class ExpressionCompiler
             {
                 Class[] parms = m.getParameterTypes();
                 if ( parms == null )
+                {
                     continue;
+                }
 
                 Class[] mparms = methods[i].getParameterTypes();
                 if ( mparms == null || mparms.length != parms.length )
+                {
                     continue;
+                }
 
                 boolean parmsMatch = true;
                 for ( int p = 0; p < parms.length; p++ )
@@ -326,15 +359,21 @@ public class ExpressionCompiler
                 }
 
                 if ( !parmsMatch )
+                {
                     continue;
+                }
 
                 Class[] exceptions = m.getExceptionTypes();
                 if ( exceptions == null )
+                {
                     continue;
+                }
 
                 Class[] mexceptions = methods[i].getExceptionTypes();
                 if ( mexceptions == null || mexceptions.length != exceptions.length )
+                {
                     continue;
+                }
 
                 boolean exceptionsMatch = true;
                 for ( int e = 0; e < exceptions.length; e++ )
@@ -347,7 +386,9 @@ public class ExpressionCompiler
                 }
 
                 if ( !exceptionsMatch )
+                {
                     continue;
+                }
 
                 return true;
             }
@@ -359,29 +400,45 @@ public class ExpressionCompiler
     public Class getInterfaceClass( Class clazz )
     {
         if ( clazz.getName().equals( "java.util.AbstractList$Itr" ) )
+        {
             return Iterator.class;
+        }
 
         if ( Modifier.isPublic( clazz.getModifiers() ) && clazz.isInterface() || clazz.isPrimitive() )
+        {
             return clazz;
+        }
 
         Class[] intf = clazz.getInterfaces();
 
         for ( int i = 0; i < intf.length; i++ )
         {
             if ( List.class.isAssignableFrom( intf[i] ) )
+            {
                 return List.class;
+            }
             else if ( Iterator.class.isAssignableFrom( intf[i] ) )
+            {
                 return Iterator.class;
+            }
             else if ( Map.class.isAssignableFrom( intf[i] ) )
+            {
                 return Map.class;
+            }
             else if ( Set.class.isAssignableFrom( intf[i] ) )
+            {
                 return Set.class;
+            }
             else if ( Collection.class.isAssignableFrom( intf[i] ) )
+            {
                 return Collection.class;
+            }
         }
 
         if ( clazz.getSuperclass() != null && clazz.getSuperclass().getInterfaces().length > 0 )
+        {
             return getInterfaceClass( clazz.getSuperclass() );
+        }
 
         return clazz;
     }
@@ -389,7 +446,9 @@ public class ExpressionCompiler
     public Class getRootExpressionClass( Node rootNode, OgnlContext context )
     {
         if ( context.getRoot() == null )
+        {
             return null;
+        }
 
         Class ret = context.getRoot().getClass();
 
@@ -411,7 +470,9 @@ public class ExpressionCompiler
         // System.out.println("Compiling expr class " + expression.getClass().getName() + " and root " + root);
 
         if ( expression.getAccessor() != null )
+        {
             return;
+        }
 
         String getBody, setBody;
 
@@ -531,7 +592,9 @@ public class ExpressionCompiler
 
         if ( getterCode == null || getterCode.trim().length() <= 0
             && !ASTVarRef.class.isAssignableFrom( expression.getClass() ) )
+        {
             getterCode = "null";
+        }
 
         String castExpression = (String) context.get( PRE_CAST );
 
@@ -546,7 +609,9 @@ public class ExpressionCompiler
 
         String noRoot = (String) context.remove( "_noRoot" );
         if ( noRoot != null )
+        {
             rootExpr = "";
+        }
 
         createLocalReferences( context, pool, newClass, objClass, valueGetter.getParameterTypes() );
 
@@ -584,7 +649,9 @@ public class ExpressionCompiler
 
         String castString = "";
         if ( !type.isPrimitive() )
+        {
             castString = "(" + ExpressionCompiler.getCastString( type ) + ") ";
+        }
 
         return castString + referenceName + "($$)";
     }
@@ -594,7 +661,9 @@ public class ExpressionCompiler
     {
         Map referenceMap = context.getLocalReferences();
         if ( referenceMap == null || referenceMap.size() < 1 )
+        {
             return;
+        }
 
         Iterator it = referenceMap.values().iterator();
 
@@ -627,7 +696,9 @@ public class ExpressionCompiler
         throws Exception
     {
         if ( ExpressionNode.class.isInstance( expression ) || ASTConst.class.isInstance( expression ) )
+        {
             throw new UnsupportedCompilationException( "Can't compile expression/constant setters." );
+        }
 
         context.setRoot( root );
         context.remove( PRE_CAST );
@@ -638,16 +709,22 @@ public class ExpressionCompiler
         String castExpression = (String) context.get( PRE_CAST );
 
         if ( setterCode == null || setterCode.trim().length() < 1 )
+        {
             throw new UnsupportedCompilationException( "Can't compile null setter body." );
+        }
 
         if ( root == null )
+        {
             throw new UnsupportedCompilationException( "Can't compile setters with a null root object." );
+        }
 
         String pre = getRootExpression( expression, root, context );
 
         String noRoot = (String) context.remove( "_noRoot" );
         if ( noRoot != null )
+        {
             pre = "";
+        }
 
         createLocalReferences( context, pool, newClass, objClass, valueSetter.getParameterTypes() );
 
@@ -717,7 +794,9 @@ public class ExpressionCompiler
         EnhancedClassLoader ret = (EnhancedClassLoader) _loaders.get( context.getClassResolver() );
 
         if ( ret != null )
+        {
             return ret;
+        }
 
         ClassLoader classLoader = new ContextClassLoader( OgnlContext.class.getClassLoader(), context );
 
@@ -753,7 +832,9 @@ public class ExpressionCompiler
     protected ClassPool getClassPool( OgnlContext context, EnhancedClassLoader loader )
     {
         if ( _pool != null )
+        {
             return _pool;
+        }
 
         _pool = ClassPool.getDefault();
         _pool.insertClassPath( new LoaderClassPath( loader.getParent() ) );
