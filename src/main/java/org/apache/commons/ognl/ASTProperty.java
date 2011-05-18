@@ -534,7 +534,7 @@ public class ASTProperty
                      * {
                      * context.setCurrentType(OgnlRuntime.getPrimitiveWrapperClass(context.getCurrentObject().getClass(
                      * ))); } result = p.getSourceSetter(context, target, srcString); context.setCurrentObject(value);
-                     * context.setCurrentType(_getterClass);
+                     * context.setCurrentType(getterClass);
                      */
                     return result;
                 }

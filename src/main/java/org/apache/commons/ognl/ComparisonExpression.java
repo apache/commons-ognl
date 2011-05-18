@@ -51,11 +51,11 @@ public abstract class ComparisonExpression
             Object value = getValueBody( context, target );
 
             if ( value != null && Boolean.class.isAssignableFrom( value.getClass() ) )
-                _getterClass = Boolean.TYPE;
+                getterClass = Boolean.TYPE;
             else if ( value != null )
-                _getterClass = value.getClass();
+                getterClass = value.getClass();
             else
-                _getterClass = Boolean.TYPE;
+                getterClass = Boolean.TYPE;
 
             // iterate over children to make numeric type detection work properly
 

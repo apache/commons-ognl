@@ -31,7 +31,7 @@ public abstract class BooleanExpression
     implements NodeType
 {
 
-    protected Class _getterClass;
+    protected Class getterClass;
 
     public BooleanExpression( int id )
     {
@@ -45,7 +45,7 @@ public abstract class BooleanExpression
 
     public Class getGetterClass()
     {
-        return _getterClass;
+        return getterClass;
     }
 
     public Class getSetterClass()
@@ -61,19 +61,28 @@ public abstract class BooleanExpression
             Object value = getValueBody( context, target );
 
             if ( value != null && Boolean.class.isAssignableFrom( value.getClass() ) )
-                _getterClass = Boolean.TYPE;
+            {
+                getterClass = Boolean.TYPE;
+            }
             else if ( value != null )
-                _getterClass = value.getClass();
+            {
+                getterClass = value.getClass();
+            }
             else
-                _getterClass = Boolean.TYPE;
+            {
+                getterClass = Boolean.TYPE;
+            }
 
             String ret = super.toGetSourceString( context, target );
 
             if ( "(false)".equals( ret ) )
+            {
                 return "false";
+            }
             else if ( "(true)".equals( ret ) )
+            {
                 return "true";
-
+            }
             return ret;
 
         }
