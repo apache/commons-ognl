@@ -104,7 +104,7 @@ public abstract class NumericExpression
         else if ( context.getCurrentType() != null && context.getCurrentType().isPrimitive()
             && ( ASTConst.class.isInstance( child ) || NumericExpression.class.isInstance( child ) ) )
         {
-            ret += OgnlRuntime.getNumericLiteral( context.getCurrentType() );
+            ret += OgnlRuntime.getNumericLiteral( (Class<? extends Number>) context.getCurrentType() );
         }
         else if ( context.getCurrentType() != null && String.class.isAssignableFrom( context.getCurrentType() ) )
         {
