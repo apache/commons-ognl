@@ -38,7 +38,7 @@ import java.util.Stack;
  */
 public class OgnlContext
     extends Object
-    implements Map
+    implements Map<String, Object>
 {
 
     public static final String CONTEXT_CONTEXT_KEY = "context";
@@ -89,7 +89,7 @@ public class OgnlContext
 
     private boolean _keepLastEvaluation = DEFAULT_KEEP_LAST_EVALUATION;
 
-    private Map _values = new HashMap( 23 );
+    private Map<String, Object> _values = new HashMap<String, Object>( 23 );
 
     private ClassResolver _classResolver = DEFAULT_CLASS_RESOLVER;
 
@@ -164,29 +164,30 @@ public class OgnlContext
         }
     }
 
-    public OgnlContext( Map values )
+    public OgnlContext( Map<String, Object> values )
     {
         super();
         this._values = values;
     }
 
-    public OgnlContext( ClassResolver classResolver, TypeConverter typeConverter, MemberAccess memberAccess, Map values )
+    public OgnlContext( ClassResolver classResolver, TypeConverter typeConverter, MemberAccess memberAccess,
+                        Map<String, Object> values )
     {
         this( classResolver, typeConverter, memberAccess );
         this._values = values;
     }
 
-    public void setValues( Map value )
+    public void setValues( Map<String, Object> value )
     {
-        for ( Iterator it = value.keySet().iterator(); it.hasNext(); )
+        for ( Iterator<String> it = value.keySet().iterator(); it.hasNext(); )
         {
-            Object k = it.next();
+            String k = it.next();
 
             _values.put( k, value.get( k ) );
         }
     }
 
-    public Map getValues()
+    public Map<String, Object> getValues()
     {
         return _values;
     }
@@ -594,7 +595,7 @@ public class OgnlContext
         return result;
     }
 
-    public Object put( Object key, Object value )
+    public Object put( String key, Object value )
     {
         Object result = null;
 
@@ -706,11 +707,11 @@ public class OgnlContext
         return result;
     }
 
-    public void putAll( Map t )
+    public void putAll( Map<? extends String, ? extends Object> t )
     {
-        for ( Iterator it = t.keySet().iterator(); it.hasNext(); )
+        for ( Iterator<? extends String> it = t.keySet().iterator(); it.hasNext(); )
         {
-            Object k = it.next();
+            String k = it.next();
 
             put( k, t.get( k ) );
         }
@@ -739,19 +740,19 @@ public class OgnlContext
         setMemberAccess( DEFAULT_MEMBER_ACCESS );
     }
 
-    public Set keySet()
+    public Set<String> keySet()
     {
         /* Should root, currentObject, classResolver, typeConverter & memberAccess be included here? */
         return _values.keySet();
     }
 
-    public Collection values()
+    public Collection<Object> values()
     {
         /* Should root, currentObject, classResolver, typeConverter & memberAccess be included here? */
         return _values.values();
     }
 
-    public Set entrySet()
+    public Set<Entry<String, Object>> entrySet()
     {
         /* Should root, currentObject, classResolver, typeConverter & memberAccess be included here? */
         return _values.entrySet();
