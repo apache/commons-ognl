@@ -28,11 +28,11 @@ public class LocalReferenceImpl
 
     private final String _name;
 
-    private final Class _type;
+    private final Class<?> _type;
 
     private final String _expression;
 
-    public LocalReferenceImpl( String name, String expression, Class type )
+    public LocalReferenceImpl( String name, String expression, Class<?> type )
     {
         _name = name;
         _type = type;
@@ -49,7 +49,7 @@ public class LocalReferenceImpl
         return _expression;
     }
 
-    public Class getType()
+    public Class<?> getType()
     {
         return _type;
     }

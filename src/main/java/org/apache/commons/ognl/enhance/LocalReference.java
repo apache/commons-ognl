@@ -44,5 +44,5 @@ public interface LocalReference
      * 
      * @return The type.
      */
-    Class getType();
+    Class<?> getType();
 }
