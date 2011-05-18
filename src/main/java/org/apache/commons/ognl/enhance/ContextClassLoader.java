@@ -40,6 +40,7 @@ public class ContextClassLoader
      * =================================================================== Overridden methods
      * ===================================================================
      */
+    @Override
     protected Class findClass( String name )
         throws ClassNotFoundException
     {
