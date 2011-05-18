@@ -223,7 +223,9 @@ public class ExpressionCompiler
             || ASTStaticField.class.isInstance( expression )
             || ASTStaticMethod.class.isInstance( expression )
             || ( OrderedReturn.class.isInstance( expression ) && ( (OrderedReturn) expression ).getLastExpression() != null ) )
+        {
             return body;
+        }
 
         /*
          * System.out.println("castExpression() with expression " + expression + " expr class: " + expression.getClass()
