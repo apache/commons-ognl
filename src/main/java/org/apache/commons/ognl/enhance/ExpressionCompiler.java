@@ -147,7 +147,6 @@ public class ExpressionCompiler
         if ( !shouldCast( expression ) )
         {
             return rootExpr;
-            
         }
 
         if ( ( !ASTList.class.isInstance( expression ) && !ASTVarRef.class.isInstance( expression )
