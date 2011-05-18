@@ -39,16 +39,25 @@ public class LocalReferenceImpl
         _expression = expression;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public String getName()
     {
         return _name;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public String getExpression()
     {
         return _expression;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Class<?> getType()
     {
         return _type;
