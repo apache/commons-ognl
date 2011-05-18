@@ -54,6 +54,9 @@ public class LocalReferenceImpl
         return _type;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals( Object o )
     {
@@ -84,6 +87,9 @@ public class LocalReferenceImpl
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode()
     {
@@ -94,6 +100,9 @@ public class LocalReferenceImpl
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString()
     {
