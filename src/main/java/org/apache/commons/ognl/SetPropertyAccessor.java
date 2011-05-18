@@ -43,7 +43,7 @@ public class SetPropertyAccessor
 
             if ( name.equals( "size" ) )
             {
-                result = new Integer( set.size() );
+                result = Integer.valueOf( set.size() );
             }
             else
             {

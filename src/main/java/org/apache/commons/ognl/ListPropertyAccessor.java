@@ -48,7 +48,7 @@ public class ListPropertyAccessor
 
             if ( name.equals( "size" ) )
             {
-                result = new Integer( list.size() );
+                result = Integer.valueOf( list.size() );
             }
             else
             {

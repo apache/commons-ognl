@@ -58,7 +58,7 @@ public class MapPropertyAccessor
         {
             if ( name.equals( "size" ) )
             {
-                result = new Integer( map.size() );
+                result = Integer.valueOf( map.size() );
             }
             else
             {
