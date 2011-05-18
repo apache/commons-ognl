@@ -56,7 +56,7 @@ public interface OgnlExpressionCompiler
      * @param clazz The class to get a string equivalent javassist compatible string reference for.
      * @return The string equivalent of the class.
      */
-    String getClassName( Class clazz );
+    String getClassName( Class<?> clazz );
 
     /**
      * Used in places where the preferred {@link #getSuperOrInterfaceClass(java.lang.reflect.Method, Class)} isn't
@@ -67,7 +67,7 @@ public interface OgnlExpressionCompiler
      * @param clazz The class to attempt to find a compatible interface for.
      * @return The same class if no higher level interface could be matched against or the interface equivalent class.
      */
-    Class getInterfaceClass( Class clazz );
+    Class<?> getInterfaceClass( Class<?> clazz );
 
     /**
      * For the given {@link Method} and class finds the highest level interface class this combination can be cast to.
@@ -76,7 +76,7 @@ public interface OgnlExpressionCompiler
      * @param clazz The current class being worked with.
      * @return The highest level interface / class that the referenced {@link Method} is declared in.
      */
-    Class getSuperOrInterfaceClass( Method m, Class clazz );
+    Class<?> getSuperOrInterfaceClass( Method m, Class<?> clazz );
 
     /**
      * For a given root object type returns the base class type to be used in root referenced expressions. This helps in
@@ -87,7 +87,7 @@ public interface OgnlExpressionCompiler
      * @param context The current execution context.
      * @return The root expression class type to cast to for this node.
      */
-    Class getRootExpressionClass( Node rootNode, OgnlContext context );
+    Class<?> getRootExpressionClass( Node rootNode, OgnlContext context );
 
     /**
      * Used primarily by AST types like {@link org.apache.commons.ognl.ASTChain} where <code>foo.bar.id</code> type
@@ -121,5 +121,5 @@ public interface OgnlExpressionCompiler
      * @return The method name that will be used to reference the sub expression in place of the actual sub expression
      *         itself.
      */
-    String createLocalReference( OgnlContext context, String expression, Class type );
+    String createLocalReference( OgnlContext context, String expression, Class<?> type );
 }

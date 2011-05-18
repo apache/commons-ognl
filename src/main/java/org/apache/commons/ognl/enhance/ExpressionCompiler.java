@@ -51,6 +51,7 @@ import org.apache.commons.ognl.ASTStaticField;
 import org.apache.commons.ognl.ASTStaticMethod;
 import org.apache.commons.ognl.ASTThisVarRef;
 import org.apache.commons.ognl.ASTVarRef;
+import org.apache.commons.ognl.ClassResolver;
 import org.apache.commons.ognl.ExpressionNode;
 import org.apache.commons.ognl.Node;
 import org.apache.commons.ognl.OgnlContext;
@@ -72,7 +73,7 @@ public class ExpressionCompiler
     /**
      * {@link ClassLoader} instances.
      */
-    protected Map _loaders = new HashMap();
+    protected Map<ClassResolver, EnhancedClassLoader> _loaders = new HashMap<ClassResolver, EnhancedClassLoader>();
 
     /**
      * Javassist class definition poool.
@@ -123,7 +124,7 @@ public class ExpressionCompiler
      * @param type The class to cast a string expression for.
      * @return The converted raw string version of the class name.
      */
-    public static String getCastString( Class type )
+    public static String getCastString( Class<?> type )
     {
         if ( type == null )
         {
@@ -161,7 +162,7 @@ public class ExpressionCompiler
             || ( root != null && ASTRootVarRef.class.isInstance( expression ) ) )
         {
 
-            Class castClass = OgnlRuntime.getCompiler().getRootExpressionClass( expression, context );
+            Class<?> castClass = OgnlRuntime.getCompiler().getRootExpressionClass( expression, context );
 
             if ( castClass.isArray() || ASTRootVarRef.class.isInstance( expression )
                 || ASTThisVarRef.class.isInstance( expression ) )
@@ -206,6 +207,9 @@ public class ExpressionCompiler
         return !ASTConst.class.isInstance( expression );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public String castExpression( OgnlContext context, Node expression, String body )
     {
         // ok - so this looks really f-ed up ...and it is ..eh if you can do it better I'm all for it :)
@@ -241,7 +245,10 @@ public class ExpressionCompiler
         return ")" + body;
     }
 
-    public String getClassName( Class clazz )
+    /**
+     * {@inheritDoc}
+     */
+    public String getClassName( Class<?> clazz )
     {
         if ( clazz.getName().equals( "java.util.AbstractList$Itr" ) )
         {
@@ -253,7 +260,7 @@ public class ExpressionCompiler
             return clazz.getName();
         }
 
-        Class[] intf = clazz.getInterfaces();
+        Class<?>[] intf = clazz.getInterfaces();
 
         for ( int i = 0; i < intf.length; i++ )
         {
@@ -275,12 +282,15 @@ public class ExpressionCompiler
         return clazz.getName();
     }
 
-    public Class getSuperOrInterfaceClass( Method m, Class clazz )
+    /**
+     * {@inheritDoc}
+     */
+    public Class<?> getSuperOrInterfaceClass( Method m, Class<?> clazz )
     {
         if ( clazz.getInterfaces() != null && clazz.getInterfaces().length > 0 )
         {
-            Class[] intfs = clazz.getInterfaces();
-            Class intClass;
+            Class<?>[] intfs = clazz.getInterfaces();
+            Class<?> intClass;
 
             for ( int i = 0; i < intfs.length; i++ )
             {
@@ -300,7 +310,7 @@ public class ExpressionCompiler
 
         if ( clazz.getSuperclass() != null )
         {
-            Class superClass = getSuperOrInterfaceClass( m, clazz.getSuperclass() );
+            Class<?> superClass = getSuperOrInterfaceClass( m, clazz.getSuperclass() );
 
             if ( superClass != null )
             {
@@ -324,7 +334,7 @@ public class ExpressionCompiler
      * @param clazz The class to check for the existance of a matching method definition to the method passed in.
      * @return True if the class contains the specified method, false otherwise.
      */
-    public boolean containsMethod( Method m, Class clazz )
+    public boolean containsMethod( Method m, Class<?> clazz )
     {
         Method[] methods = clazz.getMethods();
 
@@ -337,13 +347,13 @@ public class ExpressionCompiler
         {
             if ( methods[i].getName().equals( m.getName() ) && methods[i].getReturnType() == m.getReturnType() )
             {
-                Class[] parms = m.getParameterTypes();
+                Class<?>[] parms = m.getParameterTypes();
                 if ( parms == null )
                 {
                     continue;
                 }
 
-                Class[] mparms = methods[i].getParameterTypes();
+                Class<?>[] mparms = methods[i].getParameterTypes();
                 if ( mparms == null || mparms.length != parms.length )
                 {
                     continue;
@@ -364,13 +374,13 @@ public class ExpressionCompiler
                     continue;
                 }
 
-                Class[] exceptions = m.getExceptionTypes();
+                Class<?>[] exceptions = m.getExceptionTypes();
                 if ( exceptions == null )
                 {
                     continue;
                 }
 
-                Class[] mexceptions = methods[i].getExceptionTypes();
+                Class<?>[] mexceptions = methods[i].getExceptionTypes();
                 if ( mexceptions == null || mexceptions.length != exceptions.length )
                 {
                     continue;
@@ -398,7 +408,10 @@ public class ExpressionCompiler
         return false;
     }
 
-    public Class getInterfaceClass( Class clazz )
+    /**
+     * {@inheritDoc}
+     */
+    public Class<?> getInterfaceClass( Class<?> clazz )
     {
         if ( clazz.getName().equals( "java.util.AbstractList$Itr" ) )
         {
@@ -410,7 +423,7 @@ public class ExpressionCompiler
             return clazz;
         }
 
-        Class[] intf = clazz.getInterfaces();
+        Class<?>[] intf = clazz.getInterfaces();
 
         for ( int i = 0; i < intf.length; i++ )
         {
@@ -444,14 +457,17 @@ public class ExpressionCompiler
         return clazz;
     }
 
-    public Class getRootExpressionClass( Node rootNode, OgnlContext context )
+    /**
+     * {@inheritDoc}
+     */
+    public Class<?> getRootExpressionClass( Node rootNode, OgnlContext context )
     {
         if ( context.getRoot() == null )
         {
             return null;
         }
 
-        Class ret = context.getRoot().getClass();
+        Class<?> ret = context.getRoot().getClass();
 
         if ( context.getFirstAccessor() != null && context.getFirstAccessor().isInstance( context.getRoot() ) )
         {
@@ -461,9 +477,8 @@ public class ExpressionCompiler
         return ret;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see ognl.enhance.OgnlExpressionCompiler#compileExpression(ognl.OgnlContext, ognl.Node, java.lang.Object)
+    /**
+     * {@inheritDoc}
      */
     public void compileExpression( OgnlContext context, Node expression, Object root )
         throws Exception
@@ -548,7 +563,7 @@ public class ExpressionCompiler
         {
             newClass.addConstructor( CtNewConstructor.defaultConstructor( newClass ) );
 
-            Class clazz = pool.toClass( newClass );
+            Class<?> clazz = pool.toClass( newClass );
             newClass.detach();
 
             expression.setAccessor( (ExpressionAccessor) clazz.newInstance() );
@@ -643,7 +658,10 @@ public class ExpressionCompiler
         return body;
     }
 
-    public String createLocalReference( OgnlContext context, String expression, Class type )
+    /**
+     * {@inheritDoc}
+     */
+    public String createLocalReference( OgnlContext context, String expression, Class<?> type )
     {
         String referenceName = "ref" + context.incrementLocalReferenceCounter();
         context.addLocalReference( referenceName, new LocalReferenceImpl( referenceName, expression, type ) );
@@ -792,7 +810,7 @@ public class ExpressionCompiler
      */
     protected EnhancedClassLoader getClassLoader( OgnlContext context )
     {
-        EnhancedClassLoader ret = (EnhancedClassLoader) _loaders.get( context.getClassResolver() );
+        EnhancedClassLoader ret = _loaders.get( context.getClassResolver() );
 
         if ( ret != null )
         {
@@ -814,7 +832,7 @@ public class ExpressionCompiler
      * @return The javassist class equivalent.
      * @throws NotFoundException When the class definition can't be found.
      */
-    protected CtClass getCtClass( Class searchClass )
+    protected CtClass getCtClass( Class<?> searchClass )
         throws NotFoundException
     {
         return _pool.get( searchClass.getName() );
