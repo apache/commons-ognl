@@ -170,12 +170,12 @@ public class OgnlExpression
         <source>public interface TypeConverter
 {
 
-    Object convertValue( Map context,
+    &lt;T&gt; T convertValue( Map context,
                                 Object target,
                                 Member member,
                                 String propertyName,
                                 Object value,
-                                Class toType );
+                                Class&lt;T&gt; toType );
 
 }</source>
 
@@ -189,27 +189,30 @@ Map context = Ognl.createDefaultContext( this );
 /* Create an anonymous inner class to handle special conversion */
 Ognl.setTypeConverter( context, new org.apache.commons.ognl.DefaultTypeConverter() {
 
-    public Object convertValue( Map context, Object value, Class toType )
+    public &lt;T&gt; convertValue( Map context, Object value, Class&lt;T&gt; toType )
     {
 
-        Object  result = null;
+        T result = null;
 
-        if ( (toType == int[].class) &#38;&#38; (value instanceof String[].class) ) {
-            String  sa = (String[])value;
+        if ( ( toType == int[].class ) &#38;&#38; ( value instanceof String[].class ) )
+        {
+            String  sa = (String[]) value;
             int[]   ia = new int[sa.length];
 
-            for ( int i = 0; i &#60; sa.length; i++) {
+            for ( int i = 0; i &#60; sa.length; i++)
+            {
                 Integer cv;
 
-                cv = (Integer) super.convertValue( context,
-                                                    sa[i],
-                                                    Integer.class );
+                cv = super.convertValue( context, sa[i], Integer.class );
                 ia[i] = cv.intValue();
             }
-            result = ia;
-        } else {
+            result = (T) ia;
+        }
+        else
+        {
             result = super.convertValue( context, value, toType );
         }
+
         return result;
     }
 });
