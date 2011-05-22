@@ -28,6 +28,9 @@ package org.apache.commons.ognl;
 public class ExpressionSyntaxException
     extends OgnlException
 {
+
+    private static final long serialVersionUID = 3828005676770762146L;
+
     public ExpressionSyntaxException( String expression, Throwable reason )
     {
         super( "Malformed OGNL expression: " + expression, reason );
