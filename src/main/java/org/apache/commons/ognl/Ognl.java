@@ -57,15 +57,15 @@ import java.util.Map;
  * Other more sophisticated uses of Ognl can pre-parse expressions. This provides two advantages: in the case of
  * user-supplied expressions it allows you to catch parse errors before evaluation and it allows you to cache parsed
  * expressions into an AST for better speed during repeated use. The pre-parsed expression is always returned as an
- * <CODE>Object</CODE> to simplify use for programs that just wish to store the value for repeated use and do not care
- * that it is an AST. If it does care it can always safely cast the value to an <CODE>AST</CODE> type.
+ * <code>Object</code> to simplify use for programs that just wish to store the value for repeated use and do not care
+ * that it is an AST. If it does care it can always safely cast the value to an <code>AST</code> type.
  * </p>
  * <p>
  * The Ognl class also takes a <I>context map</I> as one of the parameters to the set and get methods. This allows you
  * to put your own variables into the available namespace for OGNL expressions. The default context contains only the
- * <CODE>#root</CODE> and <CODE>#context</CODE> keys, which are required to be present. The
- * <CODE>addDefaultContext(Object, Map)</CODE> method will alter an existing <CODE>Map</CODE> to put the defaults in.
- * Here is an example that shows how to extract the <CODE>documentName</CODE> property out of the root object and append
+ * <code>#root</code> and <code>#context</code> keys, which are required to be present. The
+ * <code>addDefaultContext(Object, Map)</code> method will alter an existing <code>Map</code> to put the defaults in.
+ * Here is an example that shows how to extract the <code>documentName</code> property out of the root object and append
  * a string with the current user name in parens:
  * </p>
  * 
@@ -100,7 +100,7 @@ public abstract class Ognl
 
     /**
      * Parses the given OGNL expression and returns a tree representation of the expression that can be used by
-     * <CODE>Ognl</CODE> static methods.
+     * <code>Ognl</code> static methods.
      * 
      * @param expression the OGNL expression to be parsed
      * @return a tree representation of the expression
@@ -152,7 +152,7 @@ public abstract class Ognl
      * Creates and returns a new standard naming context for evaluating an OGNL expression.
      * 
      * @param root the root of the object graph
-     * @return a new Map with the keys <CODE>root</CODE> and <CODE>context</CODE> set appropriately
+     * @return a new Map with the keys <code>root</code> and <code>context</code> set appropriately
      */
     public static Map<String, Object> createDefaultContext( Object root )
     {
@@ -164,7 +164,7 @@ public abstract class Ognl
      * 
      * @param root The root of the object graph.
      * @param classResolver The resolver used to instantiate {@link Class} instances referenced in the expression.
-     * @return a new OgnlContext with the keys <CODE>root</CODE> and <CODE>context</CODE> set appropriately
+     * @return a new OgnlContext with the keys <code>root</code> and <code>context</code> set appropriately
      */
     public static Map<String, Object> createDefaultContext( Object root, ClassResolver classResolver )
     {
@@ -177,7 +177,7 @@ public abstract class Ognl
      * @param root The root of the object graph.
      * @param classResolver The resolver used to instantiate {@link Class} instances referenced in the expression.
      * @param converter Converter used to convert return types of an expression in to their desired types.
-     * @return a new Map with the keys <CODE>root</CODE> and <CODE>context</CODE> set appropriately
+     * @return a new Map with the keys <code>root</code> and <code>context</code> set appropriately
      */
     public static Map<String, Object> createDefaultContext( Object root, ClassResolver classResolver, TypeConverter converter )
     {
@@ -192,7 +192,7 @@ public abstract class Ognl
      * @param converter Converter used to convert return types of an expression in to their desired types.
      * @param memberAccess Java security handling object to determine semantics for accessing normally private/protected
      *            methods / fields.
-     * @return a new Map with the keys <CODE>root</CODE> and <CODE>context</CODE> set appropriately
+     * @return a new Map with the keys <code>root</code> and <code>context</code> set appropriately
      */
     public static Map<String, Object> createDefaultContext( Object root, ClassResolver classResolver, TypeConverter converter,
                                             MemberAccess memberAccess )
@@ -206,7 +206,7 @@ public abstract class Ognl
      * 
      * @param root the root of the object graph
      * @param context the context to which OGNL context will be added.
-     * @return Context Map with the keys <CODE>root</CODE> and <CODE>context</CODE> set appropriately
+     * @return Context Map with the keys <code>root</code> and <code>context</code> set appropriately
      */
     public static Map<String, Object> addDefaultContext( Object root, Map<String, Object> context )
     {
@@ -220,7 +220,7 @@ public abstract class Ognl
      * @param root The root of the object graph.
      * @param classResolver The resolver used to instantiate {@link Class} instances referenced in the expression.
      * @param context The context to which OGNL context will be added.
-     * @return Context Map with the keys <CODE>root</CODE> and <CODE>context</CODE> set appropriately
+     * @return Context Map with the keys <code>root</code> and <code>context</code> set appropriately
      */
     public static Map<String, Object> addDefaultContext( Object root, ClassResolver classResolver, Map<String, Object> context )
     {
@@ -235,7 +235,7 @@ public abstract class Ognl
      * @param classResolver The resolver used to instantiate {@link Class} instances referenced in the expression.
      * @param converter Converter used to convert return types of an expression in to their desired types.
      * @param context The context to which OGNL context will be added.
-     * @return Context Map with the keys <CODE>root</CODE> and <CODE>context</CODE> set appropriately
+     * @return Context Map with the keys <code>root</code> and <code>context</code> set appropriately
      */
     public static Map<String, Object> addDefaultContext( Object root, ClassResolver classResolver, TypeConverter converter, Map<String, Object> context )
     {
@@ -252,7 +252,7 @@ public abstract class Ognl
      * @param memberAccess Definition for handling private/protected access.
      * @param context Default context to use, if not an {@link OgnlContext} will be dumped into a new
      *            {@link OgnlContext} object.
-     * @return Context Map with the keys <CODE>root</CODE> and <CODE>context</CODE> set appropriately
+     * @return Context Map with the keys <code>root</code> and <code>context</code> set appropriately
      */
     public static Map<String, Object> addDefaultContext( Object root, ClassResolver classResolver, TypeConverter converter,
                                          MemberAccess memberAccess, Map<String, Object> context )
@@ -390,7 +390,7 @@ public abstract class Ognl
 
     /**
      * Evaluates the given OGNL expression tree to extract a value from the given root object. The default context is
-     * set for the given context and root via <CODE>addDefaultContext()</CODE>.
+     * set for the given context and root via <code>addDefaultContext()</code>.
      * 
      * @param tree the OGNL expression tree to evaluate, as returned by parseExpression()
      * @param context the naming context for the evaluation
@@ -409,7 +409,7 @@ public abstract class Ognl
 
     /**
      * Evaluates the given OGNL expression tree to extract a value from the given root object. The default context is
-     * set for the given context and root via <CODE>addDefaultContext()</CODE>.
+     * set for the given context and root via <code>addDefaultContext()</code>.
      * 
      * @param tree the OGNL expression tree to evaluate, as returned by parseExpression()
      * @param context the naming context for the evaluation
@@ -593,7 +593,7 @@ public abstract class Ognl
 
     /**
      * Evaluates the given OGNL expression tree to insert a value into the object graph rooted at the given root object.
-     * The default context is set for the given context and root via <CODE>addDefaultContext()</CODE>.
+     * The default context is set for the given context and root via <code>addDefaultContext()</code>.
      * 
      * @param tree the OGNL expression tree to evaluate, as returned by parseExpression()
      * @param context the naming context for the evaluation
