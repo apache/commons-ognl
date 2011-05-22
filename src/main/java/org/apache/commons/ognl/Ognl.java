@@ -33,12 +33,12 @@ import java.util.Map;
  * pre-parsing.
  * </P>
  * 
- * <PRE>
+ * <pre>
  * 
  * import org.apache.commons.ognl.Ognl; import org.apache.commons.ognl.OgnlException; try { result = Ognl.getValue(expression, root); }
  * catch (OgnlException ex) { // Report error or recover }
  * 
- * </PRE>
+ * </pre>
  * <P>
  * This will parse the expression given and evaluate it against the root object given, returning the result. If there is
  * an error in the expression, such as the property is not found, the exception is encapsulated into an
@@ -60,14 +60,14 @@ import java.util.Map;
  * a string with the current user name in parens:
  * </P>
  * 
- * <PRE>
+ * <pre>
  * 
  * private Map context = new HashMap(); public void setUserName(String value) {
  * context.put("userName", value); } try { // get value using our own custom context map result =
  * Ognl.getValue("documentName + \" (\" + ((#userName == null) ? \"&lt;nobody&gt;\" : #userName) +
  * \")\"", context, root); } catch (OgnlException ex) { // Report error or recover }
  * 
- * </PRE>
+ * </pre>
  * 
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
