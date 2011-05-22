@@ -74,7 +74,9 @@ public class ListPropertyAccessor
         }
 
         if ( name instanceof Number )
+        {
             return list.get( ( (Number) name ).intValue() );
+        }
 
         if ( name instanceof DynamicSubscript )
         {
@@ -82,13 +84,21 @@ public class ListPropertyAccessor
             switch ( ( (DynamicSubscript) name ).getFlag() )
             {
                 case DynamicSubscript.FIRST:
+                {
                     return len > 0 ? list.get( 0 ) : null;
+                }
                 case DynamicSubscript.MID:
+                {
                     return len > 0 ? list.get( len / 2 ) : null;
+                }
                 case DynamicSubscript.LAST:
+                {
                     return len > 0 ? list.get( len - 1 ) : null;
+                }
                 case DynamicSubscript.ALL:
+                {
                     return new ArrayList( list );
+                }
             }
         }
 
@@ -140,7 +150,9 @@ public class ListPropertyAccessor
                 case DynamicSubscript.ALL:
                 {
                     if ( !( value instanceof Collection ) )
+                    {
                         throw new OgnlException( "Value must be a collection" );
+                    }
                     list.clear();
                     list.addAll( (Collection<?>) value );
                     return;
@@ -215,7 +227,9 @@ public class ListPropertyAccessor
                 Method m = OgnlRuntime.getReadMethod( target.getClass(), indexStr );
 
                 if ( m != null )
+                {
                     return super.getSourceAccessor( context, target, index );
+                }
 
             }
             catch ( Throwable t )
