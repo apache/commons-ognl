@@ -28,6 +28,8 @@ public abstract class ComparisonExpression
     extends BooleanExpression
 {
 
+    private static final long serialVersionUID = -5945855000509930682L;
+
     public ComparisonExpression( int id )
     {
         super( id );
