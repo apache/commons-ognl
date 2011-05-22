@@ -24,7 +24,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public final class ObjectArrayPool
-    extends Object
 {
     private final IntHashMap<Integer, SizePool> pools = new IntHashMap<Integer, SizePool>( 23 );
 
