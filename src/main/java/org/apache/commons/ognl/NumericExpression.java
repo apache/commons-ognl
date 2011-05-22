@@ -111,11 +111,11 @@ public abstract class NumericExpression
         if ( context.getCurrentType() != null && !context.getCurrentType().isPrimitive()
             && context.getCurrentObject() != null && Number.class.isInstance( context.getCurrentObject() ) )
         {
-            ret = new StringBuilder( "((")
+            ret = new StringBuilder( "((" )
                 .append( ExpressionCompiler.getCastString( context.getCurrentObject().getClass() ))
-                .append( ")")
-                .append( ret)
-                .append( ").")
+                .append( ")" )
+                .append( ret )
+                .append( ")." )
                 .append( OgnlRuntime.getNumericValueGetter( context.getCurrentObject().getClass() ) );
         }
         else if ( context.getCurrentType() != null && context.getCurrentType().isPrimitive()
@@ -127,7 +127,7 @@ public abstract class NumericExpression
         }
         else if ( context.getCurrentType() != null && String.class.isAssignableFrom( context.getCurrentType() ) )
         {
-            ret = new StringBuilder( "Double.parseDouble(")
+            ret = new StringBuilder( "Double.parseDouble(" )
                 .append( ret.toString() )
                 .append( ")" );
             context.setCurrentType( Double.TYPE );
