@@ -59,6 +59,10 @@ public abstract class NumericExpression
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String toGetSourceString( OgnlContext context, Object target )
     {
         Object value = null;

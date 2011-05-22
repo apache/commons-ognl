@@ -59,6 +59,10 @@ public abstract class BooleanExpression
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String toGetSourceString( OgnlContext context, Object target )
     {
         try
