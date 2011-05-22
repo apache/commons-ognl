@@ -31,6 +31,9 @@ import java.util.Iterator;
 public class IteratorElementsAccessor
     implements ElementsAccessor
 {
+    /**
+     * {@inheritDoc}
+     */
     public Enumeration<?> getElements( Object target )
     {
         return new IteratorEnumeration( (Iterator<?>) target );

@@ -31,6 +31,9 @@ import java.util.NoSuchElementException;
 public class NumberElementsAccessor
     implements ElementsAccessor, NumericTypes
 {
+    /**
+     * {@inheritDoc}
+     */
     public Enumeration<?> getElements( final Object target )
     {
         return new Enumeration<Object>()

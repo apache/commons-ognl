@@ -30,6 +30,9 @@ import java.util.Enumeration;
 public class ObjectElementsAccessor
     implements ElementsAccessor
 {
+    /**
+     * {@inheritDoc}
+     */
     public Enumeration<?> getElements( Object target )
     {
         final Object object = target;
