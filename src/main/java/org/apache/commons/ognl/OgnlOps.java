@@ -183,7 +183,7 @@ public abstract class OgnlOps
         {
             return false;
         }
-        Class c = value.getClass();
+        Class<?> c = value.getClass();
 
         if ( c == Boolean.class )
             return (Boolean) value;
@@ -217,7 +217,7 @@ public abstract class OgnlOps
         {
             return 0L;
         }
-        Class c = value.getClass();
+        Class<?> c = value.getClass();
         if ( c.getSuperclass() == Number.class )
         {
             return ( (Number) value ).longValue();
@@ -247,7 +247,7 @@ public abstract class OgnlOps
         {
             return 0.0;
         }
-        Class c = value.getClass();
+        Class<?> c = value.getClass();
         if ( c.getSuperclass() == Number.class )
         {
             return ( (Number) value ).doubleValue();
@@ -279,7 +279,7 @@ public abstract class OgnlOps
         {
             return BigInteger.valueOf( 0L );
         }
-        Class c = value.getClass();
+        Class<?> c = value.getClass();
         if ( c == BigInteger.class )
         {
             return (BigInteger) value;
@@ -317,7 +317,7 @@ public abstract class OgnlOps
         {
             return BigDecimal.valueOf( 0L );
         }
-        Class c = value.getClass();
+        Class<?> c = value.getClass();
         if ( c == BigDecimal.class )
         {
             return (BigDecimal) value;
@@ -385,7 +385,7 @@ public abstract class OgnlOps
     {
         if ( value != null )
         {
-            Class c = value.getClass();
+            Class<?> c = value.getClass();
             if ( c == Integer.class )
             {
                 return INT;
