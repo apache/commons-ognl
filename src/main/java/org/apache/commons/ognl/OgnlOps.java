@@ -430,146 +430,146 @@ public abstract class OgnlOps
         return NONNUMERIC;
     }
 
-    public static Object toArray( char value, Class toType )
+    public static Object toArray( char value, Class<?> toType )
     {
         return toArray( new Character( value ), toType );
     }
 
-    public static Object toArray( byte value, Class toType )
+    public static Object toArray( byte value, Class<?> toType )
     {
         return toArray( new Byte( value ), toType );
     }
 
-    public static Object toArray( int value, Class toType )
+    public static Object toArray( int value, Class<?> toType )
     {
         return toArray( new Integer( value ), toType );
     }
 
-    public static Object toArray( long value, Class toType )
+    public static Object toArray( long value, Class<?> toType )
     {
         return toArray( new Long( value ), toType );
     }
 
-    public static Object toArray( float value, Class toType )
+    public static Object toArray( float value, Class<?> toType )
     {
         return toArray( new Float( value ), toType );
     }
 
-    public static Object toArray( double value, Class toType )
+    public static Object toArray( double value, Class<?> toType )
     {
         return toArray( new Double( value ), toType );
     }
 
-    public static Object toArray( boolean value, Class toType )
+    public static Object toArray( boolean value, Class<?> toType )
     {
         return toArray( Boolean.valueOf( value ), toType );
     }
 
-    public static Object convertValue( char value, Class toType )
+    public static <T> Object convertValue( char value, Class<T> toType )
     {
         return convertValue( new Character( value ), toType );
     }
 
-    public static Object convertValue( byte value, Class toType )
+    public static <T> Object convertValue( byte value, Class<T> toType )
     {
         return convertValue( new Byte( value ), toType );
     }
 
-    public static Object convertValue( int value, Class toType )
+    public static <T> Object convertValue( int value, Class<T> toType )
     {
         return convertValue( new Integer( value ), toType );
     }
 
-    public static Object convertValue( long value, Class toType )
+    public static <T> Object convertValue( long value, Class<T> toType )
     {
         return convertValue( new Long( value ), toType );
     }
 
-    public static Object convertValue( float value, Class toType )
+    public static <T> Object convertValue( float value, Class<T> toType )
     {
         return convertValue( new Float( value ), toType );
     }
 
-    public static Object convertValue( double value, Class toType )
+    public static <T> Object convertValue( double value, Class<T> toType )
     {
         return convertValue( new Double( value ), toType );
     }
 
-    public static Object convertValue( boolean value, Class toType )
+    public static <T> Object convertValue( boolean value, Class<T> toType )
     {
         return convertValue( Boolean.valueOf( value ), toType );
     }
 
     // //////////////////////////////////////////////////////////////
 
-    public static Object convertValue( char value, Class toType, boolean preventNull )
+    public static <T> Object convertValue( char value, Class<T> toType, boolean preventNull )
     {
         return convertValue( new Character( value ), toType, preventNull );
     }
 
-    public static Object convertValue( byte value, Class toType, boolean preventNull )
+    public static <T> Object convertValue( byte value, Class<T> toType, boolean preventNull )
     {
         return convertValue( new Byte( value ), toType, preventNull );
     }
 
-    public static Object convertValue( int value, Class toType, boolean preventNull )
+    public static <T> Object convertValue( int value, Class<T> toType, boolean preventNull )
     {
         return convertValue( new Integer( value ), toType, preventNull );
     }
 
-    public static Object convertValue( long value, Class toType, boolean preventNull )
+    public static <T> Object convertValue( long value, Class<T> toType, boolean preventNull )
     {
         return convertValue( new Long( value ), toType, preventNull );
     }
 
-    public static Object convertValue( float value, Class toType, boolean preventNull )
+    public static <T> Object convertValue( float value, Class<T> toType, boolean preventNull )
     {
         return convertValue( new Float( value ), toType, preventNull );
     }
 
-    public static Object convertValue( double value, Class toType, boolean preventNull )
+    public static <T> Object convertValue( double value, Class<T> toType, boolean preventNull )
     {
         return convertValue( new Double( value ), toType, preventNull );
     }
 
-    public static Object convertValue( boolean value, Class toType, boolean preventNull )
+    public static <T> Object convertValue( boolean value, Class<T> toType, boolean preventNull )
     {
         return convertValue( Boolean.valueOf( value ), toType, preventNull );
     }
 
     // ///////////////////////////////////////////////////////////////
 
-    public static Object toArray( char value, Class toType, boolean preventNull )
+    public static Object toArray( char value, Class<?> toType, boolean preventNull )
     {
         return toArray( new Character( value ), toType, preventNull );
     }
 
-    public static Object toArray( byte value, Class toType, boolean preventNull )
+    public static Object toArray( byte value, Class<?> toType, boolean preventNull )
     {
         return toArray( new Byte( value ), toType, preventNull );
     }
 
-    public static Object toArray( int value, Class toType, boolean preventNull )
+    public static Object toArray( int value, Class<?> toType, boolean preventNull )
     {
         return toArray( new Integer( value ), toType, preventNull );
     }
 
-    public static Object toArray( long value, Class toType, boolean preventNull )
+    public static Object toArray( long value, Class<?> toType, boolean preventNull )
     {
         return toArray( new Long( value ), toType, preventNull );
     }
 
-    public static Object toArray( float value, Class toType, boolean preventNull )
+    public static Object toArray( float value, Class<?> toType, boolean preventNull )
     {
         return toArray( new Float( value ), toType, preventNull );
     }
 
-    public static Object toArray( double value, Class toType, boolean preventNull )
+    public static Object toArray( double value, Class<?> toType, boolean preventNull )
     {
         return toArray( new Double( value ), toType, preventNull );
     }
 
-    public static Object toArray( boolean value, Class toType, boolean preventNull )
+    public static Object toArray( boolean value, Class<?> toType, boolean preventNull )
     {
         return toArray( Boolean.valueOf( value ), toType, preventNull );
     }
@@ -582,17 +582,17 @@ public abstract class OgnlOps
      * @param toType class type to be converted to
      * @return converted value of the type given, or value if the value cannot be converted to the given type.
      */
-    public static Object convertValue( Object value, Class toType )
+    public static Object convertValue( Object value, Class<?> toType )
     {
         return convertValue( value, toType, false );
     }
 
-    public static Object toArray( Object value, Class toType )
+    public static Object toArray( Object value, Class<?> toType )
     {
         return toArray( value, toType, false );
     }
 
-    public static Object toArray( Object value, Class toType, boolean preventNulls )
+    public static Object toArray( Object value, Class<?> toType, boolean preventNulls )
     {
         if ( value == null )
             return null;
@@ -632,7 +632,7 @@ public abstract class OgnlOps
         return result;
     }
 
-    public static Object convertValue( Object value, Class toType, boolean preventNulls )
+    public static <T> Object convertValue( Object value, Class<T> toType, boolean preventNulls )
     {
         Object result = null;
 
@@ -646,7 +646,7 @@ public abstract class OgnlOps
             /* If array -> array then convert components of array individually */
             if ( value.getClass().isArray() && toType.isArray() )
             {
-                Class componentType = toType.getComponentType();
+                Class<?> componentType = toType.getComponentType();
 
                 result = Array.newInstance( componentType, Array.getLength( value ) );
                 for ( int i = 0, icount = Array.getLength( value ); i < icount; i++ )
