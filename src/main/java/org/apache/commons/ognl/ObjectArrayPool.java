@@ -28,7 +28,6 @@ public final class ObjectArrayPool
     private final IntHashMap<Integer, SizePool> pools = new IntHashMap<Integer, SizePool>( 23 );
 
     public static class SizePool
-        extends Object
     {
         private final List<Object[]> arrays = new ArrayList<Object[]>();
 
