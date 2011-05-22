@@ -1846,8 +1846,10 @@ public class OgnlRuntime
             Class<?> c = classForName( context, className );
 
             if ( c == null )
+            {
                 throw new OgnlException( "Unable to find class " + className + " when resolving field name of "
                     + fieldName );
+            }
 
             /*
              * Check for virtual static field "class"; this cannot interfere with normal static fields because it is a
@@ -1867,7 +1869,9 @@ public class OgnlRuntime
             {
                 Field f = c.getField( fieldName );
                 if ( !Modifier.isStatic( f.getModifiers() ) )
+                {
                     throw new OgnlException( "Field " + fieldName + " of class " + className + " is not static" );
+                }
 
                 return f.get( null );
             }
