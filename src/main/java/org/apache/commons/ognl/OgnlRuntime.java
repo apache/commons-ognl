@@ -2845,9 +2845,13 @@ public class OgnlRuntime
                 {
 
                     if ( numParms > 0 && methods[i].getMethod().getParameterTypes().length == numParms )
+                    {
                         return methods[i].getMethod();
+                    }
                     else if ( numParms < 0 )
+                    {
                         return methods[i].getMethod();
+                    }
                 }
             }
 
@@ -2857,7 +2861,9 @@ public class OgnlRuntime
             for ( int i = 0; i < cmethods.length; i++ )
             {
                 if ( !isMethodCallable( cmethods[i] ) )
+                {
                     continue;
+                }
 
                 if ( ( cmethods[i].getName().equalsIgnoreCase( name )
                     || cmethods[i].getName().toLowerCase().equals( name.toLowerCase() ) || cmethods[i].getName().toLowerCase().equals( "set"
@@ -2866,9 +2872,13 @@ public class OgnlRuntime
                 {
 
                     if ( numParms > 0 && cmethods[i].getParameterTypes().length == numParms )
+                    {
                         return cmethods[i];
+                    }
                     else if ( numParms < 0 )
+                    {
                         return cmethods[i];
+                    }
                 }
             }
 
