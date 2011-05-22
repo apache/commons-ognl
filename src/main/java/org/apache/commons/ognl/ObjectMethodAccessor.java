@@ -19,6 +19,7 @@ package org.apache.commons.ognl;
  * under the License.
  */
 
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +40,7 @@ public class ObjectMethodAccessor
     public Object callStaticMethod( Map<String, Object> context, Class<?> targetClass, String methodName, Object[] args )
         throws MethodFailedException
     {
-        List methods = OgnlRuntime.getMethods( targetClass, methodName, true );
+        List<Method> methods = OgnlRuntime.getMethods( targetClass, methodName, true );
 
         return OgnlRuntime.callAppropriateMethod( (OgnlContext) context, targetClass, null, methodName, null, methods,
                                                   args );
@@ -51,8 +52,8 @@ public class ObjectMethodAccessor
     public Object callMethod( Map<String, Object> context, Object target, String methodName, Object[] args )
         throws MethodFailedException
     {
-        Class targetClass = ( target == null ) ? null : target.getClass();
-        List methods = OgnlRuntime.getMethods( targetClass, methodName, false );
+        Class<?> targetClass = ( target == null ) ? null : target.getClass();
+        List<Method> methods = OgnlRuntime.getMethods( targetClass, methodName, false );
 
         if ( ( methods == null ) || ( methods.size() == 0 ) )
         {

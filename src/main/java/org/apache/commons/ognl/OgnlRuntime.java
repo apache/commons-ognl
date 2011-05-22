@@ -1617,18 +1617,18 @@ public class OgnlRuntime
         return result;
     }
 
-    public static Map getMethods( Class targetClass, boolean staticMethods )
+    public static Map<String, List<Method>> getMethods( Class<?> targetClass, boolean staticMethods )
     {
         ClassCache cache = ( staticMethods ? _staticMethodCache : _instanceMethodCache );
-        Map result;
+        Map<String, List<Method>> result;
 
         synchronized ( cache )
         {
-            if ( ( result = (Map) cache.get( targetClass ) ) == null )
+            if ( ( result = cache.get( targetClass ) ) == null )
             {
-                cache.put( targetClass, result = new HashMap( 23 ) );
+                cache.put( targetClass, result = new HashMap<String, List<Method>>( 23 ) );
 
-                for ( Class c = targetClass; c != null; c = c.getSuperclass() )
+                for ( Class<?> c = targetClass; c != null; c = c.getSuperclass() )
                 {
                     Method[] ma = c.getDeclaredMethods();
 
@@ -1637,14 +1637,18 @@ public class OgnlRuntime
                         // skip over synthetic methods
 
                         if ( !isMethodCallable( ma[i] ) )
+                        {
                             continue;
+                        }
 
                         if ( Modifier.isStatic( ma[i].getModifiers() ) == staticMethods )
                         {
-                            List ml = (List) result.get( ma[i].getName() );
+                            List<Method> ml = result.get( ma[i].getName() );
 
                             if ( ml == null )
-                                result.put( ma[i].getName(), ml = new ArrayList() );
+                            {
+                                result.put( ma[i].getName(), ml = new ArrayList<Method>() );
+                            }
 
                             ml.add( ma[i] );
                         }
@@ -1656,9 +1660,9 @@ public class OgnlRuntime
         return result;
     }
 
-    public static List getMethods( Class targetClass, String name, boolean staticMethods )
+    public static List<Method> getMethods( Class<?> targetClass, String name, boolean staticMethods )
     {
-        return (List) getMethods( targetClass, staticMethods ).get( name );
+        return getMethods( targetClass, staticMethods ).get( name );
     }
 
     public static Map getFields( Class targetClass )
