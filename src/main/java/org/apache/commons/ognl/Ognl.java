@@ -25,13 +25,13 @@ import java.io.StringReader;
 import java.util.Map;
 
 /**
- * <P>
+ * <p>
  * This class provides static methods for parsing and interpreting OGNL expressions.
- * </P>
- * <P>
+ * </p>
+ * <p>
  * The simplest use of the Ognl class is to get the value of an expression from an object, without extra context or
  * pre-parsing.
- * </P>
+ * </p>
  * 
  * <pre>
  * 
@@ -39,26 +39,26 @@ import java.util.Map;
  * catch (OgnlException ex) { // Report error or recover }
  * 
  * </pre>
- * <P>
+ * <p>
  * This will parse the expression given and evaluate it against the root object given, returning the result. If there is
  * an error in the expression, such as the property is not found, the exception is encapsulated into an
  * {@link ognl.OgnlException OgnlException}.
- * </P>
- * <P>
+ * </p>
+ * <p>
  * Other more sophisticated uses of Ognl can pre-parse expressions. This provides two advantages: in the case of
  * user-supplied expressions it allows you to catch parse errors before evaluation and it allows you to cache parsed
  * expressions into an AST for better speed during repeated use. The pre-parsed expression is always returned as an
  * <CODE>Object</CODE> to simplify use for programs that just wish to store the value for repeated use and do not care
  * that it is an AST. If it does care it can always safely cast the value to an <CODE>AST</CODE> type.
- * </P>
- * <P>
+ * </p>
+ * <p>
  * The Ognl class also takes a <I>context map</I> as one of the parameters to the set and get methods. This allows you
  * to put your own variables into the available namespace for OGNL expressions. The default context contains only the
  * <CODE>#root</CODE> and <CODE>#context</CODE> keys, which are required to be present. The
  * <CODE>addDefaultContext(Object, Map)</CODE> method will alter an existing <CODE>Map</CODE> to put the defaults in.
  * Here is an example that shows how to extract the <CODE>documentName</CODE> property out of the root object and append
  * a string with the current user name in parens:
- * </P>
+ * </p>
  * 
  * <pre>
  * 
