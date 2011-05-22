@@ -421,6 +421,7 @@ public abstract class Ognl
      * @throws InappropriateExpressionException if the expression can't be used in this context
      * @throws OgnlException if there is a pathological environmental problem
      */
+    @SuppressWarnings( "unchecked" ) // will cause CCE if types are not compatible
     public static <T> T getValue( Object tree, Map<String, Object> context, Object root, Class<T> resultType )
         throws OgnlException
     {
@@ -453,6 +454,7 @@ public abstract class Ognl
      * @param root The object to retrieve the expression value from.
      * @return The value.
      */
+    @SuppressWarnings( "unchecked" ) // will cause CCE if types are not compatible
     public static <T> T getValue( ExpressionAccessor expression, OgnlContext context, Object root )
     {
         return (T) expression.get( context, root );
