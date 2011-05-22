@@ -2665,7 +2665,9 @@ public class OgnlRuntime
 
         List methods = OgnlRuntime.getMethods( target, name, includeStatic );
         if ( methods == null )
+        {
             return null;
+        }
 
         for ( int i = 0; i < methods.size(); i++ )
         {
@@ -2673,7 +2675,9 @@ public class OgnlRuntime
             boolean varArgs = isJdk15() && m.isVarArgs();
 
             if ( parms.length != m.getParameterTypes().length && !varArgs )
+            {
                 continue;
+            }
 
             Class[] mparms = m.getParameterTypes();
             boolean matched = true;
@@ -2691,7 +2695,9 @@ public class OgnlRuntime
                 }
 
                 if ( parms[p] == mparms[p] )
+                {
                     continue;
+                }
 
                 if ( mparms[p].isPrimitive() && Character.TYPE != mparms[p] && Byte.TYPE != mparms[p]
                     && Number.class.isAssignableFrom( parms[p] )
@@ -2705,7 +2711,9 @@ public class OgnlRuntime
             }
 
             if ( matched )
+            {
                 return m;
+            }
         }
 
         return null;
