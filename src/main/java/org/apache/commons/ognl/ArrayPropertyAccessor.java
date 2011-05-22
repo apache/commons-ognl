@@ -33,6 +33,7 @@ public class ArrayPropertyAccessor
     implements PropertyAccessor
 {
 
+    @Override
     public Object getProperty( Map<String, Object> context, Object target, Object name )
         throws OgnlException
     {
@@ -91,6 +92,7 @@ public class ArrayPropertyAccessor
         return result;
     }
 
+    @Override
     public void setProperty( Map<String, Object> context, Object target, Object name, Object value )
         throws OgnlException
     {
@@ -148,6 +150,7 @@ public class ArrayPropertyAccessor
         }
     }
 
+    @Override
     public String getSourceAccessor( OgnlContext context, Object target, Object index )
     {
         String indexStr = index.toString();
@@ -180,6 +183,7 @@ public class ArrayPropertyAccessor
         return "[" + indexStr + "]";
     }
 
+    @Override
     public String getSourceSetter( OgnlContext context, Object target, Object index )
     {
         String indexStr = index.toString();
