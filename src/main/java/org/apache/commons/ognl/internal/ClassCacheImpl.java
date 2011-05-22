@@ -79,32 +79,31 @@ public class ClassCacheImpl
     /**
      * {@inheritDoc}
      */
-    public final <T> T get( Class<T> key )
+    public final <T> T get( Class<?> key )
     {
-        T result = null;
         int i = key.hashCode() & TABLE_SIZE_MASK;
 
-        @SuppressWarnings( "unchecked" ) // entry type is driven by the class
-        Entry<T> entry = (Entry<T>) _table[i];
+        Entry<?> entry = _table[i];
 
         while ( entry != null )
         {
             if ( key == entry.getKey() )
             {
-                result = entry.getValue();
-                break;
+                @SuppressWarnings( "unchecked" ) // guaranteed by key == entry.getKey()
+                T result = (T) entry.getValue();
+                return result;
             }
 
             entry = entry.getNext();
         }
 
-        return result;
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
-    public final <T> T put( Class<T> key, T value )
+    public final <T> T put( Class<?> key, T value )
     {
         if ( _classInspector != null && !_classInspector.shouldCache( key ) )
         {
@@ -114,8 +113,7 @@ public class ClassCacheImpl
         T result = null;
         int i = key.hashCode() & TABLE_SIZE_MASK;
 
-        @SuppressWarnings( "unchecked" ) // entry type is driven by the class
-        Entry<T> entry = (Entry<T>) _table[i];
+        Entry<?> entry = _table[i];
 
         if ( entry == null )
         {
@@ -126,8 +124,10 @@ public class ClassCacheImpl
         {
             if ( key == entry.getKey() )
             {
-                result = entry.getValue();
-                entry.setValue( value );
+                @SuppressWarnings( "unchecked" ) // guaranteed by key == entry.getKey()
+                Entry<T> current = (Entry<T>) entry;
+                result = current.getValue();
+                current.setValue( value );
             }
             else
             {
@@ -136,8 +136,10 @@ public class ClassCacheImpl
                     if ( key == entry.getKey() )
                     {
                         /* replace value */
-                        result = entry.getValue();
-                        entry.setValue( value );
+                        @SuppressWarnings( "unchecked" ) // guaranteed by key == entry.getKey()
+                        Entry<T> current = (Entry<T>) entry;
+                        result = current.getValue();
+                        current.setValue( value );
                         break;
                     }
 

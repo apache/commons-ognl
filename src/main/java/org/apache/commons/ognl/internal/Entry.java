@@ -25,19 +25,19 @@ package org.apache.commons.ognl.internal;
 final class Entry<T>
 {
 
-    private Entry<T> next;
+    private Entry<?> next;
 
-    private final Class<T> key;
+    private final Class<?> key;
 
     private T value;
 
-    public Entry( Class<T> key, T value )
+    public Entry( Class<?> key, T value )
     {
         this.key = key;
         this.value = value;
     }
 
-    public Class<T> getKey()
+    public Class<?> getKey()
     {
         return key;
     }
@@ -52,12 +52,12 @@ final class Entry<T>
         this.value = value;
     }
 
-    public Entry<T> getNext()
+    public Entry<?> getNext()
     {
         return next;
     }
 
-    public void setNext( Entry<T> next )
+    public void setNext( Entry<?> next )
     {
         this.next = next;
     }
