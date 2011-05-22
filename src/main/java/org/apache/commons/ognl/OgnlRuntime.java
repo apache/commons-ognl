@@ -1714,7 +1714,7 @@ public class OgnlRuntime
                  */
                 for ( int i = 0, icount = _superclasses.size(); i < icount; i++ )
                 {
-                    getFields( (Class) _superclasses.get( i ) ).put( name, ( result == null ) ? NotFound : result );
+                    getFields( _superclasses.get( i ) ).put( name, ( result == null ) ? NotFound : result );
                 }
             }
             else
