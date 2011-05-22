@@ -2627,18 +2627,18 @@ public class OgnlRuntime
         _declaredMethods[1].setClassInspector( _cacheInspector );
     }
 
-    public static Method getMethod( OgnlContext context, Class target, String name, Node[] children,
+    public static Method getMethod( OgnlContext context, Class<?> target, String name, Node[] children,
                                     boolean includeStatic )
         throws Exception
     {
-        Class[] parms;
+        Class<?>[] parms;
         if ( children != null && children.length > 0 )
         {
             parms = new Class[children.length];
 
             // used to reset context after loop
-            Class currType = context.getCurrentType();
-            Class currAccessor = context.getCurrentAccessor();
+            Class<?> currType = context.getCurrentType();
+            Class<?> currAccessor = context.getCurrentAccessor();
             Object cast = context.get( ExpressionCompiler.PRE_CAST );
 
             context.setCurrentObject( context.getRoot() );
@@ -2679,7 +2679,7 @@ public class OgnlRuntime
                 continue;
             }
 
-            Class[] mparms = m.getParameterTypes();
+            Class<?>[] mparms = m.getParameterTypes();
             boolean matched = true;
             for ( int p = 0; p < mparms.length; p++ )
             {
