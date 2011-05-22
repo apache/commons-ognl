@@ -33,7 +33,7 @@ public class DefaultClassResolver
     extends Object
     implements ClassResolver
 {
-    private Map classes = new HashMap( 101 );
+    private Map<String, Class<?>> classes = new HashMap<String, Class<?>>( 101 );
 
     public DefaultClassResolver()
     {
@@ -48,7 +48,7 @@ public class DefaultClassResolver
     {
         Class<?> result = null;
 
-        if ( ( result = (Class<?>) classes.get( className ) ) == null )
+        if ( ( result = classes.get( className ) ) == null )
         {
             try
             {
