@@ -111,7 +111,7 @@ public class IntHashMap<K extends Number, V>
             {
                 Entry e = entry;
 
-                entry = e.next;
+                entry = e.getNext();
                 return keys ? Integer.valueOf( e.getKey() ) : e.getValue();
             }
             throw new NoSuchElementException( "IntHashMapIterator" );
@@ -223,8 +223,8 @@ public class IntHashMap<K extends Number, V>
                 Entry<V> e = old;
                 int index = ( e.getHash() & 0x7FFFFFFF ) % newCapacity;
 
-                old = old.next;
-                e.next = newTable[index];
+                old = old.getNext();
+                e.setNext( newTable[index] );
                 newTable[index] = e;
             }
         }
@@ -238,7 +238,7 @@ public class IntHashMap<K extends Number, V>
     {
         int index = ( key & 0x7FFFFFFF ) % table.length;
 
-        for ( Entry<V> e = table[index]; e != null; e = e.next )
+        for ( Entry<V> e = table[index]; e != null; e = e.getNext() )
         {
             if ( ( key == e.getHash() ) && ( key == e.getKey() ) )
             {
@@ -270,7 +270,7 @@ public class IntHashMap<K extends Number, V>
         {
             throw new IllegalArgumentException();
         }
-        for ( Entry<V> e = table[index]; e != null; e = e.next )
+        for ( Entry<V> e = table[index]; e != null; e = e.getNext() )
         {
             if ( ( key == e.getHash() ) && ( key == e.getKey() ) )
             {
@@ -300,17 +300,17 @@ public class IntHashMap<K extends Number, V>
     {
         int index = ( key & 0x7FFFFFFF ) % table.length;
 
-        for ( Entry<V> e = table[index], prev = null; e != null; prev = e, e = e.next )
+        for ( Entry<V> e = table[index], prev = null; e != null; prev = e, e = e.getNext() )
         {
             if ( ( key == e.getHash() ) && ( key == e.getKey() ) )
             {
                 if ( prev != null )
                 {
-                    prev.next = e.next;
+                    prev.setNext( e.getNext() );
                 }
                 else
                 {
-                    table[index] = e.next;
+                    table[index] = e.getNext();
                 }
                 --count;
                 return e.getValue();
@@ -423,7 +423,7 @@ public class IntHashMap<K extends Number, V>
         }
         for ( int i = tab.length; i-- > 0; )
         {
-            for ( Entry<V> e = tab[i]; e != null; e = e.next )
+            for ( Entry<V> e = tab[i]; e != null; e = e.getNext() )
             {
                 if ( e.getValue().equals( value ) )
                 {
