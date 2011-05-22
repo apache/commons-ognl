@@ -40,7 +40,7 @@ public interface MethodAccessor
      * @return result of calling the method
      * @exception MethodFailedException if there is an error calling the method
      */
-    Object callStaticMethod( Map<String, Object> context, Class targetClass, String methodName, Object[] args )
+    Object callStaticMethod( Map<String, Object> context, Class<?> targetClass, String methodName, Object[] args )
         throws MethodFailedException;
 
     /**

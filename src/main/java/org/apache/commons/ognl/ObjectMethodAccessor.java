@@ -33,8 +33,10 @@ public class ObjectMethodAccessor
     implements MethodAccessor
 {
 
-    /* MethodAccessor interface */
-    public Object callStaticMethod( Map<String, Object> context, Class targetClass, String methodName, Object[] args )
+    /**
+     * {@inheritDoc}
+     */
+    public Object callStaticMethod( Map<String, Object> context, Class<?> targetClass, String methodName, Object[] args )
         throws MethodFailedException
     {
         List methods = OgnlRuntime.getMethods( targetClass, methodName, true );
@@ -43,6 +45,9 @@ public class ObjectMethodAccessor
                                                   args );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Object callMethod( Map<String, Object> context, Object target, String methodName, Object[] args )
         throws MethodFailedException
     {
