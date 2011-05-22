@@ -128,7 +128,7 @@ public abstract class NumericExpression
         else if ( context.getCurrentType() != null && String.class.isAssignableFrom( context.getCurrentType() ) )
         {
             ret = new StringBuilder( "Double.parseDouble(" )
-                .append( ret.toString() )
+                .append( ret )
                 .append( ")" );
             context.setCurrentType( Double.TYPE );
         }
