@@ -44,10 +44,10 @@ import java.util.Set;
  * @see java.util.HashMap
  * @see java.util.Map
  */
-public class IntHashMap
-    implements Map
+public class IntHashMap<K extends Number, V>
+    implements Map<K, V>
 {
-    private Entry table[];
+    private Entry<V> table[];
 
     private int count;
 
@@ -136,7 +136,7 @@ public class IntHashMap
 
         private T value;
 
-        private Entry<?> next;
+        private Entry<T> next;
 
         public Entry( int hash, int key, T value )
         {
@@ -155,12 +155,12 @@ public class IntHashMap
             this.value = value;
         }
 
-        public Entry<?> getNext()
+        public Entry<T> getNext()
         {
             return next;
         }
 
-        public void setNext( Entry<?> next )
+        public void setNext( Entry<T> next )
         {
             this.next = next;
         }
@@ -210,17 +210,17 @@ public class IntHashMap
     protected void rehash()
     {
         int oldCapacity = table.length;
-        Entry oldTable[] = table;
+        Entry<V> oldTable[] = table;
         int newCapacity = oldCapacity * 2 + 1;
-        Entry newTable[] = new Entry[newCapacity];
+        Entry<V> newTable[] = new Entry[newCapacity];
 
         threshold = (int) ( newCapacity * loadFactor );
         table = newTable;
         for ( int i = oldCapacity; i-- > 0; )
         {
-            for ( Entry old = oldTable[i]; old != null; )
+            for ( Entry<V> old = oldTable[i]; old != null; )
             {
-                Entry e = old;
+                Entry<V> e = old;
                 int index = ( e.getHash() & 0x7FFFFFFF ) % newCapacity;
 
                 old = old.next;
@@ -238,7 +238,7 @@ public class IntHashMap
     {
         int index = ( key & 0x7FFFFFFF ) % table.length;
 
-        for ( Entry e = table[index]; e != null; e = e.next )
+        for ( Entry<V> e = table[index]; e != null; e = e.next )
         {
             if ( ( e.getHash() == key ) && ( e.getKey() == key ) )
             {
@@ -248,11 +248,11 @@ public class IntHashMap
         return false;
     }
 
-    public final Object get( int key )
+    public final V get( int key )
     {
         int index = ( key & 0x7FFFFFFF ) % table.length;
 
-        for ( Entry e = table[index]; e != null; e = e.next )
+        for ( Entry<V> e = table[index]; e != null; e = e.getNext() )
         {
             if ( ( e.getHash() == key ) && ( e.getKey() == key ) )
             {
@@ -262,7 +262,7 @@ public class IntHashMap
         return null;
     }
 
-    public final Object put( int key, Object value )
+    public final V put( int key, V value )
     {
         int index = ( key & 0x7FFFFFFF ) % table.length;
 
@@ -270,11 +270,11 @@ public class IntHashMap
         {
             throw new IllegalArgumentException();
         }
-        for ( Entry e = table[index]; e != null; e = e.next )
+        for ( Entry<V> e = table[index]; e != null; e = e.next )
         {
             if ( ( e.getHash() == key ) && ( e.getKey() == key ) )
             {
-                Object old = e.getValue();
+                V old = e.getValue();
 
                 e.setValue( value );
                 return old;
@@ -288,7 +288,7 @@ public class IntHashMap
             return put( key, value );
         }
 
-        Entry e = new Entry( key, key, value );
+        Entry<V> e = new Entry<V>( key, key, value );
 
         e.setNext( table[index] );
         table[index] = e;
@@ -296,11 +296,11 @@ public class IntHashMap
         return null;
     }
 
-    public final Object remove( int key )
+    public final V remove( int key )
     {
         int index = ( key & 0x7FFFFFFF ) % table.length;
 
-        for ( Entry e = table[index], prev = null; e != null; prev = e, e = e.next )
+        for ( Entry<V> e = table[index], prev = null; e != null; prev = e, e = e.next )
         {
             if ( ( e.getHash() == key ) && ( e.getKey() == key ) )
             {
@@ -342,7 +342,7 @@ public class IntHashMap
     /**
      * {@inheritDoc}
      */
-    public Object get( Object key )
+    public V get( Object key )
     {
         if ( !( key instanceof Number ) )
         {
@@ -354,23 +354,19 @@ public class IntHashMap
     /**
      * {@inheritDoc}
      */
-    public Object put( Object key, Object value )
+    public V put( K key, V value )
     {
-        if ( !( key instanceof Number ) )
-        {
-            throw new IllegalArgumentException( "key cannot be null" );
-        }
         return put( ( (Number) key ).intValue(), value );
     }
 
     /**
      * {@inheritDoc}
      */
-    public void putAll( Map otherMap )
+    public void putAll( Map<? extends K, ? extends V> otherMap )
     {
-        for ( Iterator it = otherMap.keySet().iterator(); it.hasNext(); )
+        for ( Iterator<? extends K> it = otherMap.keySet().iterator(); it.hasNext(); )
         {
-            Object k = it.next();
+            K k = it.next();
 
             put( k, otherMap.get( k ) );
         }
@@ -379,7 +375,7 @@ public class IntHashMap
     /**
      * {@inheritDoc}
      */
-    public Object remove( Object key )
+    public V remove( Object key )
     {
         if ( !( key instanceof Number ) )
         {
@@ -393,7 +389,7 @@ public class IntHashMap
      */
     public void clear()
     {
-        Entry tab[] = table;
+        Entry<V> tab[] = table;
 
         for ( int index = tab.length; --index >= 0; )
         {
@@ -419,7 +415,7 @@ public class IntHashMap
      */
     public boolean containsValue( Object value )
     {
-        Entry tab[] = table;
+        Entry<V> tab[] = table;
 
         if ( value == null )
         {
@@ -427,7 +423,7 @@ public class IntHashMap
         }
         for ( int i = tab.length; i-- > 0; )
         {
-            for ( Entry e = tab[i]; e != null; e = e.next )
+            for ( Entry<V> e = tab[i]; e != null; e = e.next )
             {
                 if ( e.getValue().equals( value ) )
                 {
@@ -441,11 +437,11 @@ public class IntHashMap
     /**
      * {@inheritDoc}
      */
-    public Set keySet()
+    public Set<K> keySet()
     {
-        Set result = new HashSet();
+        Set<K> result = new HashSet<K>();
 
-        for ( Iterator it = new IntHashMapIterator( table, true ); it.hasNext(); )
+        for ( Iterator<K> it = new IntHashMapIterator( table, true ); it.hasNext(); )
         {
             result.add( it.next() );
         }
@@ -455,11 +451,11 @@ public class IntHashMap
     /**
      * {@inheritDoc}
      */
-    public Collection values()
+    public Collection<V> values()
     {
-        List result = new ArrayList();
+        List<V> result = new ArrayList<V>();
 
-        for ( Iterator it = new IntHashMapIterator( table, false ); it.hasNext(); )
+        for ( Iterator<V> it = new IntHashMapIterator( table, false ); it.hasNext(); )
         {
             result.add( it.next() );
         }
@@ -469,7 +465,7 @@ public class IntHashMap
     /**
      * {@inheritDoc}
      */
-    public Set entrySet()
+    public Set<Map.Entry<K, V>> entrySet()
     {
         throw new UnsupportedOperationException( "entrySet" );
     }
