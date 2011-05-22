@@ -19,6 +19,7 @@ package org.apache.commons.ognl;
  * under the License.
  */
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -47,7 +48,7 @@ import java.util.Set;
 public class IntHashMap<K extends Number, V>
     implements Map<K, V>
 {
-    private Entry<V> table[];
+    private Entry table[];
 
     private int count;
 
@@ -59,7 +60,7 @@ public class IntHashMap<K extends Number, V>
      * =================================================================== Private static classes
      * ===================================================================
      */
-    private static class IntHashMapIterator
+    private class IntHashMapIterator
         implements Iterator
     {
         boolean keys;
@@ -127,40 +128,40 @@ public class IntHashMap<K extends Number, V>
      * =================================================================== Public static classes
      * ===================================================================
      */
-    public static class Entry<T>
+    private class Entry
     {
 
         private final int hash;
 
         private final int key;
 
-        private T value;
+        private V value;
 
-        private Entry<T> next;
+        private Entry next;
 
-        public Entry( int hash, int key, T value )
+        public Entry( int hash, int key, V value )
         {
             this.hash = hash;
             this.key = key;
             this.value = value;
         }
 
-        public T getValue()
+        public V getValue()
         {
             return value;
         }
 
-        public void setValue( T value )
+        public void setValue( V value )
         {
             this.value = value;
         }
 
-        public Entry<T> getNext()
+        public Entry getNext()
         {
             return next;
         }
 
-        public void setNext( Entry<T> next )
+        public void setNext( Entry next )
         {
             this.next = next;
         }
@@ -189,7 +190,7 @@ public class IntHashMap<K extends Number, V>
             throw new IllegalArgumentException();
         }
         this.loadFactor = loadFactor;
-        table = new Entry[initialCapacity];
+        table = newEntryArray( initialCapacity );
         threshold = (int) ( initialCapacity * loadFactor );
     }
 
@@ -210,17 +211,17 @@ public class IntHashMap<K extends Number, V>
     protected void rehash()
     {
         int oldCapacity = table.length;
-        Entry<V> oldTable[] = table;
+        Entry oldTable[] = table;
         int newCapacity = oldCapacity * 2 + 1;
-        Entry<V> newTable[] = new Entry[newCapacity];
+        Entry newTable[] = newEntryArray( newCapacity );
 
         threshold = (int) ( newCapacity * loadFactor );
         table = newTable;
         for ( int i = oldCapacity; i-- > 0; )
         {
-            for ( Entry<V> old = oldTable[i]; old != null; )
+            for ( Entry old = oldTable[i]; old != null; )
             {
-                Entry<V> e = old;
+                Entry e = old;
                 int index = ( e.getHash() & 0x7FFFFFFF ) % newCapacity;
 
                 old = old.getNext();
@@ -228,6 +229,11 @@ public class IntHashMap<K extends Number, V>
                 newTable[index] = e;
             }
         }
+    }
+
+    private Entry[] newEntryArray( int size )
+    {
+        return (Entry[]) Array.newInstance( Entry.class, size );
     }
 
     /*
@@ -238,7 +244,7 @@ public class IntHashMap<K extends Number, V>
     {
         int index = ( key & 0x7FFFFFFF ) % table.length;
 
-        for ( Entry<V> e = table[index]; e != null; e = e.getNext() )
+        for ( Entry e = table[index]; e != null; e = e.getNext() )
         {
             if ( ( key == e.getHash() ) && ( key == e.getKey() ) )
             {
@@ -252,7 +258,7 @@ public class IntHashMap<K extends Number, V>
     {
         int index = ( key & 0x7FFFFFFF ) % table.length;
 
-        for ( Entry<V> e = table[index]; e != null; e = e.getNext() )
+        for ( Entry e = table[index]; e != null; e = e.getNext() )
         {
             if ( ( key == e.getHash() ) && ( key == e.getKey() ) )
             {
@@ -270,7 +276,7 @@ public class IntHashMap<K extends Number, V>
         {
             throw new IllegalArgumentException();
         }
-        for ( Entry<V> e = table[index]; e != null; e = e.getNext() )
+        for ( Entry e = table[index]; e != null; e = e.getNext() )
         {
             if ( ( key == e.getHash() ) && ( key == e.getKey() ) )
             {
@@ -288,7 +294,7 @@ public class IntHashMap<K extends Number, V>
             return put( key, value );
         }
 
-        Entry<V> e = new Entry<V>( key, key, value );
+        Entry e = new Entry( key, key, value );
 
         e.setNext( table[index] );
         table[index] = e;
@@ -300,7 +306,7 @@ public class IntHashMap<K extends Number, V>
     {
         int index = ( key & 0x7FFFFFFF ) % table.length;
 
-        for ( Entry<V> e = table[index], prev = null; e != null; prev = e, e = e.getNext() )
+        for ( Entry e = table[index], prev = null; e != null; prev = e, e = e.getNext() )
         {
             if ( ( key == e.getHash() ) && ( key == e.getKey() ) )
             {
@@ -389,7 +395,7 @@ public class IntHashMap<K extends Number, V>
      */
     public void clear()
     {
-        Entry<V> tab[] = table;
+        Entry tab[] = table;
 
         for ( int index = tab.length; --index >= 0; )
         {
@@ -415,7 +421,7 @@ public class IntHashMap<K extends Number, V>
      */
     public boolean containsValue( Object value )
     {
-        Entry<V> tab[] = table;
+        Entry tab[] = table;
 
         if ( value == null )
         {
@@ -423,7 +429,7 @@ public class IntHashMap<K extends Number, V>
         }
         for ( int i = tab.length; i-- > 0; )
         {
-            for ( Entry<V> e = tab[i]; e != null; e = e.getNext() )
+            for ( Entry e = tab[i]; e != null; e = e.getNext() )
             {
                 if ( e.getValue().equals( value ) )
                 {
