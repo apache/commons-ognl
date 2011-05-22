@@ -118,7 +118,9 @@ public abstract class NumericExpression
         else if ( context.getCurrentType() != null && context.getCurrentType().isPrimitive()
             && ( ASTConst.class.isInstance( child ) || NumericExpression.class.isInstance( child ) ) )
         {
-            ret.append( OgnlRuntime.getNumericLiteral( (Class<? extends Number>) context.getCurrentType() ) );
+            @SuppressWarnings( "unchecked" ) // checked by the condition in the if clause
+            Class<? extends Number> numberClass = (Class<? extends Number>) context.getCurrentType();
+            ret.append( OgnlRuntime.getNumericLiteral( numberClass ) );
         }
         else if ( context.getCurrentType() != null && String.class.isAssignableFrom( context.getCurrentType() ) )
         {
