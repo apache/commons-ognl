@@ -31,9 +31,15 @@ import java.util.Iterator;
 public class IteratorEnumeration<T>
     implements Enumeration<T>
 {
+
+    public static <E> Enumeration<E> newEnumeration( Iterator<E> iterator )
+    {
+        return new IteratorEnumeration<E>( iterator );
+    }
+
     private Iterator<T> it;
 
-    public IteratorEnumeration( Iterator<T> it )
+    private IteratorEnumeration( Iterator<T> it )
     {
         this.it = it;
     }

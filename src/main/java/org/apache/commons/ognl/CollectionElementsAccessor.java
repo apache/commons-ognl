@@ -19,6 +19,8 @@ package org.apache.commons.ognl;
  * under the License.
  */
 
+import static org.apache.commons.ognl.IteratorEnumeration.newEnumeration;
+
 import java.util.Collection;
 import java.util.Enumeration;
 
@@ -36,6 +38,7 @@ public class CollectionElementsAccessor
      */
     public Enumeration<?> getElements( Object target )
     {
-        return new IteratorEnumeration( ( (Collection<?>) target ).iterator() );
+        return newEnumeration( ( (Collection<?>) target ).iterator() );
     }
+
 }
