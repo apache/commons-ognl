@@ -24,7 +24,7 @@ import java.util.List;
 
 public final class EvaluationPool
 {
-    private List evaluations = new ArrayList();
+    private List<Evaluation> evaluations = new ArrayList<Evaluation>();
 
     private int size = 0;
 
@@ -68,7 +68,7 @@ public final class EvaluationPool
 
         if ( size > 0 )
         {
-            result = (Evaluation) evaluations.remove( size - 1 );
+            result = evaluations.remove( size - 1 );
             result.init( node, source, setOperation );
             size--;
             recovered++;
@@ -111,13 +111,13 @@ public final class EvaluationPool
     /**
      * Recycles a List of Evaluation objects
      */
-    public void recycleAll( List value )
+    public void recycleAll( List<Evaluation> value )
     {
         if ( value != null )
         {
             for ( int i = 0, icount = value.size(); i < icount; i++ )
             {
-                recycle( (Evaluation) value.get( i ) );
+                recycle( value.get( i ) );
             }
         }
     }
