@@ -49,24 +49,24 @@ public class NoSuchPropertyException
 
     static String getReason( Object target, Object name )
     {
-        String ret = null;
+        StringBuilder ret = new StringBuilder();
 
         if ( target == null )
         {
-            ret = "null";
+            ret.append( "null" );
         }
         else if ( target instanceof Class )
         {
-            ret = ( (Class<?>) target ).getName();
+            ret.append( ( (Class<?>) target ).getName() );
         }
         else
         {
-            ret = target.getClass().getName();
+            ret.append( target.getClass().getName() );
         }
 
-        ret += "." + name;
+        ret.append( "." ).append( name );
 
-        return ret;
+        return ret.toString();
     }
 
     public Object getTarget()
