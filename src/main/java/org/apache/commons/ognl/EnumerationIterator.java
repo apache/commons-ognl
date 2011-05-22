@@ -28,12 +28,13 @@ import java.util.Iterator;
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-public class EnumerationIterator
-    implements Iterator
+public class EnumerationIterator<E>
+    implements Iterator<E>
 {
-    private Enumeration e;
 
-    public EnumerationIterator( Enumeration e )
+    private Enumeration<E> e;
+
+    public EnumerationIterator( Enumeration<E> e )
     {
         super();
         this.e = e;
@@ -44,7 +45,7 @@ public class EnumerationIterator
         return e.hasMoreElements();
     }
 
-    public Object next()
+    public E next()
     {
         return e.nextElement();
     }
@@ -53,4 +54,5 @@ public class EnumerationIterator
     {
         throw new UnsupportedOperationException( "remove() not supported by Enumeration" );
     }
+
 }
