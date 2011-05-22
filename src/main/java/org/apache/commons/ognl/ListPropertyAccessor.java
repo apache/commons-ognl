@@ -97,7 +97,7 @@ public class ListPropertyAccessor
                 }
                 case DynamicSubscript.ALL:
                 {
-                    return new ArrayList( list );
+                    return new ArrayList<Object>( list );
                 }
             }
         }
