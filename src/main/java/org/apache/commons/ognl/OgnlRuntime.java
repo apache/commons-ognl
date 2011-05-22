@@ -2721,7 +2721,7 @@ public class OgnlRuntime
      * @param name The name of the method.
      * @return The most likely matching {@link Method}, or null if none could be found.
      */
-    public static Method getReadMethod( Class target, String name )
+    public static Method getReadMethod( Class<?> target, String name )
     {
         return getReadMethod( target, name, -1 );
     }
