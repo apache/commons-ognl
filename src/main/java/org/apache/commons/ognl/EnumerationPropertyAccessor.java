@@ -38,7 +38,7 @@ public class EnumerationPropertyAccessor
         throws OgnlException
     {
         Object result;
-        Enumeration e = (Enumeration) target;
+        Enumeration<?> e = (Enumeration<?>) target; // check performed by the invoker
 
         if ( name instanceof String )
         {
