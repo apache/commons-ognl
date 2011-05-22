@@ -109,13 +109,19 @@ public class MapPropertyAccessor
         boolean indexedAccess = false;
 
         if ( currentNode == null )
+        {
             throw new RuntimeException( "node is null for '" + index + "'" );
+        }
 
         if ( !( currentNode instanceof ASTProperty ) )
+        {
             currentNode = currentNode.jjtGetParent();
+        }
 
         if ( currentNode instanceof ASTProperty )
+        {
             indexedAccess = ( (ASTProperty) currentNode ).isIndexedAccess();
+        }
 
         String indexStr = index.toString();
 
@@ -163,13 +169,21 @@ public class MapPropertyAccessor
             String key = indexStr.replaceAll( "\"", "" );
 
             if ( key.equals( "size" ) )
+            {
                 return "";
+            }
             else if ( key.equals( "keys" ) || key.equals( "keySet" ) )
+            {
                 return "";
+            }
             else if ( key.equals( "values" ) )
+            {
                 return "";
+            }
             else if ( key.equals( "isEmpty" ) )
+            {
                 return "";
+            }
         }
 
         return ".put(" + indexStr + ", $3)";
