@@ -35,8 +35,17 @@ import java.util.Map;
  * 
  * <pre>
  * 
- * import org.apache.commons.ognl.Ognl; import org.apache.commons.ognl.OgnlException; try { result = Ognl.getValue(expression, root); }
- * catch (OgnlException ex) { // Report error or recover }
+ * import org.apache.commons.ognl.Ognl;
+ * import org.apache.commons.ognl.OgnlException;
+ * ...
+ * try
+ * {
+ *     result = Ognl.getValue( expression, root );
+ * }
+ * catch ( OgnlException ex )
+ * {
+ *     // Report error or recover
+ * }
  * 
  * </pre>
  * <p>
@@ -62,10 +71,23 @@ import java.util.Map;
  * 
  * <pre>
  * 
- * private Map context = new HashMap(); public void setUserName(String value) {
- * context.put("userName", value); } try { // get value using our own custom context map result =
- * Ognl.getValue("documentName + \" (\" + ((#userName == null) ? \"&lt;nobody&gt;\" : #userName) +
- * \")\"", context, root); } catch (OgnlException ex) { // Report error or recover }
+ * private Map&lt;String, Object&gt; context = new HashMap&lt;String, Object&gt;();
+ * ...
+ * public void setUserName( String value )
+ * {
+ *     context.put("userName", value);
+ * }
+ * ...
+ * try
+ * {
+ *     // get value using our own custom context map
+ *     result = Ognl.getValue( "documentName + \" (\" + ((#userName == null) ? \"&lt;nobody&gt;\" : #userName ) +
+ * \")\"", context, root );
+ * }
+ * catch ( OgnlException ex )
+ * {
+ *     // Report error or recover
+ * }
  * 
  * </pre>
  * 
