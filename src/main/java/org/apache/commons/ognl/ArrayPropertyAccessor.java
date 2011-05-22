@@ -219,9 +219,6 @@ public class ArrayPropertyAccessor
             return "[" + indexStr + "]=((" + wrapClass.getName() + ")org.apache.commons.ognl.OgnlOps.convertValue($3,"
                 + wrapClass.getName() + ".class, true))." + OgnlRuntime.getNumericValueGetter( wrapClass );
         }
-        else
-        {
-            return "[" + indexStr + "]=org.apache.commons.ognl.OgnlOps.convertValue($3," + type.getName() + ".class)";
-        }
+        return "[" + indexStr + "]=org.apache.commons.ognl.OgnlOps.convertValue($3," + type.getName() + ".class)";
     }
 }
