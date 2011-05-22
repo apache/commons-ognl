@@ -32,6 +32,9 @@ import java.security.BasicPermission;
 public class OgnlInvokePermission
     extends BasicPermission
 {
+
+    private static final long serialVersionUID = 1L;
+
     public OgnlInvokePermission( String name )
     {
         super( name );
