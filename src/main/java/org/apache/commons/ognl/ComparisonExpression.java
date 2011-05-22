@@ -40,6 +40,10 @@ public abstract class ComparisonExpression
 
     public abstract String getComparisonFunction();
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String toGetSourceString( OgnlContext context, Object target )
     {
         if ( target == null )
