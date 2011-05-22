@@ -26,7 +26,7 @@ import java.util.List;
 public final class ObjectArrayPool
     extends Object
 {
-    private IntHashMap pools = new IntHashMap( 23 );
+    private IntHashMap<Integer, SizePool> pools = new IntHashMap<Integer, SizePool>( 23 );
 
     public static class SizePool
         extends Object
@@ -140,14 +140,14 @@ public final class ObjectArrayPool
         super();
     }
 
-    public IntHashMap getSizePools()
+    public IntHashMap<Integer, SizePool> getSizePools()
     {
         return pools;
     }
 
     public synchronized SizePool getSizePool( int arraySize )
     {
-        SizePool result = (SizePool) pools.get( arraySize );
+        SizePool result = pools.get( arraySize );
 
         if ( result == null )
         {
