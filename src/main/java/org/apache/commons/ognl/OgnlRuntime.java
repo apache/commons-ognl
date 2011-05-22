@@ -2726,7 +2726,7 @@ public class OgnlRuntime
         return getReadMethod( target, name, -1 );
     }
 
-    public static Method getReadMethod( Class target, String name, int numParms )
+    public static Method getReadMethod( Class<?> target, String name, int numParms )
     {
         try
         {
