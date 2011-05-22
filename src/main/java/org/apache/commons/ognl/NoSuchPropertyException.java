@@ -51,7 +51,7 @@ public class NoSuchPropertyException
         if ( target == null )
             ret = "null";
         else if ( target instanceof Class )
-            ret = ( (Class) target ).getName();
+            ret = ( (Class<?>) target ).getName();
         else
             ret = target.getClass().getName();
 
