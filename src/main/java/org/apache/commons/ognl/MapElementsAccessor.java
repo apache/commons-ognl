@@ -31,8 +31,8 @@ import java.util.Map;
 public class MapElementsAccessor
     implements ElementsAccessor
 {
-    public Enumeration getElements( Object target )
+    public Enumeration<?> getElements( Object target )
     {
-        return new IteratorEnumeration( ( (Map) target ).values().iterator() );
+        return new IteratorEnumeration( ( (Map<?, ?>) target ).values().iterator() );
     }
 }

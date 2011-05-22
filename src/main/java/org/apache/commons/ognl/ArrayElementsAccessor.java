@@ -31,9 +31,9 @@ import java.util.Enumeration;
 public class ArrayElementsAccessor
     implements ElementsAccessor
 {
-    public Enumeration getElements( final Object target )
+    public Enumeration<?> getElements( final Object target )
     {
-        return new Enumeration()
+        return new Enumeration<Object>()
         {
             private int count = Array.getLength( target );
 

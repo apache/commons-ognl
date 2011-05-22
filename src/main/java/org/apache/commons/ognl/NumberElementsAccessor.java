@@ -31,9 +31,9 @@ import java.util.NoSuchElementException;
 public class NumberElementsAccessor
     implements ElementsAccessor, NumericTypes
 {
-    public Enumeration getElements( final Object target )
+    public Enumeration<?> getElements( final Object target )
     {
-        return new Enumeration()
+        return new Enumeration<Object>()
         {
             private int type = OgnlOps.getNumericType( target );
 

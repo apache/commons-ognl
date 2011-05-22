@@ -30,11 +30,11 @@ import java.util.Enumeration;
 public class ObjectElementsAccessor
     implements ElementsAccessor
 {
-    public Enumeration getElements( Object target )
+    public Enumeration<?> getElements( Object target )
     {
         final Object object = target;
 
-        return new Enumeration()
+        return new Enumeration<Object>()
         {
             private boolean seen = false;
 
