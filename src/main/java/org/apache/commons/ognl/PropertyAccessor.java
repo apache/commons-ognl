@@ -50,7 +50,7 @@ public interface PropertyAccessor
      * @return the current value of the given property in the given object
      * @exception OgnlException if there is an error locating the property in the given object
      */
-    Object getProperty( Map context, Object target, Object name )
+    Object getProperty( Map<String, Object> context, Object target, Object name )
         throws OgnlException;
 
     /**
@@ -62,7 +62,7 @@ public interface PropertyAccessor
      * @param value the new value for the property.
      * @exception OgnlException if there is an error setting the property in the given object
      */
-    void setProperty( Map context, Object target, Object name, Object value )
+    void setProperty( Map<String, Object> context, Object target, Object name, Object value )
         throws OgnlException;
 
     /**

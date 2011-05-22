@@ -32,12 +32,12 @@ public class ObjectNullHandler
     implements NullHandler
 {
     /* NullHandler interface */
-    public Object nullMethodResult( Map context, Object target, String methodName, Object[] args )
+    public Object nullMethodResult( Map<String, Object> context, Object target, String methodName, Object[] args )
     {
         return null;
     }
 
-    public Object nullPropertyValue( Map context, Object target, Object property )
+    public Object nullPropertyValue( Map<String, Object> context, Object target, Object property )
     {
         return null;
     }

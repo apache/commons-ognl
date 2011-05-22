@@ -35,15 +35,15 @@ public interface MemberAccess
     /**
      * Sets the member up for accessibility
      */
-    Object setup( Map context, Object target, Member member, String propertyName );
+    Object setup( Map<String, Object> context, Object target, Member member, String propertyName );
 
     /**
      * Restores the member from the previous setup call.
      */
-    void restore( Map context, Object target, Member member, String propertyName, Object state );
+    void restore( Map<String, Object> context, Object target, Member member, String propertyName, Object state );
 
     /**
      * Returns true if the given member is accessible or can be made accessible by this object.
      */
-    boolean isAccessible( Map context, Object target, Member member, String propertyName );
+    boolean isAccessible( Map<String, Object> context, Object target, Member member, String propertyName );
 }

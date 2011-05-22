@@ -41,7 +41,7 @@ public class ObjectPropertyAccessor
     /**
      * Returns OgnlRuntime.NotFound if the property does not exist.
      */
-    public Object getPossibleProperty( Map context, Object target, String name )
+    public Object getPossibleProperty( Map<String, Object> context, Object target, String name )
         throws OgnlException
     {
         Object result;
@@ -73,7 +73,7 @@ public class ObjectPropertyAccessor
     /**
      * Returns OgnlRuntime.NotFound if the property does not exist.
      */
-    public Object setPossibleProperty( Map context, Object target, String name, Object value )
+    public Object setPossibleProperty( Map<String, Object> context, Object target, String name, Object value )
         throws OgnlException
     {
         Object result = null;
@@ -124,7 +124,7 @@ public class ObjectPropertyAccessor
         }
     }
 
-    public boolean hasGetProperty( Map context, Object target, Object oname )
+    public boolean hasGetProperty( Map<String, Object> context, Object target, Object oname )
         throws OgnlException
     {
         return hasGetProperty( (OgnlContext) context, target, oname );
@@ -143,13 +143,13 @@ public class ObjectPropertyAccessor
         }
     }
 
-    public boolean hasSetProperty( Map context, Object target, Object oname )
+    public boolean hasSetProperty( Map<String, Object> context, Object target, Object oname )
         throws OgnlException
     {
         return hasSetProperty( (OgnlContext) context, target, oname );
     }
 
-    public Object getProperty( Map context, Object target, Object oname )
+    public Object getProperty( Map<String, Object> context, Object target, Object oname )
         throws OgnlException
     {
         Object result = null;
@@ -165,7 +165,7 @@ public class ObjectPropertyAccessor
         return result;
     }
 
-    public void setProperty( Map context, Object target, Object oname, Object value )
+    public void setProperty( Map<String, Object> context, Object target, Object oname, Object value )
         throws OgnlException
     {
         String name = oname.toString();

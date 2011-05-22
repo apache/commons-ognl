@@ -33,7 +33,7 @@ public class ArrayPropertyAccessor
     implements PropertyAccessor
 {
 
-    public Object getProperty( Map context, Object target, Object name )
+    public Object getProperty( Map<String, Object> context, Object target, Object name )
         throws OgnlException
     {
         Object result = null;
@@ -91,7 +91,7 @@ public class ArrayPropertyAccessor
         return result;
     }
 
-    public void setProperty( Map context, Object target, Object name, Object value )
+    public void setProperty( Map<String, Object> context, Object target, Object name, Object value )
         throws OgnlException
     {
         Object index = name;

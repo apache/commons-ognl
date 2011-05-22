@@ -33,7 +33,7 @@ public class EnumerationPropertyAccessor
     extends ObjectPropertyAccessor
     implements PropertyAccessor // This is here to make javadoc show this class as an implementor
 {
-    public Object getProperty( Map context, Object target, Object name )
+    public Object getProperty( Map<String, Object> context, Object target, Object name )
         throws OgnlException
     {
         Object result;
@@ -64,7 +64,7 @@ public class EnumerationPropertyAccessor
         return result;
     }
 
-    public void setProperty( Map context, Object target, Object name, Object value )
+    public void setProperty( Map<String, Object> context, Object target, Object name, Object value )
         throws OgnlException
     {
         throw new IllegalArgumentException( "can't set property " + name + " on Enumeration" );

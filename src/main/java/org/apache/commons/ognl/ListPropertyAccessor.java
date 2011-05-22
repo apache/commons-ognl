@@ -37,7 +37,7 @@ public class ListPropertyAccessor
     implements PropertyAccessor
 {
 
-    public Object getProperty( Map context, Object target, Object name )
+    public Object getProperty( Map<String, Object> context, Object target, Object name )
         throws OgnlException
     {
         List list = (List) target;
@@ -94,7 +94,7 @@ public class ListPropertyAccessor
         throw new NoSuchPropertyException( target, name );
     }
 
-    public void setProperty( Map context, Object target, Object name, Object value )
+    public void setProperty( Map<String, Object> context, Object target, Object name, Object value )
         throws OgnlException
     {
         if ( name instanceof String && ( (String) name ).indexOf( "$" ) < 0 )

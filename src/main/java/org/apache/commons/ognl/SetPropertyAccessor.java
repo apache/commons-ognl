@@ -32,7 +32,7 @@ public class SetPropertyAccessor
     extends ObjectPropertyAccessor
     implements PropertyAccessor // This is here to make javadoc show this class as an implementor
 {
-    public Object getProperty( Map context, Object target, Object name )
+    public Object getProperty( Map<String, Object> context, Object target, Object name )
         throws OgnlException
     {
         Set set = (Set) target;

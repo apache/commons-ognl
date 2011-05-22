@@ -98,7 +98,7 @@ public class DefaultMemberAccess
      * =================================================================== MemberAccess interface
      * ===================================================================
      */
-    public Object setup( Map context, Object target, Member member, String propertyName )
+    public Object setup( Map<String, Object> context, Object target, Member member, String propertyName )
     {
         Object result = null;
 
@@ -115,7 +115,7 @@ public class DefaultMemberAccess
         return result;
     }
 
-    public void restore( Map context, Object target, Member member, String propertyName, Object state )
+    public void restore( Map<String, Object> context, Object target, Member member, String propertyName, Object state )
     {
         if ( state != null )
         {
@@ -126,7 +126,7 @@ public class DefaultMemberAccess
     /**
      * Returns true if the given member is accessible or can be made accessible by this object.
      */
-    public boolean isAccessible( Map context, Object target, Member member, String propertyName )
+    public boolean isAccessible( Map<String, Object> context, Object target, Member member, String propertyName )
     {
         int modifiers = member.getModifiers();
         boolean result = Modifier.isPublic( modifiers );

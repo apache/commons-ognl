@@ -33,10 +33,10 @@ public interface NullHandler
     /**
      * Method called on target returned null.
      */
-    Object nullMethodResult( Map context, Object target, String methodName, Object[] args );
+    Object nullMethodResult( Map<String, Object> context, Object target, String methodName, Object[] args );
 
     /**
      * Property in target evaluated to null. Property can be a constant String property name or a DynamicSubscript.
      */
-    Object nullPropertyValue( Map context, Object target, Object property );
+    Object nullPropertyValue( Map<String, Object> context, Object target, Object property );
 }

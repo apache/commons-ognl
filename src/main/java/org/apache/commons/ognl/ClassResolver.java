@@ -29,6 +29,6 @@ import java.util.Map;
  */
 public interface ClassResolver
 {
-    Class classForName( String className, Map context )
+    Class classForName( String className, Map<String, Object> context )
         throws ClassNotFoundException;
 }

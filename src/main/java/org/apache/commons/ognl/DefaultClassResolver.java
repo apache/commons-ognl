@@ -40,7 +40,7 @@ public class DefaultClassResolver
         super();
     }
 
-    public Class classForName( String className, Map context )
+    public Class classForName( String className, Map<String, Object> context )
         throws ClassNotFoundException
     {
         Class result = null;
