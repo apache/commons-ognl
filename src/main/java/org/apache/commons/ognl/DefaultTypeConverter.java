@@ -32,7 +32,7 @@ public class DefaultTypeConverter
     implements TypeConverter
 {
 
-    public <T> T convertValue( Map context, Object value, Class<T> toType )
+    public <T> T convertValue( Map<String, Object> context, Object value, Class<T> toType )
     {
         @SuppressWarnings( "unchecked" ) // type checking performed in OgnlOps.convertValue( value, toType )
         T ret = (T) OgnlOps.convertValue( value, toType );
@@ -42,7 +42,7 @@ public class DefaultTypeConverter
     /**
      * {@inheritDoc}
      */
-    public <T> T convertValue( Map context, Object target, Member member, String propertyName, Object value,
+    public <T> T convertValue( Map<String, Object> context, Object target, Member member, String propertyName, Object value,
                                 Class<T> toType )
     {
         return convertValue( context, value, toType );
