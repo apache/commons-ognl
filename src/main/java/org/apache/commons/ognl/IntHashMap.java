@@ -231,6 +231,7 @@ public class IntHashMap<K extends Number, V>
         }
     }
 
+    @SuppressWarnings( "unchecked" ) // type checked in the array creation
     private Entry[] newEntryArray( int size )
     {
         return (Entry[]) Array.newInstance( Entry.class, size );
