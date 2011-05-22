@@ -188,7 +188,7 @@ public class OgnlRuntime
 
     static final IntHashMap<Integer, Boolean> _methodAccessCache = new IntHashMap<Integer, Boolean>();
 
-    static final IntHashMap _methodPermCache = new IntHashMap();
+    static final IntHashMap<Integer, Boolean> _methodPermCache = new IntHashMap<Integer, Boolean>();
 
     static ClassCacheInspector _cacheInspector;
 
