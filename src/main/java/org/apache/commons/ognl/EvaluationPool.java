@@ -24,7 +24,7 @@ import java.util.List;
 
 public final class EvaluationPool
 {
-    private List<Evaluation> evaluations = new ArrayList<Evaluation>();
+    private final List<Evaluation> evaluations = new ArrayList<Evaluation>();
 
     private int size = 0;
 
