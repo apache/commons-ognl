@@ -2663,7 +2663,7 @@ public class OgnlRuntime
             parms = new Class[0];
         }
 
-        List methods = OgnlRuntime.getMethods( target, name, includeStatic );
+        List<Method> methods = OgnlRuntime.getMethods( target, name, includeStatic );
         if ( methods == null )
         {
             return null;
@@ -2671,7 +2671,7 @@ public class OgnlRuntime
 
         for ( int i = 0; i < methods.size(); i++ )
         {
-            Method m = (Method) methods.get( i );
+            Method m = methods.get( i );
             boolean varArgs = isJdk15() && m.isVarArgs();
 
             if ( parms.length != m.getParameterTypes().length && !varArgs )
