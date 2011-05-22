@@ -29,7 +29,6 @@ import java.util.Iterator;
  * @author Drew Davidson (drew@ognl.org)
  */
 public class IteratorEnumeration
-    extends Object
     implements Enumeration
 {
     private Iterator it;
