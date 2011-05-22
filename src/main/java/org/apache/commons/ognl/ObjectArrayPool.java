@@ -30,7 +30,7 @@ public final class ObjectArrayPool
     public static class SizePool
         extends Object
     {
-        private List arrays = new ArrayList();
+        private List<Object[]> arrays = new ArrayList<Object[]>();
 
         private int arraySize;
 
@@ -69,7 +69,7 @@ public final class ObjectArrayPool
 
             if ( size > 0 )
             {
-                result = (Object[]) arrays.remove( size - 1 );
+                result = arrays.remove( size - 1 );
                 size--;
                 recovered++;
             }
