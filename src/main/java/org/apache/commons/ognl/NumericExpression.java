@@ -28,7 +28,7 @@ public abstract class NumericExpression
     extends ExpressionNode
     implements NodeType
 {
-    protected Class _getterClass;
+    protected Class<?> _getterClass;
 
     public NumericExpression( int id )
     {
@@ -40,7 +40,10 @@ public abstract class NumericExpression
         super( p, id );
     }
 
-    public Class getGetterClass()
+    /**
+     * {@inheritDoc}
+     */
+    public Class<?> getGetterClass()
     {
         if ( _getterClass != null )
             return _getterClass;
@@ -48,7 +51,10 @@ public abstract class NumericExpression
         return Double.TYPE;
     }
 
-    public Class getSetterClass()
+    /**
+     * {@inheritDoc}
+     */
+    public Class<?> getSetterClass()
     {
         return null;
     }

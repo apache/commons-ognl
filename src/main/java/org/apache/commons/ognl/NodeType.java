@@ -30,12 +30,12 @@ public interface NodeType
      * 
      * @return The type.
      */
-    Class getGetterClass();
+    Class<?> getGetterClass();
 
     /**
      * The type used to set the value - if any.
      * 
      * @return The type.
      */
-    Class getSetterClass();
+    Class<?> getSetterClass();
 }

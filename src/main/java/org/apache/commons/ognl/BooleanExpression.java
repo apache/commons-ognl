@@ -31,7 +31,7 @@ public abstract class BooleanExpression
     implements NodeType
 {
 
-    protected Class getterClass;
+    protected Class<?> getterClass;
 
     public BooleanExpression( int id )
     {
@@ -43,12 +43,18 @@ public abstract class BooleanExpression
         super( p, id );
     }
 
-    public Class getGetterClass()
+    /**
+     * {@inheritDoc}
+     */
+    public Class<?> getGetterClass()
     {
         return getterClass;
     }
 
-    public Class getSetterClass()
+    /**
+     * {@inheritDoc}
+     */
+    public Class<?> getSetterClass()
     {
         return null;
     }
