@@ -240,7 +240,7 @@ public class IntHashMap<K extends Number, V>
 
         for ( Entry<V> e = table[index]; e != null; e = e.next )
         {
-            if ( ( e.getHash() == key ) && ( e.getKey() == key ) )
+            if ( ( key == e.getHash() ) && ( key == e.getKey() ) )
             {
                 return true;
             }
@@ -254,7 +254,7 @@ public class IntHashMap<K extends Number, V>
 
         for ( Entry<V> e = table[index]; e != null; e = e.getNext() )
         {
-            if ( ( e.getHash() == key ) && ( e.getKey() == key ) )
+            if ( ( key == e.getHash() ) && ( key == e.getKey() ) )
             {
                 return e.getValue();
             }
@@ -272,7 +272,7 @@ public class IntHashMap<K extends Number, V>
         }
         for ( Entry<V> e = table[index]; e != null; e = e.next )
         {
-            if ( ( e.getHash() == key ) && ( e.getKey() == key ) )
+            if ( ( key == e.getHash() ) && ( key == e.getKey() ) )
             {
                 V old = e.getValue();
 
@@ -302,7 +302,7 @@ public class IntHashMap<K extends Number, V>
 
         for ( Entry<V> e = table[index], prev = null; e != null; prev = e, e = e.next )
         {
-            if ( ( e.getHash() == key ) && ( e.getKey() == key ) )
+            if ( ( key == e.getHash() ) && ( key == e.getKey() ) )
             {
                 if ( prev != null )
                 {
