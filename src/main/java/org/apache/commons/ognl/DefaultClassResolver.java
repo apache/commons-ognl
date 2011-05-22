@@ -34,11 +34,6 @@ public class DefaultClassResolver
 {
     private Map<String, Class<?>> classes = new HashMap<String, Class<?>>( 101 );
 
-    public DefaultClassResolver()
-    {
-        super();
-    }
-
     /**
      * {@inheritDoc}
      */
