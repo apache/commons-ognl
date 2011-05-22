@@ -32,6 +32,11 @@ public class EnumerationIterator<E>
     implements Iterator<E>
 {
 
+    public static <T> Iterator<T> newIterator( Enumeration<T> e )
+    {
+        return new EnumerationIterator<T>( e );
+    }
+
     private final Enumeration<E> e;
 
     public EnumerationIterator( Enumeration<E> e )
