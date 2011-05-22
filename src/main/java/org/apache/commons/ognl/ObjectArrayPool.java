@@ -30,7 +30,7 @@ public final class ObjectArrayPool
     public static class SizePool
         extends Object
     {
-        private List<Object[]> arrays = new ArrayList<Object[]>();
+        private final List<Object[]> arrays = new ArrayList<Object[]>();
 
         private int arraySize;
 
