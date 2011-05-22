@@ -36,7 +36,6 @@ public class EnumerationIterator<E>
 
     public EnumerationIterator( Enumeration<E> e )
     {
-        super();
         this.e = e;
     }
 
