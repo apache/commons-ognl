@@ -40,7 +40,7 @@ public class BeanProviderAccessor
     implements PropertyAccessor
 {
     @Override
-    public Object getProperty( Map context, Object target, Object name )
+    public Object getProperty( Map<String, Object> context, Object target, Object name )
         throws OgnlException
     {
         BeanProvider provider = (BeanProvider) target;
@@ -54,7 +54,7 @@ public class BeanProviderAccessor
      **/
 
     @Override
-    public boolean hasGetProperty( Map context, Object target, Object oname )
+    public boolean hasGetProperty( Map<String, Object> context, Object target, Object oname )
         throws OgnlException
     {
         BeanProvider provider = (BeanProvider) target;
