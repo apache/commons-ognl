@@ -1772,7 +1772,9 @@ public class OgnlRuntime
                     context.getMemberAccess().restore( context, target, f, propertyName, state );
                 }
                 else
+                {
                     throw new NoSuchFieldException( propertyName );
+                }
 
             }
             catch ( IllegalAccessException ex )
