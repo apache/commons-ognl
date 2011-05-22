@@ -35,7 +35,6 @@ public class IteratorEnumeration
 
     public IteratorEnumeration( Iterator it )
     {
-        super();
         this.it = it;
     }
 
