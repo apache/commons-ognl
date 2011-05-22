@@ -30,7 +30,6 @@ import java.util.Map;
  * @author Drew Davidson (drew@ognl.org)
  */
 public class DefaultClassResolver
-    extends Object
     implements ClassResolver
 {
     private Map<String, Class<?>> classes = new HashMap<String, Class<?>>( 101 );
