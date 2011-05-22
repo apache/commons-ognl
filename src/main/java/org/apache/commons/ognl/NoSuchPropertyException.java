@@ -49,11 +49,17 @@ public class NoSuchPropertyException
         String ret = null;
 
         if ( target == null )
+        {
             ret = "null";
+        }
         else if ( target instanceof Class )
+        {
             ret = ( (Class<?>) target ).getName();
+        }
         else
+        {
             ret = target.getClass().getName();
+        }
 
         ret += "." + name;
 
