@@ -28,6 +28,9 @@ public abstract class NumericExpression
     extends ExpressionNode
     implements NodeType
 {
+
+    private static final long serialVersionUID = -174952564587478850L;
+
     protected Class<?> _getterClass;
 
     public NumericExpression( int id )

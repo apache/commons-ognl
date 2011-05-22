@@ -31,6 +31,8 @@ public abstract class BooleanExpression
     implements NodeType
 {
 
+    private static final long serialVersionUID = 8630306635724834872L;
+
     protected Class<?> getterClass;
 
     public BooleanExpression( int id )
