@@ -45,7 +45,6 @@ import java.util.Set;
  * @see java.util.Map
  */
 public class IntHashMap
-    extends Object
     implements Map
 {
     private Entry table[];
