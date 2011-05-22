@@ -33,6 +33,8 @@ public class OgnlException
     // cache initCause method - if available..to be used during throwable constructor
     // to properly setup superclass.
 
+    private static final long serialVersionUID = -842845048743721078L;
+
     static Method _initCause;
     static
     {
