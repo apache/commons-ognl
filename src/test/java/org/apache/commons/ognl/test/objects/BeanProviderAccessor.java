@@ -39,6 +39,7 @@ public class BeanProviderAccessor
     extends ObjectPropertyAccessor
     implements PropertyAccessor
 {
+    @Override
     public Object getProperty( Map context, Object target, Object name )
         throws OgnlException
     {
@@ -52,6 +53,7 @@ public class BeanProviderAccessor
      * Returns true if the name matches a bean provided by the provider. Otherwise invokes the super implementation.
      **/
 
+    @Override
     public boolean hasGetProperty( Map context, Object target, Object oname )
         throws OgnlException
     {
@@ -61,6 +63,7 @@ public class BeanProviderAccessor
         return provider.getBean( beanName ) != null;
     }
 
+    @Override
     public String getSourceAccessor( OgnlContext context, Object target, Object name )
     {
         BeanProvider provider = (BeanProvider) target;
@@ -82,6 +85,7 @@ public class BeanProviderAccessor
         return super.getSourceAccessor( context, target, name );
     }
 
+    @Override
     public String getSourceSetter( OgnlContext context, Object target, Object name )
     {
         throw new UnsupportedCompilationException( "Can't set beans on BeanProvider." );
