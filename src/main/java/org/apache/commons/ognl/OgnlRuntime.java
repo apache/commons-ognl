@@ -85,7 +85,7 @@ public class OgnlRuntime
 
     public static final Object[] NoArguments = new Object[] {};
 
-    public static final Class[] NoArgumentTypes = new Class[] {};
+    public static final Class<?>[] NoArgumentTypes = new Class<?>[] {};
 
     /**
      * Token returned by TypeConverter for no conversion possible
