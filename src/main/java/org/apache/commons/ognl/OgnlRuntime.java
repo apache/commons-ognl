@@ -2773,7 +2773,9 @@ public class OgnlRuntime
             }
 
             if ( m != null )
+            {
                 return m;
+            }
 
             for ( MethodDescriptor method : methods )
             {
@@ -2803,12 +2805,16 @@ public class OgnlRuntime
             }
 
             if ( m != null )
+            {
                 return m;
+            }
 
             // try one last time adding a get to beginning
 
             if ( !name.startsWith( "get" ) )
+            {
                 return OgnlRuntime.getReadMethod( target, "get" + name, numParms );
+            }
 
         }
         catch ( Throwable t )
