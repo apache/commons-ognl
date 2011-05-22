@@ -2888,7 +2888,7 @@ public class OgnlRuntime
         return null;
     }
 
-    public static PropertyDescriptor getProperty( Class target, String name )
+    public static PropertyDescriptor getProperty( Class<?> target, String name )
     {
         try
         {
