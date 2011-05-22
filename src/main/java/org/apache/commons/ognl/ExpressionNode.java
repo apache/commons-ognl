@@ -41,12 +41,14 @@ public abstract class ExpressionNode
     /**
      * Returns true iff this node is constant without respect to the children.
      */
+    @Override
     public boolean isNodeConstant( OgnlContext context )
         throws OgnlException
     {
         return false;
     }
 
+    @Override
     public boolean isConstant( OgnlContext context )
         throws OgnlException
     {
@@ -75,6 +77,7 @@ public abstract class ExpressionNode
         throw new RuntimeException( "unknown operator for " + OgnlParserTreeConstants.jjtNodeName[_id] );
     }
 
+    @Override
     public String toString()
     {
         StringBuilder result = new StringBuilder( _parent == null ? "" : "(" );
@@ -97,6 +100,7 @@ public abstract class ExpressionNode
         return result.toString();
     }
 
+    @Override
     public String toGetSourceString( OgnlContext context, Object target )
     {
         StringBuilder result =
@@ -150,6 +154,7 @@ public abstract class ExpressionNode
         return result.toString();
     }
 
+    @Override
     public String toSetSourceString( OgnlContext context, Object target )
     {
         String result = ( _parent == null ) ? "" : "(";
