@@ -1761,26 +1761,23 @@ public class OgnlRuntime
             {
                 throw new NoSuchFieldException( propertyName );
             }
-            else
+            try
             {
-                try
+                Object state = null;
+
+                if ( !Modifier.isStatic( f.getModifiers() ) )
                 {
-                    Object state = null;
-
-                    if ( !Modifier.isStatic( f.getModifiers() ) )
-                    {
-                        state = context.getMemberAccess().setup( context, target, f, propertyName );
-                        result = f.get( target );
-                        context.getMemberAccess().restore( context, target, f, propertyName, state );
-                    }
-                    else
-                        throw new NoSuchFieldException( propertyName );
-
+                    state = context.getMemberAccess().setup( context, target, f, propertyName );
+                    result = f.get( target );
+                    context.getMemberAccess().restore( context, target, f, propertyName, state );
                 }
-                catch ( IllegalAccessException ex )
-                {
+                else
                     throw new NoSuchFieldException( propertyName );
-                }
+
+            }
+            catch ( IllegalAccessException ex )
+            {
+                throw new NoSuchFieldException( propertyName );
             }
         }
         return result;
