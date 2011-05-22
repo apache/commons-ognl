@@ -2902,7 +2902,9 @@ public class OgnlRuntime
                 if ( pds[i].getName().equalsIgnoreCase( name )
                     || pds[i].getName().toLowerCase().equals( name.toLowerCase() )
                     || pds[i].getName().toLowerCase().endsWith( name.toLowerCase() ) )
+                {
                     return pds[i];
+                }
             }
 
         }
