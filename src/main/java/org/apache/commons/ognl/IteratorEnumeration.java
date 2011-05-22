@@ -39,11 +39,17 @@ public class IteratorEnumeration
         this.it = it;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public boolean hasMoreElements()
     {
         return it.hasNext();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Object nextElement()
     {
         return it.next();
