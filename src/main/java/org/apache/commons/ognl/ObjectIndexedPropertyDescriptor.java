@@ -113,6 +113,7 @@ public class ObjectIndexedPropertyDescriptor
         return indexedWriteMethod;
     }
 
+    @Override
     public Class<?> getPropertyType()
     {
         return propertyType;
