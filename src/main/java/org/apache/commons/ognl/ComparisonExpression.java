@@ -81,20 +81,36 @@ public abstract class ComparisonExpression
 
             boolean conversion = OgnlRuntime.shouldConvertNumericTypes( context );
 
-            String result = conversion ? "(" + getComparisonFunction() + "( ($w) (" : "(";
+            StringBuilder result = new StringBuilder( "(" );
+            if ( conversion )
+            {
+                result.append( getComparisonFunction() ).append( "( ($w) (" );
+            }
 
-            result +=
-                OgnlRuntime.getChildSource( context, target, _children[0], conversion ) + " "
-                    + ( conversion ? "), ($w) " : getExpressionOperator( 0 ) ) + " "
-                    + OgnlRuntime.getChildSource( context, target, _children[1], conversion );
+            result.append( OgnlRuntime.getChildSource( context, target, _children[0], conversion ) )
+                    .append( " " );
 
-            result += conversion ? ")" : "";
+            if ( conversion )
+            {
+                result.append( "), ($w) " );
+            }
+            else
+            {
+                result.append( getExpressionOperator( 0 ) );
+            }
+
+            result.append( "" ).append( OgnlRuntime.getChildSource( context, target, _children[1], conversion ) );
+
+            if ( conversion )
+            {
+                result.append( ")" );
+            }
 
             context.setCurrentType( Boolean.TYPE );
 
-            result += ")";
+            result.append( ")" );
 
-            return result;
+            return result.toString();
         }
         catch ( NullPointerException e )
         {
