@@ -133,6 +133,7 @@ public class OgnlException
      * 
      * @return a string representation of this exception
      */
+    @Override
     public String toString()
     {
         if ( _reason == null )
@@ -144,6 +145,7 @@ public class OgnlException
     /**
      * Prints the stack trace for this (and possibly the encapsulated) exception on System.err.
      */
+    @Override
     public void printStackTrace()
     {
         printStackTrace( System.err );
@@ -152,6 +154,7 @@ public class OgnlException
     /**
      * Prints the stack trace for this (and possibly the encapsulated) exception on the given print stream.
      */
+    @Override
     public void printStackTrace( java.io.PrintStream s )
     {
         synchronized ( s )
@@ -169,6 +172,7 @@ public class OgnlException
     /**
      * Prints the stack trace for this (and possibly the encapsulated) exception on the given print writer.
      */
+    @Override
     public void printStackTrace( java.io.PrintWriter s )
     {
         synchronized ( s )
