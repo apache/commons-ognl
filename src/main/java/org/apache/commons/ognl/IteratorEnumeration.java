@@ -28,12 +28,12 @@ import java.util.Iterator;
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
-public class IteratorEnumeration
-    implements Enumeration
+public class IteratorEnumeration<T>
+    implements Enumeration<T>
 {
-    private Iterator it;
+    private Iterator<T> it;
 
-    public IteratorEnumeration( Iterator it )
+    public IteratorEnumeration( Iterator<T> it )
     {
         this.it = it;
     }
@@ -49,7 +49,7 @@ public class IteratorEnumeration
     /**
      * {@inheritDoc}
      */
-    public Object nextElement()
+    public T nextElement()
     {
         return it.next();
     }
