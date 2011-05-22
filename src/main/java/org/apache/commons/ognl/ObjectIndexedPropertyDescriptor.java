@@ -91,9 +91,9 @@ public class ObjectIndexedPropertyDescriptor
 
     private Method indexedWriteMethod;
 
-    private Class propertyType;
+    private Class<?> propertyType;
 
-    public ObjectIndexedPropertyDescriptor( String propertyName, Class propertyType, Method indexedReadMethod,
+    public ObjectIndexedPropertyDescriptor( String propertyName, Class<?> propertyType, Method indexedReadMethod,
                                             Method indexedWriteMethod )
         throws IntrospectionException
     {
@@ -113,7 +113,7 @@ public class ObjectIndexedPropertyDescriptor
         return indexedWriteMethod;
     }
 
-    public Class getPropertyType()
+    public Class<?> getPropertyType()
     {
         return propertyType;
     }
