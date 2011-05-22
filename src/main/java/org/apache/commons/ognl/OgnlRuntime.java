@@ -1726,7 +1726,9 @@ public class OgnlRuntime
                 else
                 {
                     if ( result == NotFound )
+                    {
                         result = null;
+                    }
                 }
             }
         }
