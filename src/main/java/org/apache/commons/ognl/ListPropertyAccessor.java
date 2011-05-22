@@ -151,7 +151,7 @@ public class ListPropertyAccessor
     }
 
     @Override
-    public Class getPropertyClass( OgnlContext context, Object target, Object index )
+    public Class<?> getPropertyClass( OgnlContext context, Object target, Object index )
     {
         if ( index instanceof String )
         {
