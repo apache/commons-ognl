@@ -379,10 +379,10 @@ public abstract class Ognl
      * @throws InappropriateExpressionException if the expression can't be used in this context
      * @throws OgnlException if there is a pathological environmental problem
      */
-    public static Object getValue( Object tree, Map<String, Object> context, Object root )
+    public static <T> T getValue( Object tree, Map<String, Object> context, Object root )
         throws OgnlException
     {
-        return getValue( tree, context, root, null );
+        return Ognl.<T> getValue( tree, context, root, null );
     }
 
     /**
@@ -399,21 +399,21 @@ public abstract class Ognl
      * @throws InappropriateExpressionException if the expression can't be used in this context
      * @throws OgnlException if there is a pathological environmental problem
      */
-    public static Object getValue( Object tree, Map<String, Object> context, Object root, Class resultType )
+    public static <T> T getValue( Object tree, Map<String, Object> context, Object root, Class<T> resultType )
         throws OgnlException
     {
-        Object result;
+        T result;
         OgnlContext ognlContext = (OgnlContext) addDefaultContext( root, context );
 
         Node node = (Node) tree;
 
         if ( node.getAccessor() != null )
         {
-            result = node.getAccessor().get( ognlContext, root );
+            result = (T) node.getAccessor().get( ognlContext, root );
         }
         else
         {
-            result = node.getValue( ognlContext, root );
+            result = (T) node.getValue( ognlContext, root );
         }
 
         if ( resultType != null )
@@ -431,9 +431,9 @@ public abstract class Ognl
      * @param root The object to retrieve the expression value from.
      * @return The value.
      */
-    public static Object getValue( ExpressionAccessor expression, OgnlContext context, Object root )
+    public static <T> T getValue( ExpressionAccessor expression, OgnlContext context, Object root )
     {
-        return expression.get( context, root );
+        return (T) expression.get( context, root );
     }
 
     /**
@@ -446,7 +446,7 @@ public abstract class Ognl
      *            {@link #getTypeConverter(java.util.Map)} .
      * @return The value.
      */
-    public static Object getValue( ExpressionAccessor expression, OgnlContext context, Object root, Class resultType )
+    public static <T> T getValue( ExpressionAccessor expression, OgnlContext context, Object root, Class<T> resultType )
     {
         return getTypeConverter( context ).convertValue( context, root, null, null, expression.get( context, root ),
                                                          resultType );
@@ -466,10 +466,10 @@ public abstract class Ognl
      * @throws InappropriateExpressionException if the expression can't be used in this context
      * @throws OgnlException if there is a pathological environmental problem
      */
-    public static Object getValue( String expression, Map<String, Object> context, Object root )
+    public static <T> T getValue( String expression, Map<String, Object> context, Object root )
         throws OgnlException
     {
-        return getValue( expression, context, root, null );
+        return Ognl.<T> getValue( expression, context, root, null );
     }
 
     /**
@@ -487,10 +487,10 @@ public abstract class Ognl
      * @throws InappropriateExpressionException if the expression can't be used in this context
      * @throws OgnlException if there is a pathological environmental problem
      */
-    public static Object getValue( String expression, Map<String, Object> context, Object root, Class resultType )
+    public static <T> T getValue( String expression, Map<String, Object> context, Object root, Class<T> resultType )
         throws OgnlException
     {
-        return getValue( parseExpression( expression ), context, root, resultType );
+        return Ognl.<T> getValue( parseExpression( expression ), context, root, resultType );
     }
 
     /**
@@ -504,10 +504,10 @@ public abstract class Ognl
      * @throws InappropriateExpressionException if the expression can't be used in this context
      * @throws OgnlException if there is a pathological environmental problem
      */
-    public static Object getValue( Object tree, Object root )
+    public static <T> T getValue( Object tree, Object root )
         throws OgnlException
     {
-        return getValue( tree, root, null );
+        return Ognl.<T> getValue( tree, root, null );
     }
 
     /**
@@ -522,10 +522,10 @@ public abstract class Ognl
      * @throws InappropriateExpressionException if the expression can't be used in this context
      * @throws OgnlException if there is a pathological environmental problem
      */
-    public static Object getValue( Object tree, Object root, Class resultType )
+    public static <T> T getValue( Object tree, Object root, Class<T> resultType )
         throws OgnlException
     {
-        return getValue( tree, createDefaultContext( root ), root, resultType );
+        return Ognl.<T> getValue( tree, createDefaultContext( root ), root, resultType );
     }
 
     /**
@@ -542,10 +542,10 @@ public abstract class Ognl
      * @throws InappropriateExpressionException if the expression can't be used in this context
      * @throws OgnlException if there is a pathological environmental problem
      */
-    public static Object getValue( String expression, Object root )
+    public static <T> T getValue( String expression, Object root )
         throws OgnlException
     {
-        return getValue( expression, root, null );
+        return Ognl.<T> getValue( expression, root, null );
     }
 
     /**
@@ -563,10 +563,10 @@ public abstract class Ognl
      * @throws InappropriateExpressionException if the expression can't be used in this context
      * @throws OgnlException if there is a pathological environmental problem
      */
-    public static Object getValue( String expression, Object root, Class resultType )
+    public static <T> T getValue( String expression, Object root, Class<T> resultType )
         throws OgnlException
     {
-        return getValue( parseExpression( expression ), root, resultType );
+        return Ognl.<T> getValue( parseExpression( expression ), root, resultType );
     }
 
     /**
