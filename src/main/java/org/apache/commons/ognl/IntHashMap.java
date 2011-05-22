@@ -323,16 +323,25 @@ public class IntHashMap
      * =================================================================== Map interface
      * ===================================================================
      */
+    /**
+     * {@inheritDoc}
+     */
     public int size()
     {
         return count;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public boolean isEmpty()
     {
         return count == 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Object get( Object key )
     {
         if ( !( key instanceof Number ) )
@@ -342,6 +351,9 @@ public class IntHashMap
         return get( ( (Number) key ).intValue() );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Object put( Object key, Object value )
     {
         if ( !( key instanceof Number ) )
@@ -351,6 +363,9 @@ public class IntHashMap
         return put( ( (Number) key ).intValue(), value );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void putAll( Map otherMap )
     {
         for ( Iterator it = otherMap.keySet().iterator(); it.hasNext(); )
@@ -361,6 +376,9 @@ public class IntHashMap
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Object remove( Object key )
     {
         if ( !( key instanceof Number ) )
@@ -370,6 +388,9 @@ public class IntHashMap
         return remove( ( (Number) key ).intValue() );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void clear()
     {
         Entry tab[] = table;
@@ -381,6 +402,9 @@ public class IntHashMap
         count = 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public boolean containsKey( Object key )
     {
         if ( !( key instanceof Number ) )
@@ -390,6 +414,9 @@ public class IntHashMap
         return containsKey( ( (Number) key ).intValue() );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public boolean containsValue( Object value )
     {
         Entry tab[] = table;
@@ -411,6 +438,9 @@ public class IntHashMap
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Set keySet()
     {
         Set result = new HashSet();
@@ -422,6 +452,9 @@ public class IntHashMap
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Collection values()
     {
         List result = new ArrayList();
@@ -433,6 +466,9 @@ public class IntHashMap
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Set entrySet()
     {
         throw new UnsupportedOperationException( "entrySet" );
