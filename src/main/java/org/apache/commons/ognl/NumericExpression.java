@@ -111,7 +111,7 @@ public abstract class NumericExpression
         if ( context.getCurrentType() != null && !context.getCurrentType().isPrimitive()
             && context.getCurrentObject() != null && Number.class.isInstance( context.getCurrentObject() ) )
         {
-            ret.append( "((")
+            ret = new StringBuilder( "((")
                 .append( ExpressionCompiler.getCastString( context.getCurrentObject().getClass() ))
                 .append( ")")
                 .append( ret)
@@ -127,13 +127,15 @@ public abstract class NumericExpression
         }
         else if ( context.getCurrentType() != null && String.class.isAssignableFrom( context.getCurrentType() ) )
         {
-            ret.append( "Double.parseDouble(").append( ")" );
+            ret = new StringBuilder( "Double.parseDouble(")
+                .append( ret.toString() )
+                .append( ")" );
             context.setCurrentType( Double.TYPE );
         }
 
         if ( NumericExpression.class.isInstance( child ) )
         {
-            ret.append( "(" ).append( ret ).append( ")" );
+            ret = new StringBuilder( "(" ).append( ret ).append( ")" );
         }
 
         return ret.toString();
