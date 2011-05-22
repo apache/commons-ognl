@@ -408,9 +408,13 @@ public abstract class Ognl
         Node node = (Node) tree;
 
         if ( node.getAccessor() != null )
+        {
             result = node.getAccessor().get( ognlContext, root );
+        }
         else
+        {
             result = node.getValue( ognlContext, root );
+        }
 
         if ( resultType != null )
         {
