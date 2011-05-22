@@ -32,7 +32,7 @@ import java.util.Map;
 public class DefaultClassResolver
     implements ClassResolver
 {
-    private Map<String, Class<?>> classes = new HashMap<String, Class<?>>( 101 );
+    private final Map<String, Class<?>> classes = new HashMap<String, Class<?>>( 101 );
 
     /**
      * {@inheritDoc}
