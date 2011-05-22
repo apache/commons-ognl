@@ -178,7 +178,7 @@ public class ObjectPropertyAccessor
         }
     }
 
-    public Class getPropertyClass( OgnlContext context, Object target, Object index )
+    public Class<?> getPropertyClass( OgnlContext context, Object target, Object index )
     {
         try
         {
@@ -292,7 +292,7 @@ public class ObjectPropertyAccessor
                 throw new UnsupportedCompilationException( "Unable to determine setting expression on "
                     + context.getCurrentObject() + " with index of " + index );
 
-            Class parm = m.getParameterTypes()[0];
+            Class<?> parm = m.getParameterTypes()[0];
             String conversion;
 
             if ( m.getParameterTypes().length > 1 )
@@ -301,7 +301,7 @@ public class ObjectPropertyAccessor
 
             if ( parm.isPrimitive() )
             {
-                Class wrapClass = OgnlRuntime.getPrimitiveWrapperClass( parm );
+                Class<?> wrapClass = OgnlRuntime.getPrimitiveWrapperClass( parm );
                 conversion =
                     OgnlRuntime.getCompiler().createLocalReference( context,
                                                                     "(("
