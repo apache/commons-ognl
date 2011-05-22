@@ -186,7 +186,7 @@ public class OgnlRuntime
 
     static final ObjectArrayPool _objectArrayPool = new ObjectArrayPool();
 
-    static final IntHashMap _methodAccessCache = new IntHashMap();
+    static final IntHashMap<Integer, Boolean> _methodAccessCache = new IntHashMap<Integer, Boolean>();
 
     static final IntHashMap _methodPermCache = new IntHashMap();
 
