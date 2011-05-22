@@ -160,24 +160,15 @@ public class ListPropertyAccessor
             {
                 return int.class;
             }
-            else
+            if ( key.equals( "iterator" ) )
             {
-                if ( key.equals( "iterator" ) )
-                {
-                    return Iterator.class;
-                }
-                else
-                {
-                    if ( key.equals( "isEmpty" ) || key.equals( "empty" ) )
-                    {
-                        return boolean.class;
-                    }
-                    else
-                    {
-                        return super.getPropertyClass( context, target, index );
-                    }
-                }
+                return Iterator.class;
             }
+            if ( key.equals( "isEmpty" ) || key.equals( "empty" ) )
+            {
+                return boolean.class;
+            }
+            return super.getPropertyClass( context, target, index );
         }
 
         if ( index instanceof Number )
@@ -199,23 +190,17 @@ public class ListPropertyAccessor
                 context.setCurrentType( int.class );
                 return ".size()";
             }
-            else
+            if ( indexStr.equals( "iterator" ) )
             {
-                if ( indexStr.equals( "iterator" ) )
-                {
-                    context.setCurrentAccessor( List.class );
-                    context.setCurrentType( Iterator.class );
-                    return ".iterator()";
-                }
-                else
-                {
-                    if ( indexStr.equals( "isEmpty" ) || indexStr.equals( "empty" ) )
-                    {
-                        context.setCurrentAccessor( List.class );
-                        context.setCurrentType( boolean.class );
-                        return ".isEmpty()";
-                    }
-                }
+                context.setCurrentAccessor( List.class );
+                context.setCurrentType( Iterator.class );
+                return ".iterator()";
+            }
+            if ( indexStr.equals( "isEmpty" ) || indexStr.equals( "empty" ) )
+            {
+                context.setCurrentAccessor( List.class );
+                context.setCurrentType( boolean.class );
+                return ".isEmpty()";
             }
         }
 
