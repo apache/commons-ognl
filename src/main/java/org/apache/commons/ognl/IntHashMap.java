@@ -113,7 +113,7 @@ public class IntHashMap
                 Entry e = entry;
 
                 entry = e.next;
-                return keys ? Integer.valueOf( e.key ) : e.value;
+                return keys ? Integer.valueOf( e.getKey() ) : e.getValue();
             }
             throw new NoSuchElementException( "IntHashMapIterator" );
         }
@@ -128,21 +128,54 @@ public class IntHashMap
      * =================================================================== Public static classes
      * ===================================================================
      */
-    public static class Entry
-        extends Object
+    public static class Entry<T>
     {
-        int hash;
 
-        int key;
+        private final int hash;
 
-        Object value;
+        private final int key;
 
-        Entry next;
+        private T value;
 
-        public Entry()
+        private Entry<?> next;
+
+        public Entry( int hash, int key, T value )
         {
-            super();
+            this.hash = hash;
+            this.key = key;
+            this.value = value;
         }
+
+        public T getValue()
+        {
+            return value;
+        }
+
+        public void setValue( T value )
+        {
+            this.value = value;
+        }
+
+        public Entry<?> getNext()
+        {
+            return next;
+        }
+
+        public void setNext( Entry<?> next )
+        {
+            this.next = next;
+        }
+
+        public int getHash()
+        {
+            return hash;
+        }
+
+        public int getKey()
+        {
+            return key;
+        }
+
     }
 
     /*
@@ -189,7 +222,7 @@ public class IntHashMap
             for ( Entry old = oldTable[i]; old != null; )
             {
                 Entry e = old;
-                int index = ( e.hash & 0x7FFFFFFF ) % newCapacity;
+                int index = ( e.getHash() & 0x7FFFFFFF ) % newCapacity;
 
                 old = old.next;
                 e.next = newTable[index];
@@ -208,7 +241,7 @@ public class IntHashMap
 
         for ( Entry e = table[index]; e != null; e = e.next )
         {
-            if ( ( e.hash == key ) && ( e.key == key ) )
+            if ( ( e.getHash() == key ) && ( e.getKey() == key ) )
             {
                 return true;
             }
@@ -222,9 +255,9 @@ public class IntHashMap
 
         for ( Entry e = table[index]; e != null; e = e.next )
         {
-            if ( ( e.hash == key ) && ( e.key == key ) )
+            if ( ( e.getHash() == key ) && ( e.getKey() == key ) )
             {
-                return e.value;
+                return e.getValue();
             }
         }
         return null;
@@ -240,11 +273,11 @@ public class IntHashMap
         }
         for ( Entry e = table[index]; e != null; e = e.next )
         {
-            if ( ( e.hash == key ) && ( e.key == key ) )
+            if ( ( e.getHash() == key ) && ( e.getKey() == key ) )
             {
-                Object old = e.value;
+                Object old = e.getValue();
 
-                e.value = value;
+                e.setValue( value );
                 return old;
             }
         }
@@ -256,12 +289,9 @@ public class IntHashMap
             return put( key, value );
         }
 
-        Entry e = new Entry();
+        Entry e = new Entry( key, key, value );
 
-        e.hash = key;
-        e.key = key;
-        e.value = value;
-        e.next = table[index];
+        e.setNext( table[index] );
         table[index] = e;
         ++count;
         return null;
@@ -273,7 +303,7 @@ public class IntHashMap
 
         for ( Entry e = table[index], prev = null; e != null; prev = e, e = e.next )
         {
-            if ( ( e.hash == key ) && ( e.key == key ) )
+            if ( ( e.getHash() == key ) && ( e.getKey() == key ) )
             {
                 if ( prev != null )
                 {
@@ -284,7 +314,7 @@ public class IntHashMap
                     table[index] = e.next;
                 }
                 --count;
-                return e.value;
+                return e.getValue();
             }
         }
         return null;
@@ -373,7 +403,7 @@ public class IntHashMap
         {
             for ( Entry e = tab[i]; e != null; e = e.next )
             {
-                if ( e.value.equals( value ) )
+                if ( e.getValue().equals( value ) )
                 {
                     return true;
                 }
