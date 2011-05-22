@@ -40,12 +40,15 @@ public class DefaultClassResolver
         super();
     }
 
-    public Class classForName( String className, Map<String, Object> context )
+    /**
+     * {@inheritDoc}
+     */
+    public Class<?> classForName( String className, Map<String, Object> context )
         throws ClassNotFoundException
     {
-        Class result = null;
+        Class<?> result = null;
 
-        if ( ( result = (Class) classes.get( className ) ) == null )
+        if ( ( result = (Class<?>) classes.get( className ) ) == null )
         {
             try
             {
