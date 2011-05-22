@@ -32,6 +32,8 @@ public abstract class SimpleNode
     implements Node, Serializable
 {
 
+    private static final long serialVersionUID = 8305393337889433901L;
+
     protected Node _parent;
 
     protected Node[] _children;
