@@ -183,7 +183,9 @@ public abstract class OgnlOps
     public static boolean booleanValue( Object value )
     {
         if ( value == null )
+        {
             return false;
+        }
         Class c = value.getClass();
 
         if ( c == Boolean.class )
@@ -193,9 +195,13 @@ public abstract class OgnlOps
         // return ((String)value).length() > 0;
 
         if ( c == Character.class )
+        {
             return (Character) value != 0;
+        }
         if ( value instanceof Number )
+        {
             return ( (Number) value ).doubleValue() != 0;
+        }
 
         return true; // non-null
     }
@@ -211,14 +217,22 @@ public abstract class OgnlOps
         throws NumberFormatException
     {
         if ( value == null )
+        {
             return 0L;
+        }
         Class c = value.getClass();
         if ( c.getSuperclass() == Number.class )
+        {
             return ( (Number) value ).longValue();
+        }
         if ( c == Boolean.class )
+        {
             return (Boolean) value ? 1 : 0;
+        }
         if ( c == Character.class )
+        {
             return (Character) value;
+        }
         return Long.parseLong( stringValue( value, true ) );
     }
 
@@ -233,14 +247,22 @@ public abstract class OgnlOps
         throws NumberFormatException
     {
         if ( value == null )
+        {
             return 0.0;
+        }
         Class c = value.getClass();
         if ( c.getSuperclass() == Number.class )
+        {
             return ( (Number) value ).doubleValue();
+        }
         if ( c == Boolean.class )
+        {
             return (Boolean) value ? 1 : 0;
+        }
         if ( c == Character.class )
+        {
             return (Character) value;
+        }
         String s = stringValue( value, true );
 
         return ( s.length() == 0 ) ? 0.0 : Double.parseDouble( s );
@@ -257,18 +279,30 @@ public abstract class OgnlOps
         throws NumberFormatException
     {
         if ( value == null )
+        {
             return BigInteger.valueOf( 0L );
+        }
         Class c = value.getClass();
         if ( c == BigInteger.class )
+        {
             return (BigInteger) value;
+        }
         if ( c == BigDecimal.class )
+        {
             return ( (BigDecimal) value ).toBigInteger();
+        }
         if ( c.getSuperclass() == Number.class )
+        {
             return BigInteger.valueOf( ( (Number) value ).longValue() );
+        }
         if ( c == Boolean.class )
+        {
             return BigInteger.valueOf( (Boolean) value ? 1 : 0 );
+        }
         if ( c == Character.class )
+        {
             return BigInteger.valueOf( (Character) value );
+        }
         return new BigInteger( stringValue( value, true ) );
     }
 
@@ -283,16 +317,26 @@ public abstract class OgnlOps
         throws NumberFormatException
     {
         if ( value == null )
+        {
             return BigDecimal.valueOf( 0L );
+        }
         Class c = value.getClass();
         if ( c == BigDecimal.class )
+        {
             return (BigDecimal) value;
+        }
         if ( c == BigInteger.class )
+        {
             return new BigDecimal( (BigInteger) value );
+        }
         if ( c == Boolean.class )
+        {
             return BigDecimal.valueOf( (Boolean) value ? 1 : 0 );
+        }
         if ( c == Character.class )
+        {
             return BigDecimal.valueOf( ( (Character) value ).charValue() );
+        }
         return new BigDecimal( stringValue( value, true ) );
     }
 
@@ -346,25 +390,45 @@ public abstract class OgnlOps
         {
             Class c = value.getClass();
             if ( c == Integer.class )
+            {
                 return INT;
+            }
             if ( c == Double.class )
+            {
                 return DOUBLE;
+            }
             if ( c == Boolean.class )
+            {
                 return BOOL;
+            }
             if ( c == Byte.class )
+            {
                 return BYTE;
+            }
             if ( c == Character.class )
+            {
                 return CHAR;
+            }
             if ( c == Short.class )
+            {
                 return SHORT;
+            }
             if ( c == Long.class )
+            {
                 return LONG;
+            }
             if ( c == Float.class )
+            {
                 return FLOAT;
+            }
             if ( c == BigInteger.class )
+            {
                 return BIGINT;
+            }
             if ( c == BigDecimal.class )
+            {
                 return BIGDEC;
+            }
         }
         return NONNUMERIC;
     }
@@ -539,13 +603,17 @@ public abstract class OgnlOps
         Object result = null;
 
         if ( value.getClass().isArray() && toType.isAssignableFrom( value.getClass().getComponentType() ) )
+        {
             return value;
+        }
 
         if ( !value.getClass().isArray() )
         {
 
             if ( toType == Character.TYPE )
+            {
                 return stringValue( value ).toCharArray();
+            }
 
             Object arr = Array.newInstance( toType, 1 );
             Array.set( arr, 0, convertValue( value, toType, preventNulls ) );
@@ -560,7 +628,9 @@ public abstract class OgnlOps
         }
 
         if ( result == null && preventNulls )
+        {
             return value;
+        }
 
         return result;
     }
@@ -570,7 +640,9 @@ public abstract class OgnlOps
         Object result = null;
 
         if ( value != null && toType.isAssignableFrom( value.getClass() ) )
+        {
             return value;
+        }
 
         if ( value != null )
         {
@@ -610,25 +682,45 @@ public abstract class OgnlOps
                     result = (int) longValue( value );
                 }
                 if ( ( toType == Double.class ) || ( toType == Double.TYPE ) )
+                {
                     result = doubleValue( value );
+                }
                 if ( ( toType == Boolean.class ) || ( toType == Boolean.TYPE ) )
+                {
                     result = booleanValue( value ) ? Boolean.TRUE : Boolean.FALSE;
+                }
                 if ( ( toType == Byte.class ) || ( toType == Byte.TYPE ) )
+                {
                     result = (byte) longValue( value );
+                }
                 if ( ( toType == Character.class ) || ( toType == Character.TYPE ) )
+                {
                     result = (char) longValue( value );
+                }
                 if ( ( toType == Short.class ) || ( toType == Short.TYPE ) )
+                {
                     result = (short) longValue( value );
+                }
                 if ( ( toType == Long.class ) || ( toType == Long.TYPE ) )
+                {
                     result = longValue( value );
+                }
                 if ( ( toType == Float.class ) || ( toType == Float.TYPE ) )
+                {
                     result = new Float( doubleValue( value ) );
+                }
                 if ( toType == BigInteger.class )
+                {
                     result = bigIntValue( value );
+                }
                 if ( toType == BigDecimal.class )
+                {
                     result = bigDecValue( value );
+                }
                 if ( toType == String.class )
+                {
                     result = stringValue( value );
+                }
             }
         }
         else
@@ -648,7 +740,9 @@ public abstract class OgnlOps
         }
 
         if ( result == null && preventNulls )
+        {
             return value;
+        }
 
         if ( value != null && result == null )
         {
@@ -676,7 +770,9 @@ public abstract class OgnlOps
         try
         {
             if ( value == null )
+            {
                 return -1;
+            }
 
             if ( Number.class.isInstance( value ) )
             {
@@ -719,36 +815,56 @@ public abstract class OgnlOps
     public static int getNumericType( int t1, int t2, boolean canBeNonNumeric )
     {
         if ( t1 == t2 )
+        {
             return t1;
+        }
 
         if ( canBeNonNumeric && ( t1 == NONNUMERIC || t2 == NONNUMERIC || t1 == CHAR || t2 == CHAR ) )
+        {
             return NONNUMERIC;
+        }
 
         if ( t1 == NONNUMERIC )
+        {
             t1 = DOUBLE; // Try to interpret strings as doubles...
+        }
         if ( t2 == NONNUMERIC )
+        {
             t2 = DOUBLE; // Try to interpret strings as doubles...
+        }
 
         if ( t1 >= MIN_REAL_TYPE )
         {
             if ( t2 >= MIN_REAL_TYPE )
+            {
                 return Math.max( t1, t2 );
+            }
             if ( t2 < INT )
+            {
                 return t1;
+            }
             if ( t2 == BIGINT )
+            {
                 return BIGDEC;
+            }
             return Math.max( DOUBLE, t1 );
         }
         else if ( t2 >= MIN_REAL_TYPE )
         {
             if ( t1 < INT )
+            {
                 return t2;
+            }
             if ( t1 == BIGINT )
+            {
                 return BIGDEC;
+            }
             return Math.max( DOUBLE, t2 );
         }
         else
+        {
             return Math.max( t1, t2 );
+        }
     }
 
     /**
@@ -820,7 +936,9 @@ public abstract class OgnlOps
     public static Number newReal( int type, double value )
     {
         if ( type == FLOAT )
+        {
             return (float) value;
+        }
         return value;
     }
 
@@ -828,7 +946,9 @@ public abstract class OgnlOps
     {
         int type = getNumericType( v1, v2 );
         if ( type == BIGINT || type == BIGDEC )
+        {
             return bigIntValue( v1 ).or( bigIntValue( v2 ) );
+        }
         return newInteger( type, longValue( v1 ) | longValue( v2 ) );
     }
 
@@ -836,7 +956,9 @@ public abstract class OgnlOps
     {
         int type = getNumericType( v1, v2 );
         if ( type == BIGINT || type == BIGDEC )
+        {
             return bigIntValue( v1 ).xor( bigIntValue( v2 ) );
+        }
         return newInteger( type, longValue( v1 ) ^ longValue( v2 ) );
     }
 
@@ -844,18 +966,26 @@ public abstract class OgnlOps
     {
         int type = getNumericType( v1, v2 );
         if ( type == BIGINT || type == BIGDEC )
+        {
             return bigIntValue( v1 ).and( bigIntValue( v2 ) );
+        }
         return newInteger( type, longValue( v1 ) & longValue( v2 ) );
     }
 
     public static boolean equal( Object v1, Object v2 )
     {
         if ( v1 == null )
+        {
             return v2 == null;
+        }
         if ( v1 == v2 || isEqual( v1, v2 ) )
+        {
             return true;
+        }
         if ( v1 instanceof Number && v2 instanceof Number )
+        {
             return ( (Number) v1 ).doubleValue() == ( (Number) v2 ).doubleValue();
+        }
         return false;
     }
 
@@ -897,7 +1027,9 @@ public abstract class OgnlOps
     {
         int type = getNumericType( v1 );
         if ( type == BIGINT || type == BIGDEC )
+        {
             return bigIntValue( v1 ).shiftLeft( (int) longValue( v2 ) );
+        }
         return newInteger( type, longValue( v1 ) << (int) longValue( v2 ) );
     }
 
@@ -905,7 +1037,9 @@ public abstract class OgnlOps
     {
         int type = getNumericType( v1 );
         if ( type == BIGINT || type == BIGDEC )
+        {
             return bigIntValue( v1 ).shiftRight( (int) longValue( v2 ) );
+        }
         return newInteger( type, longValue( v1 ) >> (int) longValue( v2 ) );
     }
 
@@ -913,9 +1047,13 @@ public abstract class OgnlOps
     {
         int type = getNumericType( v1 );
         if ( type == BIGINT || type == BIGDEC )
+        {
             return bigIntValue( v1 ).shiftRight( (int) longValue( v2 ) );
+        }
         if ( type <= INT )
+        {
             return newInteger( INT, ( (int) longValue( v1 ) ) >>> (int) longValue( v2 ) );
+        }
         return newInteger( type, longValue( v1 ) >>> (int) longValue( v2 ) );
     }
 
@@ -1134,10 +1272,14 @@ public abstract class OgnlOps
     public static RuntimeException castToRuntime( Throwable t )
     {
         if ( RuntimeException.class.isInstance( t ) )
+        {
             return (RuntimeException) t;
+        }
 
         if ( OgnlException.class.isInstance( t ) )
+        {
             throw new UnsupportedCompilationException( "Error evluating expression: " + t.getMessage(), t );
+        }
 
         return new RuntimeException( t );
     }
