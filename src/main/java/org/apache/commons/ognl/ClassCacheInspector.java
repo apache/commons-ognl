@@ -32,5 +32,5 @@ public interface ClassCacheInspector
      * @param type The class that is to be stored.
      * @return True if the class can be cached, false otherwise.
      */
-    boolean shouldCache( Class type );
+    boolean shouldCache( Class<?> type );
 }

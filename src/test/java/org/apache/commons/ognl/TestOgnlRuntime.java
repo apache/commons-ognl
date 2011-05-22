@@ -254,7 +254,7 @@ public class TestOgnlRuntime
         implements ClassCacheInspector
     {
 
-        public boolean shouldCache( Class type )
+        public boolean shouldCache( Class<?> type )
         {
             if ( type == null || type == Root.class )
                 return false;
