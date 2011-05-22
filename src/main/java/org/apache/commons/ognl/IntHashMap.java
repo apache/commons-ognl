@@ -63,13 +63,13 @@ public class IntHashMap<K extends Number, V>
     private class IntHashMapIterator<T>
         implements Iterator<T>
     {
-        boolean keys;
+        private final boolean keys;
 
-        int index;
+        private int index;
 
-        Entry table[];
+        private final Entry table[];
 
-        Entry entry;
+        private Entry entry;
 
         IntHashMapIterator( Entry table[], boolean keys )
         {
