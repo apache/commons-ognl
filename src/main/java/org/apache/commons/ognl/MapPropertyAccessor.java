@@ -103,7 +103,7 @@ public class MapPropertyAccessor
 
     public String getSourceAccessor( OgnlContext context, Object target, Object index )
     {
-        Node currentNode = ( (OgnlContext) context ).getCurrentNode().jjtGetParent();
+        Node currentNode = context.getCurrentNode().jjtGetParent();
         boolean indexedAccess = false;
 
         if ( currentNode == null )
