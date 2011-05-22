@@ -28,6 +28,9 @@ import org.apache.commons.ognl.enhance.ExpressionCompiler;
 public abstract class ExpressionNode
     extends SimpleNode
 {
+
+    private static final long serialVersionUID = 9076228016268317598L;
+
     public ExpressionNode( int i )
     {
         super( i );
