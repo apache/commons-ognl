@@ -28,6 +28,9 @@ package org.apache.commons.ognl;
 public class NoSuchPropertyException
     extends OgnlException
 {
+
+    private static final long serialVersionUID = 2228428181127177178L;
+
     private Object target;
 
     private Object name;
