@@ -2819,12 +2819,12 @@ public class OgnlRuntime
         return null;
     }
 
-    public static Method getWriteMethod( Class target, String name )
+    public static Method getWriteMethod( Class<?> target, String name )
     {
         return getWriteMethod( target, name, -1 );
     }
 
-    public static Method getWriteMethod( Class target, String name, int numParms )
+    public static Method getWriteMethod( Class<?> target, String name, int numParms )
     {
         try
         {
