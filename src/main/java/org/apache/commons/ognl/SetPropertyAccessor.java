@@ -37,7 +37,7 @@ public class SetPropertyAccessor
     public Object getProperty( Map<String, Object> context, Object target, Object name )
         throws OgnlException
     {
-        Set set = (Set) target;
+        Set<?> set = (Set<?>) target; // check performed by the invoker
 
         if ( name instanceof String )
         {
