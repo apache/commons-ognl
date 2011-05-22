@@ -60,8 +60,8 @@ public class IntHashMap<K extends Number, V>
      * =================================================================== Private static classes
      * ===================================================================
      */
-    private class IntHashMapIterator
-        implements Iterator
+    private class IntHashMapIterator<T>
+        implements Iterator<T>
     {
         boolean keys;
 
@@ -99,7 +99,7 @@ public class IntHashMap<K extends Number, V>
             return false;
         }
 
-        public Object next()
+        public T next()
         {
             if ( entry == null )
             {
@@ -113,7 +113,9 @@ public class IntHashMap<K extends Number, V>
                 Entry e = entry;
 
                 entry = e.getNext();
-                return keys ? Integer.valueOf( e.getKey() ) : e.getValue();
+                @SuppressWarnings( "unchecked" ) // used internally, will return only K or V
+                T returned = (T) ( keys ? Integer.valueOf( e.getKey() ) : e.getValue() );
+                return returned;
             }
             throw new NoSuchElementException( "IntHashMapIterator" );
         }
@@ -448,7 +450,7 @@ public class IntHashMap<K extends Number, V>
     {
         Set<K> result = new HashSet<K>();
 
-        for ( Iterator<K> it = new IntHashMapIterator( table, true ); it.hasNext(); )
+        for ( Iterator<K> it = new IntHashMapIterator<K>( table, true ); it.hasNext(); )
         {
             result.add( it.next() );
         }
@@ -462,7 +464,7 @@ public class IntHashMap<K extends Number, V>
     {
         List<V> result = new ArrayList<V>();
 
-        for ( Iterator<V> it = new IntHashMapIterator( table, false ); it.hasNext(); )
+        for ( Iterator<V> it = new IntHashMapIterator<V>( table, false ); it.hasNext(); )
         {
             result.add( it.next() );
         }
