@@ -81,11 +81,8 @@ public abstract class OgnlOps
                             result = ( (Comparable) v1 ).compareTo( v2 );
                             break;
                         }
-                        else
-                        {
-                            throw new IllegalArgumentException( "invalid comparison: " + v1.getClass().getName()
-                                + " and " + v2.getClass().getName() );
-                        }
+                        throw new IllegalArgumentException( "invalid comparison: " + v1.getClass().getName()
+                            + " and " + v2.getClass().getName() );
                     }
                     // else fall through
                 case FLOAT:
