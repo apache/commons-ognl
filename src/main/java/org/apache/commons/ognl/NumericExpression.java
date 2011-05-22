@@ -97,7 +97,7 @@ public abstract class NumericExpression
 
     public String coerceToNumeric( String source, OgnlContext context, Node child )
     {
-        String ret = source;
+        StringBuilder ret = new StringBuilder( source );
         Object value = context.getCurrentObject();
 
         if ( ASTConst.class.isInstance( child ) && value != null )
@@ -108,23 +108,29 @@ public abstract class NumericExpression
         if ( context.getCurrentType() != null && !context.getCurrentType().isPrimitive()
             && context.getCurrentObject() != null && Number.class.isInstance( context.getCurrentObject() ) )
         {
-            ret = "((" + ExpressionCompiler.getCastString( context.getCurrentObject().getClass() ) + ")" + ret + ")";
-            ret += "." + OgnlRuntime.getNumericValueGetter( context.getCurrentObject().getClass() );
+            ret.append( "((")
+                .append( ExpressionCompiler.getCastString( context.getCurrentObject().getClass() ))
+                .append( ")")
+                .append( ret)
+                .append( ").")
+                .append( OgnlRuntime.getNumericValueGetter( context.getCurrentObject().getClass() ) );
         }
         else if ( context.getCurrentType() != null && context.getCurrentType().isPrimitive()
             && ( ASTConst.class.isInstance( child ) || NumericExpression.class.isInstance( child ) ) )
         {
-            ret += OgnlRuntime.getNumericLiteral( (Class<? extends Number>) context.getCurrentType() );
+            ret.append( OgnlRuntime.getNumericLiteral( (Class<? extends Number>) context.getCurrentType() ) );
         }
         else if ( context.getCurrentType() != null && String.class.isAssignableFrom( context.getCurrentType() ) )
         {
-            ret = "Double.parseDouble(" + ret + ")";
+            ret.append( "Double.parseDouble(").append( ")" );
             context.setCurrentType( Double.TYPE );
         }
 
         if ( NumericExpression.class.isInstance( child ) )
-            ret = "(" + ret + ")";
+        {
+            ret.append( "(" ).append( ret ).append( ")" );
+        }
 
-        return ret;
+        return ret.toString();
     }
 }
