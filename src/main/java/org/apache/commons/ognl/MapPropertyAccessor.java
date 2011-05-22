@@ -37,7 +37,8 @@ public class MapPropertyAccessor
         throws OgnlException
     {
         Object result;
-        Map map = (Map) target;
+        @SuppressWarnings( "unchecked" ) // checked by the invoker
+        Map<Object, Object> map = (Map<Object, Object>) target;
         Node currentNode = ( (OgnlContext) context ).getCurrentNode().jjtGetParent();
         boolean indexedAccess = false;
 
@@ -97,7 +98,8 @@ public class MapPropertyAccessor
     public void setProperty( Map<String, Object> context, Object target, Object name, Object value )
         throws OgnlException
     {
-        Map map = (Map) target;
+        @SuppressWarnings( "unchecked" ) // checked by the invoker
+        Map<Object, Object> map = (Map<Object, Object>) target;
         map.put( name, value );
     }
 
