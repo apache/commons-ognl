@@ -41,7 +41,7 @@ public class ListPropertyAccessor
     public Object getProperty( Map<String, Object> context, Object target, Object name )
         throws OgnlException
     {
-        List list = (List) target;
+        List<?> list = (List<?>) target;
 
         if ( name instanceof String )
         {
@@ -105,7 +105,8 @@ public class ListPropertyAccessor
             return;
         }
 
-        List list = (List) target;
+        @SuppressWarnings( "unchecked" ) // check performed by the invoker
+        List<Object> list = (List<Object>) target;
 
         if ( name instanceof Number )
         {
@@ -141,7 +142,7 @@ public class ListPropertyAccessor
                     if ( !( value instanceof Collection ) )
                         throw new OgnlException( "Value must be a collection" );
                     list.clear();
-                    list.addAll( (Collection) value );
+                    list.addAll( (Collection<?>) value );
                     return;
                 }
             }
