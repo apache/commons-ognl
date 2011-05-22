@@ -24,7 +24,6 @@ package org.apache.commons.ognl;
  * take extract its value. It refers to child evaluations that occur as a result of the nodes' evaluation.
  */
 public class Evaluation
-    extends Object
 {
     private SimpleNode node;
 
