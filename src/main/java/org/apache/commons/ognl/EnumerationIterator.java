@@ -32,7 +32,7 @@ public class EnumerationIterator<E>
     implements Iterator<E>
 {
 
-    private Enumeration<E> e;
+    private final Enumeration<E> e;
 
     public EnumerationIterator( Enumeration<E> e )
     {
