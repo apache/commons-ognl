@@ -132,7 +132,7 @@ public abstract class Ognl
      * @param root the root of the object graph
      * @return a new Map with the keys <CODE>root</CODE> and <CODE>context</CODE> set appropriately
      */
-    public static Map createDefaultContext( Object root )
+    public static Map<String, Object> createDefaultContext( Object root )
     {
         return addDefaultContext( root, null, null, null, new OgnlContext() );
     }
@@ -144,7 +144,7 @@ public abstract class Ognl
      * @param classResolver The resolver used to instantiate {@link Class} instances referenced in the expression.
      * @return a new OgnlContext with the keys <CODE>root</CODE> and <CODE>context</CODE> set appropriately
      */
-    public static Map createDefaultContext( Object root, ClassResolver classResolver )
+    public static Map<String, Object> createDefaultContext( Object root, ClassResolver classResolver )
     {
         return addDefaultContext( root, classResolver, null, null, new OgnlContext() );
     }
@@ -157,7 +157,7 @@ public abstract class Ognl
      * @param converter Converter used to convert return types of an expression in to their desired types.
      * @return a new Map with the keys <CODE>root</CODE> and <CODE>context</CODE> set appropriately
      */
-    public static Map createDefaultContext( Object root, ClassResolver classResolver, TypeConverter converter )
+    public static Map<String, Object> createDefaultContext( Object root, ClassResolver classResolver, TypeConverter converter )
     {
         return addDefaultContext( root, classResolver, converter, null, new OgnlContext() );
     }
@@ -172,7 +172,7 @@ public abstract class Ognl
      *            methods / fields.
      * @return a new Map with the keys <CODE>root</CODE> and <CODE>context</CODE> set appropriately
      */
-    public static Map createDefaultContext( Object root, ClassResolver classResolver, TypeConverter converter,
+    public static Map<String, Object> createDefaultContext( Object root, ClassResolver classResolver, TypeConverter converter,
                                             MemberAccess memberAccess )
     {
         return addDefaultContext( root, classResolver, converter, memberAccess, new OgnlContext() );
@@ -186,7 +186,7 @@ public abstract class Ognl
      * @param context the context to which OGNL context will be added.
      * @return Context Map with the keys <CODE>root</CODE> and <CODE>context</CODE> set appropriately
      */
-    public static Map addDefaultContext( Object root, Map context )
+    public static Map<String, Object> addDefaultContext( Object root, Map<String, Object> context )
     {
         return addDefaultContext( root, null, null, null, context );
     }
@@ -200,7 +200,7 @@ public abstract class Ognl
      * @param context The context to which OGNL context will be added.
      * @return Context Map with the keys <CODE>root</CODE> and <CODE>context</CODE> set appropriately
      */
-    public static Map addDefaultContext( Object root, ClassResolver classResolver, Map context )
+    public static Map<String, Object> addDefaultContext( Object root, ClassResolver classResolver, Map<String, Object> context )
     {
         return addDefaultContext( root, classResolver, null, null, context );
     }
@@ -215,7 +215,7 @@ public abstract class Ognl
      * @param context The context to which OGNL context will be added.
      * @return Context Map with the keys <CODE>root</CODE> and <CODE>context</CODE> set appropriately
      */
-    public static Map addDefaultContext( Object root, ClassResolver classResolver, TypeConverter converter, Map context )
+    public static Map<String, Object> addDefaultContext( Object root, ClassResolver classResolver, TypeConverter converter, Map<String, Object> context )
     {
         return addDefaultContext( root, classResolver, converter, null, context );
     }
@@ -232,8 +232,8 @@ public abstract class Ognl
      *            {@link OgnlContext} object.
      * @return Context Map with the keys <CODE>root</CODE> and <CODE>context</CODE> set appropriately
      */
-    public static Map addDefaultContext( Object root, ClassResolver classResolver, TypeConverter converter,
-                                         MemberAccess memberAccess, Map context )
+    public static Map<String, Object> addDefaultContext( Object root, ClassResolver classResolver, TypeConverter converter,
+                                         MemberAccess memberAccess, Map<String, Object> context )
     {
         OgnlContext result;
 
@@ -270,7 +270,7 @@ public abstract class Ognl
      * @param context The context to place the resolver.
      * @param classResolver The resolver to use to resolve classes.
      */
-    public static void setClassResolver( Map context, ClassResolver classResolver )
+    public static void setClassResolver( Map<String, Object> context, ClassResolver classResolver )
     {
         context.put( OgnlContext.CLASS_RESOLVER_CONTEXT_KEY, classResolver );
     }
@@ -281,7 +281,7 @@ public abstract class Ognl
      * @param context The context to get the configured resolver from.
      * @return The resolver instance, or null if none found.
      */
-    public static ClassResolver getClassResolver( Map context )
+    public static ClassResolver getClassResolver( Map<String, Object> context )
     {
         return (ClassResolver) context.get( OgnlContext.CLASS_RESOLVER_CONTEXT_KEY );
     }
@@ -293,7 +293,7 @@ public abstract class Ognl
      * @param context The context to configure it for.
      * @param converter The converter to use.
      */
-    public static void setTypeConverter( Map context, TypeConverter converter )
+    public static void setTypeConverter( Map<String, Object> context, TypeConverter converter )
     {
         context.put( OgnlContext.TYPE_CONVERTER_CONTEXT_KEY, converter );
     }
@@ -304,7 +304,7 @@ public abstract class Ognl
      * @param context The context to get the converter from.
      * @return The converter - or null if none found.
      */
-    public static TypeConverter getTypeConverter( Map context )
+    public static TypeConverter getTypeConverter( Map<String, Object> context )
     {
         return (TypeConverter) context.get( OgnlContext.TYPE_CONVERTER_CONTEXT_KEY );
     }
@@ -316,7 +316,7 @@ public abstract class Ognl
      * @param context The context to configure.
      * @param memberAccess The access resolver to configure the context with.
      */
-    public static void setMemberAccess( Map context, MemberAccess memberAccess )
+    public static void setMemberAccess( Map<String, Object> context, MemberAccess memberAccess )
     {
         context.put( OgnlContext.MEMBER_ACCESS_CONTEXT_KEY, memberAccess );
     }
@@ -327,7 +327,7 @@ public abstract class Ognl
      * @param context The context to get the object from.
      * @return The configured {@link MemberAccess} instance in the specified context - or null if none found.
      */
-    public static MemberAccess getMemberAccess( Map context )
+    public static MemberAccess getMemberAccess( Map<String, Object> context )
     {
         return (MemberAccess) context.get( OgnlContext.MEMBER_ACCESS_CONTEXT_KEY );
     }
@@ -339,7 +339,7 @@ public abstract class Ognl
      * @param context The context to store the root object in.
      * @param root The root object.
      */
-    public static void setRoot( Map context, Object root )
+    public static void setRoot( Map<String, Object> context, Object root )
     {
         context.put( OgnlContext.ROOT_CONTEXT_KEY, root );
     }
@@ -350,7 +350,7 @@ public abstract class Ognl
      * @param context The context to get the root object from.
      * @return The root object - or null if none found.
      */
-    public static Object getRoot( Map context )
+    public static Object getRoot( Map<String, Object> context )
     {
         return context.get( OgnlContext.ROOT_CONTEXT_KEY );
     }
@@ -361,7 +361,7 @@ public abstract class Ognl
      * @param context The context to get the evaluation from.
      * @return The {@link Evaluation} - or null if none was found.
      */
-    public static Evaluation getLastEvaluation( Map context )
+    public static Evaluation getLastEvaluation( Map<String, Object> context )
     {
         return (Evaluation) context.get( OgnlContext.LAST_EVALUATION_CONTEXT_KEY );
     }
@@ -379,7 +379,7 @@ public abstract class Ognl
      * @throws InappropriateExpressionException if the expression can't be used in this context
      * @throws OgnlException if there is a pathological environmental problem
      */
-    public static Object getValue( Object tree, Map context, Object root )
+    public static Object getValue( Object tree, Map<String, Object> context, Object root )
         throws OgnlException
     {
         return getValue( tree, context, root, null );
@@ -399,7 +399,7 @@ public abstract class Ognl
      * @throws InappropriateExpressionException if the expression can't be used in this context
      * @throws OgnlException if there is a pathological environmental problem
      */
-    public static Object getValue( Object tree, Map context, Object root, Class resultType )
+    public static Object getValue( Object tree, Map<String, Object> context, Object root, Class resultType )
         throws OgnlException
     {
         Object result;
@@ -462,7 +462,7 @@ public abstract class Ognl
      * @throws InappropriateExpressionException if the expression can't be used in this context
      * @throws OgnlException if there is a pathological environmental problem
      */
-    public static Object getValue( String expression, Map context, Object root )
+    public static Object getValue( String expression, Map<String, Object> context, Object root )
         throws OgnlException
     {
         return getValue( expression, context, root, null );
@@ -483,7 +483,7 @@ public abstract class Ognl
      * @throws InappropriateExpressionException if the expression can't be used in this context
      * @throws OgnlException if there is a pathological environmental problem
      */
-    public static Object getValue( String expression, Map context, Object root, Class resultType )
+    public static Object getValue( String expression, Map<String, Object> context, Object root, Class resultType )
         throws OgnlException
     {
         return getValue( parseExpression( expression ), context, root, resultType );
@@ -578,7 +578,7 @@ public abstract class Ognl
      * @throws InappropriateExpressionException if the expression can't be used in this context
      * @throws OgnlException if there is a pathological environmental problem
      */
-    public static void setValue( Object tree, Map context, Object root, Object value )
+    public static void setValue( Object tree, Map<String, Object> context, Object root, Object value )
         throws OgnlException
     {
         OgnlContext ognlContext = (OgnlContext) addDefaultContext( root, context );
@@ -619,7 +619,7 @@ public abstract class Ognl
      * @throws InappropriateExpressionException if the expression can't be used in this context
      * @throws OgnlException if there is a pathological environmental problem
      */
-    public static void setValue( String expression, Map context, Object root, Object value )
+    public static void setValue( String expression, Map<String, Object> context, Object root, Object value )
         throws OgnlException
     {
         setValue( parseExpression( expression ), context, root, value );
@@ -670,7 +670,7 @@ public abstract class Ognl
      * @return True if the node is a constant - false otherwise.
      * @throws OgnlException If an error occurs checking the expression.
      */
-    public static boolean isConstant( Object tree, Map context )
+    public static boolean isConstant( Object tree, Map<String, Object> context )
         throws OgnlException
     {
         return ( (SimpleNode) tree ).isConstant( (OgnlContext) addDefaultContext( null, context ) );
@@ -684,7 +684,7 @@ public abstract class Ognl
      * @return True if the node is a constant - false otherwise.
      * @throws OgnlException If an error occurs checking the expression.
      */
-    public static boolean isConstant( String expression, Map context )
+    public static boolean isConstant( String expression, Map<String, Object> context )
         throws OgnlException
     {
         return isConstant( parseExpression( expression ), context );
@@ -716,13 +716,13 @@ public abstract class Ognl
         return isConstant( parseExpression( expression ), createDefaultContext( null ) );
     }
 
-    public static boolean isSimpleProperty( Object tree, Map context )
+    public static boolean isSimpleProperty( Object tree, Map<String, Object> context )
         throws OgnlException
     {
         return ( (SimpleNode) tree ).isSimpleProperty( (OgnlContext) addDefaultContext( null, context ) );
     }
 
-    public static boolean isSimpleProperty( String expression, Map context )
+    public static boolean isSimpleProperty( String expression, Map<String, Object> context )
         throws OgnlException
     {
         return isSimpleProperty( parseExpression( expression ), context );
@@ -740,13 +740,13 @@ public abstract class Ognl
         return isSimpleProperty( parseExpression( expression ), createDefaultContext( null ) );
     }
 
-    public static boolean isSimpleNavigationChain( Object tree, Map context )
+    public static boolean isSimpleNavigationChain( Object tree, Map<String, Object> context )
         throws OgnlException
     {
         return ( (SimpleNode) tree ).isSimpleNavigationChain( (OgnlContext) addDefaultContext( null, context ) );
     }
 
-    public static boolean isSimpleNavigationChain( String expression, Map context )
+    public static boolean isSimpleNavigationChain( String expression, Map<String, Object> context )
         throws OgnlException
     {
         return isSimpleNavigationChain( parseExpression( expression ), context );
