@@ -120,15 +120,21 @@ public class ListPropertyAccessor
             {
                 case DynamicSubscript.FIRST:
                     if ( len > 0 )
+                    {
                         list.set( 0, value );
+                    }
                     return;
                 case DynamicSubscript.MID:
                     if ( len > 0 )
+                    {
                         list.set( len / 2, value );
+                    }
                     return;
                 case DynamicSubscript.LAST:
                     if ( len > 0 )
+                    {
                         list.set( len - 1, value );
+                    }
                     return;
                 case DynamicSubscript.ALL:
                 {
