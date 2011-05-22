@@ -37,7 +37,7 @@ public class IteratorPropertyAccessor
         throws OgnlException
     {
         Object result;
-        Iterator iterator = (Iterator) target;
+        Iterator<?> iterator = (Iterator<?>) target; // check performed by the invoker
 
         if ( name instanceof String )
         {
