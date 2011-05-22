@@ -877,7 +877,8 @@ public abstract class OgnlOps
 
         ElementsAccessor elementsAccessor = OgnlRuntime.getElementsAccessor( OgnlRuntime.getTargetClass( v2 ) );
 
-        for ( Enumeration e = elementsAccessor.getElements( v2 ); e.hasMoreElements(); )
+        // FIXME O(n) is there a better way?!
+        for ( Enumeration<?> e = elementsAccessor.getElements( v2 ); e.hasMoreElements(); )
         {
             Object o = e.nextElement();
 
