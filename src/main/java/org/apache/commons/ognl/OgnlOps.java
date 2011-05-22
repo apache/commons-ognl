@@ -873,7 +873,9 @@ public abstract class OgnlOps
         throws OgnlException
     {
         if ( v2 == null ) // A null collection is always treated as empty
+        {
             return false;
+        }
 
         ElementsAccessor elementsAccessor = OgnlRuntime.getElementsAccessor( OgnlRuntime.getTargetClass( v2 ) );
 
@@ -883,7 +885,9 @@ public abstract class OgnlOps
             Object o = e.nextElement();
 
             if ( equal( v1, o ) )
+            {
                 return true;
+            }
         }
 
         return false;
