@@ -821,7 +821,7 @@ public class OgnlRuntime
     public static Permission getPermission( Method method )
     {
         Permission result = null;
-        Class mc = method.getDeclaringClass();
+        Class<?> mc = method.getDeclaringClass();
 
         synchronized ( _invokePermissionCache )
         {
@@ -1603,7 +1603,7 @@ public class OgnlRuntime
         return result;
     }
 
-    public static List<Constructor<?>> getConstructors( Class targetClass )
+    public static List<Constructor<?>> getConstructors( Class<?> targetClass )
     {
         List result;
 
@@ -1665,7 +1665,7 @@ public class OgnlRuntime
         return getMethods( targetClass, staticMethods ).get( name );
     }
 
-    public static Map getFields( Class targetClass )
+    public static Map getFields( Class<?> targetClass )
     {
         Map result;
 
@@ -1896,7 +1896,7 @@ public class OgnlRuntime
         throw new OgnlException( "Could not get static field " + fieldName + " from class " + className, reason );
     }
 
-    public static List<Method> getDeclaredMethods( Class targetClass, String propertyName, boolean findSets )
+    public static List<Method> getDeclaredMethods( Class<?> targetClass, String propertyName, boolean findSets )
     {
         List<Method> result = null;
         ClassCache cache = _declaredMethods[findSets ? 0 : 1];
@@ -1971,19 +1971,19 @@ public class OgnlRuntime
         return true;
     }
 
-    public static Method getGetMethod( OgnlContext context, Class targetClass, String propertyName )
+    public static Method getGetMethod( OgnlContext context, Class<?> targetClass, String propertyName )
         throws IntrospectionException, OgnlException
     {
         Method result = null;
 
-        List methods = getDeclaredMethods( targetClass, propertyName, false /* find 'get' methods */);
+        List<Method> methods = getDeclaredMethods( targetClass, propertyName, false /* find 'get' methods */);
 
         if ( methods != null )
         {
             for ( int i = 0, icount = methods.size(); i < icount; i++ )
             {
-                Method m = (Method) methods.get( i );
-                Class[] mParameterTypes = findParameterTypes( targetClass, m ); // getParameterTypes(m);
+                Method m = methods.get( i );
+                Class<?>[] mParameterTypes = findParameterTypes( targetClass, m ); // getParameterTypes(m);
 
                 if ( mParameterTypes.length == 0 )
                 {
@@ -2012,13 +2012,13 @@ public class OgnlRuntime
     {
         Method result = null;
 
-        List methods = getDeclaredMethods( targetClass, propertyName, true /* find 'set' methods */);
+        List<Method> methods = getDeclaredMethods( targetClass, propertyName, true /* find 'set' methods */);
 
         if ( methods != null )
         {
             for ( int i = 0, icount = methods.size(); i < icount; i++ )
             {
-                Method m = (Method) methods.get( i );
+                Method m = methods.get( i );
                 Class<?>[] mParameterTypes = findParameterTypes( targetClass, m ); // getParameterTypes(m);
 
                 if ( mParameterTypes.length == 1 )
@@ -2105,13 +2105,13 @@ public class OgnlRuntime
     static void findObjectIndexedPropertyDescriptors( Class<?> targetClass, Map intoMap )
         throws OgnlException
     {
-        Map allMethods = getMethods( targetClass, false );
+        Map<String, List<Method>> allMethods = getMethods( targetClass, false );
         Map pairs = new HashMap( 101 );
 
-        for ( Iterator it = allMethods.keySet().iterator(); it.hasNext(); )
+        for ( Iterator<String> it = allMethods.keySet().iterator(); it.hasNext(); )
         {
-            String methodName = (String) it.next();
-            List methods = (List) allMethods.get( methodName );
+            String methodName = it.next();
+            List<Method> methods = allMethods.get( methodName );
 
             /*
              * Only process set/get where there is exactly one implementation of the method per class and those
@@ -2120,13 +2120,13 @@ public class OgnlRuntime
             if ( indexMethodCheck( methods ) )
             {
                 boolean isGet = false, isSet = false;
-                Method m = (Method) methods.get( 0 );
+                Method m = methods.get( 0 );
 
                 if ( ( ( isSet = methodName.startsWith( SET_PREFIX ) ) || ( isGet = methodName.startsWith( GET_PREFIX ) ) )
                     && ( methodName.length() > 3 ) )
                 {
                     String propertyName = Introspector.decapitalize( methodName.substring( 3 ) );
-                    Class[] parameterTypes = getParameterTypes( m );
+                    Class<?>[] parameterTypes = getParameterTypes( m );
                     int parameterCount = parameterTypes.length;
 
                     if ( isGet && ( parameterCount == 1 ) && ( m.getReturnType() != Void.TYPE ) )
@@ -2163,7 +2163,7 @@ public class OgnlRuntime
                 Method method1 = (Method) methods.get( 0 ), method2 = (Method) methods.get( 1 ), setMethod =
                     ( method1.getParameterTypes().length == 2 ) ? method1 : method2, getMethod =
                     ( setMethod == method1 ) ? method2 : method1;
-                Class keyType = getMethod.getParameterTypes()[0], propertyType = getMethod.getReturnType();
+                Class<?> keyType = getMethod.getParameterTypes()[0], propertyType = getMethod.getReturnType();
 
                 if ( keyType == setMethod.getParameterTypes()[0] )
                 {
@@ -2197,7 +2197,7 @@ public class OgnlRuntime
      * @throws IntrospectionException on errors using {@link Introspector}.
      * @throws OgnlException On general errors.
      */
-    public static Map getPropertyDescriptors( Class targetClass )
+    public static Map getPropertyDescriptors( Class<?> targetClass )
         throws IntrospectionException, OgnlException
     {
         Map result;
@@ -2240,7 +2240,7 @@ public class OgnlRuntime
      * This method returns a PropertyDescriptor for the given class and property name using a Map lookup (using
      * getPropertyDescriptorsMap()).
      */
-    public static PropertyDescriptor getPropertyDescriptor( Class targetClass, String propertyName )
+    public static PropertyDescriptor getPropertyDescriptor( Class<?> targetClass, String propertyName )
         throws IntrospectionException, OgnlException
     {
         if ( targetClass == null )
@@ -2249,14 +2249,14 @@ public class OgnlRuntime
         return (PropertyDescriptor) getPropertyDescriptors( targetClass ).get( propertyName );
     }
 
-    static Method findClosestMatchingMethod( Class targetClass, Method m, String propertyName, Class propertyType,
+    static Method findClosestMatchingMethod( Class<?> targetClass, Method m, String propertyName, Class<?> propertyType,
                                              boolean isReadMethod )
     {
-        List methods = getDeclaredMethods( targetClass, propertyName, !isReadMethod );
+        List<Method> methods = getDeclaredMethods( targetClass, propertyName, !isReadMethod );
 
         for ( int i = 0; i < methods.size(); i++ )
         {
-            Method method = (Method) methods.get( i );
+            Method method = methods.get( i );
 
             if ( method.getName().equals( m.getName() ) && m.getReturnType().isAssignableFrom( m.getReturnType() )
                 && method.getReturnType() == propertyType
@@ -2269,7 +2269,7 @@ public class OgnlRuntime
         return m;
     }
 
-    public static PropertyDescriptor[] getPropertyDescriptorsArray( Class targetClass )
+    public static PropertyDescriptor[] getPropertyDescriptorsArray( Class<?> targetClass )
         throws IntrospectionException
     {
         PropertyDescriptor[] result = null;
@@ -2295,7 +2295,7 @@ public class OgnlRuntime
      * @param name Name of property
      * @return PropertyDescriptor of the named property or null if the class has no property with the given name
      */
-    public static PropertyDescriptor getPropertyDescriptorFromArray( Class targetClass, String name )
+    public static PropertyDescriptor getPropertyDescriptorFromArray( Class<?> targetClass, String name )
         throws IntrospectionException
     {
         PropertyDescriptor result = null;
@@ -2311,7 +2311,7 @@ public class OgnlRuntime
         return result;
     }
 
-    public static void setMethodAccessor( Class cls, MethodAccessor accessor )
+    public static void setMethodAccessor( Class<?> cls, MethodAccessor accessor )
     {
         synchronized ( _methodAccessors )
         {
@@ -2319,7 +2319,7 @@ public class OgnlRuntime
         }
     }
 
-    public static MethodAccessor getMethodAccessor( Class cls )
+    public static MethodAccessor getMethodAccessor( Class<?> cls )
         throws OgnlException
     {
         MethodAccessor answer = (MethodAccessor) getHandler( cls, _methodAccessors );
@@ -2328,7 +2328,7 @@ public class OgnlRuntime
         throw new OgnlException( "No method accessor for " + cls );
     }
 
-    public static void setPropertyAccessor( Class cls, PropertyAccessor accessor )
+    public static void setPropertyAccessor( Class<?> cls, PropertyAccessor accessor )
     {
         synchronized ( _propertyAccessors )
         {
@@ -2336,7 +2336,7 @@ public class OgnlRuntime
         }
     }
 
-    public static PropertyAccessor getPropertyAccessor( Class cls )
+    public static PropertyAccessor getPropertyAccessor( Class<?> cls )
         throws OgnlException
     {
         PropertyAccessor answer = (PropertyAccessor) getHandler( cls, _propertyAccessors );
@@ -2346,7 +2346,7 @@ public class OgnlRuntime
         throw new OgnlException( "No property accessor for class " + cls );
     }
 
-    public static ElementsAccessor getElementsAccessor( Class cls )
+    public static ElementsAccessor getElementsAccessor( Class<?> cls )
         throws OgnlException
     {
         ElementsAccessor answer = (ElementsAccessor) getHandler( cls, _elementsAccessors );
@@ -2355,7 +2355,7 @@ public class OgnlRuntime
         throw new OgnlException( "No elements accessor for class " + cls );
     }
 
-    public static void setElementsAccessor( Class cls, ElementsAccessor accessor )
+    public static void setElementsAccessor( Class<?> cls, ElementsAccessor accessor )
     {
         synchronized ( _elementsAccessors )
         {
@@ -2363,7 +2363,7 @@ public class OgnlRuntime
         }
     }
 
-    public static NullHandler getNullHandler( Class cls )
+    public static NullHandler getNullHandler( Class<?> cls )
         throws OgnlException
     {
         NullHandler answer = (NullHandler) getHandler( cls, _nullHandlers );
@@ -2372,7 +2372,7 @@ public class OgnlRuntime
         throw new OgnlException( "No null handler for class " + cls );
     }
 
-    public static void setNullHandler( Class cls, NullHandler handler )
+    public static void setNullHandler( Class<?> cls, NullHandler handler )
     {
         synchronized ( _nullHandlers )
         {
@@ -2380,7 +2380,7 @@ public class OgnlRuntime
         }
     }
 
-    private static Object getHandler( Class forClass, ClassCache handlers )
+    private static Object getHandler( Class<?> forClass, ClassCache handlers )
     {
         Object answer = null;
 
@@ -2388,7 +2388,7 @@ public class OgnlRuntime
         {
             if ( ( answer = handlers.get( forClass ) ) == null )
             {
-                Class keyFound;
+                Class<?> keyFound;
 
                 if ( forClass.isArray() )
                 {
@@ -2398,15 +2398,15 @@ public class OgnlRuntime
                 else
                 {
                     keyFound = forClass;
-                    outer: for ( Class c = forClass; c != null; c = c.getSuperclass() )
+                    outer: for ( Class<?> c = forClass; c != null; c = c.getSuperclass() )
                     {
                         answer = handlers.get( c );
                         if ( answer == null )
                         {
-                            Class[] interfaces = c.getInterfaces();
+                            Class<?>[] interfaces = c.getInterfaces();
                             for ( int index = 0, count = interfaces.length; index < count; ++index )
                             {
-                                Class iface = interfaces[index];
+                                Class<?> iface = interfaces[index];
 
                                 answer = handlers.get( iface );
                                 if ( answer == null )
@@ -2481,7 +2481,7 @@ public class OgnlRuntime
      * <code>INDEXED_PROPERTY_INT</code>) or if it conforms to the OGNL arbitrary object indexable (returns
      * <code>INDEXED_PROPERTY_OBJECT</code>).
      */
-    public static int getIndexedPropertyType( OgnlContext context, Class sourceClass, String name )
+    public static int getIndexedPropertyType( OgnlContext context, Class<?> sourceClass, String name )
         throws OgnlException
     {
         int result = INDEXED_PROPERTY_NONE;
