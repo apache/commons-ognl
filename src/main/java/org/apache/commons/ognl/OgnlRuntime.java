@@ -2197,18 +2197,18 @@ public class OgnlRuntime
      * @throws IntrospectionException on errors using {@link Introspector}.
      * @throws OgnlException On general errors.
      */
-    public static Map getPropertyDescriptors( Class<?> targetClass )
+    public static Map<String, PropertyDescriptor> getPropertyDescriptors( Class<?> targetClass )
         throws IntrospectionException, OgnlException
     {
-        Map result;
+        Map<String, PropertyDescriptor> result;
 
         synchronized ( _propertyDescriptorCache )
         {
-            if ( ( result = (Map) _propertyDescriptorCache.get( targetClass ) ) == null )
+            if ( ( result = _propertyDescriptorCache.get( targetClass ) ) == null )
             {
                 PropertyDescriptor[] pda = Introspector.getBeanInfo( targetClass ).getPropertyDescriptors();
 
-                result = new HashMap( 101 );
+                result = new HashMap<String, PropertyDescriptor>( 101 );
                 for ( int i = 0, icount = pda.length; i < icount; i++ )
                 {
                     // workaround for Introspector bug 6528714 (bugs.sun.com)
@@ -2246,7 +2246,7 @@ public class OgnlRuntime
         if ( targetClass == null )
             return null;
 
-        return (PropertyDescriptor) getPropertyDescriptors( targetClass ).get( propertyName );
+        return getPropertyDescriptors( targetClass ).get( propertyName );
     }
 
     static Method findClosestMatchingMethod( Class<?> targetClass, Method m, String propertyName, Class<?> propertyType,
