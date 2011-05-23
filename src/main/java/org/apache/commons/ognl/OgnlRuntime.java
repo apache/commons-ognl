@@ -696,7 +696,7 @@ public class OgnlRuntime
 
             types = new Class[genTypes.length];
 
-            typeSearch: for ( int i = 0; i < genTypes.length; i++ )
+            for ( int i = 0; i < genTypes.length; i++ )
             {
                 TypeVariable<?> paramType = null;
 
