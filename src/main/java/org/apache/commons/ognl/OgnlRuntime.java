@@ -19,11 +19,6 @@ package org.apache.commons.ognl;
  * under the License.
  */
 
-import org.apache.commons.ognl.enhance.ExpressionCompiler;
-import org.apache.commons.ognl.enhance.OgnlExpressionCompiler;
-import org.apache.commons.ognl.internal.ClassCache;
-import org.apache.commons.ognl.internal.ClassCacheImpl;
-
 import java.beans.BeanInfo;
 import java.beans.IndexedPropertyDescriptor;
 import java.beans.IntrospectionException;
@@ -57,6 +52,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.apache.commons.ognl.enhance.ExpressionCompiler;
+import org.apache.commons.ognl.enhance.OgnlExpressionCompiler;
+import org.apache.commons.ognl.internal.ClassCache;
+import org.apache.commons.ognl.internal.ClassCacheImpl;
 
 /**
  * Utility class used by internal OGNL API to do various things like:
@@ -1897,9 +1897,9 @@ public class OgnlRuntime
 
         synchronized ( cache )
         {
-            Map propertyCache = (Map) cache.get( targetClass );
+            Map<String, List<Method>> propertyCache = cache.get( targetClass );
 
-            if ( ( propertyCache == null ) || ( ( result = (List) propertyCache.get( propertyName ) ) == null ) )
+            if ( ( propertyCache == null ) || ( ( result = propertyCache.get( propertyName ) ) == null ) )
             {
 
                 String baseName = Character.toUpperCase( propertyName.charAt( 0 ) ) + propertyName.substring( 1 );
@@ -1942,12 +1942,12 @@ public class OgnlRuntime
                 }
                 if ( propertyCache == null )
                 {
-                    cache.put( targetClass, propertyCache = new HashMap( 101 ) );
+                    cache.put( targetClass, propertyCache = new HashMap<String, List<Method>>( 101 ) );
                 }
 
-                propertyCache.put( propertyName, ( result == null ) ? NotFoundList : result );
+                propertyCache.put( propertyName, result );
             }
-            return ( result == NotFoundList ) ? null : result;
+            return result;
         }
     }
 
