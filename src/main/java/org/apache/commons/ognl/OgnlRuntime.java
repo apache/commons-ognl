@@ -79,10 +79,6 @@ public class OgnlRuntime
      */
     public static final Object NotFound = new Object();
 
-    public static final List NotFoundList = new ArrayList();
-
-    public static final Map NotFoundMap = new HashMap();
-
     public static final Object[] NoArguments = new Object[] {};
 
     public static final Class<?>[] NoArgumentTypes = new Class<?>[] {};
