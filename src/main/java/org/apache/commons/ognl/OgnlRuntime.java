@@ -1665,17 +1665,17 @@ public class OgnlRuntime
         return getMethods( targetClass, staticMethods ).get( name );
     }
 
-    public static Map getFields( Class<?> targetClass )
+    public static Map<String, Field> getFields( Class<?> targetClass )
     {
-        Map result;
+        Map<String, Field> result;
 
         synchronized ( _fieldCache )
         {
-            if ( ( result = (Map) _fieldCache.get( targetClass ) ) == null )
+            if ( ( result = _fieldCache.get( targetClass ) ) == null )
             {
                 Field fa[];
 
-                result = new HashMap( 23 );
+                result = new HashMap<String, Field>( 23 );
                 fa = targetClass.getDeclaredFields();
                 for ( int i = 0; i < fa.length; i++ )
                 {
@@ -1693,20 +1693,24 @@ public class OgnlRuntime
 
         synchronized ( _fieldCache )
         {
-            Object o = getFields( inClass ).get( name );
+            Field o = getFields( inClass ).get( name );
 
             if ( o == null )
             {
                 _superclasses.clear();
                 for ( Class<?> sc = inClass; ( sc != null ); sc = sc.getSuperclass() )
                 {
-                    if ( ( o = getFields( sc ).get( name ) ) == NotFound )
+                    if ( ( o = getFields( sc ).get( name ) ) == null )
+                    {
                         break;
+                    }
 
                     _superclasses.add( sc );
 
-                    if ( ( result = (Field) o ) != null )
+                    if ( ( result = o ) != null )
+                    {
                         break;
+                    }
                 }
                 /*
                  * Bubble the found value (either cache miss or actual field) to all supeclasses that we saw for quicker
@@ -1714,22 +1718,12 @@ public class OgnlRuntime
                  */
                 for ( int i = 0, icount = _superclasses.size(); i < icount; i++ )
                 {
-                    getFields( _superclasses.get( i ) ).put( name, ( result == null ) ? NotFound : result );
+                    getFields( _superclasses.get( i ) ).put( name, result );
                 }
             }
             else
             {
-                if ( o instanceof Field )
-                {
-                    result = (Field) o;
-                }
-                else
-                {
-                    if ( result == NotFound )
-                    {
-                        result = null;
-                    }
-                }
+                result = o;
             }
         }
         return result;
