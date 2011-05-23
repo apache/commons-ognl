@@ -825,13 +825,13 @@ public class OgnlRuntime
 
         synchronized ( _invokePermissionCache )
         {
-            Map permissions = (Map) _invokePermissionCache.get( mc );
+            Map<String, Permission> permissions = _invokePermissionCache.get( mc );
 
             if ( permissions == null )
             {
-                _invokePermissionCache.put( mc, permissions = new HashMap( 101 ) );
+                _invokePermissionCache.put( mc, permissions = new HashMap<String, Permission>( 101 ) );
             }
-            if ( ( result = (Permission) permissions.get( method.getName() ) ) == null )
+            if ( ( result = permissions.get( method.getName() ) ) == null )
             {
                 result = new OgnlInvokePermission( "invoke." + mc.getName() + "." + method.getName() );
                 permissions.put( method.getName(), result );
