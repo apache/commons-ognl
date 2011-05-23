@@ -2102,11 +2102,11 @@ public class OgnlRuntime
         return result;
     }
 
-    static void findObjectIndexedPropertyDescriptors( Class<?> targetClass, Map intoMap )
+    static void findObjectIndexedPropertyDescriptors( Class<?> targetClass, Map<String, PropertyDescriptor> intoMap )
         throws OgnlException
     {
         Map<String, List<Method>> allMethods = getMethods( targetClass, false );
-        Map pairs = new HashMap( 101 );
+        Map<String, List<Method>> pairs = new HashMap<String, List<Method>>( 101 );
 
         for ( Iterator<String> it = allMethods.keySet().iterator(); it.hasNext(); )
         {
@@ -2131,21 +2131,21 @@ public class OgnlRuntime
 
                     if ( isGet && ( parameterCount == 1 ) && ( m.getReturnType() != Void.TYPE ) )
                     {
-                        List pair = (List) pairs.get( propertyName );
+                        List<Method> pair = pairs.get( propertyName );
 
                         if ( pair == null )
                         {
-                            pairs.put( propertyName, pair = new ArrayList() );
+                            pairs.put( propertyName, pair = new ArrayList<Method>() );
                         }
                         pair.add( m );
                     }
                     if ( isSet && ( parameterCount == 2 ) && ( m.getReturnType() == Void.TYPE ) )
                     {
-                        List pair = (List) pairs.get( propertyName );
+                        List<Method> pair = pairs.get( propertyName );
 
                         if ( pair == null )
                         {
-                            pairs.put( propertyName, pair = new ArrayList() );
+                            pairs.put( propertyName, pair = new ArrayList<Method>() );
                         }
                         pair.add( m );
                     }
@@ -2153,14 +2153,14 @@ public class OgnlRuntime
             }
         }
 
-        for ( Iterator it = pairs.keySet().iterator(); it.hasNext(); )
+        for ( Iterator<String> it = pairs.keySet().iterator(); it.hasNext(); )
         {
-            String propertyName = (String) it.next();
-            List methods = (List) pairs.get( propertyName );
+            String propertyName = it.next();
+            List<Method> methods = pairs.get( propertyName );
 
             if ( methods.size() == 2 )
             {
-                Method method1 = (Method) methods.get( 0 ), method2 = (Method) methods.get( 1 ), setMethod =
+                Method method1 = methods.get( 0 ), method2 = methods.get( 1 ), setMethod =
                     ( method1.getParameterTypes().length == 2 ) ? method1 : method2, getMethod =
                     ( setMethod == method1 ) ? method2 : method1;
                 Class<?> keyType = getMethod.getParameterTypes()[0], propertyType = getMethod.getReturnType();
