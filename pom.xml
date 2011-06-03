@@ -158,6 +158,12 @@ limitations under the License.
     <system>Jenkins</system>
     <url>https://builds.apache.org/hudson/job/ognl/</url>
   </ciManagement>
+  <distributionManagement>
+    <site>
+      <id>website</id>
+      <url>scp://people.apache.org/www/incubator.apache.org/ognl/</url>
+    </site>
+  </distributionManagement>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
