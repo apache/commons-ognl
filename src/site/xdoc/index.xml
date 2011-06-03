@@ -80,6 +80,16 @@
       </p>
     </section>
 
+    <section name="Disclaimer">
+      <p>Apache Commons OGNL is an effort undergoing incubation at
+      <a href="http://www.apache.org/">The Apache Software Foundation</a> (ASF), sponsored by the
+      <a href="http://incubator.apache.org/">Apache Incubator</a>. Incubation is required of all newly accepted projects
+      until a further review indicates that the infrastructure, communications, and decision making process have
+      stabilized in a manner consistent with other successful ASF projects.<br/>
+      While incubation status is not necessarily a reflection of the completeness or stability of the code, it does
+      indicate that the project has yet to be fully endorsed by the ASF.</p>
+    </section>
+
   </body>
 
 </document>
