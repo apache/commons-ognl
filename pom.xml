@@ -33,7 +33,7 @@ limitations under the License.
   <name>Apache Commons OGNL - Object Graph Navigation Library</name>
   <description>The Apache Commons OGNL library is a Java development framework for Object-Graph Navigation Language,
   plus other extras such as list projection and selection and lambda expressions.</description>
-  <url>http://incubator.apache.org/ognl/</url>
+  <url>http://commons.apache.org/ognl/</url>
   <inceptionYear>1997</inceptionYear>
   <organization>
     <name>The Apache Software Foundation</name>
@@ -146,9 +146,9 @@ limitations under the License.
   </developers>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/incubator/ognl/trunk/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/incubator/ognl/trunk/</developerConnection>
-    <url>http://svn.apache.org/viewvc/incubator/ognl/trunk/</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/commons/proper/ognl/trunk/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/proper/ognl/trunk/</developerConnection>
+    <url>http://svn.apache.org/viewvc/commons/proper/ognl/trunk/</url>
   </scm>
   <issueManagement>
     <system>jira</system>
@@ -161,7 +161,7 @@ limitations under the License.
   <distributionManagement>
     <site>
       <id>website</id>
-      <url>scp://people.apache.org/www/incubator.apache.org/ognl/</url>
+      <url>scp://people.apache.org/www/commons.apache.org/ognl/</url>
     </site>
   </distributionManagement>
 
