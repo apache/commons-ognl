@@ -19,12 +19,8 @@
  */
 package org.apache.commons.ognl;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertNotSame;
-import static junit.framework.Assert.assertSame;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
+import org.apache.commons.ognl.test.objects.*;
+import org.junit.Test;
 
 import java.beans.PropertyDescriptor;
 import java.io.Serializable;
@@ -32,23 +28,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.ognl.test.objects.BaseGeneric;
-import org.apache.commons.ognl.test.objects.Bean2;
-import org.apache.commons.ognl.test.objects.FormImpl;
-import org.apache.commons.ognl.test.objects.GameGeneric;
-import org.apache.commons.ognl.test.objects.GameGenericObject;
-import org.apache.commons.ognl.test.objects.GenericCracker;
-import org.apache.commons.ognl.test.objects.GenericService;
-import org.apache.commons.ognl.test.objects.GenericServiceImpl;
-import org.apache.commons.ognl.test.objects.GetterMethods;
-import org.apache.commons.ognl.test.objects.IComponent;
-import org.apache.commons.ognl.test.objects.IForm;
-import org.apache.commons.ognl.test.objects.ListSource;
-import org.apache.commons.ognl.test.objects.ListSourceImpl;
-import org.apache.commons.ognl.test.objects.Root;
-import org.apache.commons.ognl.test.objects.SetterReturns;
-import org.apache.commons.ognl.test.objects.SubclassSyntheticObject;
-import org.junit.Test;
+import static junit.framework.Assert.*;
 
 /**
  * Tests various methods / functionality of {@link org.apache.commons.ognl.OgnlRuntime}.
@@ -72,7 +52,7 @@ public class TestOgnlRuntime
     public void test_Get_Private_Class()
         throws Exception
     {
-        List list = Arrays.asList( new String[] { "hello", "world" } );
+        List list = Arrays.asList( "hello", "world" );
 
         Method m = OgnlRuntime.getReadMethod( list.getClass(), "iterator" );
         assertNotNull( m );
@@ -188,7 +168,7 @@ public class TestOgnlRuntime
         {
 
             assertTrue( MethodFailedException.class.isInstance( et ) );
-            assertTrue( et.getMessage().indexOf( "made.up.Name" ) > -1 );
+            assertTrue( et.getMessage().contains( "made.up.Name" ) );
         }
     }
 
@@ -256,10 +236,7 @@ public class TestOgnlRuntime
 
         public boolean shouldCache( Class<?> type )
         {
-            if ( type == null || type == Root.class )
-                return false;
-
-            return true;
+            return !( type == null || type == Root.class );
         }
     }
 
@@ -300,7 +277,7 @@ public class TestOgnlRuntime
 
         Class[] types = OgnlRuntime.findParameterTypes( GameGeneric.class, m );
         assertEquals( 1, types.length );
-        assertEquals( new Long[0].getClass(), types[0] );
+        assertEquals( Long[].class, types[0] );
     }
 
     @Test
@@ -314,7 +291,7 @@ public class TestOgnlRuntime
 
         Class[] types = OgnlRuntime.findParameterTypes( BaseGeneric.class, m );
         assertEquals( 1, types.length );
-        assertEquals( new Serializable[0].getClass(), types[0] );
+        assertEquals( Serializable[].class, types[0] );
     }
 
     @Test
