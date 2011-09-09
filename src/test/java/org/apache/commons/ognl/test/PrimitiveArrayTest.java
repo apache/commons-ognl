@@ -56,32 +56,32 @@ public class PrimitiveArrayTest
     public static Collection<Object[]> data()
     {
         Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
-        for ( int i = 0; i < TESTS.length; i++ )
+        for ( Object[] TEST : TESTS )
         {
             Object[] tmp = new Object[6];
-            tmp[0] = TESTS[i][1];
-            tmp[1] = TESTS[i][0];
-            tmp[2] = TESTS[i][1];
+            tmp[0] = TEST[1];
+            tmp[1] = TEST[0];
+            tmp[2] = TEST[1];
 
-            switch ( TESTS[i].length )
+            switch ( TEST.length )
             {
                 case 3:
-                    tmp[3] = TESTS[i][2];
+                    tmp[3] = TEST[2];
                     break;
 
                 case 4:
-                    tmp[3] = TESTS[i][2];
-                    tmp[4] = TESTS[i][3];
+                    tmp[3] = TEST[2];
+                    tmp[4] = TEST[3];
                     break;
 
                 case 5:
-                    tmp[3] = TESTS[i][2];
-                    tmp[4] = TESTS[i][3];
-                    tmp[5] = TESTS[i][4];
+                    tmp[3] = TEST[2];
+                    tmp[4] = TEST[3];
+                    tmp[5] = TEST[4];
                     break;
 
                 default:
-                    throw new RuntimeException( "don't understand TEST format with length " + TESTS[i].length );
+                    throw new RuntimeException( "don't understand TEST format with length " + TEST.length );
             }
 
             data.add( tmp );
