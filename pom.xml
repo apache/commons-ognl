@@ -369,44 +369,5 @@ limitations under the License.
         </plugins>
       </reporting>
     </profile>
-    <profile>
-      <id>shade</id>
-      <activation>
-        <property>
-          <name>shade</name>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-shade-plugin</artifactId>
-            <version>1.4</version>
-
-            <executions>
-              <execution>
-                <phase>package</phase>
-                <goals>
-                  <goal>shade</goal>
-                </goals>
-                <configuration>
-                  <artifactSet>
-                    <excludes>
-                      <exclude>javassist:javassist</exclude>
-                    </excludes>
-                  </artifactSet>
-                  <relocations>
-                    <relocation>
-                      <pattern>org.apache.commons.ognl</pattern>
-                      <shadedPattern>ognl</shadedPattern>
-                    </relocation>
-                  </relocations>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
   </profiles>
 </project>
