@@ -1014,7 +1014,7 @@ public class OgnlRuntime
         }
         else if ( varArgs )
         {
-            for ( int index = 0, count = args.length; result && ( index < count ); ++index )
+            for ( int index = 0; result && ( index < args.length ); ++index )
             {
                 if ( index >= classes.length )
                 {
@@ -1031,7 +1031,7 @@ public class OgnlRuntime
         }
         else
         {
-            for ( int index = 0, count = args.length; result && ( index < count ); ++index )
+            for ( int index = 0; result && ( index < args.length); ++index )
             {
                 result = isTypeCompatible( args[index], classes[index] );
             }
@@ -1045,17 +1045,17 @@ public class OgnlRuntime
      */
     public static boolean isMoreSpecific( Class<?>[] classes1, Class<?>[] classes2 )
     {
-        for ( int index = 0, count = classes1.length; index < count; ++index )
+        for ( int index = 0; index < classes1.length; ++index )
         {
             Class<?> c1 = classes1[index], c2 = classes2[index];
-            if ( c1 == c2 )
-                continue;
-            else if ( c1.isPrimitive() )
-                return true;
-            else if ( c1.isAssignableFrom( c2 ) )
-                return false;
-            else if ( c2.isAssignableFrom( c1 ) )
-                return true;
+            if ( c1 != c2 ){
+                if ( c1.isPrimitive() )
+                    return true;
+                else if ( c1.isAssignableFrom( c2 ) )
+                    return false;
+                else if ( c2.isAssignableFrom( c1 ) )
+                    return true;
+            }
         }
 
         // They are the same! So the first is not more specific than the second.
@@ -1147,7 +1147,7 @@ public class OgnlRuntime
         if ( parameterTypes.length == args.length )
         {
             result = true;
-            for ( int i = 0, ilast = parameterTypes.length - 1; result && ( i <= ilast ); i++ )
+            for ( int i = 0; result && ( i <= parameterTypes.length - 1); i++ )
             {
                 Object arg = args[i];
                 Class<?> type = parameterTypes[i];
@@ -1182,7 +1182,7 @@ public class OgnlRuntime
 
         if ( ( converter != null ) && ( methods != null ) )
         {
-            for ( int i = 0, icount = methods.size(); ( result == null ) && ( i < icount ); i++ )
+            for ( int i = 0; ( result == null ) && ( i < methods.size()); i++ )
             {
                 Method m = methods.get( i );
                 Class<?>[] parameterTypes = findParameterTypes( target != null ? target.getClass() : null, m );// getParameterTypes(m);
@@ -1204,7 +1204,7 @@ public class OgnlRuntime
 
         if ( ( converter != null ) && ( constructors != null ) )
         {
-            for ( int i = 0, icount = constructors.size(); ( result == null ) && ( i < icount ); i++ )
+            for ( int i = 0; ( result == null ) && ( i < constructors.size()); i++ )
             {
                 Constructor<?> ctor = constructors.get( i );
                 Class<?>[] parameterTypes = getParameterTypes( ctor );
@@ -1240,10 +1240,8 @@ public class OgnlRuntime
 
         if ( methods != null )
         {
-            for ( int i = 0, icount = methods.size(); i < icount; i++ )
+            for ( Method m : methods )
             {
-                Method m = methods.get( i );
-
                 Class<?> typeClass = target != null ? target.getClass() : null;
                 if ( typeClass == null && source != null && Class.class.isInstance( source ) )
                 {
@@ -1252,8 +1250,8 @@ public class OgnlRuntime
 
                 Class<?>[] mParameterTypes = findParameterTypes( typeClass, m );
 
-                if ( areArgsCompatible( args, mParameterTypes, m )
-                    && ( ( result == null ) || isMoreSpecific( mParameterTypes, resultParameterTypes ) ) )
+                if ( areArgsCompatible( args, mParameterTypes, m ) && ( ( result == null ) || isMoreSpecific(
+                    mParameterTypes, resultParameterTypes ) ) )
                 {
                     result = m;
                     resultParameterTypes = mParameterTypes;
@@ -1453,13 +1451,12 @@ public class OgnlRuntime
             Class<?> target = classForName( context, className );
             List<Constructor<?>> constructors = getConstructors( target );
 
-            for ( int i = 0, icount = constructors.size(); i < icount; i++ )
+            for ( Constructor<?> c : constructors )
             {
-                Constructor<?> c = constructors.get( i );
                 Class<?>[] cParameterTypes = getParameterTypes( c );
 
-                if ( areArgsCompatible( args, cParameterTypes )
-                    && ( ctor == null || isMoreSpecific( cParameterTypes, ctorParameterTypes ) ) )
+                if ( areArgsCompatible( args, cParameterTypes ) && ( ctor == null || isMoreSpecific( cParameterTypes,
+                                                                                                     ctorParameterTypes ) ) )
                 {
                     ctor = c;
                     ctorParameterTypes = cParameterTypes;
@@ -1632,25 +1629,25 @@ public class OgnlRuntime
                 {
                     Method[] ma = c.getDeclaredMethods();
 
-                    for ( int i = 0, icount = ma.length; i < icount; i++ )
+                    for ( Method method : ma )
                     {
                         // skip over synthetic methods
 
-                        if ( !isMethodCallable( ma[i] ) )
+                        if ( !isMethodCallable( method ) )
                         {
                             continue;
                         }
 
-                        if ( Modifier.isStatic( ma[i].getModifiers() ) == staticMethods )
+                        if ( Modifier.isStatic( method.getModifiers() ) == staticMethods )
                         {
-                            List<Method> ml = result.get( ma[i].getName() );
+                            List<Method> ml = result.get( method.getName() );
 
                             if ( ml == null )
                             {
-                                result.put( ma[i].getName(), ml = new ArrayList<Method>() );
+                                result.put( method.getName(), ml = new ArrayList<Method>() );
                             }
 
-                            ml.add( ma[i] );
+                            ml.add( method );
                         }
                     }
                 }
@@ -1716,9 +1713,9 @@ public class OgnlRuntime
                  * Bubble the found value (either cache miss or actual field) to all supeclasses that we saw for quicker
                  * access next time.
                  */
-                for ( int i = 0, icount = _superclasses.size(); i < icount; i++ )
+                for ( Class<?> _superclass : _superclasses )
                 {
-                    getFields( _superclasses.get( i ) ).put( name, result );
+                    getFields( _superclass ).put( name, result );
                 }
             }
             else
@@ -1834,7 +1831,7 @@ public class OgnlRuntime
     public static Object getStaticField( OgnlContext context, String className, String fieldName )
         throws OgnlException
     {
-        Exception reason = null;
+        Exception reason;
         try
         {
             Class<?> c = classForName( context, className );
@@ -1920,7 +1917,7 @@ public class OgnlRuntime
 
                         if ( ms.endsWith( baseName ) )
                         {
-                            boolean isSet = false, isIs = false;
+                            boolean isSet, isIs = false;
 
                             if ( ( isSet = ms.startsWith( SET_PREFIX ) ) || ms.startsWith( GET_PREFIX ) || ( isIs =
                                 ms.startsWith( IS_PREFIX ) ) )
@@ -1974,9 +1971,8 @@ public class OgnlRuntime
 
         if ( methods != null )
         {
-            for ( int i = 0, icount = methods.size(); i < icount; i++ )
+            for ( Method m : methods )
             {
-                Method m = methods.get( i );
                 Class<?>[] mParameterTypes = findParameterTypes( targetClass, m ); // getParameterTypes(m);
 
                 if ( mParameterTypes.length == 0 )
@@ -2010,9 +2006,8 @@ public class OgnlRuntime
 
         if ( methods != null )
         {
-            for ( int i = 0, icount = methods.size(); i < icount; i++ )
+            for ( Method m : methods )
             {
-                Method m = methods.get( i );
                 Class<?>[] mParameterTypes = findParameterTypes( targetClass, m ); // getParameterTypes(m);
 
                 if ( mParameterTypes.length == 1 )
@@ -2395,10 +2390,8 @@ public class OgnlRuntime
                         if ( answer == null )
                         {
                             Class<?>[] interfaces = c.getInterfaces();
-                            for ( int index = 0, count = interfaces.length; index < count; ++index )
+                            for ( Class<?> iface : interfaces )
                             {
-                                Class<?> iface = interfaces[index];
-
                                 answer = handlers.get( iface );
                                 if ( answer == null )
                                 {
