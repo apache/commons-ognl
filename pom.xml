@@ -332,6 +332,7 @@ limitations under the License.
                 <tag>TODO</tag>
                 <tag>NOPMD</tag>
                 <tag>NOTE</tag>
+                <tag>FIXME</tag>
               </tags>
             </configuration>
           </plugin>
