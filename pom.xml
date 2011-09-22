@@ -53,7 +53,6 @@ limitations under the License.
       <id>apetrelli</id>
       <email>apetrelli at apache dot org</email>
       <roles>
-        <role>PPMC Member</role>
         <role>Committer</role>
         <role>Emeritus</role>
       </roles>
@@ -63,8 +62,7 @@ limitations under the License.
       <id>grobmeier</id>
       <email>grobmeier at apache dot org</email>
       <roles>
-        <role>Mentor</role>
-        <role>PPMC Member</role>
+        <role>PMC Member</role>
         <role>Committer</role>
       </roles>
     </developer>
@@ -73,7 +71,6 @@ limitations under the License.
       <id>jkuhnert</id>
       <email>jkuhnert at apache dot org</email>
       <roles>
-        <role>PPMC Member</role>
         <role>Committer</role>
       </roles>
     </developer>
@@ -82,8 +79,7 @@ limitations under the License.
       <id>jochen</id>
       <email>jochen at apache dot org</email>
       <roles>
-        <role>Mentor</role>
-        <role>PPMC Member</role>
+        <role>PMC Member</role>
         <role>Committer</role>
       </roles>
     </developer>
@@ -92,8 +88,6 @@ limitations under the License.
       <id>lukaszlenart</id>
       <email>lukaszlenart at apache dot org</email>
       <roles>
-        <role>Champion</role>
-        <role>PPMC Member</role>
         <role>Committer</role>
       </roles>
     </developer>
@@ -102,8 +96,6 @@ limitations under the License.
       <id>olamy</id>
       <email>olamy at apache dot org</email>
       <roles>
-        <role>Mentor</role>
-        <role>PPMC Member</role>
         <role>Committer</role>
       </roles>
     </developer>
@@ -112,7 +104,6 @@ limitations under the License.
       <id>javadrewd</id>
       <email>javadrewd at apache dot org</email>
       <roles>
-        <role>PPMC Member</role>
         <role>Committer</role>
       </roles>
     </developer>
@@ -121,7 +112,6 @@ limitations under the License.
       <id>mcucchiara</id>
       <email>mcucchiara at apache dot org</email>
       <roles>
-        <role>PPMC Member</role>
         <role>Committer</role>
       </roles>
     </developer>
@@ -130,7 +120,7 @@ limitations under the License.
       <id>simonetripodi</id>
       <email>simonetripodi at apache dot org</email>
       <roles>
-        <role>PPMC Member</role>
+        <role>PMC Member</role>
         <role>Committer</role>
       </roles>
     </developer>
