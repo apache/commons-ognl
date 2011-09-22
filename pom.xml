@@ -232,6 +232,17 @@ limitations under the License.
         <artifactId>maven-clean-plugin</artifactId>
         <version>2.4.1</version>
       </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptors>
+            <descriptor>${basedir}/src/main/assembly/bin.xml</descriptor>
+            <descriptor>${basedir}/src/main/assembly/src.xml</descriptor>
+          </descriptors>
+          <tarLongFileMode>gnu</tarLongFileMode>
+          <attach>false</attach>
+        </configuration>
+      </plugin>
     </plugins>
     <pluginManagement>
       <plugins>
