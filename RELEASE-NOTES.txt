@@ -2,7 +2,7 @@ $Id$
 
 
                           Commons OGNL Package
-                         Version 4.0-incubating
+                              Version 4.0
                              Release Notes
 
 
