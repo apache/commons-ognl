@@ -44,7 +44,7 @@ options {
 
 PARSER_BEGIN(OgnlParser)
 
-package ognl;
+package org.apache.commons.ognl;
 
 import java.math.*;
 
