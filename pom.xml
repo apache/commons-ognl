@@ -251,6 +251,24 @@ limitations under the License.
           <attach>false</attach>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>javacc-maven-plugin</artifactId>
+        <version>2.6</version>
+        <executions>
+            <execution>
+                <id>ognl-jjtree</id>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/generated-sources/java</outputDirectory>
+                    <timestampDirectory>${project.build.directory}/generated-sources/javacc-timestamp</timestampDirectory>
+                    <packageName>org.apache.commons.ognl</packageName>
+                </configuration>
+                <goals>
+                    <goal>javacc</goal>
+                </goals>
+            </execution>
+        </executions>
+       </plugin>
     </plugins>
     <pluginManagement>
       <plugins>
