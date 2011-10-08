@@ -141,6 +141,12 @@ limitations under the License.
       </roles>
     </developer>
   </developers>
+  
+  <contributors>
+  	<contributor>
+  		<name>Daniel Pitts</name>
+  	</contributor>
+  </contributors>
 
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/commons/proper/ognl/trunk/</connection>
