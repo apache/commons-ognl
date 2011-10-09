@@ -76,4 +76,9 @@ class ASTSelect
     {
         throw new UnsupportedCompilationException( "Eval expressions not supported as native java yet." );
     }
+    
+    public <R,P> R accept(NodeVisitor<? extends R, ? super P> visitor, P data) 
+    {
+        return visitor.visit(this, data);
+    }
 }

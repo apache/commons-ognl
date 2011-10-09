@@ -166,4 +166,9 @@ public class ASTSequence
 
         return result;
     }
+    
+    public <R,P> R accept(NodeVisitor<? extends R, ? super P> visitor, P data) 
+    {
+        return visitor.visit(this, data);
+    }
 }

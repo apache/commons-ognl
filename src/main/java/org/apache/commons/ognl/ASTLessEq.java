@@ -54,4 +54,9 @@ class ASTLessEq
         return "!org.apache.commons.ognl.OgnlOps.greater";
     }
 
+    
+    public <R,P> R accept(NodeVisitor<? extends R, ? super P> visitor, P data) 
+    {
+        return visitor.visit(this, data);
+    }
 }
