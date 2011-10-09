@@ -267,9 +267,19 @@ limitations under the License.
                 <configuration>
                     <outputDirectory>${project.build.directory}/generated-sources/java</outputDirectory>
                     <timestampDirectory>${project.build.directory}/generated-sources/javacc-timestamp</timestampDirectory>
-                    <packageName>org.apache.commons.ognl</packageName>
+                    <package>org.apache.commons.ognl</package>
+                    <!--
+                    	Uncomment if AST files needs to be generated
+                    	
+                    <nodePackage>*.jtree</nodePackage>
+                    	-->
+                    <!--
+                    	Uncomment if visitor default implementation needs to be generated	
+                    <visitor>true</visitor>
+                    	-->
                 </configuration>
                 <goals>
+                	<!-- change goal to jtree-javacc to generate AST too -->
                     <goal>javacc</goal>
                 </goals>
             </execution>
