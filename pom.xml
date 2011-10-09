@@ -141,11 +141,11 @@ limitations under the License.
       </roles>
     </developer>
   </developers>
-  
+
   <contributors>
-  	<contributor>
-  		<name>Daniel Pitts</name>
-  	</contributor>
+    <contributor>
+      <name>Daniel Pitts</name>
+    </contributor>
   </contributors>
 
   <scm>
@@ -262,27 +262,22 @@ limitations under the License.
         <artifactId>javacc-maven-plugin</artifactId>
         <version>2.6</version>
         <executions>
-            <execution>
-                <id>ognl-jjtree</id>
-                <configuration>
-                    <outputDirectory>${project.build.directory}/generated-sources/java</outputDirectory>
-                    <timestampDirectory>${project.build.directory}/generated-sources/javacc-timestamp</timestampDirectory>
-                    <package>org.apache.commons.ognl</package>
-                    <!--
-                    	Uncomment if AST files needs to be generated
-                    	
-                    <nodePackage>*.jtree</nodePackage>
-                    	-->
-                    <!--
-                    	Uncomment if visitor default implementation needs to be generated	
-                    <visitor>true</visitor>
-                    	-->
-                </configuration>
-                <goals>
-                	<!-- change goal to jtree-javacc to generate AST too -->
-                    <goal>javacc</goal>
-                </goals>
-            </execution>
+        <execution>
+          <id>ognl-jjtree</id>
+          <configuration>
+            <outputDirectory>${project.build.directory}/generated-sources/java</outputDirectory>
+            <timestampDirectory>${project.build.directory}/generated-sources/javacc-timestamp</timestampDirectory>
+            <package>org.apache.commons.ognl</package>
+            <!-- Uncomment if AST files needs to be generated
+            <nodePackage>*.jtree</nodePackage>
+            -->
+            <!-- Uncomment if visitor default implementation needs to be generated <visitor>true</visitor> -->
+          </configuration>
+          <goals>
+            <!-- change goal to jtree-javacc to generate AST too -->
+            <goal>javacc</goal>
+          </goals>
+        </execution>
         </executions>
        </plugin>
     </plugins>
