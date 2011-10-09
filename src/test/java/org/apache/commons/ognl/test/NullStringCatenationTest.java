@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.commons.ognl.test.objects.Root;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -39,25 +38,24 @@ public class NullStringCatenationTest
     private static Root ROOT = new Root();
 
     private static Object[][] TESTS =
-        {
-            // Null string catenation
-            { ROOT, "\"bar\" + null", "barnull" }, // Catenate null to a string
-            { ROOT, "\"bar\" + nullObject", "barnull" }, // Catenate null to a string
-            { ROOT, "20.56 + nullObject", NullPointerException.class }, // Catenate null to a number
-            { ROOT, "(true ? 'tabHeader' : '') + (false ? 'tabHeader' : '')", "tabHeader" },
-            { ROOT, "theInt == 0 ? '5%' : theInt + '%'", "6%" },
-            { ROOT, "'width:' + width + ';'", "width:238px;" },
-            { ROOT, "theLong + '_' + index", "4_1" },
-            { ROOT, "'javascript:' + @org.apache.commons.ognl.test.NullStringCatenationTest@MESSAGE",
-                "javascript:blarney" },
-            {
-                ROOT,
-                "printDelivery ? '' : 'javascript:deliverySelected(' + property.carrier + ',' + currentDeliveryId + ')'",
-                "" }, { ROOT, "bean2.id + '_' + theInt", "1_6" } };
+    {
+        // Null string catenation
+        { ROOT, "\"bar\" + null", "barnull" }, // Catenate null to a string
+        { ROOT, "\"bar\" + nullObject", "barnull" }, // Catenate null to a string
+        { ROOT, "20.56 + nullObject", NullPointerException.class }, // Catenate null to a number
+        { ROOT, "(true ? 'tabHeader' : '') + (false ? 'tabHeader' : '')", "tabHeader" },
+        { ROOT, "theInt == 0 ? '5%' : theInt + '%'", "6%" },
+        { ROOT, "'width:' + width + ';'", "width:238px;" },
+        { ROOT, "theLong + '_' + index", "4_1" },
+        { ROOT, "'javascript:' + @org.apache.commons.ognl.test.NullStringCatenationTest@MESSAGE", "javascript:blarney" },
+        { ROOT,  "printDelivery ? '' : 'javascript:deliverySelected(' + property.carrier + ',' + currentDeliveryId + ')'", "" }, 
+        { ROOT, "bean2.id + '_' + theInt", "1_6" } 
+    };
 
-    /*
-     * =================================================================== Public static methods
-     * ===================================================================
+    
+    /**
+     * Setup parameters for this test which are used to call this class constructor
+     * @return the collection of paramaters 
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -65,52 +63,29 @@ public class NullStringCatenationTest
         Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
         for ( int i = 0; i < TESTS.length; i++ )
         {
-            Object[] tmp = new Object[6];
+            Object[] tmp = new Object[4];
             tmp[0] = TESTS[i][1];
             tmp[1] = TESTS[i][0];
             tmp[2] = TESTS[i][1];
-
-            switch ( TESTS[i].length )
-            {
-                case 3:
-                    tmp[3] = TESTS[i][2];
-                    break;
-
-                case 4:
-                    tmp[3] = TESTS[i][2];
-                    tmp[4] = TESTS[i][3];
-                    break;
-
-                case 5:
-                    tmp[3] = TESTS[i][2];
-                    tmp[4] = TESTS[i][3];
-                    tmp[5] = TESTS[i][4];
-                    break;
-
-                default:
-                    throw new RuntimeException( "don't understand TEST format with length " + TESTS[i].length );
-            }
+            tmp[3] = TESTS[i][2];
 
             data.add( tmp );
         }
         return data;
     }
 
-    /*
-     * =================================================================== Constructors
-     * ===================================================================
+    /**
+     * Constructor: size of the Object[] returned by the @Parameter annotated method must match
+     * the number of arguments in this constructor  
      */
-    public NullStringCatenationTest( String name, Object root, String expressionString, Object expectedResult,
-                                     Object setValue, Object expectedAfterSetResult )
+    public NullStringCatenationTest( String name, Object root, String expressionString, Object expectedResult)
     {
-        super( name, root, expressionString, expectedResult, setValue, expectedAfterSetResult );
+        super( name, root, expressionString, expectedResult );
     }
 
     @Test
-
     @Override
-    public void runTest()
-        throws Exception
+    public void runTest() throws Exception
     {
         super.runTest();
     }
