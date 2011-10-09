@@ -197,18 +197,16 @@ public abstract class OgnlTestCase
             }
 
         } catch (Exception ex) {
-            System.out.println("Caught exception " + ex);
-            if (NullPointerException.class.isInstance(ex))
-                ex.printStackTrace();
-
             if (RuntimeException.class.isInstance(ex) && ex.getCause() != null
-                    && Exception.class.isAssignableFrom( ex.getCause().getClass()))
-                ex = (Exception) ((RuntimeException) ex).getCause();
+                    && Exception.class.isAssignableFrom( ex.getCause().getClass())) {
+            	ex = (Exception) ((RuntimeException) ex).getCause();
+            }
 
             if (testedResult instanceof Class) {
                 Assert.assertTrue(Exception.class.isAssignableFrom((Class) testedResult));
-            } else
-                throw ex;
+            } else {
+            	throw ex;
+            }
         }
     }
 
