@@ -19,34 +19,22 @@ package org.apache.commons.ognl;
  * under the License.
  */
 
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @deprecated evaluation-pooling now relies on the jvm garbage collection
+ */
 public final class EvaluationPool
 {
-    private final List<Evaluation> evaluations = new ArrayList<Evaluation>();
-
-    private int size = 0;
-
-    private int created = 0;
-
-    private int recovered = 0;
-
-    private int recycled = 0;
-
-    public EvaluationPool()
+    public EvaluationPool( )
     {
         this( 0 );
     }
 
     public EvaluationPool( int initialSize )
     {
-        super();
-        for ( int i = 0; i < initialSize; i++ )
-        {
-            evaluations.add( new Evaluation( null, null ) );
-        }
-        created = size = initialSize;
+        super( );
+        // do not init object pooling
     }
 
     /**
@@ -59,98 +47,87 @@ public final class EvaluationPool
     }
 
     /**
-     * Returns an Evaluation that contains the node, source and whether it is a set operation. If there are no
-     * Evaluation objects in the pool one is created and returned.
+     * Returns an Evaluation that contains the node, source and whether it
+     * is a set operation.
      */
-    public synchronized Evaluation create( SimpleNode node, Object source, boolean setOperation )
+    public Evaluation create( SimpleNode node, Object source, boolean setOperation )
     {
-        Evaluation result;
-
-        if ( size > 0 )
-        {
-            result = evaluations.remove( size - 1 );
-            result.init( node, source, setOperation );
-            size--;
-            recovered++;
-        }
-        else
-        {
-            result = new Evaluation( node, source, setOperation );
-            created++;
-        }
-        return result;
+        // synchronization is removed as we do not rely anymore on the in-house object pooling
+        return new Evaluation( node, source, setOperation );
     }
 
     /**
      * Recycles an Evaluation
+     *
+     * @deprecated object-pooling now relies on the jvm garbage collection
      */
-    public synchronized void recycle( Evaluation value )
+    public void recycle( Evaluation value )
     {
-        if ( value != null )
-        {
-            value.reset();
-            evaluations.add( value );
-            size++;
-            recycled++;
-        }
+        // no need of recycling, we rely on the garbage collection efficiency
     }
 
     /**
-     * Recycles an of Evaluation and all of it's siblings and children.
+     * Recycles an of Evaluation and all of it's siblings
+     * and children.
+     *
+     * @deprecated object-pooling now relies on the jvm garbage collection
      */
     public void recycleAll( Evaluation value )
     {
-        if ( value != null )
-        {
-            recycleAll( value.getNext() );
-            recycleAll( value.getFirstChild() );
-            recycle( value );
-        }
+        // no need of recycling, we rely on the garbage collection efficiency
     }
 
     /**
      * Recycles a List of Evaluation objects
+     *
+     * @deprecated object-pooling now relies on the jvm garbage collection
      */
-    public void recycleAll( List<Evaluation> value )
+    public void recycleAll( List value )
     {
-        if ( value != null )
-        {
-            for ( int i = 0, icount = value.size(); i < icount; i++ )
-            {
-                recycle( value.get( i ) );
-            }
-        }
+        // no need of recycling, we rely on the garbage collection efficiency
     }
 
     /**
      * Returns the number of items in the pool
+     *
+     * @deprecated object-pooling now relies on the jvm garbage collection
      */
-    public int getSize()
+    public int getSize( )
     {
-        return size;
+        return 0;
     }
 
     /**
-     * Returns the number of items this pool has created since it's construction.
+     * Returns the number of items this pool has created since
+     * it's construction.
+     *
+     * @deprecated object-pooling now relies on the jvm garbage collection
      */
-    public int getCreatedCount()
+    public int getCreatedCount( )
     {
-        return created;
+        return 0;
     }
 
     /**
-     * Returns the number of items this pool has recovered from the pool since its construction.
+     * Returns the number of items this pool has recovered from
+     * the pool since its construction.
+     *
+     * @deprecated object-pooling now relies on the jvm garbage collection
      */
-    public int getRecoveredCount()
+    public int getRecoveredCount( )
     {
-        return recovered;
+        return 0;
     }
 
     /**
-     * Returns the number of items this pool has recycled since it's construction.
+     * Returns the number of items this pool has recycled since
+     * it's construction.
+     *
+     * @deprecated object-pooling now relies on the jvm garbage collection
      */
-    public int getRecycledCount()
+    public int getRecycledCount( )
     {
-        return recycled;
+        return 0;
     }
 }
+

@@ -24,7 +24,7 @@ import org.apache.commons.ognl.ClassCacheInspector;
 /**
  * This is a highly specialized map for storing values keyed by Class objects.
  */
-public interface ClassCache
+public interface ClassCache<V>
 {
 
     void setClassInspector( ClassCacheInspector inspector );
@@ -33,7 +33,11 @@ public interface ClassCache
 
     int getSize();
 
-    <T> T get( Class<?> key );
+    V get( Class<?> key, CacheEntryFactory<Class<?>, V> cacheEntryFactory )
+        throws CacheException;
 
-    <T> T put( Class<?> key, T value );
+    V get( Class<?> key )
+        throws CacheException;
+
+    V put( Class<?> key, V value );
 }
