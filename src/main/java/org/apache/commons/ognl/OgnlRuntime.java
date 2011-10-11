@@ -168,8 +168,6 @@ public class OgnlRuntime
 
     static final ClassCache<Map<String, Field>> _fieldCache = new ConcurrentClassCache<Map<String, Field>>( );
 
-    static final List<Class<?>> _superclasses = new ArrayList<Class<?>>( ); /* Used by fieldCache lookup */
-
     static final ClassCache[] _declaredMethods =
         new ClassCache[]{ new ConcurrentClassCache( ), new ConcurrentClassCache( ) };
 
@@ -419,7 +417,6 @@ public class OgnlRuntime
         _instanceMethodCache.clear( );
         _invokePermissionCache.clear( );
         _fieldCache.clear( );
-        _superclasses.clear( );
         _declaredMethods[0].clear( );
         _declaredMethods[1].clear( );
         _methodAccessCache.clear( );
