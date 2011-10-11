@@ -160,14 +160,13 @@ public class OgnlRuntime
 
     static final ClassCache<List<Constructor<?>>> _constructorCache = new ConcurrentClassCache<List<Constructor<?>>>( );
 
-    static final ClassCache _staticMethodCache = new ConcurrentClassCache( );
+    static final ClassCache<Map<String, List<Method>>> _staticMethodCache = new ConcurrentClassCache<Map<String, List<Method>>>( );
 
-    static final ClassCache _instanceMethodCache = new ConcurrentClassCache( );
+    static final ClassCache<Map<String, List<Method>>> _instanceMethodCache = new ConcurrentClassCache<Map<String, List<Method>>>( );
 
-    static final ClassCache<Map<String, Permission>> _invokePermissionCache =
-        new ConcurrentClassCache<Map<String, Permission>>( );
+    static final ClassCache<Map<String, Permission>> _invokePermissionCache = new ConcurrentClassCache<Map<String, Permission>>( );
 
-    static final ClassCache _fieldCache = new ConcurrentClassCache( );
+    static final ClassCache<Map<String, Field>> _fieldCache = new ConcurrentClassCache<Map<String, Field>>( );
 
     static final List<Class<?>> _superclasses = new ArrayList<Class<?>>( ); /* Used by fieldCache lookup */
 
@@ -764,15 +763,6 @@ public class OgnlRuntime
             }
         }
 
-        /*
-         * for (int i=0; i < var.getBounds().length; i++) { Type t = var.getBounds()[i]; Class resolvedType = null; if
-         * (ParameterizedType.class.isInstance(t)) { ParameterizedType pparam = (ParameterizedType)t; for (int e=0; e <
-         * pparam.getActualTypeArguments().length; e++) { if
-         * (!TypeVariable.class.isInstance(pparam.getActualTypeArguments()[e])) continue; resolvedType =
-         * resolveType(pparam, (TypeVariable)pparam.getActualTypeArguments()[e], declaredTypes); } } else { resolvedType
-         * = findType(param.getActualTypeArguments(), (Class)t); } if (resolvedType != null) return resolvedType; }
-         */
-
         return null;
     }
 
@@ -834,8 +824,8 @@ public class OgnlRuntime
     {
         final Class<?> mc = method.getDeclaringClass( );
 
-        Map<String, Permission> permissions =
-            _invokePermissionCache.get( mc, new CacheEntryFactory<Class<?>, Map<String, Permission>>( )
+        CacheEntryFactory<Class<?>, Map<String, Permission>> cacheEntryFactory =
+            new CacheEntryFactory<Class<?>, Map<String, Permission>>( )
             {
                 public Map<String, Permission> create( Class<?> key )
                     throws CacheException
@@ -853,7 +843,8 @@ public class OgnlRuntime
                     }
                     return permissions;
                 }
-            } );
+            };
+        Map<String, Permission> permissions = _invokePermissionCache.get( mc, cacheEntryFactory );
 
         return permissions.get( method.getName( ) );
     }
@@ -1695,19 +1686,18 @@ public class OgnlRuntime
         } );
     }
 
-    public static Map<String, List<Method>> getMethods( Class<?> targetClass, boolean staticMethods )
+    public static Map<String, List<Method>> getMethods( final Class<?> targetClass, final boolean staticMethods )
         throws OgnlException
     {
-        ClassCache cache = ( staticMethods ? _staticMethodCache : _instanceMethodCache );
-        Map<String, List<Method>> result;
-
-        synchronized ( cache )
+        CacheEntryFactory<Class<?>, Map<String, List<Method>>> entryFactory=new CacheEntryFactory<Class<?>, Map<String, List<Method>>>( )
         {
-            if ( ( result = (Map<String, List<Method>>) cache.get( targetClass ) ) == null )
+            public Map<String, List<Method>> create( Class<?> key )
+                throws CacheException
             {
-                cache.put( targetClass, result = new HashMap<String, List<Method>>( 23 ) );
+                Map<String, List<Method>> result = new HashMap<String, List<Method>>( 23 );
 
-                for ( Class<?> c = targetClass; c != null; c = c.getSuperclass( ) )
+                Class<?> c = key;
+                while ( c != null )
                 {
                     Method[] ma = c.getDeclaredMethods( );
 
@@ -1732,11 +1722,14 @@ public class OgnlRuntime
                             ml.add( method );
                         }
                     }
+                    c = c.getSuperclass( );
                 }
+                return result;
             }
-        }
+        };
 
-        return result;
+        ClassCache<Map<String, List<Method>>> cache = ( staticMethods ? _staticMethodCache : _instanceMethodCache );
+        return cache.get( targetClass, entryFactory );
     }
 
     public static List<Method> getMethods( Class<?> targetClass, String name, boolean staticMethods )
@@ -1748,67 +1741,43 @@ public class OgnlRuntime
     public static Map<String, Field> getFields( Class<?> targetClass )
         throws OgnlException
     {
-        Map<String, Field> result;
-
-        synchronized ( _fieldCache )
+        CacheEntryFactory<Class<?>, Map<String, Field>> entryFactory=new CacheEntryFactory<Class<?>, Map<String, Field>>( )
         {
-            if ( ( result = (Map<String, Field>) _fieldCache.get( targetClass ) ) == null )
+            public Map<String, Field> create( Class<?> key )
+                throws CacheException
             {
-                Field fa[];
-
-                result = new HashMap<String, Field>( 23 );
-                fa = targetClass.getDeclaredFields( );
-                for ( Field field : fa )
+                Field[] declaredFields = key.getDeclaredFields( );
+                HashMap<String, Field> result = new HashMap<String, Field>( declaredFields.length);
+                for ( Field field : declaredFields )
                 {
                     result.put( field.getName( ), field );
                 }
-                _fieldCache.put( targetClass, result );
+                return result ;
             }
-        }
-        return result;
+        };
+        return _fieldCache.get( targetClass, entryFactory );
     }
 
     public static Field getField( Class<?> inClass, String name )
         throws OgnlException
     {
-        Field result = null;
+        Field o = getFields( inClass ).get( name );
 
-        synchronized ( _fieldCache )
+        if ( o == null )
         {
-            Field o = getFields( inClass ).get( name );
-
-            if ( o == null )
+            // if o is null, it should search along the superclasses
+            Class<?> sc = inClass.getSuperclass();
+            while ( ( sc != null ) )
             {
-                _superclasses.clear( );
-                for ( Class<?> sc = inClass; ( sc != null ); sc = sc.getSuperclass( ) )
+                o = getFields( sc ).get( name );
+                if ( o != null )
                 {
-                    if ( ( o = getFields( sc ).get( name ) ) == null )
-                    {
-                        break;
-                    }
-
-                    _superclasses.add( sc );
-
-                    if ( ( result = o ) != null )
-                    {
-                        break;
-                    }
+                    return o;
                 }
-                /*
-                 * Bubble the found value (either cache miss or actual field) to all supeclasses that we saw for quicker
-                 * access next time.
-                 */
-                for ( Class<?> _superclass : _superclasses )
-                {
-                    getFields( _superclass ).put( name, result );
-                }
-            }
-            else
-            {
-                result = o;
+                sc = sc.getSuperclass( );
             }
         }
-        return result;
+        return o;
     }
 
     public static Object getFieldValue( OgnlContext context, Object target, String propertyName )

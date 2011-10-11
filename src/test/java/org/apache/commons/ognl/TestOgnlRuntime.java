@@ -19,11 +19,28 @@
  */
 package org.apache.commons.ognl;
 
-import org.apache.commons.ognl.test.objects.*;
+import org.apache.commons.ognl.test.objects.BaseGeneric;
+import org.apache.commons.ognl.test.objects.Bean2;
+import org.apache.commons.ognl.test.objects.FormImpl;
+import org.apache.commons.ognl.test.objects.GameGeneric;
+import org.apache.commons.ognl.test.objects.GameGenericObject;
+import org.apache.commons.ognl.test.objects.GenericCracker;
+import org.apache.commons.ognl.test.objects.GenericService;
+import org.apache.commons.ognl.test.objects.GenericServiceImpl;
+import org.apache.commons.ognl.test.objects.GetterMethods;
+import org.apache.commons.ognl.test.objects.IComponent;
+import org.apache.commons.ognl.test.objects.IForm;
+import org.apache.commons.ognl.test.objects.ListSource;
+import org.apache.commons.ognl.test.objects.ListSourceImpl;
+import org.apache.commons.ognl.test.objects.OtherObjectIndexed;
+import org.apache.commons.ognl.test.objects.Root;
+import org.apache.commons.ognl.test.objects.SetterReturns;
+import org.apache.commons.ognl.test.objects.SubclassSyntheticObject;
 import org.junit.Test;
 
 import java.beans.PropertyDescriptor;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
@@ -354,6 +371,14 @@ public class TestOgnlRuntime
         Class[] stringClass = OgnlRuntime.findParameterTypes( StringChild.class, saveMethod );
         assertNotSame( "The cached parameter types from previous calls are used", stringClass[0], Long.class );
         assertSame( stringClass[0], String.class );
+    }
+
+    @Test
+    public void testGetField( )
+        throws OgnlException
+    {
+        Field field = OgnlRuntime.getField( OtherObjectIndexed.class, "attributes" );
+        assertNotNull( "Field is null", field);
     }
 
 }
