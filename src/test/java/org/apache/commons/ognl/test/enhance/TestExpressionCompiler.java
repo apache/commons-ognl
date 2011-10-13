@@ -38,8 +38,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 import static junit.framework.Assert.*;
 
@@ -158,7 +156,7 @@ public class TestExpressionCompiler
         throws Throwable
     {
         Root root = new Root();
-        Node expr = (Node) Ognl.compileExpression( _context, root, "{index + 1}" );
+        Node expr = Ognl.compileExpression( _context, root, "{index + 1}" );
 
         Object ret = expr.getAccessor().get( _context, root );
 
@@ -172,7 +170,7 @@ public class TestExpressionCompiler
         Inherited obj1 = new TestInherited1();
         Inherited obj2 = new TestInherited2();
 
-        Node expr = (Node) Ognl.compileExpression( _context, obj1, "myString" );
+        Node expr = Ognl.compileExpression( _context, obj1, "myString" );
 
         assertEquals( expr.getAccessor().get( _context, obj1 ), "inherited1" );
         assertEquals( expr.getAccessor().get( _context, obj2 ), "inherited2" );
@@ -182,7 +180,7 @@ public class TestExpressionCompiler
     public void test_Create_Empty_Collection()
         throws Throwable
     {
-        Node expr = (Node) Ognl.compileExpression( _context, null, "{}" );
+        Node expr = Ognl.compileExpression( _context, null, "{}" );
 
         Object ret = expr.getAccessor().get( _context, null );
 
@@ -199,9 +197,6 @@ public class TestExpressionCompiler
     public void test_Indexed_Property()
         throws Throwable
     {
-        Map map = new HashMap();
-        map.put( "key", "value" );
-
         Node expression = Ognl.compileExpression( _context, this, "key" );
         assertEquals( "key", expression.getAccessor().get( _context, this ) );
     }
@@ -244,10 +239,10 @@ public class TestExpressionCompiler
         Node node = Ognl.compileExpression( _context, root, "cracker.param" );
         assertEquals( null, node.getAccessor().get( _context, root ) );
 
-        node.getAccessor().set( _context, root, new Integer( 0 ) );
-        assertEquals( new Integer( 0 ), node.getAccessor().get( _context, root ) );
+        node.getAccessor().set( _context, root, 0 );
+        assertEquals( 0, node.getAccessor().get( _context, root ) );
 
-        node.getAccessor().set( _context, root, new Integer( 12 ) );
-        assertEquals( new Integer( 12 ), node.getAccessor().get( _context, root ) );
+        node.getAccessor().set( _context, root, 12 );
+        assertEquals( 12, node.getAccessor().get( _context, root ) );
     }
 }
