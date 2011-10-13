@@ -21,10 +21,7 @@
 
 package org.apache.commons.ognl.internal;
 
-public interface ClassCacheEntryFactory<V>
-    extends CacheEntryFactory<Class<?>, V>
+public interface ClassCacheEntryFactory<T>
+    extends CacheEntryFactory<Class<?>, T>
 {
-    V create( Class<?> key )
-        throws CacheException;
-
 }

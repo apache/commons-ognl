@@ -1,5 +1,5 @@
 /*
- * $Id$
+ * $Id: $
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -21,13 +21,18 @@
 
 package org.apache.commons.ognl.internal;
 
-import org.apache.commons.ognl.ClassCacheInspector;
-
-/**
- * This is a highly specialized map for storing values keyed by Class objects.
- */
-public interface ClassCache<V>
-    extends Cache<Class<?>, V>
+public interface Cache<K, V>
 {
-    void setClassInspector( ClassCacheInspector inspector );
+    void clear( );
+
+    int getSize( );
+
+    V get( K key )
+        throws CacheException;
+
+    V get( K key, CacheEntryFactory<K, V> cacheEntryFactory )
+        throws CacheException;
+
+    V put( K key, V value );
+
 }

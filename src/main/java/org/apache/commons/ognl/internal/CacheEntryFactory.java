@@ -21,8 +21,8 @@
 
 package org.apache.commons.ognl.internal;
 
-public interface CacheEntryFactory<T, V>
+public interface CacheEntryFactory<K, V>
 {
-    public V create( T key )
+    public V create( K key )
         throws CacheException;
 }
