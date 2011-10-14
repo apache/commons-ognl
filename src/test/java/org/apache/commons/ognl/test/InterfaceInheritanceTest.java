@@ -31,7 +31,6 @@ import org.apache.commons.ognl.test.objects.EvenOdd;
 import org.apache.commons.ognl.test.objects.ListSourceImpl;
 import org.apache.commons.ognl.test.objects.Root;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;

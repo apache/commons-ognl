@@ -29,8 +29,6 @@ import org.apache.commons.ognl.test.objects.Bean2;
 import org.apache.commons.ognl.test.objects.FirstBean;
 import org.apache.commons.ognl.test.objects.PropertyHolder;
 import org.apache.commons.ognl.test.objects.Root;
-import org.junit.Ignore;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;

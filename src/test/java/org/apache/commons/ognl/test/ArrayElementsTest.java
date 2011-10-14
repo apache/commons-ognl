@@ -19,16 +19,15 @@
  */
 package org.apache.commons.ognl.test;
 
-import org.apache.commons.ognl.TypeConverter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.apache.commons.ognl.test.objects.Root;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 
 @RunWith(value = Parameterized.class)
 public class ArrayElementsTest
@@ -119,10 +118,9 @@ public class ArrayElementsTest
     @Before
     public void setUp()
     {
-        TypeConverter arrayConverter;
-
         super.setUp();
         /**
+         * TypeConverter arrayConverter;
          * arrayConverter = new DefaultTypeConverter() { public Object convertValue(Map context, Object target, Member
          * member, String propertyName, Object value, Class toType) { if (value.getClass().isArray()) { if
          * (!toType.isArray()) { value = Array.get(value, 0); } } return super.convertValue(context, target, member,

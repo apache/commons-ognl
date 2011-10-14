@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.commons.ognl.test.objects.Simple;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;

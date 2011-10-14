@@ -58,8 +58,6 @@ public class Performance
 
     private int _iterations;
 
-    private Serializable _mvelCompiled;
-
     private String _expressionString;
 
     private boolean _isMvel = false;
@@ -392,6 +390,7 @@ public class Performance
         startTest();
         do
         {
+            @SuppressWarnings( "unused" )
             int result = 100 + 20 * 5;
         }
         while ( !done() );
@@ -440,6 +439,7 @@ public class Performance
         startTest();
         do
         {
+            @SuppressWarnings( "unused" )
             boolean result = _root.getBean2().getBean3().getValue() < 24;
         }
         while ( !done() );

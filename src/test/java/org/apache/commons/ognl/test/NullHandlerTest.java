@@ -25,7 +25,6 @@ import java.util.Collection;
 import org.apache.commons.ognl.OgnlRuntime;
 import org.apache.commons.ognl.test.objects.CorrectedObject;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;

@@ -25,7 +25,6 @@ import java.util.Collection;
 import org.apache.commons.ognl.DefaultMemberAccess;
 import org.apache.commons.ognl.test.objects.Root;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -40,7 +39,7 @@ public class PrivateAccessorTest
 
     private static Object[][] TESTS = {
         // Using private get/set methods
-        { ROOT, "getPrivateAccessorIntValue()", new Integer( 67 ) },
+    	{ ROOT, "getPrivateAccessorIntValue()", new Integer( 67 ) },
         { ROOT, "privateAccessorIntValue", new Integer( 67 ) },
         { ROOT, "privateAccessorIntValue", new Integer( 67 ), new Integer( 100 ) },
         { ROOT, "privateAccessorIntValue2", new Integer( 67 ) },

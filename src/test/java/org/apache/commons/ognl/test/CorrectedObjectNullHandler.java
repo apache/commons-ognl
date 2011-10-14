@@ -54,8 +54,6 @@ public class CorrectedObjectNullHandler
 
     public Object nullPropertyValue( Map context, Object target, Object property )
     {
-        Object result = null;
-
         if ( property.equals( "stringValue" ) )
         {
             return defaultValue;
