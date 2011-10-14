@@ -1676,8 +1676,9 @@ public class OgnlRuntime
             if ( o == null )
             {
                 _superclasses.clear();
-                for ( Class<?> sc = inClass; ( sc != null ); sc = sc.getSuperclass() )
+                for ( Class<?> sc = inClass; ( sc != null );  )
                 {
+                    sc = sc.getSuperclass();
                     if ( ( o = getFields( sc ).get( name ) ) == null )
                     {
                         break;
