@@ -1,3 +1,4 @@
+package org.apache.commons.ognl;
 /*
  * $Id$
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -17,7 +18,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.commons.ognl;
 
 import org.apache.commons.ognl.enhance.ExpressionCompiler;
 
@@ -51,8 +51,9 @@ class ASTAdd
     {
         Object result = _children[0].getValue( context, source );
 
-        for ( int i = 1; i < _children.length; ++i )
+        for ( int i = 1; i < _children.length; ++i ) {
             result = OgnlOps.add( result, _children[i].getValue( context, source ) );
+        }
 
         return result;
     }
@@ -64,48 +65,74 @@ class ASTAdd
 
     boolean isWider( NodeType type, NodeType lastType )
     {
-        if ( lastType == null )
+        if ( lastType == null ) 
+        {
             return true;
+        }
 
         // System.out.println("checking isWider(" + type.getGetterClass() + " , " + lastType.getGetterClass() + ")");
 
-        if ( String.class.isAssignableFrom( lastType.getGetterClass() ) )
+        if ( String.class.isAssignableFrom( lastType.getGetterClass() ) ) 
+        {
             return false;
+        }
 
-        if ( String.class.isAssignableFrom( type.getGetterClass() ) )
+        if ( String.class.isAssignableFrom( type.getGetterClass() ) ) 
+        {
             return true;
+        }
 
-        if ( _parent != null && String.class.isAssignableFrom( type.getGetterClass() ) )
+        if ( _parent != null && String.class.isAssignableFrom( type.getGetterClass() ) ) 
+        {
             return true;
+        }
 
-        if ( String.class.isAssignableFrom( lastType.getGetterClass() ) && Object.class == type.getGetterClass() )
+        if ( String.class.isAssignableFrom( lastType.getGetterClass() ) && Object.class == type.getGetterClass() ) 
+        {
             return false;
+        }
 
-        if ( _parent != null && String.class.isAssignableFrom( lastType.getGetterClass() ) )
+        if ( _parent != null && String.class.isAssignableFrom( lastType.getGetterClass() ) ) 
+        {
             return false;
+        }
         else if ( _parent == null && String.class.isAssignableFrom( lastType.getGetterClass() ) )
-            return true;
+        {
+        	return true;
+        }
         else if ( _parent == null && String.class.isAssignableFrom( type.getGetterClass() ) )
-            return false;
+        {
+        	return false;
+        }
 
         if ( BigDecimal.class.isAssignableFrom( type.getGetterClass() )
             || BigInteger.class.isAssignableFrom( type.getGetterClass() ) )
-            return true;
+        {
+        	return true;
+        }
 
         if ( BigDecimal.class.isAssignableFrom( lastType.getGetterClass() )
             || BigInteger.class.isAssignableFrom( lastType.getGetterClass() ) )
-            return false;
+        {
+        	return false;
+        }
 
         if ( Double.class.isAssignableFrom( type.getGetterClass() ) )
-            return true;
+        {
+        	return true;
+        }
 
         if ( Integer.class.isAssignableFrom( type.getGetterClass() )
             && Double.class.isAssignableFrom( lastType.getGetterClass() ) )
-            return false;
+        {
+        	return false;
+        }
 
         if ( Float.class.isAssignableFrom( type.getGetterClass() )
             && Integer.class.isAssignableFrom( lastType.getGetterClass() ) )
-            return true;
+        {
+        	return true;
+        }
 
         return true;
     }
@@ -303,7 +330,7 @@ class ASTAdd
         }
     }
     
-    public <R,P> R accept(NodeVisitor<? extends R, ? super P> visitor, P data) 
+    public <R,P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data ) 
     {
         return visitor.visit(this, data);
     }
