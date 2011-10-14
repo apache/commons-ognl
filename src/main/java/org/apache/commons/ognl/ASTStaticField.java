@@ -151,13 +151,7 @@ public class ASTStaticField
         {
             reason = e;
         }
-
-        if ( reason != null )
-        {
-            throw new OgnlException( "Could not get static field " + fieldName + " from class " + className, reason );
-        }
-
-        return null;
+        throw new OgnlException( "Could not get static field " + fieldName + " from class " + className, reason );
     }
 
     public Class getGetterClass()
