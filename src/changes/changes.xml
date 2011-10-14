@@ -23,10 +23,18 @@
   </properties>
   <body>
   <release version="4.0-incubating" date="TBD" description="First ASF release under Incubation.">
-  	<action issue="OGNL-26" type="update" dev="Christian Grobmeier">OGNL-26 - JUnit Tests produce confusing output.</action>
-  	<action issue="OGNL-21" type="update" dev="Christian Grobmeier">OGNL-21 - Remove dead and broken code from OgnlRuntime/SimpleNode (with contributions by Daniel Pitts)</action>
-  	<action issue="OGNL-24" type="update" dev="Christian Grobmeier">OGNL-24 - Support visitor pattern on AST (contributed by Daniel Pitts)</action>
-    <action issue="OGNL-8" type="update" dev="Christian Grobmeier">OGNL-8 - enabled generation of javacc Parser classes)</action>
+  	<action issue="OGNL-26" type="update" dev="Christian Grobmeier">JUnit Tests produce confusing output.</action>
+  	<action issue="OGNL-21" type="update" dev="Christian Grobmeier">Remove dead and broken code from OgnlRuntime/SimpleNode (with contributions by Daniel Pitts)</action>
+  	<action issue="OGNL-24" type="update" dev="Christian Grobmeier">Support visitor pattern on AST (contributed by Daniel Pitts)</action>
+    <action issue="OGNL-15" type="update" dev="Simone Tripodi">OGNL needs a new Logo</action>
+    <action issue="OGNL-14" type="update" dev="Maurizio Cucchiara">Documentation site has to be published</action>
+    <action issue="OGNL-13" type="update" dev="Simone Tripodi">Ant maintenance</action>
+    <action issue="OGNL-10" type="update" dev="Simone Tripodi">Update the User/Developer guide according the Commons standard</action>
+    <action issue="OGNL-9" type="update" dev="Maurizio Cucchiara, Simone Tripodi">Upgrade JUnit to version4</action>
+    <action issue="OGNL-8" type="update" dev="Christian Grobmeier">enabled generation of javacc Parser classes</action>
+    <action issue="OGNL-6" type="update" dev="Simone Tripodi">Upgrade groupId/artifactId/version on pom</action>
+    <action issue="OGNL-2" type="update" dev="">Update legals to all OGNL file</action>
+    <action issue="OGNL-1" type="update" dev="Lukasz Lenart">Import the OGNL codebase</action>
   </release>
   </body>
 </document>
