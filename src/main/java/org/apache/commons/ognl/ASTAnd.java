@@ -1,5 +1,6 @@
+package org.apache.commons.ognl;
+
 /*
- * $Id$
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -17,33 +18,51 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.commons.ognl;
 
 import org.apache.commons.ognl.enhance.ExpressionCompiler;
 import org.apache.commons.ognl.enhance.UnsupportedCompilationException;
 
 /**
+ * $Id$
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
 public class ASTAnd
     extends BooleanExpression
 {
+    /** Serial */
+    private static final long serialVersionUID = -4585941425250141812L;
+
+    /**
+     * TODO: javadoc
+     * @param id the id
+     */
     public ASTAnd( int id )
     {
         super( id );
     }
 
+    /**
+     * TODO: javadoc
+     * @param p the parser
+     * @param id the id
+     */
     public ASTAnd( OgnlParser p, int id )
     {
         super( p, id );
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.commons.ognl.SimpleNode#jjtClose()
+     */
     public void jjtClose()
     {
         flattenTree();
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.commons.ognl.SimpleNode#getValueBody(org.apache.commons.ognl.OgnlContext, java.lang.Object)
+     */
     protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
@@ -53,13 +72,18 @@ public class ASTAnd
         {
             result = _children[i].getValue( context, source );
 
-            if ( i != last && !OgnlOps.booleanValue( result ) )
+            if ( i != last && !OgnlOps.booleanValue( result ) ) 
+            {
                 break;
+            }
         }
 
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.commons.ognl.SimpleNode#setValueBody(org.apache.commons.ognl.OgnlContext, java.lang.Object, java.lang.Object)
+     */
     protected void setValueBody( OgnlContext context, Object target, Object value )
         throws OgnlException
     {
@@ -69,28 +93,42 @@ public class ASTAnd
         {
             Object v = _children[i].getValue( context, target );
 
-            if ( !OgnlOps.booleanValue( v ) )
+            if ( !OgnlOps.booleanValue( v ) ) 
+            {
                 return;
+            }
         }
 
         _children[last].setValue( context, target, value );
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.commons.ognl.ExpressionNode#getExpressionOperator(int)
+     */
     public String getExpressionOperator( int index )
     {
         return "&&";
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.commons.ognl.BooleanExpression#getGetterClass()
+     */
     public Class getGetterClass()
     {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.commons.ognl.BooleanExpression#toGetSourceString(org.apache.commons.ognl.OgnlContext, java.lang.Object)
+     */
     public String toGetSourceString( OgnlContext context, Object target )
     {
-        if ( _children.length != 2 )
-            throw new UnsupportedCompilationException( "Can only compile boolean expressions with two children." );
-
+        if ( _children.length != 2 ) 
+        {
+            throw new UnsupportedCompilationException(
+                "Can only compile boolean expressions with two children." );
+        }
+        
         String result = "";
 
         try
@@ -100,16 +138,20 @@ public class ASTAnd
             if ( !OgnlOps.booleanValue( context.getCurrentObject() ) )
             {
                 throw new UnsupportedCompilationException(
-                                                           "And expression can't be compiled until all conditions are true." );
+                    "And expression can't be compiled until all conditions are true." );
             }
 
-            if ( !OgnlRuntime.isBoolean( first ) && !context.getCurrentType().isPrimitive() )
+            if ( !OgnlRuntime.isBoolean( first ) && !context.getCurrentType().isPrimitive() ) 
+            {
                 first = OgnlRuntime.getCompiler().createLocalReference( context, first, context.getCurrentType() );
-
+            }
+            
             String second = OgnlRuntime.getChildSource( context, target, _children[1] );
-            if ( !OgnlRuntime.isBoolean( second ) && !context.getCurrentType().isPrimitive() )
+            if ( !OgnlRuntime.isBoolean( second ) && !context.getCurrentType().isPrimitive() ) 
+            {
                 second = OgnlRuntime.getCompiler().createLocalReference( context, second, context.getCurrentType() );
-
+            }
+            
             result += "(org.apache.commons.ognl.OgnlOps.booleanValue(" + first + ")";
 
             result += " ? ";
@@ -137,14 +179,21 @@ public class ASTAnd
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.commons.ognl.ExpressionNode#toSetSourceString(org.apache.commons.ognl.OgnlContext, java.lang.Object)
+     */
     public String toSetSourceString( OgnlContext context, Object target )
     {
-        if ( _children.length != 2 )
+        if ( _children.length != 2 ) 
+        {
             throw new UnsupportedCompilationException( "Can only compile boolean expressions with two children." );
-
+        }
+        
         String pre = (String) context.get( "_currentChain" );
-        if ( pre == null )
+        if ( pre == null ) 
+        {
             pre = "";
+        }
 
         String result = "";
 
@@ -154,7 +203,7 @@ public class ASTAnd
             if ( !OgnlOps.booleanValue( _children[0].getValue( context, target ) ) )
             {
                 throw new UnsupportedCompilationException(
-                                                           "And expression can't be compiled until all conditions are true." );
+                    "And expression can't be compiled until all conditions are true." );
             }
 
             String first =
@@ -167,11 +216,15 @@ public class ASTAnd
                 ExpressionCompiler.getRootExpression( _children[1], context.getRoot(), context ) + pre
                     + _children[1].toSetSourceString( context, target );
 
-            if ( !OgnlRuntime.isBoolean( first ) )
+            if ( !OgnlRuntime.isBoolean( first ) ) 
+            {
                 result += "if(org.apache.commons.ognl.OgnlOps.booleanValue(" + first + ")){";
-            else
+            } 
+            else 
+            {
                 result += "if(" + first + "){";
-
+            }
+                
             result += second;
             result += "; } ";
 
@@ -187,8 +240,11 @@ public class ASTAnd
         return result;
     }
     
-    public <R,P> R accept(NodeVisitor<? extends R, ? super P> visitor, P data) 
+    /* (non-Javadoc)
+     * @see org.apache.commons.ognl.Node#accept(org.apache.commons.ognl.NodeVisitor, java.lang.Object)
+     */
+    public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data ) 
     {
-        return visitor.visit(this, data);
+        return visitor.visit( this, data );
     }
 }
