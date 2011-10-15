@@ -1,6 +1,6 @@
 package org.apache.commons.ognl;
+
 /*
- * $Id$
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,6 +25,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
+ * $Id$
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
@@ -51,7 +52,8 @@ class ASTAdd
     {
         Object result = _children[0].getValue( context, source );
 
-        for ( int i = 1; i < _children.length; ++i ) {
+        for ( int i = 1; i < _children.length; ++i ) 
+        {
             result = OgnlOps.add( result, _children[i].getValue( context, source ) );
         }
 
@@ -98,40 +100,40 @@ class ASTAdd
         }
         else if ( _parent == null && String.class.isAssignableFrom( lastType.getGetterClass() ) )
         {
-        	return true;
+            return true;
         }
         else if ( _parent == null && String.class.isAssignableFrom( type.getGetterClass() ) )
         {
-        	return false;
+            return false;
         }
 
         if ( BigDecimal.class.isAssignableFrom( type.getGetterClass() )
             || BigInteger.class.isAssignableFrom( type.getGetterClass() ) )
         {
-        	return true;
+            return true;
         }
 
         if ( BigDecimal.class.isAssignableFrom( lastType.getGetterClass() )
             || BigInteger.class.isAssignableFrom( lastType.getGetterClass() ) )
         {
-        	return false;
+            return false;
         }
 
         if ( Double.class.isAssignableFrom( type.getGetterClass() ) )
         {
-        	return true;
+            return true;
         }
 
         if ( Integer.class.isAssignableFrom( type.getGetterClass() )
             && Double.class.isAssignableFrom( lastType.getGetterClass() ) )
         {
-        	return false;
+            return false;
         }
 
         if ( Float.class.isAssignableFrom( type.getGetterClass() )
             && Integer.class.isAssignableFrom( lastType.getGetterClass() ) )
         {
-        	return true;
+            return true;
         }
 
         return true;
@@ -180,13 +182,16 @@ class ASTAdd
 
                 for ( int i = 0; i < _children.length; ++i )
                 {
-                    if ( i > 0 )
+                    if ( i > 0 ) 
+                    {
                         result += " " + getExpressionOperator( i ) + " ";
-
+                    }
+                        
                     String expr = _children[i].toGetSourceString( context, target );
 
                     if ( ( expr != null && "null".equals( expr ) )
-                        || ( !ASTConst.class.isInstance( _children[i] ) && ( expr == null || expr.trim().length() <= 0 ) ) )
+                        || ( !ASTConst.class.isInstance( _children[i] ) 
+                        && ( expr == null || expr.trim().length() <= 0 ) ) )
                     {
                         expr = "null";
                     }
@@ -229,15 +234,19 @@ class ASTAdd
                             ExpressionCompiler.getRootExpression( _children[i], context.getRoot(), context );
 
                         if ( !ASTProperty.class.isInstance( _children[i].jjtGetChild( 0 ) ) && rootExpr.endsWith( ")" )
-                            && expr.startsWith( ")" ) )
+                            && expr.startsWith( ")" ) ) 
+                        {
                             expr = expr.substring( 1, expr.length() );
+                        }
 
                         expr = rootExpr + expr;
                         context.setCurrentAccessor( context.getRoot().getClass() );
 
                         String cast = (String) context.remove( ExpressionCompiler.PRE_CAST );
-                        if ( cast == null )
+                        if ( cast == null ) 
+                        {
                             cast = "";
+                        }
 
                         expr = cast + expr;
                     }
@@ -288,23 +297,29 @@ class ASTAdd
                         {
                             if ( ASTVarRef.class.isInstance( _children[i] )
                                 || ASTProperty.class.isInstance( _children[i] )
-                                || ASTChain.class.isInstance( _children[i] ) )
+                                || ASTChain.class.isInstance( _children[i] ) ) 
+                            {
                                 result += ".";
+                            }
 
                             result += OgnlRuntime.getNumericValueGetter( context.getCurrentType() );
                             context.setCurrentType( OgnlRuntime.getPrimitiveWrapperClass( context.getCurrentType() ) );
                         }
                     }
 
-                    if ( lastType != null )
+                    if ( lastType != null ) 
+                    {
                         context.setCurrentAccessor( lastType.getGetterClass() );
+                    }
                 }
             }
 
             if ( _parent == null || ASTSequence.class.isAssignableFrom( _parent.getClass() ) )
             {
-                if ( _getterClass != null && String.class.isAssignableFrom( _getterClass ) )
+                if ( _getterClass != null && String.class.isAssignableFrom( _getterClass ) ) 
+                {
                     _getterClass = Object.class;
+                }
             }
             else
             {
@@ -330,8 +345,8 @@ class ASTAdd
         }
     }
     
-    public <R,P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data ) 
+    public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data ) 
     {
-        return visitor.visit(this, data);
+        return visitor.visit( this, data );
     }
 }
