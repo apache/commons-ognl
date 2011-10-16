@@ -198,8 +198,15 @@ public class OgnlRuntime
 
     static final Cache<GenericMethodParameterTypeCacheEntry, Class<?>[]> _genericMethodParameterTypesCache = new ConcurrentHashMapCache<GenericMethodParameterTypeCacheEntry, Class<?>[]>( new GenericMethodParameterTypeFactory( ) );;
 
-    static final Map<Constructor<?>, Class<?>[]> _ctorParameterTypesCache =
-        new HashMap<Constructor<?>, Class<?>[]>( 101 );
+    static final Cache<Constructor<?>, Class<?>[]> _ctorParameterTypesCache =
+        new ConcurrentHashMapCache<Constructor<?>, Class<?>[]>( new CacheEntryFactory<Constructor<?>, Class<?>[]>( )
+        {
+            public Class<?>[] create( Constructor<?> key )
+                throws CacheException
+            {
+                return key.getParameterTypes( );
+            }
+        });
 
     static SecurityManager _securityManager = System.getSecurityManager( );
 
@@ -723,17 +730,9 @@ public class OgnlRuntime
      * Returns the parameter types of the given method.
      */
     public static Class<?>[] getParameterTypes( Constructor<?> c )
+        throws CacheException
     {
-        synchronized ( _ctorParameterTypesCache )
-        {
-            Class<?>[] result;
-
-            if ( ( result = _ctorParameterTypesCache.get( c ) ) == null )
-            {
-                _ctorParameterTypesCache.put( c, result = c.getParameterTypes( ) );
-            }
-            return result;
-        }
+        return _ctorParameterTypesCache.get( c );
     }
 
     /**
