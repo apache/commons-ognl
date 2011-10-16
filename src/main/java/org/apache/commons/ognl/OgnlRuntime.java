@@ -29,6 +29,7 @@ import org.apache.commons.ognl.internal.ClassCache;
 import org.apache.commons.ognl.internal.ClassCacheHandler;
 import org.apache.commons.ognl.internal.ConcurrentClassCache;
 import org.apache.commons.ognl.internal.ConcurrentHashMapCache;
+import org.apache.commons.ognl.internal.entry.CacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.ConstructorCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.DeclaredMethodCacheEntry;
 import org.apache.commons.ognl.internal.entry.DeclaredMethodCacheEntryFactory;
@@ -179,7 +180,14 @@ public class OgnlRuntime
 
     static final ClassCache _primitiveDefaults = new ConcurrentClassCache( );
 
-    static final Map<Method, Class<?>[]> _methodParameterTypesCache = new HashMap<Method, Class<?>[]>( 101 );
+    static final Cache<Method, Class<?>[]> _methodParameterTypesCache = new ConcurrentHashMapCache<Method, Class<?>[]>( new CacheEntryFactory<Method, Class<?>[]>( )
+    {
+        public Class<?>[] create( Method key )
+            throws CacheException
+        {
+            return key.getParameterTypes( );
+        }
+    } );
 
     static final Cache<GenericMethodParameterTypeCacheEntry, Class<?>[]> _genericMethodParameterTypesCache = new ConcurrentHashMapCache<GenericMethodParameterTypeCacheEntry, Class<?>[]>( new GenericMethodParameterTypeFactory( ) );;
 
@@ -649,17 +657,10 @@ public class OgnlRuntime
      * Returns the parameter types of the given method.
      */
     public static Class<?>[] getParameterTypes( Method m )
+        throws CacheException
     {
-        synchronized ( _methodParameterTypesCache )
-        {
-            Class<?>[] result;
+        return _methodParameterTypesCache.get( m );
 
-            if ( ( result = _methodParameterTypesCache.get( m ) ) == null )
-            {
-                _methodParameterTypesCache.put( m, result = m.getParameterTypes( ) );
-            }
-            return result;
-        }
     }
 
     /**
@@ -1939,6 +1940,7 @@ public class OgnlRuntime
     }
 
     private static boolean indexMethodCheck( List<Method> methods )
+        throws CacheException
     {
         boolean result = false;
 
