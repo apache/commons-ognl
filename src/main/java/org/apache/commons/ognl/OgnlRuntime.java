@@ -185,7 +185,7 @@ public class OgnlRuntime
 
     static final Map<String, Class<?>> _primitiveTypes = new HashMap<String, Class<?>>( 101 );
 
-    static final ClassCache _primitiveDefaults = new ConcurrentClassCache( );
+    static final ClassCache<Object> _primitiveDefaults = new ConcurrentClassCache<Object>( );
 
     static final Cache<Method, Class<?>[]> _methodParameterTypesCache = new ConcurrentHashMapCache<Method, Class<?>[]>( new CacheEntryFactory<Method, Class<?>[]>( )
     {
