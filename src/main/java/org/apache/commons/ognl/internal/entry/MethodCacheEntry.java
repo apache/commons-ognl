@@ -13,4 +13,32 @@ public class MethodCacheEntry implements CacheEntry
     {
         this.targetClass = targetClass;
     }
+
+    @Override
+    public boolean equals( Object o )
+    {
+        if ( this == o )
+        {
+            return true;
+        }
+        if ( !( o instanceof MethodCacheEntry ) )
+        {
+            return false;
+        }
+
+        MethodCacheEntry that = (MethodCacheEntry) o;
+
+        if ( !targetClass.equals( that.targetClass ) )
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode( )
+    {
+        return targetClass.hashCode( );
+    }
 }

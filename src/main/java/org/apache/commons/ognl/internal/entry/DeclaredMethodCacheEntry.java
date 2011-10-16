@@ -41,10 +41,6 @@ public class DeclaredMethodCacheEntry
 
         DeclaredMethodCacheEntry that = (DeclaredMethodCacheEntry) o;
 
-        if ( type != that.type )
-        {
-            return false;
-        }
         if ( targetClass != that.targetClass )
         {
             return false;
@@ -55,9 +51,8 @@ public class DeclaredMethodCacheEntry
     @Override
     public int hashCode( )
     {
-        int result = targetClass.hashCode( );
-        if(type!=null)
-            result = 31 * result + type.hashCode();
+        int result = super.hashCode( );
+        result = 31 * result + ( type != null ? type.hashCode( ) : 0 );
         return result;
     }
 }
