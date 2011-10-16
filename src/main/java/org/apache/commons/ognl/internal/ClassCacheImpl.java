@@ -43,16 +43,6 @@ public class ClassCacheImpl<V>
     private ClassCacheInspector _classInspector;
 
     private int _size = 0;
-    private CacheEntryFactory<Class<?>, V> factory;
-
-    public ClassCacheImpl( CacheEntryFactory<Class<?>, V> factory )
-    {
-        this.factory = factory;
-    }
-
-    public ClassCacheImpl()
-    {
-    }
 
     /**
      * {@inheritDoc}
@@ -86,13 +76,7 @@ public class ClassCacheImpl<V>
     /**
      * {@inheritDoc}
      */
-    public final V get( Class<?> key)
-        throws CacheException
-    {
-        return get( key, null );
-    }
-
-    public final V get( Class<?> key, CacheEntryFactory<Class<?>, V> cacheEntryFactory )
+    public final V get( Class<?> key )
         throws CacheException
     {
         int i = key.hashCode() & TABLE_SIZE_MASK;
@@ -107,10 +91,6 @@ public class ClassCacheImpl<V>
             }
 
             entry = entry.getNext();
-        }
-        if ( factory != null )
-        {
-           return put(key, factory.create(key));
         }
         return null;
     }

@@ -30,9 +30,6 @@ public interface Cache<K, V>
     V get( K key )
         throws CacheException;
 
-    V get( K key, CacheEntryFactory<K, V> cacheEntryFactory )
-        throws CacheException;
-
     V put( K key, V value );
 
 }
