@@ -217,8 +217,11 @@ public class OgnlRuntime
 
     static final IntHashMap<Integer, Boolean> _methodAccessCache = new IntHashMap<Integer, Boolean>( );
 
+    private static final MethodPermCacheEntryFactory methodPermCacheEntryFactory =
+        new MethodPermCacheEntryFactory( _securityManager );
+
     static final Cache<Method, Boolean> _methodPermCache =
-        new ConcurrentHashMapCache<Method, Boolean>( new MethodPermCacheEntryFactory( _securityManager ) );
+        new ConcurrentHashMapCache<Method, Boolean>( methodPermCacheEntryFactory );
 
     static ClassCacheInspector _cacheInspector;
 
@@ -744,6 +747,7 @@ public class OgnlRuntime
     public static void setSecurityManager( SecurityManager value )
     {
         _securityManager = value;
+        methodPermCacheEntryFactory.setSecurityManager( value );
     }
 
     /**
