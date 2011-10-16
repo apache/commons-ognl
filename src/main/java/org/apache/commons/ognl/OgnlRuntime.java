@@ -35,6 +35,7 @@ import org.apache.commons.ognl.internal.entry.DeclaredMethodCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.FiedlCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.GenericMethodParameterTypeCacheEntry;
 import org.apache.commons.ognl.internal.entry.GenericMethodParameterTypeFactory;
+import org.apache.commons.ognl.internal.entry.MethodPermCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.PermissionCacheEntry;
 import org.apache.commons.ognl.internal.entry.PermissionCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.PropertyDescriptorCacheEntryFactory;
@@ -216,7 +217,8 @@ public class OgnlRuntime
 
     static final IntHashMap<Integer, Boolean> _methodAccessCache = new IntHashMap<Integer, Boolean>( );
 
-    static final IntHashMap<Integer, Boolean> _methodPermCache = new IntHashMap<Integer, Boolean>( );
+    static final Cache<Method, Boolean> _methodPermCache =
+        new ConcurrentHashMapCache<Method, Boolean>( new MethodPermCacheEntryFactory( _securityManager ) );
 
     static ClassCacheInspector _cacheInspector;
 
@@ -757,7 +759,6 @@ public class OgnlRuntime
         throws InvocationTargetException, IllegalAccessException, CacheException
     {
         boolean syncInvoke = false;
-        boolean checkPermission = false;
         int mHash = method.hashCode( );
 
         // only synchronize method invocation if it actually requires it
@@ -768,12 +769,6 @@ public class OgnlRuntime
             {
                 syncInvoke = true;
             }
-
-            if ( _securityManager != null && _methodPermCache.get( mHash ) == null
-                || _methodPermCache.get( mHash ) == Boolean.FALSE )
-            {
-                checkPermission = true;
-            }
         }
 
         Object result;
@@ -783,18 +778,13 @@ public class OgnlRuntime
         {
             synchronized ( method )
             {
-                if ( checkPermission )
+                if ( _securityManager != null )
                 {
-                    try
+                    if ( !_methodPermCache.get( method ) )
                     {
-                        _securityManager.checkPermission( getPermission( method ) );
-                        _methodPermCache.put( mHash, Boolean.TRUE );
-                    }
-                    catch ( SecurityException ex )
-                    {
-                        _methodPermCache.put( mHash, Boolean.FALSE );
                         throw new IllegalAccessException( "Method [" + method + "] cannot be accessed." );
                     }
+                    
                 }
 
                 if ( !Modifier.isPublic( method.getModifiers( ) ) || !Modifier.isPublic(
@@ -825,16 +815,10 @@ public class OgnlRuntime
         }
         else
         {
-            if ( checkPermission )
+            if ( _securityManager!=null )
             {
-                try
+                if ( !_methodPermCache.get( method ) )
                 {
-                    _securityManager.checkPermission( getPermission( method ) );
-                    _methodPermCache.put( mHash, Boolean.TRUE );
-                }
-                catch ( SecurityException ex )
-                {
-                    _methodPermCache.put( mHash, Boolean.FALSE );
                     throw new IllegalAccessException( "Method [" + method + "] cannot be accessed." );
                 }
             }
