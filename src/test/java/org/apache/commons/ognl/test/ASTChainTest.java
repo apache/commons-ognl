@@ -25,7 +25,7 @@ import org.apache.commons.ognl.OgnlContext;
 import org.apache.commons.ognl.test.objects.IndexedSetObject;
 
 /**
- * Tests for {@link ognl.ASTChain}.
+ * Tests for {@link org.apache.commons.ognl.ASTChain}.
  */
 public class ASTChainTest
     extends TestCase

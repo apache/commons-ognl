@@ -18,7 +18,7 @@
  * under the License.
  */
 /**
- * 
+ *
  */
 package org.apache.commons.ognl.test.objects;
 
@@ -30,15 +30,15 @@ public interface BeanProvider
 
     /**
      * Gets a bean by name.
-     * 
+     *
      * @param name
-     * @return
+     * @return the related bean by name
      */
     Object getBean( String name );
 
     /**
      * Sets a new bean mapping.
-     * 
+     *
      * @param name
      * @param bean
      */

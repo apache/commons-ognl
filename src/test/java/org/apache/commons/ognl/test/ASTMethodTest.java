@@ -29,7 +29,7 @@ import org.apache.commons.ognl.test.objects.Root;
 import java.util.Map;
 
 /**
- * Tests {@link ognl.ASTMethod}.
+ * Tests {@link org.apache.commons.ognl.ASTMethod}.
  */
 public class ASTMethodTest
     extends TestCase
