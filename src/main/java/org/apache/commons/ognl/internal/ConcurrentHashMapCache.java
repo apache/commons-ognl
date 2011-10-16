@@ -22,7 +22,6 @@
 package org.apache.commons.ognl.internal;
 
 import org.apache.commons.ognl.internal.entry.CacheEntryFactory;
-import org.apache.commons.ognl.internal.entry.MatchingCacheEntryFactory;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -71,11 +70,6 @@ public class ConcurrentHashMapCache<K, V>
             if ( v == null )
             {
                 return true;
-            }
-
-            if ( cacheEntryFactory instanceof MatchingCacheEntryFactory)
-            {
-                return !( (MatchingCacheEntryFactory<K,V>) cacheEntryFactory ).match( v );
             }
         }
         return false;
