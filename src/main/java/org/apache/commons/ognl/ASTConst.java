@@ -1,5 +1,6 @@
+package org.apache.commons.ognl;
+
 /*
- * $Id$
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -17,7 +18,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.commons.ognl;
 
 import org.apache.commons.ognl.enhance.UnsupportedCompilationException;
 
@@ -25,6 +25,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
+ * $Id$
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
@@ -35,7 +36,7 @@ public class ASTConst
 
     private Object value;
 
-    private Class _getterClass;
+    private Class getterClass;
 
     public ASTConst( int id )
     {
@@ -47,7 +48,10 @@ public class ASTConst
         super( p, id );
     }
 
-    /** Called from parser actions. */
+    /** 
+     * Called from parser actions.
+     * @param value the value to set 
+     */
     public void setValue( Object value )
     {
         this.value = value;
@@ -72,10 +76,12 @@ public class ASTConst
 
     public Class getGetterClass()
     {
-        if ( _getterClass == null )
+        if ( getterClass == null )
+        {
             return null;
-
-        return _getterClass;
+        }
+        
+        return getterClass;
     }
 
     public Class getSetterClass()
@@ -151,7 +157,7 @@ public class ASTConst
             return "";
         }
 
-        _getterClass = value.getClass();
+        getterClass = value.getClass();
 
         Object retval = value;
         if ( _parent != null && ASTProperty.class.isInstance( _parent ) )
@@ -167,7 +173,9 @@ public class ASTConst
 
             return value.toString();
         }
-        else if ( !( _parent != null && value != null && NumericExpression.class.isAssignableFrom( _parent.getClass() ) )
+        else if ( !( _parent != null 
+                        && value != null 
+                        && NumericExpression.class.isAssignableFrom( _parent.getClass() ) )
             && String.class.isAssignableFrom( value.getClass() ) )
         {
             context.setCurrentType( String.class );
@@ -185,17 +193,21 @@ public class ASTConst
             context.setCurrentType( Character.class );
 
             if ( Character.isLetterOrDigit( val.charValue() ) )
+            {
                 retval = "'" + ( (Character) value ).charValue() + "'";
+            }
             else
+            {
                 retval = "'" + OgnlOps.getEscapedChar( ( (Character) value ).charValue() ) + "'";
-
+            }
+            
             context.setCurrentObject( retval );
             return retval.toString();
         }
 
         if ( Boolean.class.isAssignableFrom( value.getClass() ) )
         {
-            _getterClass = Boolean.TYPE;
+            getterClass = Boolean.TYPE;
 
             context.setCurrentType( Boolean.TYPE );
             context.setCurrentObject( value );
@@ -209,13 +221,15 @@ public class ASTConst
     public String toSetSourceString( OgnlContext context, Object target )
     {
         if ( _parent == null )
+        {
             throw new UnsupportedCompilationException( "Can't modify constant values." );
-
+        }
+        
         return toGetSourceString( context, target );
     }
     
-    public <R,P> R accept(NodeVisitor<? extends R, ? super P> visitor, P data) 
+    public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data ) 
     {
-        return visitor.visit(this, data);
+        return visitor.visit( this, data );
     }
 }

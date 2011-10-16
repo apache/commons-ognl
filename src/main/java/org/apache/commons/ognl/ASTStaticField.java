@@ -1,5 +1,6 @@
+package org.apache.commons.ognl;
+
 /*
- * $Id$
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -17,12 +18,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.commons.ognl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 /**
+ * $Id$
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
@@ -213,8 +214,8 @@ public class ASTStaticField
         return className + "." + fieldName;
     }
     
-    public <R,P> R accept(NodeVisitor<? extends R, ? super P> visitor, P data) 
+    public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data ) 
     {
-        return visitor.visit(this, data);
+        return visitor.visit( this, data );
     }
 }

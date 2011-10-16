@@ -1,5 +1,6 @@
+package org.apache.commons.ognl;
+
 /*
- * $Id$
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -17,12 +18,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.commons.ognl;
 
 import org.apache.commons.ognl.enhance.OrderedReturn;
 import org.apache.commons.ognl.enhance.UnsupportedCompilationException;
 
 /**
+ * $Id$
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
@@ -73,9 +74,11 @@ class ASTAssign
             context.setCurrentType( Object.class );
 
             String core = seq.getCoreExpression();
-            if ( core.endsWith( ";" ) )
+            if ( core.endsWith( ";" ) ) 
+            {
                 core = core.substring( 0, core.lastIndexOf( ";" ) );
-
+            }
+            
             second =
                 OgnlRuntime.getCompiler().createLocalReference( context,
                                                                 "org.apache.commons.ognl.OgnlOps.returnValue(($w)"
@@ -100,12 +103,15 @@ class ASTAssign
             // System.out.println("building ordered ret from child[0] with result of:" + result);
 
             result =
-                OgnlRuntime.getCompiler().createLocalReference( context,
-                                                                "org.apache.commons.ognl.OgnlOps.returnValue(($w)"
-                                                                    + result
-                                                                    + ", ($w)"
-                                                                    + ( (OrderedReturn) _children[0] ).getLastExpression()
-                                                                    + ")", Object.class );
+                OgnlRuntime
+                    .getCompiler()
+                    .createLocalReference( 
+                       context,
+                        "org.apache.commons.ognl.OgnlOps.returnValue(($w)"
+                            + result
+                            + ", ($w)"
+                            + ( (OrderedReturn) _children[0] ).getLastExpression()
+                            + ")", Object.class );
         }
 
         return result;
@@ -124,10 +130,12 @@ class ASTAssign
 
         String value = _children[1].toSetSourceString( context, target );
 
-        if ( value == null )
+        if ( value == null ) 
+        {
             throw new UnsupportedCompilationException(
-                                                       "Value for assignment is null, can't enhance statement to bytecode." );
-
+                "Value for assignment is null, can't enhance statement to bytecode." );
+        }
+        
         if ( ASTSequence.class.isAssignableFrom( _children[1].getClass() ) )
         {
             ASTSequence seq = (ASTSequence) _children[1];
@@ -145,8 +153,8 @@ class ASTAssign
         return result + value + ")";
     }
     
-    public <R,P> R accept(NodeVisitor<? extends R, ? super P> visitor, P data) 
+    public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data ) 
     {
-        return visitor.visit(this, data);
+        return visitor.visit( this, data );
     }
 }

@@ -1,5 +1,6 @@
+package org.apache.commons.ognl;
+
 /*
- * $Id$
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -17,9 +18,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.commons.ognl;
 
 /**
+ * $Id$
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
@@ -45,8 +46,10 @@ class ASTBitAnd
         throws OgnlException
     {
         Object result = _children[0].getValue( context, source );
-        for ( int i = 1; i < _children.length; ++i )
+        for ( int i = 1; i < _children.length; ++i ) 
+        {
             result = OgnlOps.binaryAnd( result, _children[i].getValue( context, source ) );
+        }
         return result;
     }
 
@@ -60,8 +63,8 @@ class ASTBitAnd
         return "(long)" + super.coerceToNumeric( source, context, child );
     }
     
-    public <R,P> R accept(NodeVisitor<? extends R, ? super P> visitor, P data) 
+    public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data ) 
     {
-        return visitor.visit(this, data);
+        return visitor.visit( this, data );
     }
 }
