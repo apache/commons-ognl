@@ -699,18 +699,7 @@ public class OgnlRuntime
             return getParameterTypes( m );
         }
 
-        Class<?>[] types = _genericMethodParameterTypesCache.get( new GenericMethodParameterTypeCacheEntry( m, type ) );
-
-        /*if (  types != null )
-        {
-            ParameterizedType genericSuperclass = (ParameterizedType) type.getGenericSuperclass( );
-            if ( Arrays.equals( types, genericSuperclass.getActualTypeArguments( ) ) )
-            {
-                return types;
-            }
-        }
-*/
-            return types;
+        return _genericMethodParameterTypesCache.get( new GenericMethodParameterTypeCacheEntry( m, type ) );
     }
 
     static Class<?> findType( Type[] types, Class<?> type )
