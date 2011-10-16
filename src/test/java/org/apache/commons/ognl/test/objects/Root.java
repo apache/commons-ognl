@@ -30,7 +30,6 @@ import java.util.Locale;
 import java.util.Map;
 
 public class Root
-    extends Object
 {
     public static final String SIZE_STRING = "size";
 
