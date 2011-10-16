@@ -19,6 +19,7 @@
  */
 package org.apache.commons.ognl;
 
+import org.apache.commons.ognl.internal.CacheException;
 import org.apache.commons.ognl.test.objects.BaseGeneric;
 import org.apache.commons.ognl.test.objects.Bean1;
 import org.apache.commons.ognl.test.objects.Bean2;
@@ -361,7 +362,7 @@ public class TestOgnlRuntime
      */
     @Test
     public void testOGNLParameterDiscovery( )
-        throws NoSuchMethodException
+        throws NoSuchMethodException, CacheException
     {
         Method saveMethod = GenericParent.class.getMethod( "save", Object.class );
         System.out.println( saveMethod );

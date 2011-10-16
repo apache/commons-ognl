@@ -23,14 +23,18 @@ package org.apache.commons.ognl;
 
 import org.apache.commons.ognl.enhance.ExpressionCompiler;
 import org.apache.commons.ognl.enhance.OgnlExpressionCompiler;
+import org.apache.commons.ognl.internal.Cache;
+import org.apache.commons.ognl.internal.CacheException;
 import org.apache.commons.ognl.internal.ClassCache;
 import org.apache.commons.ognl.internal.ClassCacheHandler;
 import org.apache.commons.ognl.internal.ConcurrentClassCache;
 import org.apache.commons.ognl.internal.ConcurrentHashMapCache;
-import org.apache.commons.ognl.internal.entry.FiedlCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.ConstructorCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.DeclaredMethodCacheEntry;
 import org.apache.commons.ognl.internal.entry.DeclaredMethodCacheEntryFactory;
+import org.apache.commons.ognl.internal.entry.FiedlCacheEntryFactory;
+import org.apache.commons.ognl.internal.entry.GenericMethodParameterTypeCacheEntry;
+import org.apache.commons.ognl.internal.entry.GenericMethodParameterTypeFactory;
 import org.apache.commons.ognl.internal.entry.PermissionCacheEntry;
 import org.apache.commons.ognl.internal.entry.PermissionCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.PropertyDescriptorCacheEntryFactory;
@@ -41,10 +45,8 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.MethodDescriptor;
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
@@ -52,12 +54,10 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.Permission;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -181,7 +181,7 @@ public class OgnlRuntime
 
     static final Map<Method, Class<?>[]> _methodParameterTypesCache = new HashMap<Method, Class<?>[]>( 101 );
 
-    static final Map<Method, Class<?>[]> _genericMethodParameterTypesCache = new HashMap<Method, Class<?>[]>( 101 );
+    static final Cache<GenericMethodParameterTypeCacheEntry, Class<?>[]> _genericMethodParameterTypesCache = new ConcurrentHashMapCache<GenericMethodParameterTypeCacheEntry, Class<?>[]>( new GenericMethodParameterTypeFactory( ) );;
 
     static final Map<Constructor<?>, Class<?>[]> _ctorParameterTypesCache =
         new HashMap<Constructor<?>, Class<?>[]>( 101 );
@@ -671,6 +671,7 @@ public class OgnlRuntime
      * @return Array of parameter types for the given method.
      */
     public static Class<?>[] findParameterTypes( Class<?> type, Method m )
+        throws CacheException
     {
         if ( type == null )
         {
@@ -683,87 +684,18 @@ public class OgnlRuntime
             return getParameterTypes( m );
         }
 
-        synchronized ( _genericMethodParameterTypesCache )
+        Class<?>[] types = _genericMethodParameterTypesCache.get( new GenericMethodParameterTypeCacheEntry( m, type ) );
+
+        /*if (  types != null )
         {
-            Class<?>[] types;
-
-            if ( ( types = _genericMethodParameterTypesCache.get( m ) ) != null )
+            ParameterizedType genericSuperclass = (ParameterizedType) type.getGenericSuperclass( );
+            if ( Arrays.equals( types, genericSuperclass.getActualTypeArguments( ) ) )
             {
-                ParameterizedType genericSuperclass = (ParameterizedType) type.getGenericSuperclass( );
-                if ( Arrays.equals( types, genericSuperclass.getActualTypeArguments( ) ) )
-                {
-                    return types;
-                }
+                return types;
             }
-
-            ParameterizedType param = (ParameterizedType) type.getGenericSuperclass( );
-            Type[] genTypes = m.getGenericParameterTypes( );
-            TypeVariable<?>[] declaredTypes = m.getDeclaringClass( ).getTypeParameters( );
-
-            types = new Class[genTypes.length];
-
-            for ( int i = 0; i < genTypes.length; i++ )
-            {
-                TypeVariable<?> paramType = null;
-
-                if ( TypeVariable.class.isInstance( genTypes[i] ) )
-                {
-                    paramType = (TypeVariable<?>) genTypes[i];
-                }
-                else if ( GenericArrayType.class.isInstance( genTypes[i] ) )
-                {
-                    paramType = (TypeVariable<?>) ( (GenericArrayType) genTypes[i] ).getGenericComponentType( );
-                }
-                else if ( ParameterizedType.class.isInstance( genTypes[i] ) )
-                {
-                    types[i] = (Class<?>) ( (ParameterizedType) genTypes[i] ).getRawType( );
-                    continue;
-                }
-                else if ( Class.class.isInstance( genTypes[i] ) )
-                {
-                    types[i] = (Class<?>) genTypes[i];
-                    continue;
-                }
-
-                Class<?> resolved = resolveType( param, paramType, declaredTypes );
-
-                if ( resolved != null )
-                {
-                    if ( GenericArrayType.class.isInstance( genTypes[i] ) )
-                    {
-                        resolved = Array.newInstance( resolved, 0 ).getClass( );
-                    }
-
-                    types[i] = resolved;
-                    continue;
-                }
-
-                types[i] = m.getParameterTypes( )[i];
-            }
-
-            _genericMethodParameterTypesCache.put( m, types );
-
+        }
+*/
             return types;
-        }
-    }
-
-    static Class<?> resolveType( ParameterizedType param, TypeVariable<?> var, TypeVariable<?>[] declaredTypes )
-    {
-        if ( param.getActualTypeArguments( ).length < 1 )
-        {
-            return null;
-        }
-
-        for ( int i = 0; i < declaredTypes.length; i++ )
-        {
-            if ( !TypeVariable.class.isInstance( param.getActualTypeArguments( )[i] )
-                && declaredTypes[i].getName( ).equals( var.getName( ) ) )
-            {
-                return (Class<?>) param.getActualTypeArguments( )[i];
-            }
-        }
-
-        return null;
     }
 
     static Class<?> findType( Type[] types, Class<?> type )
@@ -1916,7 +1848,7 @@ public class OgnlRuntime
      * @param m The method to check.
      * @return True if the method should be callable, false otherwise.
      */
-    //TODO: the method was intented as private, so it needs to move in a util class
+    //TODO: the method was intented as private, so it'd need to move in a util class
     public static boolean isMethodCallable( Method m )
     {
         return !( ( isJdk15( ) && m.isSynthetic( ) ) || Modifier.isVolatile( m.getModifiers( ) ) );

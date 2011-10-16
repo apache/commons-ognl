@@ -199,7 +199,7 @@ public abstract class OgnlTestCase
         } catch (Exception ex) {
             if (RuntimeException.class.isInstance(ex) && ex.getCause() != null
                     && Exception.class.isAssignableFrom( ex.getCause().getClass())) {
-            	ex = (Exception) ((RuntimeException) ex).getCause();
+            	ex = (Exception) ex.getCause( );
             }
 
             if (testedResult instanceof Class) {
