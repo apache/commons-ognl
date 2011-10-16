@@ -15,7 +15,7 @@ import static junit.framework.Assert.assertTrue;
  * Date: 10/15/11
  * Time: 8:00 AM
  */
-public class PropertyDescriptorCache
+public class PropertyDescriptorCacheTest
 {
     ConcurrentHashMapCache<Class<?>, Map<String,PropertyDescriptor>> cache =
         new ConcurrentHashMapCache<Class<?>, Map<String,PropertyDescriptor>>( new PropertyDescriptorCacheEntryFactory());
