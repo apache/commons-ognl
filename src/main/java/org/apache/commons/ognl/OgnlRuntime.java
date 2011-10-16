@@ -30,7 +30,6 @@ import org.apache.commons.ognl.internal.ClassCacheHandler;
 import org.apache.commons.ognl.internal.ConcurrentClassCache;
 import org.apache.commons.ognl.internal.ConcurrentHashMapCache;
 import org.apache.commons.ognl.internal.entry.CacheEntryFactory;
-import org.apache.commons.ognl.internal.entry.ConstructorCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.DeclaredMethodCacheEntry;
 import org.apache.commons.ognl.internal.entry.DeclaredMethodCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.FiedlCacheEntryFactory;
@@ -59,6 +58,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.Permission;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -164,7 +164,14 @@ public class OgnlRuntime
     static final ClassCache<Map<String, PropertyDescriptor>> _propertyDescriptorCache =
         new ConcurrentClassCache<Map<String, PropertyDescriptor>>(new PropertyDescriptorCacheEntryFactory());
 
-    static final ClassCache<List<Constructor<?>>> _constructorCache = new ConcurrentClassCache<List<Constructor<?>>>(new ConstructorCacheEntryFactory() );
+    static final ClassCache<List<Constructor<?>>> _constructorCache = new ConcurrentClassCache<List<Constructor<?>>>(new CacheEntryFactory<Class<?>, List<Constructor<?>>>( )
+    {
+        public List<Constructor<?>> create( Class<?> key )
+            throws CacheException
+        {
+            return Arrays.asList( key.getConstructors( ) );
+        }
+    } );
 
     static final ConcurrentHashMapCache<DeclaredMethodCacheEntry, Map<String, List<Method>>> _methodCache =
         new ConcurrentHashMapCache<DeclaredMethodCacheEntry, Map<String, List<Method>>>(
