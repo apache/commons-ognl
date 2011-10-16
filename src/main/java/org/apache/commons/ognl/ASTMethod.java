@@ -66,13 +66,13 @@ public class ASTMethod
     implements OrderedReturn, NodeType
 {
 
-    private String _methodName;
+    private String methodName;
 
-    private String _lastExpression;
+    private String lastExpression;
 
-    private String _coreExpression;
+    private String coreExpression;
 
-    private Class _getterClass;
+    private Class getterClass;
 
     public ASTMethod( int id )
     {
@@ -84,18 +84,22 @@ public class ASTMethod
         super( p, id );
     }
 
-    /** Called from parser action. */
+    /**
+     *  Called from parser action.
+     *  @param methodName sets the name of the method
+     */
     public void setMethodName( String methodName )
     {
-        _methodName = methodName;
+        this.methodName = methodName;
     }
 
     /**
      * Returns the method name that this node will call.
+     * @return the method name
      */
     public String getMethodName()
     {
-        return _methodName;
+        return methodName;
     }
 
     protected Object getValueBody( OgnlContext context, Object source )
@@ -112,12 +116,12 @@ public class ASTMethod
                 args[i] = _children[i].getValue( context, root );
             }
 
-            result = OgnlRuntime.callMethod( context, source, _methodName, args );
+            result = OgnlRuntime.callMethod( context, source, methodName, args );
 
             if ( result == null )
             {
                 NullHandler nh = OgnlRuntime.getNullHandler( OgnlRuntime.getTargetClass( source ) );
-                result = nh.nullMethodResult( context, source, _methodName, args );
+                result = nh.nullMethodResult( context, source, methodName, args );
             }
 
             return result;
@@ -131,27 +135,27 @@ public class ASTMethod
 
     public String getLastExpression()
     {
-        return _lastExpression;
+        return lastExpression;
     }
 
     public String getCoreExpression()
     {
-        return _coreExpression;
+        return coreExpression;
     }
 
     public Class getGetterClass()
     {
-        return _getterClass;
+        return getterClass;
     }
 
     public Class getSetterClass()
     {
-        return _getterClass;
+        return getterClass;
     }
 
     public String toString()
     {
-        StringBuilder result = new StringBuilder( _methodName );
+        StringBuilder result = new StringBuilder( methodName );
 
         result.append( "(" );
         if ( ( _children != null ) && ( _children.length > 0 ) )
@@ -175,12 +179,14 @@ public class ASTMethod
     public String toGetSourceString( OgnlContext context, Object target )
     {
         /*
-         * System.out.println("methodName is " + _methodName + " for target " + target + " target class: " + (target !=
+         * System.out.println("methodName is " + methodName + " for target " + target + " target class: " + (target !=
          * null ? target.getClass() : null) + " current type: " + context.getCurrentType());
          */
-        if ( target == null )
+        if ( target == null ) 
+        {
             throw new UnsupportedCompilationException( "Target object is null." );
-
+        }
+        
         String post = "";
         String result = null;
         Method m = null;
@@ -191,33 +197,36 @@ public class ASTMethod
             m =
                 OgnlRuntime.getMethod( context,
                                        context.getCurrentType() != null ? context.getCurrentType() : target.getClass(),
-                                       _methodName, _children, false );
-            if ( m == null )
-                m =
-                    OgnlRuntime.getReadMethod( target.getClass(), _methodName, _children != null ? _children.length
-                                    : -1 );
-
+                                       methodName, _children, false );
+            if ( m == null ) 
+            {
+                m = OgnlRuntime
+                       .getReadMethod( target.getClass(), methodName, _children != null ? _children.length : -1 );
+            }
+            
             if ( m == null )
             {
                 m =
-                    OgnlRuntime.getWriteMethod( target.getClass(), _methodName, _children != null ? _children.length
+                    OgnlRuntime.getWriteMethod( target.getClass(), methodName, _children != null ? _children.length
                                     : -1 );
 
                 if ( m != null )
                 {
 
                     context.setCurrentType( m.getReturnType() );
-                    context.setCurrentAccessor( OgnlRuntime.getCompiler().getSuperOrInterfaceClass( m,
-                                                                                                    m.getDeclaringClass() ) );
+                    context.setCurrentAccessor( 
+                                OgnlRuntime.getCompiler().getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
 
-                    _coreExpression = toSetSourceString( context, target );
-                    if ( _coreExpression == null || _coreExpression.length() < 1 )
+                    coreExpression = toSetSourceString( context, target );
+                    if ( coreExpression == null || coreExpression.length() < 1 )
+                    {
                         throw new UnsupportedCompilationException( "can't find suitable getter method" );
+                    }
+                    
+                    coreExpression += ";";
+                    lastExpression = "null";
 
-                    _coreExpression += ";";
-                    _lastExpression = "null";
-
-                    return _coreExpression;
+                    return coreExpression;
                 }
 
                 return "";
@@ -225,7 +234,7 @@ public class ASTMethod
             else
             {
 
-                _getterClass = m.getReturnType();
+                getterClass = m.getReturnType();
             }
 
             // TODO: This is a hacky workaround until javassist supports varargs method invocations
@@ -234,7 +243,8 @@ public class ASTMethod
 
             if ( varArgs )
             {
-                throw new UnsupportedCompilationException( "Javassist does not currently support varargs method calls" );
+                throw new UnsupportedCompilationException(
+                    "Javassist does not currently support varargs method calls" );
             }
 
             result = "." + m.getName() + "(";
@@ -244,7 +254,7 @@ public class ASTMethod
                 Class[] parms = m.getParameterTypes();
                 String prevCast = (String) context.remove( ExpressionCompiler.PRE_CAST );
                 /*
-                 * System.out.println("before children methodName is " + _methodName + " for target " + target +
+                 * System.out.println("before children methodName is " + methodName + " for target " + target +
                  * " target class: " + (target != null ? target.getClass() : null) + " current type: " +
                  * context.getCurrentType() + " and previous type: " + context.getPreviousType());
                  */
@@ -267,8 +277,9 @@ public class ASTMethod
                     String parmString = _children[i].toGetSourceString( context, context.getRoot() );
 
                     if ( parmString == null || parmString.trim().length() < 1 )
+                    {
                         parmString = "null";
-
+                    }
                     // to undo type setting of constants when used as method parameters
                     if ( ASTConst.class.isInstance( _children[i] ) )
                     {
@@ -284,29 +295,37 @@ public class ASTMethod
                         cast = (String) context.remove( ExpressionCompiler.PRE_CAST );
                     }
                     if ( cast == null )
+                    {
                         cast = "";
-
+                    }
+                    
                     if ( !ASTConst.class.isInstance( _children[i] ) )
+                    {
                         parmString = cast + parmString;
-
+                    }
+                    
                     Class valueClass = value != null ? value.getClass() : null;
                     if ( NodeType.class.isAssignableFrom( _children[i].getClass() ) )
+                    {
                         valueClass = ( (NodeType) _children[i] ).getGetterClass();
-
+                    }
+                    
                     if ( ( !varArgs || varArgs && ( i + 1 ) < parms.length ) && valueClass != parms[i] )
                     {
                         if ( parms[i].isArray() )
                         {
 
                             parmString =
-                                OgnlRuntime.getCompiler().createLocalReference( context,
-                                                                                "("
-                                                                                    + ExpressionCompiler.getCastString( parms[i] )
-                                                                                    + ")org.apache.commons.ognl.OgnlOps#toArray("
-                                                                                    + parmString
-                                                                                    + ", "
-                                                                                    + parms[i].getComponentType().getName()
-                                                                                    + ".class, true)", parms[i] );
+                                OgnlRuntime
+                                    .getCompiler()
+                                    .createLocalReference( context,
+                                                            "("
+                                                                + ExpressionCompiler.getCastString( parms[i] )
+                                                                + ")org.apache.commons.ognl.OgnlOps#toArray("
+                                                                + parmString
+                                                                + ", "
+                                                                + parms[i].getComponentType().getName()
+                                                                + ".class, true)", parms[i] );
 
                         }
                         else if ( parms[i].isPrimitive() )
@@ -315,31 +334,36 @@ public class ASTMethod
                             Class wrapClass = OgnlRuntime.getPrimitiveWrapperClass( parms[i] );
 
                             parmString =
-                                OgnlRuntime.getCompiler().createLocalReference( context,
-                                                                                "(("
-                                                                                    + wrapClass.getName()
-                                                                                    + ")org.apache.commons.ognl.OgnlOps#convertValue("
-                                                                                    + parmString
-                                                                                    + ","
-                                                                                    + wrapClass.getName()
-                                                                                    + ".class, true))."
-                                                                                    + OgnlRuntime.getNumericValueGetter( wrapClass ),
-                                                                                parms[i] );
+                                OgnlRuntime
+                                    .getCompiler()
+                                    .createLocalReference( context,
+                                                            "(("
+                                                                + wrapClass.getName()
+                                                                + ")org.apache.commons.ognl.OgnlOps#convertValue("
+                                                                + parmString
+                                                                + ","
+                                                                + wrapClass.getName()
+                                                                + ".class, true))."
+                                                                + OgnlRuntime.getNumericValueGetter( wrapClass ),
+                                                            parms[i] );
 
                         }
                         else if ( parms[i] != Object.class )
                         {
                             parmString =
-                                OgnlRuntime.getCompiler().createLocalReference( context,
-                                                                                "("
-                                                                                    + parms[i].getName()
-                                                                                    + ")org.apache.commons.ognl.OgnlOps#convertValue("
-                                                                                    + parmString + ","
-                                                                                    + parms[i].getName() + ".class)",
-                                                                                parms[i] );
+                                OgnlRuntime
+                                    .getCompiler()
+                                    .createLocalReference( context,
+                                                            "("
+                                                                + parms[i].getName()
+                                                                + ")org.apache.commons.ognl.OgnlOps#convertValue("
+                                                                + parmString + ","
+                                                                + parms[i].getName() + ".class)",
+                                                            parms[i] );
                         }
                         else if ( ( NodeType.class.isInstance( _children[i] )
-                            && ( (NodeType) _children[i] ).getGetterClass() != null && Number.class.isAssignableFrom( ( (NodeType) _children[i] ).getGetterClass() ) )
+                            && ( (NodeType) _children[i] ).getGetterClass() != null 
+                            && Number.class.isAssignableFrom( ( (NodeType) _children[i] ).getGetterClass() ) )
                             || ( valueClass != null && valueClass.isPrimitive() ) )
                         {
                             parmString = " ($w) " + parmString;
@@ -379,8 +403,8 @@ public class ASTMethod
 
         if ( m.getReturnType() == void.class )
         {
-            _coreExpression = result + ";";
-            _lastExpression = "null";
+            coreExpression = result + ";";
+            lastExpression = "null";
         }
 
         context.setCurrentType( m.getReturnType() );
@@ -397,11 +421,11 @@ public class ASTMethod
          */
         Method m =
             OgnlRuntime.getWriteMethod( context.getCurrentType() != null ? context.getCurrentType() : target.getClass(),
-                                        _methodName, _children != null ? _children.length : -1 );
+                                        methodName, _children != null ? _children.length : -1 );
         if ( m == null )
         {
             throw new UnsupportedCompilationException( "Unable to determine setter method generation for "
-                + _methodName );
+                + methodName );
         }
 
         String post = "";
@@ -414,7 +438,7 @@ public class ASTMethod
 
             ExpressionCompiler.addCastString( context, "new " + wrapper.getName() + "(" );
             post = ")";
-            _getterClass = wrapper;
+            getterClass = wrapper;
         }
 
         boolean varArgs = OgnlRuntime.isJdk15() && m.isVarArgs();
@@ -454,16 +478,19 @@ public class ASTMethod
                     String parmString = _children[i].toSetSourceString( context, context.getRoot() );
 
                     if ( context.getCurrentType() == Void.TYPE || context.getCurrentType() == void.class )
+                    {
                         throw new UnsupportedCompilationException( "Method argument can't be a void type." );
-
+                    }
+                    
                     if ( parmString == null || parmString.trim().length() < 1 )
                     {
                         if ( ASTProperty.class.isInstance( _children[i] ) || ASTMethod.class.isInstance( _children[i] )
                             || ASTStaticMethod.class.isInstance( _children[i] )
                             || ASTChain.class.isInstance( _children[i] ) )
+                        {
                             throw new UnsupportedCompilationException(
-                                                                       "ASTMethod setter child returned null from a sub property expression." );
-
+                                "ASTMethod setter child returned null from a sub property expression." );
+                        }
                         parmString = "null";
                     }
 
@@ -483,27 +510,33 @@ public class ASTMethod
                     }
 
                     if ( cast == null )
+                    {
                         cast = "";
-
+                    }
+                    
                     parmString = cast + parmString;
 
                     Class valueClass = value != null ? value.getClass() : null;
                     if ( NodeType.class.isAssignableFrom( _children[i].getClass() ) )
+                    {
                         valueClass = ( (NodeType) _children[i] ).getGetterClass();
-
+                    }
+                    
                     if ( valueClass != parms[i] )
                     {
                         if ( parms[i].isArray() )
                         {
                             parmString =
-                                OgnlRuntime.getCompiler().createLocalReference( context,
-                                                                                "("
-                                                                                    + ExpressionCompiler.getCastString( parms[i] )
-                                                                                    + ")org.apache.commons.ognl.OgnlOps#toArray("
-                                                                                    + parmString
-                                                                                    + ", "
-                                                                                    + parms[i].getComponentType().getName()
-                                                                                    + ".class)", parms[i] );
+                                OgnlRuntime
+                                    .getCompiler()
+                                    .createLocalReference( context,
+                                                            "("
+                                                                + ExpressionCompiler.getCastString( parms[i] )
+                                                                + ")org.apache.commons.ognl.OgnlOps#toArray("
+                                                                + parmString
+                                                                + ", "
+                                                                + parms[i].getComponentType().getName()
+                                                                + ".class)", parms[i] );
 
                         }
                         else if ( parms[i].isPrimitive() )
@@ -511,32 +544,37 @@ public class ASTMethod
                             Class wrapClass = OgnlRuntime.getPrimitiveWrapperClass( parms[i] );
 
                             parmString =
-                                OgnlRuntime.getCompiler().createLocalReference( context,
-                                                                                "(("
-                                                                                    + wrapClass.getName()
-                                                                                    + ")org.apache.commons.ognl.OgnlOps#convertValue("
-                                                                                    + parmString
-                                                                                    + ","
-                                                                                    + wrapClass.getName()
-                                                                                    + ".class, true))."
-                                                                                    + OgnlRuntime.getNumericValueGetter( wrapClass ),
-                                                                                parms[i] );
+                                OgnlRuntime
+                                    .getCompiler()
+                                    .createLocalReference( context,
+                                                            "(("
+                                                                + wrapClass.getName()
+                                                                + ")org.apache.commons.ognl.OgnlOps#convertValue("
+                                                                + parmString
+                                                                + ","
+                                                                + wrapClass.getName()
+                                                                + ".class, true))."
+                                                                + OgnlRuntime.getNumericValueGetter( wrapClass ),
+                                                            parms[i] );
 
                         }
                         else if ( parms[i] != Object.class )
                         {
                             parmString =
-                                OgnlRuntime.getCompiler().createLocalReference( context,
-                                                                                "("
-                                                                                    + parms[i].getName()
-                                                                                    + ")org.apache.commons.ognl.OgnlOps#convertValue("
-                                                                                    + parmString + ","
-                                                                                    + parms[i].getName() + ".class)",
-                                                                                parms[i] );
+                                OgnlRuntime
+                                    .getCompiler()
+                                    .createLocalReference( context,
+                                                            "("
+                                                                + parms[i].getName()
+                                                                + ")org.apache.commons.ognl.OgnlOps#convertValue("
+                                                                + parmString + ","
+                                                                + parms[i].getName() + ".class)",
+                                                            parms[i] );
 
                         }
                         else if ( ( NodeType.class.isInstance( _children[i] )
-                            && ( (NodeType) _children[i] ).getGetterClass() != null && Number.class.isAssignableFrom( ( (NodeType) _children[i] ).getGetterClass() ) )
+                            && ( (NodeType) _children[i] ).getGetterClass() != null 
+                            && Number.class.isAssignableFrom( ( (NodeType) _children[i] ).getGetterClass() ) )
                             || ( valueClass != null && valueClass.isPrimitive() ) )
                         {
                             parmString = " ($w) " + parmString;

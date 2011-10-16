@@ -49,7 +49,9 @@ public class ASTList
     {
         List answer = new ArrayList( jjtGetNumChildren() );
         for ( int i = 0; i < jjtGetNumChildren(); ++i )
+        {
             answer.add( _children[i].getValue( context, source ) );
+        }
         return answer;
     }
 
@@ -95,8 +97,9 @@ public class ASTList
         if ( !array )
         {
             if ( jjtGetNumChildren() < 1 )
+            {
                 return "java.util.Arrays.asList( new Object[0])";
-
+            }
             result += "java.util.Arrays.asList( new Object[] ";
         }
 
@@ -133,31 +136,37 @@ public class ASTList
                     cast = (String) context.remove( ExpressionCompiler.PRE_CAST );
                 }
                 if ( cast == null )
+                {
                     cast = "";
-
+                }
+                
                 if ( !ASTConst.class.isInstance( _children[i] ) )
+                {
                     value = cast + value;
-
+                }
                 Class ctorClass = (Class) context.get( "_ctorClass" );
                 if ( array && ctorClass != null && !ctorClass.isPrimitive() )
                 {
 
                     Class valueClass = value != null ? value.getClass() : null;
                     if ( NodeType.class.isAssignableFrom( _children[i].getClass() ) )
+                    {
                         valueClass = ( (NodeType) _children[i] ).getGetterClass();
-
+                    }
                     if ( valueClass != null && ctorClass.isArray() )
                     {
 
                         value =
-                            OgnlRuntime.getCompiler().createLocalReference( context,
-                                                                            "("
-                                                                                + ExpressionCompiler.getCastString( ctorClass )
-                                                                                + ")org.apache.commons.ognl.OgnlOps.toArray("
-                                                                                + value
-                                                                                + ", "
-                                                                                + ctorClass.getComponentType().getName()
-                                                                                + ".class, true)", ctorClass );
+                            OgnlRuntime
+                                .getCompiler()
+                                .createLocalReference( context,
+                                                        "("
+                                                            + ExpressionCompiler.getCastString( ctorClass )
+                                                            + ")org.apache.commons.ognl.OgnlOps.toArray("
+                                                            + value
+                                                            + ", "
+                                                            + ctorClass.getComponentType().getName()
+                                                            + ".class, true)", ctorClass );
 
                     }
                     else if ( ctorClass.isPrimitive() )
@@ -166,32 +175,37 @@ public class ASTList
                         Class wrapClass = OgnlRuntime.getPrimitiveWrapperClass( ctorClass );
 
                         value =
-                            OgnlRuntime.getCompiler().createLocalReference( context,
-                                                                            "(("
-                                                                                + wrapClass.getName()
-                                                                                + ")org.apache.commons.ognl.OgnlOps.convertValue("
-                                                                                + value
-                                                                                + ","
-                                                                                + wrapClass.getName()
-                                                                                + ".class, true))."
-                                                                                + OgnlRuntime.getNumericValueGetter( wrapClass ),
-                                                                            ctorClass );
-
+                            OgnlRuntime
+                                .getCompiler()
+                                .createLocalReference( context,
+                                                        "(("
+                                                            + wrapClass.getName()
+                                                            + ")org.apache.commons.ognl.OgnlOps.convertValue("
+                                                            + value
+                                                            + ","
+                                                            + wrapClass.getName()
+                                                            + ".class, true))."
+                                                            + OgnlRuntime.getNumericValueGetter( wrapClass ),
+                                                        ctorClass );
                     }
                     else if ( ctorClass != Object.class )
                     {
 
                         value =
-                            OgnlRuntime.getCompiler().createLocalReference( context,
-                                                                            "("
-                                                                                + ctorClass.getName()
-                                                                                + ")org.apache.commons.ognl.OgnlOps.convertValue("
-                                                                                + value + "," + ctorClass.getName()
-                                                                                + ".class)", ctorClass );
+                            OgnlRuntime
+                                .getCompiler()
+                                .createLocalReference( 
+                                                        context,
+                                                        "("
+                                                            + ctorClass.getName()
+                                                            + ")org.apache.commons.ognl.OgnlOps.convertValue("
+                                                            + value + "," + ctorClass.getName()
+                                                            + ".class)", ctorClass );
 
                     }
                     else if ( ( NodeType.class.isInstance( _children[i] )
-                        && ( (NodeType) _children[i] ).getGetterClass() != null && Number.class.isAssignableFrom( ( (NodeType) _children[i] ).getGetterClass() ) )
+                        && ( (NodeType) _children[i] ).getGetterClass() != null 
+                        && Number.class.isAssignableFrom( ( (NodeType) _children[i] ).getGetterClass() ) )
                         || valueClass.isPrimitive() )
                     {
 
@@ -210,8 +224,9 @@ public class ASTList
                 }
 
                 if ( objValue == null || value.length() <= 0 )
+                {
                     value = "null";
-
+                }
                 result += value;
             }
 
@@ -227,8 +242,9 @@ public class ASTList
         result += "}";
 
         if ( !array )
+        {
             result += ")";
-
+        }
         return result;
     }
 

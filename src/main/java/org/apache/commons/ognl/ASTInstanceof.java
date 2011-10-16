@@ -75,10 +75,13 @@ public class ASTInstanceof
             String ret = "";
 
             if ( ASTConst.class.isInstance( _children[0] ) )
+            {
                 ret = ( (Boolean) getValueBody( context, target ) ).toString();
+            }
             else
+            {
                 ret = _children[0].toGetSourceString( context, target ) + " instanceof " + targetType;
-
+            }
             context.setCurrentType( Boolean.TYPE );
 
             return ret;

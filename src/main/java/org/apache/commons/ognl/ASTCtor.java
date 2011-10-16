@@ -196,8 +196,9 @@ public class ASTCtor
             }
 
             if ( isArray )
+            {
                 context.put( "_ctorClass", clazz );
-
+            }
         }
         catch ( Throwable t )
         {
@@ -264,11 +265,15 @@ public class ASTCtor
                             cast = (String) context.remove( ExpressionCompiler.PRE_CAST );
                         }
                         if ( cast == null )
+                        {
                             cast = "";
-
+                        }
+                        
                         if ( !ASTConst.class.isInstance( _children[i] ) )
+                        {
                             value = cast + value;
-
+                        }
+                        
                         values[i] = objValue;
                         expressions[i] = value;
                         types[i] = context.getCurrentType();
@@ -293,16 +298,18 @@ public class ASTCtor
                     }
 
                     if ( ctor == null )
+                    {
                         ctor =
                             OgnlRuntime.getConvertedConstructorAndArgs( context, clazz,
                                                                         OgnlRuntime.getConstructors( clazz ), values,
                                                                         new Object[values.length] );
-
-                    if ( ctor == null )
+                    }
+                    
+                    if ( ctor == null ) 
+                    {
                         throw new NoSuchMethodException(
-                                                         "Unable to find constructor appropriate for arguments in class: "
-                                                             + clazz );
-
+                            "Unable to find constructor appropriate for arguments in class: " + clazz );
+                    }
                     ctorParamTypes = ctor.getParameterTypes();
 
                     // now loop over child values again and build up the actual source string
@@ -321,7 +328,9 @@ public class ASTCtor
 
                             String literal = OgnlRuntime.getNumericLiteral( types[i] );
                             if ( literal != null )
+                            {
                                 value += literal;
+                            }
                         }
 
                         if ( ctorParamTypes[i] != types[i] )
@@ -340,12 +349,17 @@ public class ASTCtor
                             {
 
                                 if ( !types[i].isArray() && types[i].isPrimitive() && !ctorParamTypes[i].isPrimitive() )
+                                {
                                     value =
                                         "new "
-                                            + ExpressionCompiler.getCastString( OgnlRuntime.getPrimitiveWrapperClass( types[i] ) )
+                                            + ExpressionCompiler.getCastString( 
+                                                OgnlRuntime.getPrimitiveWrapperClass( types[i] ) )
                                             + "(" + value + ")";
+                                }
                                 else
+                                {
                                     value = " ($w) " + value;
+                                }
                             }
                         }
 

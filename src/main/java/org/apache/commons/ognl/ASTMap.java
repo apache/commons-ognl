@@ -33,7 +33,7 @@ class ASTMap
     extends SimpleNode
 {
 
-    private static Class DEFAULT_MAP_CLASS;
+    private static Class defaultMapClass;
 
     private String className;
 
@@ -42,11 +42,11 @@ class ASTMap
         /* Try to get LinkedHashMap; if older JDK than 1.4 use HashMap */
         try
         {
-            DEFAULT_MAP_CLASS = Class.forName( "java.util.LinkedHashMap" );
+            defaultMapClass = Class.forName( "java.util.LinkedHashMap" );
         }
         catch ( ClassNotFoundException ex )
         {
-            DEFAULT_MAP_CLASS = HashMap.class;
+            defaultMapClass = HashMap.class;
         }
     }
 
@@ -74,12 +74,12 @@ class ASTMap
         {
             try
             {
-                answer = (Map) DEFAULT_MAP_CLASS.newInstance();
+                answer = (Map) defaultMapClass.newInstance();
             }
             catch ( Exception ex )
             {
                 /* This should never happen */
-                throw new OgnlException( "Default Map class '" + DEFAULT_MAP_CLASS.getName() + "' instantiation error",
+                throw new OgnlException( "Default Map class '" + defaultMapClass.getName() + "' instantiation error",
                                          ex );
             }
         }
