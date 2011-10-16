@@ -22,64 +22,35 @@
 package org.apache.commons.ognl.internal;
 
 import org.apache.commons.ognl.ClassCacheInspector;
+import org.apache.commons.ognl.internal.entry.CacheEntryFactory;
 
-import java.util.concurrent.ConcurrentHashMap;
-
-public class ConcurrentClassCache<V>
-    implements ClassCache<V>
+public class ConcurrentClassCache<T>
+    extends ConcurrentHashMapCache<Class<?>,T>
+    implements ClassCache<T>
 {
     private ClassCacheInspector inspector;
 
-    private ConcurrentHashMap<Class<?>, V> cache = new ConcurrentHashMap<Class<?>, V>();
-
-    public ConcurrentClassCache()
+    public ConcurrentClassCache( )
     {
     }
 
+    public ConcurrentClassCache( CacheEntryFactory<Class<?>,T> entryFactory )
+    {
+        super( entryFactory );
+    }
 
     public void setClassInspector( ClassCacheInspector inspector )
     {
         this.inspector = inspector;
     }
 
-    public void clear()
-    {
-        cache.clear();
-    }
-
-    public int getSize()
-    {
-        return cache.size();
-    }
-
-    public V get( Class<?> key )
-        throws CacheException
-    {
-        return get( key, null );
-    }
-
-    public V get( Class<?> key, CacheEntryFactory<Class<?>, V> cacheEntryFactory )
-        throws CacheException
-    {
-        V v = cache.get( key );
-        if ( v == null && cacheEntryFactory != null )
-        {
-            return put( key, cacheEntryFactory.create( key ) );
-        }
-        return v;
-    }
-
-    public V put( Class<?> key, V value )
+    @Override
+    public T put( Class<?> key, T value )
     {
         if ( inspector != null && !inspector.shouldCache( key ) )
         {
             return value;
         }
-        V collision = cache.putIfAbsent( key, value );
-        if ( collision != null )
-        {
-            return collision;
-        }
-        return value;
+        return super.put( key, value );
     }
 }

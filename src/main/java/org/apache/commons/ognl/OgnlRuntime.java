@@ -23,12 +23,17 @@ package org.apache.commons.ognl;
 
 import org.apache.commons.ognl.enhance.ExpressionCompiler;
 import org.apache.commons.ognl.enhance.OgnlExpressionCompiler;
-import org.apache.commons.ognl.internal.CacheEntryFactory;
-import org.apache.commons.ognl.internal.CacheException;
 import org.apache.commons.ognl.internal.ClassCache;
-import org.apache.commons.ognl.internal.ClassCacheEntryFactory;
 import org.apache.commons.ognl.internal.ClassCacheHandler;
 import org.apache.commons.ognl.internal.ConcurrentClassCache;
+import org.apache.commons.ognl.internal.ConcurrentHashMapCache;
+import org.apache.commons.ognl.internal.entry.FiedlCacheCacheEntryFactory;
+import org.apache.commons.ognl.internal.entry.ConstructorCacheEntryFactory;
+import org.apache.commons.ognl.internal.entry.DeclaredMethodCacheEntry;
+import org.apache.commons.ognl.internal.entry.DeclaredMethodCacheEntryFactory;
+import org.apache.commons.ognl.internal.entry.PermissionCacheEntry;
+import org.apache.commons.ognl.internal.entry.PermissionCacheEntryFactory;
+import org.apache.commons.ognl.internal.entry.PropertyDescriptorCacheEntryFactory;
 
 import java.beans.BeanInfo;
 import java.beans.IndexedPropertyDescriptor;
@@ -156,20 +161,19 @@ public class OgnlRuntime
     static final ClassCache<NullHandler> _nullHandlers = new ConcurrentClassCache<NullHandler>( );
 
     static final ClassCache<Map<String, PropertyDescriptor>> _propertyDescriptorCache =
-        new ConcurrentClassCache<Map<String, PropertyDescriptor>>( );
+        new ConcurrentClassCache<Map<String, PropertyDescriptor>>(new PropertyDescriptorCacheEntryFactory());
 
-    static final ClassCache<List<Constructor<?>>> _constructorCache = new ConcurrentClassCache<List<Constructor<?>>>( );
+    static final ClassCache<List<Constructor<?>>> _constructorCache = new ConcurrentClassCache<List<Constructor<?>>>(new ConstructorCacheEntryFactory() );
 
-    static final ClassCache<Map<String, List<Method>>> _staticMethodCache = new ConcurrentClassCache<Map<String, List<Method>>>( );
+    static final ConcurrentHashMapCache<DeclaredMethodCacheEntry, Map<String, List<Method>>> _methodCache =
+        new ConcurrentHashMapCache<DeclaredMethodCacheEntry, Map<String, List<Method>>>(
+            new DeclaredMethodCacheEntryFactory( ) );
 
-    static final ClassCache<Map<String, List<Method>>> _instanceMethodCache = new ConcurrentClassCache<Map<String, List<Method>>>( );
+    static final ConcurrentHashMapCache<PermissionCacheEntry, Permission> _invokePermissionCache =
+        new ConcurrentHashMapCache<PermissionCacheEntry, Permission>( new PermissionCacheEntryFactory( ) );
 
-    static final ClassCache<Map<String, Permission>> _invokePermissionCache = new ConcurrentClassCache<Map<String, Permission>>( );
-
-    static final ClassCache<Map<String, Field>> _fieldCache = new ConcurrentClassCache<Map<String, Field>>( );
-
-    static final ClassCache[] _declaredMethods =
-        new ClassCache[]{ new ConcurrentClassCache( ), new ConcurrentClassCache( ) };
+    static final ClassCache<Map<String, Field>> _fieldCache =
+        new ConcurrentClassCache<Map<String, Field>>( new FiedlCacheCacheEntryFactory( ) );
 
     static final Map<String, Class<?>> _primitiveTypes = new HashMap<String, Class<?>>( 101 );
 
@@ -413,12 +417,11 @@ public class OgnlRuntime
         _ctorParameterTypesCache.clear( );
         _propertyDescriptorCache.clear( );
         _constructorCache.clear( );
-        _staticMethodCache.clear( );
-        _instanceMethodCache.clear( );
+        _methodCache.clear( );
         _invokePermissionCache.clear( );
         _fieldCache.clear( );
-        _declaredMethods[0].clear( );
-        _declaredMethods[1].clear( );
+//        _setterMethods.clear( );
+//        _getterMethods.clear( );
         _methodAccessCache.clear( );
     }
 
@@ -819,31 +822,7 @@ public class OgnlRuntime
     public static Permission getPermission( final Method method )
         throws OgnlException
     {
-        final Class<?> mc = method.getDeclaringClass( );
-
-        CacheEntryFactory<Class<?>, Map<String, Permission>> cacheEntryFactory =
-            new CacheEntryFactory<Class<?>, Map<String, Permission>>( )
-            {
-                public Map<String, Permission> create( Class<?> key )
-                    throws CacheException
-                {
-                    Map<String, Permission> permissions = _invokePermissionCache.get( mc );
-                    if ( permissions == null )
-                    {
-                        _invokePermissionCache.put( mc, permissions = new HashMap<String, Permission>( 101 ) );
-                    }
-                    Permission result = permissions.get( method.getName( ) );
-                    if ( result == null )
-                    {
-                        result = new OgnlInvokePermission( "invoke." + mc.getName( ) + "." + method.getName( ) );
-                        permissions.put( method.getName( ), result );
-                    }
-                    return permissions;
-                }
-            };
-        Map<String, Permission> permissions = _invokePermissionCache.get( mc, cacheEntryFactory );
-
-        return permissions.get( method.getName( ) );
+        return _invokePermissionCache.get( new PermissionCacheEntry( method ) );
     }
 
     public static Object invokeMethod( Object target, Method method, Object[] argsArray )
@@ -1673,60 +1652,29 @@ public class OgnlRuntime
     public static List<Constructor<?>> getConstructors( final Class<?> targetClass )
         throws OgnlException
     {
-        return _constructorCache.get( targetClass, new ClassCacheEntryFactory<List<Constructor<?>>>( )
-        {
-            public List<Constructor<?>> create( Class<?> key )
-                throws CacheException
-            {
-                return Arrays.asList( targetClass.getConstructors( ) );
-            }
-        } );
+        return _constructorCache.get( targetClass );
     }
 
-    public static Map<String, List<Method>> getMethods( final Class<?> targetClass, final boolean staticMethods )
+    /**
+     * @param targetClass
+     * @param staticMethods if true (false) returns only the (non-)static methods
+     * @return Returns the map of methods for a given class
+     * @throws OgnlException
+     */
+    public static Map<String, List<Method>> getMethods( Class<?> targetClass, boolean staticMethods )
         throws OgnlException
     {
-        CacheEntryFactory<Class<?>, Map<String, List<Method>>> entryFactory=new CacheEntryFactory<Class<?>, Map<String, List<Method>>>( )
+        DeclaredMethodCacheEntry.MethodType type;
+        if ( staticMethods )
         {
-            public Map<String, List<Method>> create( Class<?> key )
-                throws CacheException
-            {
-                Map<String, List<Method>> result = new HashMap<String, List<Method>>( 23 );
+            type = DeclaredMethodCacheEntry.MethodType.STATIC;
+        }
+        else
+        {
+            type = DeclaredMethodCacheEntry.MethodType.NON_STATIC;
 
-                Class<?> c = key;
-                while ( c != null )
-                {
-                    Method[] ma = c.getDeclaredMethods( );
-
-                    for ( Method method : ma )
-                    {
-                        // skip over synthetic methods
-
-                        if ( !isMethodCallable( method ) )
-                        {
-                            continue;
-                        }
-
-                        if ( Modifier.isStatic( method.getModifiers( ) ) == staticMethods )
-                        {
-                            List<Method> ml = result.get( method.getName( ) );
-
-                            if ( ml == null )
-                            {
-                                result.put( method.getName( ), ml = new ArrayList<Method>( ) );
-                            }
-
-                            ml.add( method );
-                        }
-                    }
-                    c = c.getSuperclass( );
-                }
-                return result;
-            }
-        };
-
-        ClassCache<Map<String, List<Method>>> cache = ( staticMethods ? _staticMethodCache : _instanceMethodCache );
-        return cache.get( targetClass, entryFactory );
+        }
+        return _methodCache.get( new DeclaredMethodCacheEntry( targetClass, type) );
     }
 
     public static List<Method> getMethods( Class<?> targetClass, String name, boolean staticMethods )
@@ -1738,21 +1686,7 @@ public class OgnlRuntime
     public static Map<String, Field> getFields( Class<?> targetClass )
         throws OgnlException
     {
-        CacheEntryFactory<Class<?>, Map<String, Field>> entryFactory=new CacheEntryFactory<Class<?>, Map<String, Field>>( )
-        {
-            public Map<String, Field> create( Class<?> key )
-                throws CacheException
-            {
-                Field[] declaredFields = key.getDeclaredFields( );
-                HashMap<String, Field> result = new HashMap<String, Field>( declaredFields.length);
-                for ( Field field : declaredFields )
-                {
-                    result.put( field.getName( ), field );
-                }
-                return result ;
-            }
-        };
-        return _fieldCache.get( targetClass, entryFactory );
+        return _fieldCache.get( targetClass );
     }
 
     public static Field getField( Class<?> inClass, String name )
@@ -1763,7 +1697,7 @@ public class OgnlRuntime
         if ( o == null )
         {
             // if o is null, it should search along the superclasses
-            Class<?> sc = inClass.getSuperclass();
+            Class<?> sc = inClass.getSuperclass( );
             while ( ( sc != null ) )
             {
                 o = getFields( sc ).get( name );
@@ -1941,68 +1875,39 @@ public class OgnlRuntime
         throw new OgnlException( "Could not get static field " + fieldName + " from class " + className, reason );
     }
 
-    public static List<Method> getDeclaredMethods( Class<?> targetClass, String propertyName, boolean findSets )
+    /**
+     *
+     * @param targetClass
+     * @param propertyName
+     * @param findSets
+     * @return Returns the list of (g)setter of a class for a given property name
+     * @throws OgnlException
+     */
+    public static List<Method> getDeclaredMethods( final Class<?> targetClass, final String propertyName,
+                                                   final boolean findSets )
         throws OgnlException
     {
-        List<Method> result = null;
-        ClassCache cache = _declaredMethods[findSets ? 0 : 1];
-
-        synchronized ( cache )
+        String baseName = Character.toUpperCase( propertyName.charAt( 0 ) ) + propertyName.substring( 1 );
+        List<Method> result = new ArrayList<Method>( );
+        List<String> find = new ArrayList<String>( 2 );
+        if(findSets)
         {
-            Map<String, List<Method>> propertyCache = (Map<String, List<Method>>) cache.get( targetClass );
-
-            if ( ( propertyCache == null ) || ( ( result = propertyCache.get( propertyName ) ) == null ) )
-            {
-
-                String baseName = Character.toUpperCase( propertyName.charAt( 0 ) ) + propertyName.substring( 1 );
-
-                for ( Class<?> c = targetClass; c != null; c = c.getSuperclass( ) )
-                {
-                    Method[] methods = c.getDeclaredMethods( );
-
-                    for ( Method method : methods )
-                    {
-
-                        if ( !isMethodCallable( method ) )
-                        {
-                            continue;
-                        }
-
-                        String ms = method.getName( );
-
-                        if ( ms.endsWith( baseName ) )
-                        {
-                            boolean isSet, isIs = false;
-
-                            if ( ( isSet = ms.startsWith( SET_PREFIX ) ) || ms.startsWith( GET_PREFIX ) || ( isIs =
-                                ms.startsWith( IS_PREFIX ) ) )
-                            {
-                                int prefixLength = ( isIs ? 2 : 3 );
-
-                                if ( isSet == findSets )
-                                {
-                                    if ( baseName.length( ) == ( ms.length( ) - prefixLength ) )
-                                    {
-                                        if ( result == null )
-                                        {
-                                            result = new ArrayList<Method>( );
-                                        }
-                                        result.add( method );
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                if ( propertyCache == null )
-                {
-                    cache.put( targetClass, propertyCache = new HashMap<String, List<Method>>( 101 ) );
-                }
-
-                propertyCache.put( propertyName, result );
-            }
-            return result;
+            find.add( SET_PREFIX + baseName);
+        } else
+        {
+            find.add( IS_PREFIX + baseName );
+            find.add(GET_PREFIX + baseName );
+            
         }
+        for ( String s : find )
+        {
+            List<Method> methodList = _methodCache.get( new DeclaredMethodCacheEntry( targetClass ) ).get( s );
+            if(methodList!=null)
+                result.addAll( methodList );
+        }
+
+        return result;
+            
     }
 
     /**
@@ -2011,7 +1916,8 @@ public class OgnlRuntime
      * @param m The method to check.
      * @return True if the method should be callable, false otherwise.
      */
-    static boolean isMethodCallable( Method m )
+    //TODO: the method was intented as private, so it needs to move in a util class
+    public static boolean isMethodCallable( Method m )
     {
         return !( ( isJdk15( ) && m.isSynthetic( ) ) || Modifier.isVolatile( m.getModifiers( ) ) );
 
@@ -2146,7 +2052,8 @@ public class OgnlRuntime
         return result;
     }
 
-    static void findObjectIndexedPropertyDescriptors( Class<?> targetClass, Map<String, PropertyDescriptor> intoMap )
+    public static void findObjectIndexedPropertyDescriptors( Class<?> targetClass,
+                                                             Map<String, PropertyDescriptor> intoMap )
         throws OgnlException
     {
         Map<String, List<Method>> allMethods = getMethods( targetClass, false );
@@ -2243,50 +2150,7 @@ public class OgnlRuntime
     public static Map<String, PropertyDescriptor> getPropertyDescriptors( final Class<?> targetClass )
         throws IntrospectionException, OgnlException
     {
-        return _propertyDescriptorCache.get( targetClass, new ClassCacheEntryFactory<Map<String, PropertyDescriptor>>( )
-        {
-            public Map<String, PropertyDescriptor> create( Class<?> key )
-                throws CacheException
-            {
-                Map<String, PropertyDescriptor> result = new HashMap<String, PropertyDescriptor>( 101 );
-                PropertyDescriptor[] pda;
-                try
-                {
-                    pda = Introspector.getBeanInfo( targetClass ).getPropertyDescriptors( );
-
-                    for ( int i = 0, icount = pda.length; i < icount; i++ )
-                    {
-                        // workaround for Introspector bug 6528714 (bugs.sun.com)
-                        if ( pda[i].getReadMethod( ) != null && !isMethodCallable( pda[i].getReadMethod( ) ) )
-                        {
-                            pda[i].setReadMethod(
-                                findClosestMatchingMethod( targetClass, pda[i].getReadMethod( ), pda[i].getName( ),
-                                                           pda[i].getPropertyType( ), true ) );
-                        }
-                        if ( pda[i].getWriteMethod( ) != null && !isMethodCallable( pda[i].getWriteMethod( ) ) )
-                        {
-                            pda[i].setWriteMethod(
-                                findClosestMatchingMethod( targetClass, pda[i].getWriteMethod( ), pda[i].getName( ),
-                                                           pda[i].getPropertyType( ), false ) );
-                        }
-
-                        result.put( pda[i].getName( ), pda[i] );
-                    }
-
-                    findObjectIndexedPropertyDescriptors( targetClass, result );
-                    _propertyDescriptorCache.put( targetClass, result );
-                }
-                catch ( IntrospectionException e )
-                {
-                    throw new CacheException( e );
-                }
-                catch ( OgnlException e )
-                {
-                    throw new CacheException( e );
-                }
-                return result;
-            }
-        } );
+        return _propertyDescriptorCache.get( targetClass );
     }
 
     /**
@@ -2302,25 +2166,6 @@ public class OgnlRuntime
         }
 
         return getPropertyDescriptors( targetClass ).get( propertyName );
-    }
-
-    static Method findClosestMatchingMethod( Class<?> targetClass, Method m, String propertyName, Class<?> propertyType,
-                                             boolean isReadMethod )
-        throws OgnlException
-    {
-        List<Method> methods = getDeclaredMethods( targetClass, propertyName, !isReadMethod );
-
-        for ( Method method : methods )
-        {
-            if ( method.getName( ).equals( m.getName( ) ) && m.getReturnType( ).isAssignableFrom( m.getReturnType( ) )
-                && method.getReturnType( ) == propertyType
-                && method.getParameterTypes( ).length == m.getParameterTypes( ).length )
-            {
-                return method;
-            }
-        }
-
-        return m;
     }
 
     public static PropertyDescriptor[] getPropertyDescriptorsArray( Class<?> targetClass )
@@ -2596,12 +2441,11 @@ public class OgnlRuntime
 
         _propertyDescriptorCache.setClassInspector( _cacheInspector );
         _constructorCache.setClassInspector( _cacheInspector );
-        _staticMethodCache.setClassInspector( _cacheInspector );
-        _instanceMethodCache.setClassInspector( _cacheInspector );
-        _invokePermissionCache.setClassInspector( _cacheInspector );
+//        _methodCache.setClassInspector( _cacheInspector );
+//        _invokePermissionCache.setClassInspector( _cacheInspector );
         _fieldCache.setClassInspector( _cacheInspector );
-        _declaredMethods[0].setClassInspector( _cacheInspector );
-        _declaredMethods[1].setClassInspector( _cacheInspector );
+//        _setterMethods.setClassInspector( _cacheInspector );
+//        _getterMethods.setClassInspector( _cacheInspector );
     }
 
     public static Method getMethod( OgnlContext context, Class<?> target, String name, Node[] children,
