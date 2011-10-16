@@ -1,6 +1,6 @@
 package org.apache.commons.ognl.internal;
 
-import org.apache.commons.ognl.internal.entry.FiedlCacheCacheEntryFactory;
+import org.apache.commons.ognl.internal.entry.FiedlCacheEntryFactory;
 import org.apache.commons.ognl.test.objects.Bean2;
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ import static junit.framework.Assert.assertTrue;
 public class FieldCacheTest
 {
     ConcurrentHashMapCache<Class<?>, Map<String,Field>> cache =
-        new ConcurrentHashMapCache<Class<?>, Map<String,Field>>( new FiedlCacheCacheEntryFactory());
+        new ConcurrentHashMapCache<Class<?>, Map<String,Field>>( new FiedlCacheEntryFactory());
 
     @Test
     public void testGet( )

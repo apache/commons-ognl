@@ -27,7 +27,7 @@ import org.apache.commons.ognl.internal.ClassCache;
 import org.apache.commons.ognl.internal.ClassCacheHandler;
 import org.apache.commons.ognl.internal.ConcurrentClassCache;
 import org.apache.commons.ognl.internal.ConcurrentHashMapCache;
-import org.apache.commons.ognl.internal.entry.FiedlCacheCacheEntryFactory;
+import org.apache.commons.ognl.internal.entry.FiedlCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.ConstructorCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.DeclaredMethodCacheEntry;
 import org.apache.commons.ognl.internal.entry.DeclaredMethodCacheEntryFactory;
@@ -173,7 +173,7 @@ public class OgnlRuntime
         new ConcurrentHashMapCache<PermissionCacheEntry, Permission>( new PermissionCacheEntryFactory( ) );
 
     static final ClassCache<Map<String, Field>> _fieldCache =
-        new ConcurrentClassCache<Map<String, Field>>( new FiedlCacheCacheEntryFactory( ) );
+        new ConcurrentClassCache<Map<String, Field>>( new FiedlCacheEntryFactory( ) );
 
     static final Map<String, Class<?>> _primitiveTypes = new HashMap<String, Class<?>>( 101 );
 
