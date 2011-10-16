@@ -748,13 +748,13 @@ public class OgnlRuntime
      * Permission will be named "invoke.<declaring-class>.<method-name>".
      */
     public static Permission getPermission( Method method )
-        throws OgnlException
+        throws CacheException
     {
         return _invokePermissionCache.get( new PermissionCacheEntry( method ) );
     }
 
     public static Object invokeMethod( Object target, Method method, Object[] argsArray )
-        throws IllegalAccessException, OgnlException, InvocationTargetException
+        throws InvocationTargetException, IllegalAccessException, CacheException
     {
         boolean syncInvoke = false;
         boolean checkPermission = false;
