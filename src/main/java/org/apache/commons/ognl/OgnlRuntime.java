@@ -775,7 +775,7 @@ public class OgnlRuntime
 
         synchronized ( method )
         {
-            if ( _methodAccessCache.get( mHash ) == null || _methodAccessCache.get( mHash ) == Boolean.TRUE )
+            if ( _methodAccessCache.get( mHash ) == null || _methodAccessCache.get( mHash ) )
             {
                 syncInvoke = true;
             }
