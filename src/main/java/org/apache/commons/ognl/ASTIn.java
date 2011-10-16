@@ -49,11 +49,6 @@ class ASTIn
         return OgnlOps.in( v1, v2 ) ? Boolean.TRUE : Boolean.FALSE;
     }
 
-    public String toString()
-    {
-        return _children[0] + " in " + _children[1];
-    }
-
     public Class getGetterClass()
     {
         return Boolean.TYPE;

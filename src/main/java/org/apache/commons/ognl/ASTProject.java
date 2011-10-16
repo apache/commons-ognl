@@ -61,11 +61,6 @@ class ASTProject
         return answer;
     }
 
-    public String toString()
-    {
-        return "{ " + _children[0] + " }";
-    }
-
     public String toGetSourceString( OgnlContext context, Object target )
     {
         throw new UnsupportedCompilationException( "Projection expressions not supported as native java yet." );

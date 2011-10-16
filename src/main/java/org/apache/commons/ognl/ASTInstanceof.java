@@ -45,16 +45,15 @@ public class ASTInstanceof
         this.targetType = targetType;
     }
 
+    String getTargetType() {
+        return targetType;
+    }
+
     protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
         Object value = _children[0].getValue( context, source );
         return OgnlRuntime.isInstance( context, value, targetType ) ? Boolean.TRUE : Boolean.FALSE;
-    }
-
-    public String toString()
-    {
-        return _children[0] + " instanceof " + targetType;
     }
 
     public Class getGetterClass()

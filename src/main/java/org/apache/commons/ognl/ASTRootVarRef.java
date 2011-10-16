@@ -51,11 +51,6 @@ public class ASTRootVarRef
         context.setRoot( value );
     }
 
-    public String toString()
-    {
-        return "#root";
-    }
-
     public String toGetSourceString( OgnlContext context, Object target )
     {
         if ( target != null )

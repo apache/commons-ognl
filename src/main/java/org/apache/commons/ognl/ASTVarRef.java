@@ -54,6 +54,16 @@ public class ASTVarRef
     {
         this._name = name;
     }
+    /**
+     * Get the variable name.
+     *
+     * @return the variable name.
+     * @since 4.0
+     */
+    String getName()
+    {
+        return _name;
+    }
 
     protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
@@ -85,11 +95,6 @@ public class ASTVarRef
     public String getLastExpression()
     {
         return _last;
-    }
-
-    public String toString()
-    {
-        return "#" + _name;
     }
 
     public String toGetSourceString( OgnlContext context, Object target )
@@ -134,8 +139,8 @@ public class ASTVarRef
     {
         return toGetSourceString( context, target );
     }
-    
-    public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data ) 
+
+    public <R,P> R accept(NodeVisitor<? extends R, ? super P> visitor, P data)
     {
         return visitor.visit( this, data );
     }

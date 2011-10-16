@@ -43,11 +43,6 @@ class ASTNegate
         return OgnlOps.negate( _children[0].getValue( context, source ) );
     }
 
-    public String toString()
-    {
-        return "-" + _children[0];
-    }
-
     public String toGetSourceString( OgnlContext context, Object target )
     {
         String source = _children[0].toGetSourceString( context, target );

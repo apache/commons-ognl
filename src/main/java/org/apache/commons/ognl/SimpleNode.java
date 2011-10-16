@@ -113,7 +113,7 @@ public abstract class SimpleNode
     @Override
     public String toString()
     {
-        return OgnlParserTreeConstants.jjtNodeName[_id];
+        return accept( ToStringVisitor.INSTANCE, new StringBuilder()).toString();
     }
 
     // OGNL additions

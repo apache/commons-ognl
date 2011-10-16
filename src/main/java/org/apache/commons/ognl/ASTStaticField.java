@@ -165,11 +165,6 @@ public class ASTStaticField
         return _getterClass;
     }
 
-    public String toString()
-    {
-        return "@" + className + "@" + fieldName;
-    }
-
     public String toGetSourceString( OgnlContext context, Object target )
     {
         try
@@ -217,5 +212,27 @@ public class ASTStaticField
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data ) 
     {
         return visitor.visit( this, data );
+    }
+
+    /**
+     * Get the field name for this field.
+     *
+     * @return the field name.
+     * @since 4.0
+     */
+    String getFieldName()
+    {
+        return fieldName;
+    }
+
+    /**
+     * Get the class name for this field.
+     *
+     * @return the class name.
+     * @since 4.0
+     */
+    String getClassName()
+    {
+        return className;
     }
 }

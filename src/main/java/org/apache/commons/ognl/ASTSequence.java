@@ -95,21 +95,6 @@ public class ASTSequence
         return _coreExpression;
     }
 
-    public String toString()
-    {
-        StringBuilder result = new StringBuilder( "" );
-
-        for ( int i = 0; i < _children.length; ++i )
-        {
-            if ( i > 0 )
-            {
-                result.append( ", " );
-            }
-            result.append( _children[i] );
-        }
-        return result.toString();
-    }
-
     public String toSetSourceString( OgnlContext context, Object target )
     {
         return "";

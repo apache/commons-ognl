@@ -21,9 +21,6 @@ package org.apache.commons.ognl;
 
 import org.apache.commons.ognl.enhance.UnsupportedCompilationException;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 /**
  * $Id$
  * @author Luke Blanshard (blanshlu@netscape.net)
@@ -87,61 +84,6 @@ public class ASTConst
     public Class getSetterClass()
     {
         return null;
-    }
-
-    public String toString()
-    {
-        String result;
-
-        if ( value == null )
-        {
-            result = "null";
-        }
-        else
-        {
-            if ( value instanceof String )
-            {
-                result = '\"' + OgnlOps.getEscapeString( value.toString() ) + '\"';
-            }
-            else
-            {
-                if ( value instanceof Character )
-                {
-                    result = '\'' + OgnlOps.getEscapedChar( ( (Character) value ).charValue() ) + '\'';
-                }
-                else
-                {
-                    result = value.toString();
-
-                    if ( value instanceof Long )
-                    {
-                        result = result + "L";
-                    }
-                    else
-                    {
-                        if ( value instanceof BigDecimal )
-                        {
-                            result = result + "B";
-                        }
-                        else
-                        {
-                            if ( value instanceof BigInteger )
-                            {
-                                result = result + "H";
-                            }
-                            else
-                            {
-                                if ( value instanceof Node )
-                                {
-                                    result = ":[ " + result + " ]";
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return result;
     }
 
     public String toGetSourceString( OgnlContext context, Object target )

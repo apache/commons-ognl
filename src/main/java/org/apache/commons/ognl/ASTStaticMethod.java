@@ -85,26 +85,6 @@ public class ASTStaticMethod
         return _getterClass;
     }
 
-    public String toString()
-    {
-        StringBuilder result = new StringBuilder( "@" ).append( _className ).append( "@" ).append( _methodName );
-
-        result.append( "(" );
-        if ( ( _children != null ) && ( _children.length > 0 ) )
-        {
-            for ( int i = 0; i < _children.length; i++ )
-            {
-                if ( i > 0 )
-                {
-                    result.append( ", " );
-                }
-                result.append( _children[i] );
-            }
-        }
-        result.append( ")" );
-        return result.toString();
-    }
-
     public String toGetSourceString( OgnlContext context, Object target )
     {
         String result = _className + "#" + _methodName + "(";
@@ -267,5 +247,27 @@ public class ASTStaticMethod
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data ) 
     {
         return visitor.visit( this, data );
+    }
+
+    /**
+     * Get the class name for this method.
+     *
+     * @return the class name.
+     * @since 4.0
+     */
+    public String getClassName()
+    {
+        return _className;
+    }
+
+    /**
+     * Get the method name for this method.
+     *
+     * @return the method name.
+     * @since 4.0
+     */
+    public String getMethodName()
+    {
+        return _methodName;
     }
 }

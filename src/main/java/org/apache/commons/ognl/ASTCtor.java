@@ -54,6 +54,18 @@ public class ASTCtor
         this.className = className;
     }
 
+    /**
+     * Get the class name for this constructor.
+     *
+     * @return the class name.
+     * @since 4.0
+     */
+    String getClassName()
+    {
+        return className;
+    }
+
+
     void setArray( boolean value )
     {
         isArray = value;
@@ -140,39 +152,6 @@ public class ASTCtor
         }
     }
 
-    public String toString()
-    {
-        StringBuilder result = new StringBuilder( "new " ).append( className );
-
-        if ( isArray )
-        {
-            if ( _children[0] instanceof ASTConst )
-            {
-                result.append( "[" ).append( _children[0] ).append( "]" );
-            }
-            else
-            {
-                result.append( "[] " ).append( _children[0] );
-            }
-        }
-        else
-        {
-            result.append( "(" );
-            if ( ( _children != null ) && ( _children.length > 0 ) )
-            {
-                for ( int i = 0; i < _children.length; i++ )
-                {
-                    if ( i > 0 )
-                    {
-                        result.append( ", " );
-                    }
-                    result.append( _children[i] );
-                }
-            }
-            result.append( ")" );
-        }
-        return result.toString();
-    }
 
     public String toGetSourceString( OgnlContext context, Object target )
     {
@@ -389,8 +368,8 @@ public class ASTCtor
     {
         return "";
     }
-    
-    public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data ) 
+
+    public <R,P> R accept(NodeVisitor<? extends R, ? super P> visitor, P data)
     {
         return visitor.visit( this, data );
     }

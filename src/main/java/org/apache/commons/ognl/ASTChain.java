@@ -277,27 +277,6 @@ public class ASTChain
         return setterClass;
     }
 
-    public String toString()
-    {
-        StringBuilder result = new StringBuilder( "" );
-
-        if ( ( _children != null ) && ( _children.length > 0 ) )
-        {
-            for ( int i = 0; i < _children.length; i++ )
-            {
-                if ( i > 0 )
-                {
-                    if ( !( _children[i] instanceof ASTProperty ) || !( (ASTProperty) _children[i] ).isIndexedAccess() )
-                    {
-                        result.append( "." );
-                    }
-                }
-                result.append( _children[i].toString() );
-            }
-        }
-        return result.toString();
-    }
-
     public String toGetSourceString( OgnlContext context, Object target )
     {
         String prevChain = (String) context.get( "_currentChain" );

@@ -81,29 +81,6 @@ public abstract class ExpressionNode
     }
 
     @Override
-    public String toString()
-    {
-        StringBuilder result = new StringBuilder( _parent == null ? "" : "(" );
-
-        if ( ( _children != null ) && ( _children.length > 0 ) )
-        {
-            for ( int i = 0; i < _children.length; ++i )
-            {
-                if ( i > 0 )
-                {
-                    result.append( " " ).append( getExpressionOperator( i ) ).append( " " );
-                }
-                result.append( _children[i].toString() );
-            }
-        }
-        if ( _parent != null )
-        {
-            result.append( ')' );
-        }
-        return result.toString();
-    }
-
-    @Override
     public String toGetSourceString( OgnlContext context, Object target )
     {
         StringBuilder result =

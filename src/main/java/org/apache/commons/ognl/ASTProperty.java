@@ -139,21 +139,6 @@ public class ASTProperty
         return _setterClass;
     }
 
-    public String toString()
-    {
-        String result;
-
-        if ( isIndexedAccess() )
-        {
-            result = "[" + _children[0] + "]";
-        }
-        else
-        {
-            result = ( (ASTConst) _children[0] ).getValue().toString();
-        }
-        return result;
-    }
-
     public String toGetSourceString( OgnlContext context, Object target )
     {
         if ( context.getCurrentObject() == null )

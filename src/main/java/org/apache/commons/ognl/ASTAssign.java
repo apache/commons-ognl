@@ -48,11 +48,6 @@ class ASTAssign
         return result;
     }
 
-    public String toString()
-    {
-        return _children[0] + " = " + _children[1];
-    }
-
     public String toGetSourceString( OgnlContext context, Object target )
     {
         String result = "";

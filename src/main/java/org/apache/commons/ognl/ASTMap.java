@@ -65,6 +65,17 @@ class ASTMap
         className = value;
     }
 
+    /**
+     * Get the class name for this map.
+     *
+     * @return the class name.
+     * @since 4.0
+     */
+    String getClassName()
+    {
+        return className;
+    }
+
     protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
@@ -104,29 +115,6 @@ class ASTMap
         }
 
         return answer;
-    }
-
-    public String toString()
-    {
-        StringBuilder result = new StringBuilder( "#" );
-
-        if ( className != null )
-        {
-            result.append( "@" ).append( className ).append( "@" );
-        }
-
-        result.append( "{ " );
-        for ( int i = 0; i < jjtGetNumChildren(); ++i )
-        {
-            ASTKeyValue kv = (ASTKeyValue) _children[i];
-
-            if ( i > 0 )
-            {
-                result.append( ", " );
-            }
-            result.append( kv.getKey() ).append( " : " ).append( kv.getValue() );
-        }
-        return result.append( " }" ).toString();
     }
 
     public String toGetSourceString( OgnlContext context, Object target )

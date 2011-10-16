@@ -52,11 +52,6 @@ public class ASTThisVarRef
         context.setCurrentObject( value );
     }
 
-    public String toString()
-    {
-        return "#this";
-    }
-
     public String toGetSourceString( OgnlContext context, Object target )
     {
         throw new UnsupportedCompilationException( "Unable to compile this references." );

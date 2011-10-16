@@ -79,11 +79,6 @@ class ASTEval
         }
     }
 
-    public String toString()
-    {
-        return "(" + _children[0] + ")(" + _children[1] + ")";
-    }
-
     public String toGetSourceString( OgnlContext context, Object target )
     {
         throw new UnsupportedCompilationException( "Eval expressions not supported as native java yet." );

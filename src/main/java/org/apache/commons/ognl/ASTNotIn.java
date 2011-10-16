@@ -48,11 +48,6 @@ class ASTNotIn
         return OgnlOps.in( v1, v2 ) ? Boolean.FALSE : Boolean.TRUE;
     }
 
-    public String toString()
-    {
-        return _children[0] + " not in " + _children[1];
-    }
-
     public Class getGetterClass()
     {
         return Boolean.TYPE;
