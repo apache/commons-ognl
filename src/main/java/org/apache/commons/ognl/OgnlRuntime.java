@@ -747,7 +747,7 @@ public class OgnlRuntime
     /**
      * Permission will be named "invoke.<declaring-class>.<method-name>".
      */
-    public static Permission getPermission( final Method method )
+    public static Permission getPermission( Method method )
         throws OgnlException
     {
         return _invokePermissionCache.get( new PermissionCacheEntry( method ) );
@@ -1577,7 +1577,7 @@ public class OgnlRuntime
         return result;
     }
 
-    public static List<Constructor<?>> getConstructors( final Class<?> targetClass )
+    public static List<Constructor<?>> getConstructors( Class<?> targetClass )
         throws OgnlException
     {
         return _constructorCache.get( targetClass );
@@ -1811,8 +1811,7 @@ public class OgnlRuntime
      * @return Returns the list of (g)setter of a class for a given property name
      * @throws OgnlException
      */
-    public static List<Method> getDeclaredMethods( final Class<?> targetClass, final String propertyName,
-                                                   final boolean findSets )
+    public static List<Method> getDeclaredMethods( Class<?> targetClass, String propertyName, boolean findSets )
         throws OgnlException
     {
         String baseName = Character.toUpperCase( propertyName.charAt( 0 ) ) + propertyName.substring( 1 );
@@ -2076,7 +2075,7 @@ public class OgnlRuntime
      * @throws IntrospectionException on errors using {@link Introspector}.
      * @throws OgnlException          On general errors.
      */
-    public static Map<String, PropertyDescriptor> getPropertyDescriptors( final Class<?> targetClass )
+    public static Map<String, PropertyDescriptor> getPropertyDescriptors( Class<?> targetClass )
         throws IntrospectionException, OgnlException
     {
         return _propertyDescriptorCache.get( targetClass );
