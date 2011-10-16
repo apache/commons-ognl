@@ -1,5 +1,5 @@
 /*
- * $Id$
+ * $Id: $
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -19,10 +19,18 @@
  * under the License.
  */
 
-package org.apache.commons.ognl.internal;
+package org.apache.commons.ognl.internal.entry;
 
-public interface CacheEntryFactory<K, V>
+import org.apache.commons.ognl.internal.CacheException;
+import org.apache.commons.ognl.internal.entry.CacheEntryFactory;
+
+/**
+ * User: mcucchiara
+ * Date: 12/10/11
+ * Time: 18.56
+ */
+public interface MatchingCacheEntryFactory<K,V> extends CacheEntryFactory<K,V>
 {
-    public V create( K key )
+    boolean match( V v )
         throws CacheException;
 }

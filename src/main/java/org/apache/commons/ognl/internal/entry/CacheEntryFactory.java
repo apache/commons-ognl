@@ -19,9 +19,12 @@
  * under the License.
  */
 
-package org.apache.commons.ognl.internal;
+package org.apache.commons.ognl.internal.entry;
 
-public interface ClassCacheEntryFactory<T>
-    extends CacheEntryFactory<Class<?>, T>
+import org.apache.commons.ognl.internal.CacheException;
+
+public interface CacheEntryFactory<K, V>
 {
+    public V create( K key )
+        throws CacheException;
 }
