@@ -24,7 +24,7 @@
   <body>
     <release version="4.0-incubating" date="TBD" description="First ASF release under Incubation.">
       <action issue="OGNL-28" type="update" dev="mcucchiara">Visitor pattern needs way to propagate exceptions (contributed by Daniel Pitts).</action>
-      <action issue="OGNL-27" type="update" dev="simonetripodi">Move "toString" implementations into visitor pattern.</action>
+      <action issue="OGNL-27" type="update" dev="simonetripodi">Move "toString" implementations into visitor pattern (contributed by Daniel Pitts).</action>
       <action issue="OGNL-26" type="update" dev="grobmeier">JUnit Tests produce confusing output.</action>
       <action issue="OGNL-21" type="update" dev="grobmeier">Remove dead and broken code from OgnlRuntime/SimpleNode (with contributions by Daniel Pitts)</action>
       <action issue="OGNL-24" type="update" dev="grobmeier">Support visitor pattern on AST (contributed by Daniel Pitts)</action>
