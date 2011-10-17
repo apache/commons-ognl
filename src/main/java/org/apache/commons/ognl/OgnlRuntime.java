@@ -224,8 +224,6 @@ public class OgnlRuntime
     static final Cache<Method, MethodAccessEntryValue> _methodAccessCache =
         new ConcurrentHashMapCache<Method, MethodAccessEntryValue>( new MethodAccessCacheEntryFactory( ) );
 
-    ;
-
     private static final MethodPermCacheEntryFactory methodPermCacheEntryFactory =
         new MethodPermCacheEntryFactory( _securityManager );
 
