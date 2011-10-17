@@ -35,6 +35,8 @@ import org.apache.commons.ognl.internal.entry.DeclaredMethodCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.FiedlCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.GenericMethodParameterTypeCacheEntry;
 import org.apache.commons.ognl.internal.entry.GenericMethodParameterTypeFactory;
+import org.apache.commons.ognl.internal.entry.MethodAccessCacheEntryFactory;
+import org.apache.commons.ognl.internal.entry.MethodAccessEntryValue;
 import org.apache.commons.ognl.internal.entry.MethodPermCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.PermissionCacheEntry;
 import org.apache.commons.ognl.internal.entry.PermissionCacheEntryFactory;
@@ -215,7 +217,8 @@ public class OgnlRuntime
 
     static final ObjectArrayPool _objectArrayPool = new ObjectArrayPool( );
 
-    static final IntHashMap<Integer, Boolean> _methodAccessCache = new IntHashMap<Integer, Boolean>( );
+    static final Cache<Method, MethodAccessEntryValue> _methodAccessCache =
+            new ConcurrentHashMapCache<Method, MethodAccessEntryValue>( new MethodAccessCacheEntryFactory( ) );;
 
     private static final MethodPermCacheEntryFactory methodPermCacheEntryFactory =
         new MethodPermCacheEntryFactory( _securityManager );
@@ -762,56 +765,32 @@ public class OgnlRuntime
     public static Object invokeMethod( Object target, Method method, Object[] argsArray )
         throws InvocationTargetException, IllegalAccessException, CacheException
     {
-        boolean syncInvoke = false;
-        int mHash = method.hashCode( );
-
-        // only synchronize method invocation if it actually requires it
-
-        synchronized ( method )
-        {
-            if ( _methodAccessCache.get( mHash ) == null || _methodAccessCache.get( mHash ) )
-            {
-                syncInvoke = true;
-            }
-        }
-
         Object result;
-        boolean wasAccessible = true;
 
-        if ( syncInvoke )
+        if ( _securityManager != null )
         {
+            if ( !_methodPermCache.get( method ) )
+            {
+                throw new IllegalAccessException( "Method [" + method + "] cannot be accessed." );
+            }
+
+        }
+        MethodAccessEntryValue entry = _methodAccessCache.get( method );
+
+        if ( !entry.isAccessible())
+        {
+            // only synchronize method invocation if it actually requires it
             synchronized ( method )
             {
-                if ( _securityManager != null )
-                {
-                    if ( !_methodPermCache.get( method ) )
-                    {
-                        throw new IllegalAccessException( "Method [" + method + "] cannot be accessed." );
-                    }
-                    
-                }
 
-                if ( !Modifier.isPublic( method.getModifiers( ) ) || !Modifier.isPublic(
-                    method.getDeclaringClass( ).getModifiers( ) ) )
+                if ( entry.isNotPublic( ) && !entry.isAccessible( ) )
                 {
-                    if ( !( wasAccessible = method.isAccessible( ) ) )
-                    {
-                        method.setAccessible( true );
-                        _methodAccessCache.put( mHash, Boolean.TRUE );
-                    }
-                    else
-                    {
-                        _methodAccessCache.put( mHash, Boolean.FALSE );
-                    }
-                }
-                else
-                {
-                    _methodAccessCache.put( mHash, Boolean.FALSE );
+                    method.setAccessible( true );
                 }
 
                 result = method.invoke( target, argsArray );
 
-                if ( !wasAccessible )
+                if ( !entry.isAccessible( ) )
                 {
                     method.setAccessible( false );
                 }
@@ -819,14 +798,6 @@ public class OgnlRuntime
         }
         else
         {
-            if ( _securityManager!=null )
-            {
-                if ( !_methodPermCache.get( method ) )
-                {
-                    throw new IllegalAccessException( "Method [" + method + "] cannot be accessed." );
-                }
-            }
-
             result = method.invoke( target, argsArray );
         }
 
