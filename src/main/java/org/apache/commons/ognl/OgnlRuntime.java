@@ -165,16 +165,17 @@ public class OgnlRuntime
     static final ClassCache<NullHandler> _nullHandlers = new ConcurrentClassCache<NullHandler>( );
 
     static final ClassCache<Map<String, PropertyDescriptor>> _propertyDescriptorCache =
-        new ConcurrentClassCache<Map<String, PropertyDescriptor>>(new PropertyDescriptorCacheEntryFactory());
+        new ConcurrentClassCache<Map<String, PropertyDescriptor>>( new PropertyDescriptorCacheEntryFactory( ) );
 
-    static final ClassCache<List<Constructor<?>>> _constructorCache = new ConcurrentClassCache<List<Constructor<?>>>(new CacheEntryFactory<Class<?>, List<Constructor<?>>>( )
-    {
-        public List<Constructor<?>> create( Class<?> key )
-            throws CacheException
+    static final ClassCache<List<Constructor<?>>> _constructorCache =
+        new ConcurrentClassCache<List<Constructor<?>>>( new CacheEntryFactory<Class<?>, List<Constructor<?>>>( )
         {
-            return Arrays.asList( key.getConstructors( ) );
-        }
-    } );
+            public List<Constructor<?>> create( Class<?> key )
+                throws CacheException
+            {
+                return Arrays.asList( key.getConstructors( ) );
+            }
+        } );
 
     static final ConcurrentHashMapCache<DeclaredMethodCacheEntry, Map<String, List<Method>>> _methodCache =
         new ConcurrentHashMapCache<DeclaredMethodCacheEntry, Map<String, List<Method>>>(
@@ -190,16 +191,19 @@ public class OgnlRuntime
 
     static final ClassCache<Object> _primitiveDefaults = new ConcurrentClassCache<Object>( );
 
-    static final Cache<Method, Class<?>[]> _methodParameterTypesCache = new ConcurrentHashMapCache<Method, Class<?>[]>( new CacheEntryFactory<Method, Class<?>[]>( )
-    {
-        public Class<?>[] create( Method key )
-            throws CacheException
+    static final Cache<Method, Class<?>[]> _methodParameterTypesCache =
+        new ConcurrentHashMapCache<Method, Class<?>[]>( new CacheEntryFactory<Method, Class<?>[]>( )
         {
-            return key.getParameterTypes( );
-        }
-    } );
+            public Class<?>[] create( Method key )
+                throws CacheException
+            {
+                return key.getParameterTypes( );
+            }
+        } );
 
-    static final Cache<GenericMethodParameterTypeCacheEntry, Class<?>[]> _genericMethodParameterTypesCache = new ConcurrentHashMapCache<GenericMethodParameterTypeCacheEntry, Class<?>[]>( new GenericMethodParameterTypeFactory( ) );;
+    static final Cache<GenericMethodParameterTypeCacheEntry, Class<?>[]> _genericMethodParameterTypesCache =
+        new ConcurrentHashMapCache<GenericMethodParameterTypeCacheEntry, Class<?>[]>(
+            new GenericMethodParameterTypeFactory( ) );
 
     static final Cache<Constructor<?>, Class<?>[]> _ctorParameterTypesCache =
         new ConcurrentHashMapCache<Constructor<?>, Class<?>[]>( new CacheEntryFactory<Constructor<?>, Class<?>[]>( )
@@ -209,7 +213,7 @@ public class OgnlRuntime
             {
                 return key.getParameterTypes( );
             }
-        });
+        } );
 
     static SecurityManager _securityManager = System.getSecurityManager( );
 
@@ -218,7 +222,9 @@ public class OgnlRuntime
     static final ObjectArrayPool _objectArrayPool = new ObjectArrayPool( );
 
     static final Cache<Method, MethodAccessEntryValue> _methodAccessCache =
-            new ConcurrentHashMapCache<Method, MethodAccessEntryValue>( new MethodAccessCacheEntryFactory( ) );;
+        new ConcurrentHashMapCache<Method, MethodAccessEntryValue>( new MethodAccessCacheEntryFactory( ) );
+
+    ;
 
     private static final MethodPermCacheEntryFactory methodPermCacheEntryFactory =
         new MethodPermCacheEntryFactory( _securityManager );
@@ -777,7 +783,7 @@ public class OgnlRuntime
         }
         MethodAccessEntryValue entry = _methodAccessCache.get( method );
 
-        if ( !entry.isAccessible())
+        if ( !entry.isAccessible( ) )
         {
             // only synchronize method invocation if it actually requires it
             synchronized ( method )
@@ -1561,7 +1567,7 @@ public class OgnlRuntime
             type = DeclaredMethodCacheEntry.MethodType.NON_STATIC;
 
         }
-        return _methodCache.get( new DeclaredMethodCacheEntry( targetClass, type) );
+        return _methodCache.get( new DeclaredMethodCacheEntry( targetClass, type ) );
     }
 
     public static List<Method> getMethods( Class<?> targetClass, String name, boolean staticMethods )
@@ -1763,7 +1769,6 @@ public class OgnlRuntime
     }
 
     /**
-     *
      * @param targetClass
      * @param propertyName
      * @param findSets
@@ -1776,24 +1781,27 @@ public class OgnlRuntime
         String baseName = Character.toUpperCase( propertyName.charAt( 0 ) ) + propertyName.substring( 1 );
         List<Method> result = new ArrayList<Method>( );
         List<String> find = new ArrayList<String>( 2 );
-        if(findSets)
+        if ( findSets )
         {
-            find.add( SET_PREFIX + baseName);
-        } else
+            find.add( SET_PREFIX + baseName );
+        }
+        else
         {
             find.add( IS_PREFIX + baseName );
-            find.add(GET_PREFIX + baseName );
-            
+            find.add( GET_PREFIX + baseName );
+
         }
         for ( String s : find )
         {
             List<Method> methodList = _methodCache.get( new DeclaredMethodCacheEntry( targetClass ) ).get( s );
-            if(methodList!=null)
+            if ( methodList != null )
+            {
                 result.addAll( methodList );
+            }
         }
 
         return result;
-            
+
     }
 
     /**
