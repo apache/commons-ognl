@@ -243,7 +243,8 @@ public class ASTAnd
     /* (non-Javadoc)
      * @see org.apache.commons.ognl.Node#accept(org.apache.commons.ognl.NodeVisitor, java.lang.Object)
      */
-    public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data ) 
+    public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
+        throws OgnlException
     {
         return visitor.visit( this, data );
     }

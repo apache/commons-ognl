@@ -144,14 +144,9 @@ public class ASTList
                         value =
                             OgnlRuntime
                                 .getCompiler()
-                                .createLocalReference( context,
-                                                        "("
-                                                            + ExpressionCompiler.getCastString( ctorClass )
-                                                            + ")org.apache.commons.ognl.OgnlOps.toArray("
-                                                            + value
-                                                            + ", "
-                                                            + ctorClass.getComponentType().getName()
-                                                            + ".class, true)", ctorClass );
+                                .createLocalReference( context, "(" + ExpressionCompiler.getCastString( ctorClass )
+                                    + ")org.apache.commons.ognl.OgnlOps.toArray(" + value + ", "
+                                    + ctorClass.getComponentType().getName() + ".class, true)", ctorClass );
 
                     }
                     else if ( ctorClass.isPrimitive() )
@@ -162,16 +157,10 @@ public class ASTList
                         value =
                             OgnlRuntime
                                 .getCompiler()
-                                .createLocalReference( context,
-                                                        "(("
-                                                            + wrapClass.getName()
-                                                            + ")org.apache.commons.ognl.OgnlOps.convertValue("
-                                                            + value
-                                                            + ","
-                                                            + wrapClass.getName()
-                                                            + ".class, true))."
-                                                            + OgnlRuntime.getNumericValueGetter( wrapClass ),
-                                                        ctorClass );
+                                .createLocalReference( context, "((" + wrapClass.getName()
+                                    + ")org.apache.commons.ognl.OgnlOps.convertValue(" + value + ","
+                                    + wrapClass.getName() + ".class, true))." + OgnlRuntime.getNumericValueGetter(
+                                    wrapClass ), ctorClass );
                     }
                     else if ( ctorClass != Object.class )
                     {
@@ -179,13 +168,9 @@ public class ASTList
                         value =
                             OgnlRuntime
                                 .getCompiler()
-                                .createLocalReference( 
-                                                        context,
-                                                        "("
-                                                            + ctorClass.getName()
-                                                            + ")org.apache.commons.ognl.OgnlOps.convertValue("
-                                                            + value + "," + ctorClass.getName()
-                                                            + ".class)", ctorClass );
+                                .createLocalReference( context, "(" + ctorClass.getName()
+                                    + ")org.apache.commons.ognl.OgnlOps.convertValue(" + value + ","
+                                    + ctorClass.getName() + ".class)", ctorClass );
 
                     }
                     else if ( ( NodeType.class.isInstance( _children[i] )
@@ -238,7 +223,8 @@ public class ASTList
         throw new UnsupportedCompilationException( "Can't generate setter for ASTList." );
     }
     
-    public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data ) 
+    public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
+        throws OgnlException
     {
         return visitor.visit( this, data );
     }

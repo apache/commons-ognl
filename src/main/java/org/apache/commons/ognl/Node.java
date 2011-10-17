@@ -104,6 +104,7 @@ public interface Node
      * @throws NullPointerException if visitor is null
      * @throws RuntimeException if visitor.visit throws an exception.
      */
-    <R,P> R accept(NodeVisitor<? extends R, ? super P> visitor, P data);
+    <R,P> R accept(NodeVisitor<? extends R, ? super P> visitor, P data)
+        throws OgnlException;
 
 }

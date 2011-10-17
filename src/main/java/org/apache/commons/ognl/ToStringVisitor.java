@@ -452,7 +452,15 @@ public class ToStringVisitor
 
     private StringBuilder recurse( Node child, StringBuilder data )
     {
-        return child == null ? data.append( "null" ) : child.accept( this, data );
+        try
+        {
+            return child == null ? data.append( "null" ) : child.accept( this, data );
+        }
+        catch ( OgnlException e )
+        {
+            // This should never happen, but delegate it on just in case.
+            throw new RuntimeException( e );
+        }
     }
 
 }

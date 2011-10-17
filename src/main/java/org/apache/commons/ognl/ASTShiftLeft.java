@@ -50,7 +50,8 @@ class ASTShiftLeft
         return "<<";
     }
     
-    public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data ) 
+    public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
+        throws OgnlException
     {
         return visitor.visit( this, data );
     }

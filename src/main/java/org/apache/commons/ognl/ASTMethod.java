@@ -294,14 +294,9 @@ public class ASTMethod
                             parmString =
                                 OgnlRuntime
                                     .getCompiler()
-                                    .createLocalReference( context,
-                                                            "("
-                                                                + ExpressionCompiler.getCastString( parms[i] )
-                                                                + ")org.apache.commons.ognl.OgnlOps#toArray("
-                                                                + parmString
-                                                                + ", "
-                                                                + parms[i].getComponentType().getName()
-                                                                + ".class, true)", parms[i] );
+                                    .createLocalReference( context, "(" + ExpressionCompiler.getCastString( parms[i] )
+                                        + ")org.apache.commons.ognl.OgnlOps#toArray(" + parmString + ", "
+                                        + parms[i].getComponentType().getName() + ".class, true)", parms[i] );
 
                         }
                         else if ( parms[i].isPrimitive() )
@@ -312,16 +307,10 @@ public class ASTMethod
                             parmString =
                                 OgnlRuntime
                                     .getCompiler()
-                                    .createLocalReference( context,
-                                                            "(("
-                                                                + wrapClass.getName()
-                                                                + ")org.apache.commons.ognl.OgnlOps#convertValue("
-                                                                + parmString
-                                                                + ","
-                                                                + wrapClass.getName()
-                                                                + ".class, true))."
-                                                                + OgnlRuntime.getNumericValueGetter( wrapClass ),
-                                                            parms[i] );
+                                    .createLocalReference( context, "((" + wrapClass.getName()
+                                        + ")org.apache.commons.ognl.OgnlOps#convertValue(" + parmString + ","
+                                        + wrapClass.getName() + ".class, true))." + OgnlRuntime.getNumericValueGetter(
+                                        wrapClass ), parms[i] );
 
                         }
                         else if ( parms[i] != Object.class )
@@ -329,13 +318,9 @@ public class ASTMethod
                             parmString =
                                 OgnlRuntime
                                     .getCompiler()
-                                    .createLocalReference( context,
-                                                            "("
-                                                                + parms[i].getName()
-                                                                + ")org.apache.commons.ognl.OgnlOps#convertValue("
-                                                                + parmString + ","
-                                                                + parms[i].getName() + ".class)",
-                                                            parms[i] );
+                                    .createLocalReference( context, "(" + parms[i].getName()
+                                        + ")org.apache.commons.ognl.OgnlOps#convertValue(" + parmString + ","
+                                        + parms[i].getName() + ".class)", parms[i] );
                         }
                         else if ( ( NodeType.class.isInstance( _children[i] )
                             && ( (NodeType) _children[i] ).getGetterClass() != null 
@@ -505,14 +490,9 @@ public class ASTMethod
                             parmString =
                                 OgnlRuntime
                                     .getCompiler()
-                                    .createLocalReference( context,
-                                                            "("
-                                                                + ExpressionCompiler.getCastString( parms[i] )
-                                                                + ")org.apache.commons.ognl.OgnlOps#toArray("
-                                                                + parmString
-                                                                + ", "
-                                                                + parms[i].getComponentType().getName()
-                                                                + ".class)", parms[i] );
+                                    .createLocalReference( context, "(" + ExpressionCompiler.getCastString( parms[i] )
+                                        + ")org.apache.commons.ognl.OgnlOps#toArray(" + parmString + ", "
+                                        + parms[i].getComponentType().getName() + ".class)", parms[i] );
 
                         }
                         else if ( parms[i].isPrimitive() )
@@ -522,16 +502,10 @@ public class ASTMethod
                             parmString =
                                 OgnlRuntime
                                     .getCompiler()
-                                    .createLocalReference( context,
-                                                            "(("
-                                                                + wrapClass.getName()
-                                                                + ")org.apache.commons.ognl.OgnlOps#convertValue("
-                                                                + parmString
-                                                                + ","
-                                                                + wrapClass.getName()
-                                                                + ".class, true))."
-                                                                + OgnlRuntime.getNumericValueGetter( wrapClass ),
-                                                            parms[i] );
+                                    .createLocalReference( context, "((" + wrapClass.getName()
+                                        + ")org.apache.commons.ognl.OgnlOps#convertValue(" + parmString + ","
+                                        + wrapClass.getName() + ".class, true))." + OgnlRuntime.getNumericValueGetter(
+                                        wrapClass ), parms[i] );
 
                         }
                         else if ( parms[i] != Object.class )
@@ -539,13 +513,9 @@ public class ASTMethod
                             parmString =
                                 OgnlRuntime
                                     .getCompiler()
-                                    .createLocalReference( context,
-                                                            "("
-                                                                + parms[i].getName()
-                                                                + ")org.apache.commons.ognl.OgnlOps#convertValue("
-                                                                + parmString + ","
-                                                                + parms[i].getName() + ".class)",
-                                                            parms[i] );
+                                    .createLocalReference( context, "(" + parms[i].getName()
+                                        + ")org.apache.commons.ognl.OgnlOps#convertValue(" + parmString + ","
+                                        + parms[i].getName() + ".class)", parms[i] );
 
                         }
                         else if ( ( NodeType.class.isInstance( _children[i] )
@@ -592,7 +562,8 @@ public class ASTMethod
         return result + ")" + post;
     }
     
-    public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data ) 
+    public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
+        throws OgnlException
     {
         return visitor.visit( this, data );
     }

@@ -113,7 +113,16 @@ public abstract class SimpleNode
     @Override
     public String toString()
     {
-        return accept( ToStringVisitor.INSTANCE, new StringBuilder()).toString();
+        final StringBuilder data = new StringBuilder();
+        try
+        {
+            accept( ToStringVisitor.INSTANCE, data );
+        }
+        catch ( OgnlException e )
+        {
+            // ignored.
+        }
+        return data.toString();
     }
 
     // OGNL additions

@@ -100,13 +100,10 @@ class ASTAssign
             result =
                 OgnlRuntime
                     .getCompiler()
-                    .createLocalReference( 
-                       context,
-                        "org.apache.commons.ognl.OgnlOps.returnValue(($w)"
-                            + result
-                            + ", ($w)"
-                            + ( (OrderedReturn) _children[0] ).getLastExpression()
-                            + ")", Object.class );
+                    .createLocalReference( context,
+                                           "org.apache.commons.ognl.OgnlOps.returnValue(($w)" + result + ", ($w)"
+                                               + ( (OrderedReturn) _children[0] ).getLastExpression() + ")",
+                                           Object.class );
         }
 
         return result;
@@ -148,7 +145,8 @@ class ASTAssign
         return result + value + ")";
     }
     
-    public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data ) 
+    public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
+        throws OgnlException
     {
         return visitor.visit( this, data );
     }
