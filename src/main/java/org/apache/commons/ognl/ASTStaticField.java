@@ -36,7 +36,7 @@ public class ASTStaticField
 
     private String fieldName;
 
-    private Class _getterClass;
+    private Class getterClass;
 
     public ASTStaticField( int id )
     {
@@ -88,8 +88,9 @@ public class ASTStaticField
                 Field f = c.getField( fieldName );
 
                 if ( !Modifier.isStatic( f.getModifiers() ) )
+                {
                     throw new OgnlException( "Field " + fieldName + " of class " + className + " is not static" );
-
+                }
                 result = Modifier.isFinal( f.getModifiers() );
             }
         }
@@ -107,8 +108,10 @@ public class ASTStaticField
         }
 
         if ( reason != null )
+        {
             throw new OgnlException( "Could not get static field " + fieldName + " from class " + className, reason );
-
+        }
+        
         return result;
     }
 
@@ -157,12 +160,12 @@ public class ASTStaticField
 
     public Class getGetterClass()
     {
-        return _getterClass;
+        return getterClass;
     }
 
     public Class getSetterClass()
     {
-        return _getterClass;
+        return getterClass;
     }
 
     public String toGetSourceString( OgnlContext context, Object target )
@@ -174,9 +177,9 @@ public class ASTStaticField
 
             context.setCurrentObject( obj );
 
-            _getterClass = getFieldClass( context );
+            getterClass = getFieldClass( context );
 
-            context.setCurrentType( _getterClass );
+            context.setCurrentType( getterClass );
 
         }
         catch ( Throwable t )
@@ -196,9 +199,9 @@ public class ASTStaticField
 
             context.setCurrentObject( obj );
 
-            _getterClass = getFieldClass( context );
+            getterClass = getFieldClass( context );
 
-            context.setCurrentType( _getterClass );
+            context.setCurrentType( getterClass );
 
         }
         catch ( Throwable t )

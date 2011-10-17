@@ -37,13 +37,13 @@ public class DynamicSubscript
 
     public static final int ALL = 3;
 
-    public static final DynamicSubscript first = new DynamicSubscript( FIRST );
+    public static final DynamicSubscript DS_FIRST = new DynamicSubscript( FIRST );
 
-    public static final DynamicSubscript mid = new DynamicSubscript( MID );
+    public static final DynamicSubscript DS_MID = new DynamicSubscript( MID );
 
-    public static final DynamicSubscript last = new DynamicSubscript( LAST );
+    public static final DynamicSubscript DS_LAST = new DynamicSubscript( LAST );
 
-    public static final DynamicSubscript all = new DynamicSubscript( ALL );
+    public static final DynamicSubscript DS_ALL = new DynamicSubscript( ALL );
 
     private int flag;
 

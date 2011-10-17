@@ -40,9 +40,9 @@ public class DefaultClassResolver
     public Class<?> classForName( String className, Map<String, Object> context )
         throws ClassNotFoundException
     {
-        Class<?> result = null;
+        Class<?> result = classes.get( className );
 
-        if ( ( result = classes.get( className ) ) == null )
+        if ( result == null )
         {
             try
             {

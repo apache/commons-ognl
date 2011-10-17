@@ -225,7 +225,8 @@ public class Evaluation
     {
         if ( firstChild == null )
         {
-            firstChild = lastChild = child;
+            firstChild = child;
+            lastChild = child;
         }
         else
         {

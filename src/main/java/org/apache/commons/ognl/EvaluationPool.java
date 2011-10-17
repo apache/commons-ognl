@@ -46,7 +46,8 @@ public final class EvaluationPool
         {
             evaluations.add( new Evaluation( null, null ) );
         }
-        created = size = initialSize;
+        created = initialSize;
+        size = initialSize;
     }
 
     /**

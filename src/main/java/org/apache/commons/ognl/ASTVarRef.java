@@ -32,13 +32,13 @@ public class ASTVarRef
     implements NodeType, OrderedReturn
 {
 
-    private String _name;
+    private String name;
 
-    protected Class _getterClass;
+    protected Class getterClass;
 
-    protected String _core;
+    protected String core;
 
-    protected String _last;
+    protected String last;
 
     public ASTVarRef( int id )
     {
@@ -52,7 +52,7 @@ public class ASTVarRef
 
     void setName( String name )
     {
-        this._name = name;
+        this.name = name;
     }
     /**
      * Get the variable name.
@@ -62,24 +62,24 @@ public class ASTVarRef
      */
     String getName()
     {
-        return _name;
+        return name;
     }
 
     protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
-        return context.get( _name );
+        return context.get( name );
     }
 
     protected void setValueBody( OgnlContext context, Object target, Object value )
         throws OgnlException
     {
-        context.put( _name, value );
+        context.put( name, value );
     }
 
     public Class getGetterClass()
     {
-        return _getterClass;
+        return getterClass;
     }
 
     public Class getSetterClass()
@@ -89,33 +89,35 @@ public class ASTVarRef
 
     public String getCoreExpression()
     {
-        return _core;
+        return core;
     }
 
     public String getLastExpression()
     {
-        return _last;
+        return last;
     }
 
     public String toGetSourceString( OgnlContext context, Object target )
     {
-        Object value = context.get( _name );
+        Object value = context.get( name );
 
         if ( value != null )
         {
 
-            _getterClass = value.getClass();
+            getterClass = value.getClass();
         }
 
-        context.setCurrentType( _getterClass );
+        context.setCurrentType( getterClass );
         context.setCurrentAccessor( context.getClass() );
 
         context.setCurrentObject( value );
-        // context.setRoot(context.get(_name));
+        // context.setRoot(context.get(name));
 
         if ( context.getCurrentObject() == null )
+        {
             throw new UnsupportedCompilationException( "Current context object is null, can't compile var reference." );
-
+        }
+        
         String pre = "";
         String post = "";
         if ( context.getCurrentType() != null )
@@ -126,13 +128,13 @@ public class ASTVarRef
 
         if ( _parent != null && ASTAssign.class.isInstance( _parent ) )
         {
-            _core = "$1.put(\"" + _name + "\",";
-            _last = pre + "$1.get(\"" + _name + "\")" + post;
+            core = "$1.put(\"" + name + "\",";
+            last = pre + "$1.get(\"" + name + "\")" + post;
 
-            return _core;
+            return core;
         }
 
-        return pre + "$1.get(\"" + _name + "\")" + post;
+        return pre + "$1.get(\"" + name + "\")" + post;
     }
 
     public String toSetSourceString( OgnlContext context, Object target )
@@ -140,7 +142,7 @@ public class ASTVarRef
         return toGetSourceString( context, target );
     }
 
-    public <R,P> R accept(NodeVisitor<? extends R, ? super P> visitor, P data)
+    public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
         throws OgnlException
     {
         return visitor.visit( this, data );

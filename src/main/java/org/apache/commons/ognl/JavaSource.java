@@ -19,8 +19,6 @@ package org.apache.commons.ognl;
  * under the License.
  */
 
-import org.apache.commons.ognl.enhance.ExpressionAccessor;
-
 /**
  * Defines an object that can return a representation of itself and any objects it contains in the form of a
  * {@link String} embedded with literal java statements.

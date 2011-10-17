@@ -54,26 +54,36 @@ public class ASTRootVarRef
     public String toGetSourceString( OgnlContext context, Object target )
     {
         if ( target != null )
-            _getterClass = target.getClass();
-
-        if ( _getterClass != null )
+        {
+            getterClass = target.getClass();
+        }
+        
+        if ( getterClass != null )
         {
 
-            context.setCurrentType( _getterClass );
+            context.setCurrentType( getterClass );
         }
 
-        if ( _parent == null || ( _getterClass != null && _getterClass.isArray() ) )
+        if ( _parent == null || ( getterClass != null && getterClass.isArray() ) )
+        {
             return "";
+        }
         else
+        {
             return ExpressionCompiler.getRootExpression( this, target, context );
+        }
     }
 
     public String toSetSourceString( OgnlContext context, Object target )
     {
-        if ( _parent == null || ( _getterClass != null && _getterClass.isArray() ) )
+        if ( _parent == null || ( getterClass != null && getterClass.isArray() ) )
+        {
             return "";
+        }
         else
+        {
             return "$3";
+        }
     }
     
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )

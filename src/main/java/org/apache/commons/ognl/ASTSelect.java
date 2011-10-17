@@ -57,7 +57,9 @@ class ASTSelect
             Object next = e.nextElement();
 
             if ( OgnlOps.booleanValue( expr.getValue( context, next ) ) )
+            {
                 answer.add( next );
+            }
         }
 
         return answer;

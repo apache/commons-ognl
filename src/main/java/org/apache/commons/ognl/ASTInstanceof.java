@@ -45,7 +45,8 @@ public class ASTInstanceof
         this.targetType = targetType;
     }
 
-    String getTargetType() {
+    String getTargetType() 
+    {
         return targetType;
     }
 

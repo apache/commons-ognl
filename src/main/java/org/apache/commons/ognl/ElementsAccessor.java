@@ -41,6 +41,5 @@ public interface ElementsAccessor
      * @return an iterator over the elements of the given object
      * @exception OgnlException if there is an error getting the given object's elements
      */
-    public Enumeration<?> getElements( Object target )
-        throws OgnlException;
+    Enumeration<?> getElements( Object target ) throws OgnlException;
 }

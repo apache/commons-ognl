@@ -73,6 +73,7 @@ public class ArrayPropertyAccessor
                     case DynamicSubscript.LAST:
                         index = new Integer( ( len > 0 ) ? ( len - 1 ) : -1 );
                         break;
+                    default: break;
                 }
             }
             if ( result == null )
@@ -134,6 +135,7 @@ public class ArrayPropertyAccessor
                     case DynamicSubscript.LAST:
                         index = new Integer( ( len > 0 ) ? ( len - 1 ) : -1 );
                         break;
+                    default: break;
                 }
             }
         }
@@ -207,7 +209,8 @@ public class ArrayPropertyAccessor
             indexStr = "org.apache.commons.ognl.OgnlOps#getIntValue(" + indexStr + toString + ")";
         }
 
-        Class<? extends Object> type = target.getClass().isArray() ? target.getClass().getComponentType() : target.getClass();
+        Class<? extends Object> type = 
+            target.getClass().isArray() ? target.getClass().getComponentType() : target.getClass();
 
         context.setCurrentAccessor( target.getClass() );
         context.setCurrentType( target.getClass().getComponentType() );

@@ -127,7 +127,7 @@ public class Root
         map.put( "array", array );
         map.put( "list", list );
         map.put( "size", new Integer( 5000 ) );
-        map.put( DynamicSubscript.first, new Integer( 99 ) );
+        map.put( DynamicSubscript.DS_FIRST, new Integer( 99 ) );
         map.put( "baz", array );
         map.put( "value", new Bean2() );
         map.put( "bar", new Bean3() );

@@ -31,11 +31,11 @@ public class ASTSequence
     extends SimpleNode
     implements NodeType, OrderedReturn
 {
-    private Class _getterClass;
+    private Class getterClass;
 
-    private String _lastExpression;
+    private String lastExpression;
 
-    private String _coreExpression;
+    private String coreExpression;
 
     public ASTSequence( int id )
     {
@@ -77,7 +77,7 @@ public class ASTSequence
 
     public Class getGetterClass()
     {
-        return _getterClass;
+        return getterClass;
     }
 
     public Class getSetterClass()
@@ -87,12 +87,12 @@ public class ASTSequence
 
     public String getLastExpression()
     {
-        return _lastExpression;
+        return lastExpression;
     }
 
     public String getCoreExpression()
     {
-        return _coreExpression;
+        return coreExpression;
     }
 
     public String toSetSourceString( OgnlContext context, Object target )
@@ -104,7 +104,7 @@ public class ASTSequence
     {
         String result = "";
 
-        NodeType _lastType = null;
+        NodeType lastType = null;
 
         for ( int i = 0; i < _children.length; ++i )
         {
@@ -121,8 +121,10 @@ public class ASTSequence
             {
                 String pre = (String) context.get( "_currentChain" );
                 if ( pre == null )
+                {
                     pre = "";
-
+                }
+                
                 seqValue =
                     ExpressionCompiler.getRootExpression( _children[i], context.getRoot(), context ) + pre + seqValue;
                 context.setCurrentAccessor( context.getRoot().getClass() );
@@ -130,24 +132,29 @@ public class ASTSequence
 
             if ( ( i + 1 ) >= _children.length )
             {
-                _coreExpression = result;
-                _lastExpression = seqValue;
+                coreExpression = result;
+                lastExpression = seqValue;
             }
 
             if ( seqValue != null && seqValue.trim().length() > 0 && ( i + 1 ) < _children.length )
+            {
                 result += seqValue + ";";
+            }
             else if ( seqValue != null && seqValue.trim().length() > 0 )
+            {
                 result += seqValue;
-
+            }
             // set last known type from last child with a type
 
             if ( NodeType.class.isInstance( _children[i] ) && ( (NodeType) _children[i] ).getGetterClass() != null )
-                _lastType = (NodeType) _children[i];
+            {
+                lastType = (NodeType) _children[i];
+            }
         }
 
-        if ( _lastType != null )
+        if ( lastType != null )
         {
-            _getterClass = _lastType.getGetterClass();
+            getterClass = lastType.getGetterClass();
         }
 
         return result;

@@ -85,8 +85,7 @@ public abstract class ExpressionNode
     {
         StringBuilder result =
             new StringBuilder(
-                               ( _parent == null || NumericExpression.class.isAssignableFrom( _parent.getClass() ) ) ? ""
-                                               : "(" );
+                ( _parent == null || NumericExpression.class.isAssignableFrom( _parent.getClass() ) ) ? "" : "(" );
 
         if ( ( _children != null ) && ( _children.length > 0 ) )
         {
@@ -111,12 +110,16 @@ public abstract class ExpressionNode
                     }
 
                     if ( pre == null )
+                    {
                         pre = "";
-
+                    }
+                    
                     String cast = (String) context.remove( ExpressionCompiler.PRE_CAST );
                     if ( cast == null )
+                    {
                         cast = "";
-
+                    }
+                    
                     value =
                         cast + ExpressionCompiler.getRootExpression( _children[i], context.getRoot(), context ) + pre
                             + value;
