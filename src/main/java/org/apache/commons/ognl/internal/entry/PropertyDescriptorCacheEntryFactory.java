@@ -18,7 +18,7 @@ import java.util.Map;
  * Time: 8:08 AM
  */
 public class PropertyDescriptorCacheEntryFactory
-    implements CacheEntryFactory<Class<?>, Map<String,PropertyDescriptor>>
+    implements ClassCacheEntryFactory<Map<String,PropertyDescriptor>>
 {
     public Map<String,PropertyDescriptor> create( Class<?> targetClass)
         throws CacheException

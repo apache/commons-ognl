@@ -25,11 +25,11 @@ import org.apache.commons.ognl.enhance.ExpressionCompiler;
 import org.apache.commons.ognl.enhance.OgnlExpressionCompiler;
 import org.apache.commons.ognl.internal.Cache;
 import org.apache.commons.ognl.internal.CacheException;
+import org.apache.commons.ognl.internal.CacheFactory;
 import org.apache.commons.ognl.internal.ClassCache;
 import org.apache.commons.ognl.internal.ClassCacheHandler;
-import org.apache.commons.ognl.internal.ConcurrentClassCache;
-import org.apache.commons.ognl.internal.ConcurrentHashMapCache;
 import org.apache.commons.ognl.internal.entry.CacheEntryFactory;
+import org.apache.commons.ognl.internal.entry.ClassCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.DeclaredMethodCacheEntry;
 import org.apache.commons.ognl.internal.entry.DeclaredMethodCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.FiedlCacheEntryFactory;
@@ -156,19 +156,19 @@ public class OgnlRuntime
 
     private static boolean _jdkChecked = false;
 
-    static final ClassCache<MethodAccessor> _methodAccessors = new ConcurrentClassCache<MethodAccessor>( );
+    static final ClassCache<MethodAccessor> _methodAccessors = CacheFactory.createClassCache( );
 
-    static final ClassCache<PropertyAccessor> _propertyAccessors = new ConcurrentClassCache<PropertyAccessor>( );
+    static final ClassCache<PropertyAccessor> _propertyAccessors = CacheFactory.createClassCache( );
 
-    static final ClassCache<ElementsAccessor> _elementsAccessors = new ConcurrentClassCache<ElementsAccessor>( );
+    static final ClassCache<ElementsAccessor> _elementsAccessors = CacheFactory.createClassCache( );
 
-    static final ClassCache<NullHandler> _nullHandlers = new ConcurrentClassCache<NullHandler>( );
+    static final ClassCache<NullHandler> _nullHandlers = CacheFactory.createClassCache( );
 
     static final ClassCache<Map<String, PropertyDescriptor>> _propertyDescriptorCache =
-        new ConcurrentClassCache<Map<String, PropertyDescriptor>>( new PropertyDescriptorCacheEntryFactory( ) );
+        CacheFactory.createClassCache( new PropertyDescriptorCacheEntryFactory( ) );
 
     static final ClassCache<List<Constructor<?>>> _constructorCache =
-        new ConcurrentClassCache<List<Constructor<?>>>( new CacheEntryFactory<Class<?>, List<Constructor<?>>>( )
+        CacheFactory.createClassCache( new ClassCacheEntryFactory<List<Constructor<?>>>( )
         {
             public List<Constructor<?>> create( Class<?> key )
                 throws CacheException
@@ -177,22 +177,21 @@ public class OgnlRuntime
             }
         } );
 
-    static final ConcurrentHashMapCache<DeclaredMethodCacheEntry, Map<String, List<Method>>> _methodCache =
-        new ConcurrentHashMapCache<DeclaredMethodCacheEntry, Map<String, List<Method>>>(
-            new DeclaredMethodCacheEntryFactory( ) );
+    static final Cache<DeclaredMethodCacheEntry, Map<String, List<Method>>> _methodCache =
+        CacheFactory.createCache(new DeclaredMethodCacheEntryFactory( ) );
 
-    static final ConcurrentHashMapCache<PermissionCacheEntry, Permission> _invokePermissionCache =
-        new ConcurrentHashMapCache<PermissionCacheEntry, Permission>( new PermissionCacheEntryFactory( ) );
+    static final Cache<PermissionCacheEntry, Permission> _invokePermissionCache =
+        CacheFactory.createCache( new PermissionCacheEntryFactory( ) );
 
     static final ClassCache<Map<String, Field>> _fieldCache =
-        new ConcurrentClassCache<Map<String, Field>>( new FiedlCacheEntryFactory( ) );
+        CacheFactory.createClassCache( new FiedlCacheEntryFactory( ) );
 
     static final Map<String, Class<?>> _primitiveTypes = new HashMap<String, Class<?>>( 101 );
 
-    static final ClassCache<Object> _primitiveDefaults = new ConcurrentClassCache<Object>( );
+    static final ClassCache<Object> _primitiveDefaults = CacheFactory.createClassCache(  );
 
     static final Cache<Method, Class<?>[]> _methodParameterTypesCache =
-        new ConcurrentHashMapCache<Method, Class<?>[]>( new CacheEntryFactory<Method, Class<?>[]>( )
+        CacheFactory.createCache( new CacheEntryFactory<Method, Class<?>[]>( )
         {
             public Class<?>[] create( Method key )
                 throws CacheException
@@ -202,11 +201,10 @@ public class OgnlRuntime
         } );
 
     static final Cache<GenericMethodParameterTypeCacheEntry, Class<?>[]> _genericMethodParameterTypesCache =
-        new ConcurrentHashMapCache<GenericMethodParameterTypeCacheEntry, Class<?>[]>(
-            new GenericMethodParameterTypeFactory( ) );
+        CacheFactory.createCache( new GenericMethodParameterTypeFactory( ) );
 
     static final Cache<Constructor<?>, Class<?>[]> _ctorParameterTypesCache =
-        new ConcurrentHashMapCache<Constructor<?>, Class<?>[]>( new CacheEntryFactory<Constructor<?>, Class<?>[]>( )
+        CacheFactory.createCache( new CacheEntryFactory<Constructor<?>, Class<?>[]>( )
         {
             public Class<?>[] create( Constructor<?> key )
                 throws CacheException
@@ -222,13 +220,13 @@ public class OgnlRuntime
     static final ObjectArrayPool _objectArrayPool = new ObjectArrayPool( );
 
     static final Cache<Method, MethodAccessEntryValue> _methodAccessCache =
-        new ConcurrentHashMapCache<Method, MethodAccessEntryValue>( new MethodAccessCacheEntryFactory( ) );
+        CacheFactory.createCache( new MethodAccessCacheEntryFactory( ) );
 
     private static final MethodPermCacheEntryFactory methodPermCacheEntryFactory =
         new MethodPermCacheEntryFactory( _securityManager );
 
     static final Cache<Method, Boolean> _methodPermCache =
-        new ConcurrentHashMapCache<Method, Boolean>( methodPermCacheEntryFactory );
+        CacheFactory.createCache( methodPermCacheEntryFactory );
 
     static ClassCacheInspector _cacheInspector;
 
