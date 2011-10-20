@@ -24,17 +24,13 @@ package org.apache.commons.ognl.internal;
 import org.apache.commons.ognl.ClassCacheInspector;
 import org.apache.commons.ognl.internal.entry.CacheEntryFactory;
 
-public class ConcurrentClassCache<T>
+public class ConcurrentHashMapClassCache<T>
     extends ConcurrentHashMapCache<Class<?>,T>
     implements ClassCache<T>
 {
     private ClassCacheInspector inspector;
 
-    public ConcurrentClassCache( )
-    {
-    }
-
-    public ConcurrentClassCache( CacheEntryFactory<Class<?>,T> entryFactory )
+    public ConcurrentHashMapClassCache( CacheEntryFactory<Class<?>, T> entryFactory )
     {
         super( entryFactory );
     }
