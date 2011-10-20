@@ -39,6 +39,6 @@ public class CacheFactory
 
     public static <V> ClassCache<V> createClassCache( ClassCacheEntryFactory<V> entryFactory )
     {
-        return new ConcurrentClassCache<V>(entryFactory );
+        return new ConcurrentHashMapClassCache<V>(entryFactory );
     }
 }
