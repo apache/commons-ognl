@@ -11,15 +11,10 @@ import java.util.List;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 
-/**
- * User: Maurizio Cucchiara
- * Date: 10/16/11
- * Time: 8:43 AM
- */
 public class ConstructorCacheTest
 {
     private int count;
-    ClassCache<List<Constructor<?>>> cache = new ConcurrentClassCache<List<Constructor<?>>>(new CacheEntryFactory<Class<?>, List<Constructor<?>>>( )
+    ClassCache<List<Constructor<?>>> cache = new ConcurrentHashMapClassCache<List<Constructor<?>>>(new CacheEntryFactory<Class<?>, List<Constructor<?>>>( )
     {
         public List<Constructor<?>> create( Class<?> key )
             throws CacheException
