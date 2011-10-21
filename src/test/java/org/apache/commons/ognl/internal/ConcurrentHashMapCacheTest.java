@@ -1,5 +1,5 @@
 /*
- * $Id: $
+ * $Id$
  *
  * Licensed to the Apache Software Foundation (ASF) under one  
  * or more contributor license agreements.  See the NOTICE file
@@ -32,11 +32,6 @@ import java.util.List;
 import static junit.framework.Assert.assertNotNull;
 import static org.junit.Assert.assertFalse;
 
-/**
- * User: mcucchiara
- * Date: 13/10/11
- * Time: 19.22
- */
 public class ConcurrentHashMapCacheTest
 {
     private ConcurrentHashMapCacheTest.DummyEntryFactory entryFactory=new DummyEntryFactory( );
