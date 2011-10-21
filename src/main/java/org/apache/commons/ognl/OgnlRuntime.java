@@ -28,6 +28,7 @@ import org.apache.commons.ognl.internal.CacheException;
 import org.apache.commons.ognl.internal.CacheFactory;
 import org.apache.commons.ognl.internal.ClassCache;
 import org.apache.commons.ognl.internal.ClassCacheHandler;
+import org.apache.commons.ognl.internal.ConcurrentHashMapCacheFactory;
 import org.apache.commons.ognl.internal.entry.CacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.ClassCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.DeclaredMethodCacheEntry;
@@ -156,19 +157,21 @@ public class OgnlRuntime
 
     private static boolean _jdkChecked = false;
 
-    static final ClassCache<MethodAccessor> _methodAccessors = CacheFactory.createClassCache( );
+    private static CacheFactory cacheFactory = new ConcurrentHashMapCacheFactory( );
 
-    static final ClassCache<PropertyAccessor> _propertyAccessors = CacheFactory.createClassCache( );
+    static final ClassCache<MethodAccessor> _methodAccessors = cacheFactory.createClassCache( );
 
-    static final ClassCache<ElementsAccessor> _elementsAccessors = CacheFactory.createClassCache( );
+    static final ClassCache<PropertyAccessor> _propertyAccessors = cacheFactory.createClassCache( );
 
-    static final ClassCache<NullHandler> _nullHandlers = CacheFactory.createClassCache( );
+    static final ClassCache<ElementsAccessor> _elementsAccessors = cacheFactory.createClassCache( );
+
+    static final ClassCache<NullHandler> _nullHandlers = cacheFactory.createClassCache( );
 
     static final ClassCache<Map<String, PropertyDescriptor>> _propertyDescriptorCache =
-        CacheFactory.createClassCache( new PropertyDescriptorCacheEntryFactory( ) );
+        cacheFactory.createClassCache( new PropertyDescriptorCacheEntryFactory( ) );
 
     static final ClassCache<List<Constructor<?>>> _constructorCache =
-        CacheFactory.createClassCache( new ClassCacheEntryFactory<List<Constructor<?>>>( )
+        cacheFactory.createClassCache( new ClassCacheEntryFactory<List<Constructor<?>>>( )
         {
             public List<Constructor<?>> create( Class<?> key )
                 throws CacheException
@@ -178,20 +181,20 @@ public class OgnlRuntime
         } );
 
     static final Cache<DeclaredMethodCacheEntry, Map<String, List<Method>>> _methodCache =
-        CacheFactory.createCache(new DeclaredMethodCacheEntryFactory( ) );
+        cacheFactory.createCache( new DeclaredMethodCacheEntryFactory( ) );
 
     static final Cache<PermissionCacheEntry, Permission> _invokePermissionCache =
-        CacheFactory.createCache( new PermissionCacheEntryFactory( ) );
+        cacheFactory.createCache( new PermissionCacheEntryFactory( ) );
 
     static final ClassCache<Map<String, Field>> _fieldCache =
-        CacheFactory.createClassCache( new FiedlCacheEntryFactory( ) );
+        cacheFactory.createClassCache( new FiedlCacheEntryFactory( ) );
 
     static final Map<String, Class<?>> _primitiveTypes = new HashMap<String, Class<?>>( 101 );
 
-    static final ClassCache<Object> _primitiveDefaults = CacheFactory.createClassCache(  );
+    static final ClassCache<Object> _primitiveDefaults = cacheFactory.createClassCache( );
 
     static final Cache<Method, Class<?>[]> _methodParameterTypesCache =
-        CacheFactory.createCache( new CacheEntryFactory<Method, Class<?>[]>( )
+        cacheFactory.createCache( new CacheEntryFactory<Method, Class<?>[]>( )
         {
             public Class<?>[] create( Method key )
                 throws CacheException
@@ -201,10 +204,10 @@ public class OgnlRuntime
         } );
 
     static final Cache<GenericMethodParameterTypeCacheEntry, Class<?>[]> _genericMethodParameterTypesCache =
-        CacheFactory.createCache( new GenericMethodParameterTypeFactory( ) );
+        cacheFactory.createCache( new GenericMethodParameterTypeFactory( ) );
 
     static final Cache<Constructor<?>, Class<?>[]> _ctorParameterTypesCache =
-        CacheFactory.createCache( new CacheEntryFactory<Constructor<?>, Class<?>[]>( )
+        cacheFactory.createCache( new CacheEntryFactory<Constructor<?>, Class<?>[]>( )
         {
             public Class<?>[] create( Constructor<?> key )
                 throws CacheException
@@ -220,13 +223,13 @@ public class OgnlRuntime
     static final ObjectArrayPool _objectArrayPool = new ObjectArrayPool( );
 
     static final Cache<Method, MethodAccessEntryValue> _methodAccessCache =
-        CacheFactory.createCache( new MethodAccessCacheEntryFactory( ) );
+        cacheFactory.createCache( new MethodAccessCacheEntryFactory( ) );
 
     private static final MethodPermCacheEntryFactory methodPermCacheEntryFactory =
         new MethodPermCacheEntryFactory( _securityManager );
 
     static final Cache<Method, Boolean> _methodPermCache =
-        CacheFactory.createCache( methodPermCacheEntryFactory );
+        cacheFactory.createCache( methodPermCacheEntryFactory );
 
     static ClassCacheInspector _cacheInspector;
 
@@ -2795,5 +2798,10 @@ public class OgnlRuntime
         }
 
         return source;
+    }
+
+    public static void setCacheFactory( CacheFactory cacheFactory )
+    {
+        OgnlRuntime.cacheFactory = cacheFactory;
     }
 }
