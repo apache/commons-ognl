@@ -191,7 +191,7 @@ public class OgnlRuntime
 
     static final Map<String, Class<?>> _primitiveTypes = new HashMap<String, Class<?>>( 101 );
 
-    static final HashMap<Class<?>, Object> _primitiveDefaults = new HashMap<Class<?>, Object>( 20 );
+    static final Map<Class<?>, Object> _primitiveDefaults = new HashMap<Class<?>, Object>( 20 );
 
     static final Cache<Method, Class<?>[]> _methodParameterTypesCache =
         cacheFactory.createCache( new CacheEntryFactory<Method, Class<?>[]>( )
