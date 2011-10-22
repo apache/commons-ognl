@@ -41,9 +41,7 @@ public abstract class MethodCacheEntryFactory<T extends MethodCacheEntry>
         Class<?> c = key.targetClass;
         while ( c != null )
         {
-            Method[] ma = c.getDeclaredMethods( );
-
-            for ( Method method : ma )
+            for ( Method method : c.getDeclaredMethods( ) )
             {
                 // skip over synthetic methods
 
