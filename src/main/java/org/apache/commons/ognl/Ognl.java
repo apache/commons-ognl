@@ -51,7 +51,7 @@ import java.util.Map;
  * <p>
  * This will parse the expression given and evaluate it against the root object given, returning the result. If there is
  * an error in the expression, such as the property is not found, the exception is encapsulated into an
- * {@link ognl.OgnlException OgnlException}.
+ * {@link org.apache.commons.ognl.OgnlException OgnlException}.
  * </p>
  * <p>
  * Other more sophisticated uses of Ognl can pre-parse expressions. This provides two advantages: in the case of
@@ -126,13 +126,13 @@ public abstract class Ognl
     }
 
     /**
-     * Parses and compiles the given expression using the {@link ognl.enhance.OgnlExpressionCompiler} returned from
-     * {@link ognl.OgnlRuntime#getCompiler()}.
+     * Parses and compiles the given expression using the {@link org.apache.commons.ognl.enhance.OgnlExpressionCompiler} returned from
+     * {@link org.apache.commons.ognl.OgnlRuntime#getCompiler()}.
      * 
      * @param context The context to use.
      * @param root The root object for the given expression.
      * @param expression The expression to compile.
-     * @return The node with a compiled accessor set on {@link ognl.Node#getAccessor()} if compilation was successfull.
+     * @return The node with a compiled accessor set on {@link org.apache.commons.ognl.Node#getAccessor()} if compilation was successfull.
      *         In instances where compilation wasn't possible because of a partially null expression the
      *         {@link ExpressionAccessor} instance may be null and the compilation of this expression still possible at
      *         some as yet indertermined point in the future.
@@ -471,6 +471,7 @@ public abstract class Ognl
      * @return The value.
      */
     public static <T> T getValue( ExpressionAccessor expression, OgnlContext context, Object root, Class<T> resultType )
+        throws OgnlException
     {
         return getTypeConverter( context ).convertValue( context, root, null, null, expression.get( context, root ),
                                                          resultType );

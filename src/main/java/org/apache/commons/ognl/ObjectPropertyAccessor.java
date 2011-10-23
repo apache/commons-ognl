@@ -152,10 +152,9 @@ public class ObjectPropertyAccessor
     public Object getProperty( Map<String, Object> context, Object target, Object oname )
         throws OgnlException
     {
-        Object result = null;
         String name = oname.toString();
 
-        result = getPossibleProperty( context, target, name );
+        Object result = getPossibleProperty( context, target, name );
 
         if ( result == OgnlRuntime.NotFound )
         {
@@ -262,7 +261,7 @@ public class ObjectPropertyAccessor
             }
 
             context.setCurrentType( m.getReturnType() );
-            context.setCurrentAccessor( OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
+            context.setCurrentAccessor( OgnlRuntime.getCompiler().getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
 
             return "." + m.getName() + "()";
 

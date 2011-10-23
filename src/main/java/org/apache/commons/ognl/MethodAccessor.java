@@ -41,7 +41,7 @@ public interface MethodAccessor
      * @exception MethodFailedException if there is an error calling the method
      */
     Object callStaticMethod( Map<String, Object> context, Class<?> targetClass, String methodName, Object[] args )
-        throws MethodFailedException;
+        throws OgnlException;
 
     /**
      * Calls the method named with the arguments given.
@@ -54,5 +54,5 @@ public interface MethodAccessor
      * @exception MethodFailedException if there is an error calling the method
      */
     Object callMethod( Map<String, Object> context, Object target, String methodName, Object[] args )
-        throws MethodFailedException;
+        throws OgnlException;
 }

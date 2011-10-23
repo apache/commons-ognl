@@ -52,7 +52,7 @@ class ASTAdd
     {
         Object result = _children[0].getValue( context, source );
 
-        for ( int i = 1; i < _children.length; ++i ) 
+        for ( int i = 1; i < _children.length; ++i )
         {
             result = OgnlOps.add( result, _children[i].getValue( context, source ) );
         }
@@ -67,34 +67,34 @@ class ASTAdd
 
     boolean isWider( NodeType type, NodeType lastType )
     {
-        if ( lastType == null ) 
+        if ( lastType == null )
         {
             return true;
         }
 
         // System.out.println("checking isWider(" + type.getGetterClass() + " , " + lastType.getGetterClass() + ")");
 
-        if ( String.class.isAssignableFrom( lastType.getGetterClass() ) ) 
+        if ( String.class.isAssignableFrom( lastType.getGetterClass() ) )
         {
             return false;
         }
 
-        if ( String.class.isAssignableFrom( type.getGetterClass() ) ) 
+        if ( String.class.isAssignableFrom( type.getGetterClass() ) )
         {
             return true;
         }
 
-        if ( _parent != null && String.class.isAssignableFrom( type.getGetterClass() ) ) 
+        if ( _parent != null && String.class.isAssignableFrom( type.getGetterClass() ) )
         {
             return true;
         }
 
-        if ( String.class.isAssignableFrom( lastType.getGetterClass() ) && Object.class == type.getGetterClass() ) 
+        if ( String.class.isAssignableFrom( lastType.getGetterClass() ) && Object.class == type.getGetterClass() )
         {
             return false;
         }
 
-        if ( _parent != null && String.class.isAssignableFrom( lastType.getGetterClass() ) ) 
+        if ( _parent != null && String.class.isAssignableFrom( lastType.getGetterClass() ) )
         {
             return false;
         }
@@ -182,15 +182,15 @@ class ASTAdd
 
                 for ( int i = 0; i < _children.length; ++i )
                 {
-                    if ( i > 0 ) 
+                    if ( i > 0 )
                     {
                         result += " " + getExpressionOperator( i ) + " ";
                     }
-                        
+
                     String expr = _children[i].toGetSourceString( context, target );
 
                     if ( ( expr != null && "null".equals( expr ) )
-                        || ( !ASTConst.class.isInstance( _children[i] ) 
+                        || ( !ASTConst.class.isInstance( _children[i] )
                         && ( expr == null || expr.trim().length() <= 0 ) ) )
                     {
                         expr = "null";
@@ -234,7 +234,7 @@ class ASTAdd
                             ExpressionCompiler.getRootExpression( _children[i], context.getRoot(), context );
 
                         if ( !ASTProperty.class.isInstance( _children[i].jjtGetChild( 0 ) ) && rootExpr.endsWith( ")" )
-                            && expr.startsWith( ")" ) ) 
+                            && expr.startsWith( ")" ) )
                         {
                             expr = expr.substring( 1, expr.length() );
                         }
@@ -243,7 +243,7 @@ class ASTAdd
                         context.setCurrentAccessor( context.getRoot().getClass() );
 
                         String cast = (String) context.remove( ExpressionCompiler.PRE_CAST );
-                        if ( cast == null ) 
+                        if ( cast == null )
                         {
                             cast = "";
                         }
@@ -297,7 +297,7 @@ class ASTAdd
                         {
                             if ( ASTVarRef.class.isInstance( _children[i] )
                                 || ASTProperty.class.isInstance( _children[i] )
-                                || ASTChain.class.isInstance( _children[i] ) ) 
+                                || ASTChain.class.isInstance( _children[i] ) )
                             {
                                 result += ".";
                             }
@@ -307,7 +307,7 @@ class ASTAdd
                         }
                     }
 
-                    if ( lastType != null ) 
+                    if ( lastType != null )
                     {
                         context.setCurrentAccessor( lastType.getGetterClass() );
                     }
@@ -316,7 +316,7 @@ class ASTAdd
 
             if ( _parent == null || ASTSequence.class.isAssignableFrom( _parent.getClass() ) )
             {
-                if ( _getterClass != null && String.class.isAssignableFrom( _getterClass ) ) 
+                if ( _getterClass != null && String.class.isAssignableFrom( _getterClass ) )
                 {
                     _getterClass = Object.class;
                 }
@@ -346,7 +346,6 @@ class ASTAdd
     }
     
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
-        throws OgnlException
     {
         return visitor.visit( this, data );
     }

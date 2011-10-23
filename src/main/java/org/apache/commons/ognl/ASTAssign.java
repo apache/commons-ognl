@@ -69,11 +69,11 @@ class ASTAssign
             context.setCurrentType( Object.class );
 
             String core = seq.getCoreExpression();
-            if ( core.endsWith( ";" ) ) 
+            if ( core.endsWith( ";" ) )
             {
                 core = core.substring( 0, core.lastIndexOf( ";" ) );
             }
-            
+
             second =
                 OgnlRuntime.getCompiler( context ).createLocalReference( context,
                                                                 "org.apache.commons.ognl.OgnlOps.returnValue(($w)"
@@ -122,12 +122,12 @@ class ASTAssign
 
         String value = _children[1].toSetSourceString( context, target );
 
-        if ( value == null ) 
+        if ( value == null )
         {
             throw new UnsupportedCompilationException(
                 "Value for assignment is null, can't enhance statement to bytecode." );
         }
-        
+
         if ( ASTSequence.class.isAssignableFrom( _children[1].getClass() ) )
         {
             ASTSequence seq = (ASTSequence) _children[1];

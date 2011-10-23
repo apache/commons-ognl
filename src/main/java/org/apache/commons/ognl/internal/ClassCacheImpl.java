@@ -1,6 +1,6 @@
-package org.apache.commons.ognl.internal;
-
 /*
+ * $Id$
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -19,6 +19,8 @@ package org.apache.commons.ognl.internal;
  * under the License.
  */
 
+package org.apache.commons.ognl.internal;
+
 import org.apache.commons.ognl.ClassCacheInspector;
 
 import java.util.Arrays;
@@ -26,8 +28,8 @@ import java.util.Arrays;
 /**
  * Implementation of {@link ClassCache}.
  */
-public class ClassCacheImpl
-    implements ClassCache
+public class ClassCacheImpl<V>
+    implements ClassCache<V>
 {
 
     /* this MUST be a power of 2 */
@@ -36,16 +38,11 @@ public class ClassCacheImpl
     /* ...and now you see why. The table size is used as a mask for generating hashes */
     private static final int TABLE_SIZE_MASK = TABLE_SIZE - 1;
 
-    private Entry<?>[] _table;
+    private Entry<Class<?>,V>[] _table = new Entry[TABLE_SIZE];
 
     private ClassCacheInspector _classInspector;
 
     private int _size = 0;
-
-    public ClassCacheImpl()
-    {
-        _table = new Entry[TABLE_SIZE];
-    }
 
     /**
      * {@inheritDoc}
@@ -79,55 +76,51 @@ public class ClassCacheImpl
     /**
      * {@inheritDoc}
      */
-    public final <T> T get( Class<?> key )
+    public final V get( Class<?> key )
+        throws CacheException
     {
         int i = key.hashCode() & TABLE_SIZE_MASK;
 
-        Entry<?> entry = _table[i];
+        Entry<Class<?>,V> entry = _table[i];
 
         while ( entry != null )
         {
             if ( key == entry.getKey() )
             {
-                @SuppressWarnings( "unchecked" ) // guaranteed by key == entry.getKey()
-                T result = (T) entry.getValue();
-                return result;
+                return entry.getValue();
             }
 
             entry = entry.getNext();
         }
-
         return null;
     }
 
     /**
      * {@inheritDoc}
      */
-    public final <T> T put( Class<?> key, T value )
+    public final V put( Class<?> key, V value )
     {
         if ( _classInspector != null && !_classInspector.shouldCache( key ) )
         {
             return value;
         }
 
-        T result = null;
+        V result = null;
         int i = key.hashCode() & TABLE_SIZE_MASK;
 
-        Entry<?> entry = _table[i];
+        Entry<Class<?>,V> entry = _table[i];
 
         if ( entry == null )
         {
-            _table[i] = new Entry<T>( key, value );
+            _table[i] = new Entry<Class<?>,V>( key, value );
             _size++;
         }
         else
         {
             if ( key == entry.getKey() )
             {
-                @SuppressWarnings( "unchecked" ) // guaranteed by key == entry.getKey()
-                Entry<T> current = (Entry<T>) entry;
-                result = current.getValue();
-                current.setValue( value );
+                result = entry.getValue( );
+                entry.setValue( value );
             }
             else
             {
@@ -136,17 +129,15 @@ public class ClassCacheImpl
                     if ( key == entry.getKey() )
                     {
                         /* replace value */
-                        @SuppressWarnings( "unchecked" ) // guaranteed by key == entry.getKey()
-                        Entry<T> current = (Entry<T>) entry;
-                        result = current.getValue();
-                        current.setValue( value );
+                        result = entry.getValue( );
+                        entry.setValue( value );
                         break;
                     }
 
                     if ( entry.getNext() == null )
                     {
                         /* add value */
-                        entry.setNext( new Entry<T>( key, value ) );
+                        entry.setNext( new Entry<Class<?>,V>( key, value ) );
                         break;
                     }
 

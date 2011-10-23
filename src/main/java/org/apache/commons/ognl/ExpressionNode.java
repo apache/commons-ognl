@@ -113,13 +113,13 @@ public abstract class ExpressionNode
                     {
                         pre = "";
                     }
-                    
+
                     String cast = (String) context.remove( ExpressionCompiler.PRE_CAST );
                     if ( cast == null )
                     {
                         cast = "";
                     }
-                    
+
                     value =
                         cast + ExpressionCompiler.getRootExpression( _children[i], context.getRoot(), context ) + pre
                             + value;

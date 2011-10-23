@@ -209,8 +209,7 @@ public class ArrayPropertyAccessor
             indexStr = "org.apache.commons.ognl.OgnlOps#getIntValue(" + indexStr + toString + ")";
         }
 
-        Class<? extends Object> type = 
-            target.getClass().isArray() ? target.getClass().getComponentType() : target.getClass();
+        Class<? extends Object> type = target.getClass().isArray() ? target.getClass().getComponentType() : target.getClass();
 
         context.setCurrentAccessor( target.getClass() );
         context.setCurrentType( target.getClass().getComponentType() );

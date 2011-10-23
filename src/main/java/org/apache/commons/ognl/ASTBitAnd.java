@@ -46,7 +46,7 @@ class ASTBitAnd
         throws OgnlException
     {
         Object result = _children[0].getValue( context, source );
-        for ( int i = 1; i < _children.length; ++i ) 
+        for ( int i = 1; i < _children.length; ++i )
         {
             result = OgnlOps.binaryAnd( result, _children[i].getValue( context, source ) );
         }

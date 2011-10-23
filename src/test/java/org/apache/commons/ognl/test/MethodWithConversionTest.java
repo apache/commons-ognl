@@ -19,14 +19,14 @@
  */
 package org.apache.commons.ognl.test;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.apache.commons.ognl.test.objects.Simple;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @RunWith(value = Parameterized.class)
 public class MethodWithConversionTest

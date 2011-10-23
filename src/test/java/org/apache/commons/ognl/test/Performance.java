@@ -25,7 +25,6 @@ import org.apache.commons.ognl.OgnlException;
 import org.apache.commons.ognl.SimpleNode;
 import org.apache.commons.ognl.test.objects.Bean1;
 
-import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

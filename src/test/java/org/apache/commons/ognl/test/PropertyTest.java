@@ -19,11 +19,6 @@
  */
 package org.apache.commons.ognl.test;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-
 import org.apache.commons.ognl.test.objects.BaseBean;
 import org.apache.commons.ognl.test.objects.Bean2;
 import org.apache.commons.ognl.test.objects.FirstBean;
@@ -32,6 +27,11 @@ import org.apache.commons.ognl.test.objects.Root;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 @RunWith(value = Parameterized.class)
 public class PropertyTest

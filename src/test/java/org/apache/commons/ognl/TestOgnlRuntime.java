@@ -19,11 +19,31 @@
  */
 package org.apache.commons.ognl;
 
-import org.apache.commons.ognl.test.objects.*;
+import org.apache.commons.ognl.internal.CacheException;
+import org.apache.commons.ognl.test.objects.BaseGeneric;
+import org.apache.commons.ognl.test.objects.Bean1;
+import org.apache.commons.ognl.test.objects.Bean2;
+import org.apache.commons.ognl.test.objects.FormImpl;
+import org.apache.commons.ognl.test.objects.GameGeneric;
+import org.apache.commons.ognl.test.objects.GameGenericObject;
+import org.apache.commons.ognl.test.objects.GenericCracker;
+import org.apache.commons.ognl.test.objects.GenericService;
+import org.apache.commons.ognl.test.objects.GenericServiceImpl;
+import org.apache.commons.ognl.test.objects.GetterMethods;
+import org.apache.commons.ognl.test.objects.IComponent;
+import org.apache.commons.ognl.test.objects.IForm;
+import org.apache.commons.ognl.test.objects.ListSource;
+import org.apache.commons.ognl.test.objects.ListSourceImpl;
+import org.apache.commons.ognl.test.objects.OtherObjectIndexed;
+import org.apache.commons.ognl.test.objects.Root;
+import org.apache.commons.ognl.test.objects.SetterReturns;
+import org.apache.commons.ognl.test.objects.SubclassSyntheticObject;
 import org.junit.Test;
 
+import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
@@ -37,12 +57,12 @@ public class TestOgnlRuntime
 {
 
     @Test
-    public void test_Get_Super_Or_Interface_Class()
+    public void test_Get_Super_Or_Interface_Class( )
         throws Exception
     {
-        ListSource list = new ListSourceImpl();
+        ListSource list = new ListSourceImpl( );
 
-        Method m = OgnlRuntime.getReadMethod( list.getClass(), "total" );
+        Method m = OgnlRuntime.getReadMethod( list.getClass( ), "total" );
         assertNotNull( m );
 
         OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
@@ -50,12 +70,12 @@ public class TestOgnlRuntime
     }
 
     @Test
-    public void test_Get_Private_Class()
+    public void test_Get_Private_Class( )
         throws Exception
     {
         List list = Arrays.asList( "hello", "world" );
 
-        Method m = OgnlRuntime.getReadMethod( list.getClass(), "iterator" );
+        Method m = OgnlRuntime.getReadMethod( list.getClass( ), "iterator" );
         assertNotNull( m );
 
         OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
@@ -63,12 +83,12 @@ public class TestOgnlRuntime
     }
 
     @Test
-    public void test_Complicated_Inheritance()
+    public void test_Complicated_Inheritance( )
         throws Exception
     {
-        IForm form = new FormImpl();
+        IForm form = new FormImpl( );
 
-        Method m = OgnlRuntime.getWriteMethod( form.getClass(), "clientId" );
+        Method m = OgnlRuntime.getWriteMethod( form.getClass( ), "clientId" );
         assertNotNull( m );
 
         OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
@@ -76,87 +96,87 @@ public class TestOgnlRuntime
     }
 
     @Test
-    public void test_Get_Read_Method()
+    public void test_Get_Read_Method( )
         throws Exception
     {
         Method m = OgnlRuntime.getReadMethod( Bean2.class, "pageBreakAfter" );
         assertNotNull( m );
 
-        assertEquals( "isPageBreakAfter", m.getName() );
+        assertEquals( "isPageBreakAfter", m.getName( ) );
     }
 
     class TestGetters
     {
-        public boolean isEditorDisabled()
+        public boolean isEditorDisabled( )
         {
             return false;
         }
 
-        public boolean isDisabled()
+        public boolean isDisabled( )
         {
             return true;
         }
 
-        public boolean isNotAvailable()
+        public boolean isNotAvailable( )
         {
             return false;
         }
 
-        public boolean isAvailable()
+        public boolean isAvailable( )
         {
             return true;
         }
     }
 
     @Test
-    public void test_Get_Read_Method_Multiple()
+    public void test_Get_Read_Method_Multiple( )
         throws Exception
     {
         Method m = OgnlRuntime.getReadMethod( TestGetters.class, "disabled" );
         assertNotNull( m );
 
-        assertEquals( "isDisabled", m.getName() );
+        assertEquals( "isDisabled", m.getName( ) );
     }
 
     @Test
-    public void test_Get_Read_Method_Multiple_Boolean_Getters()
+    public void test_Get_Read_Method_Multiple_Boolean_Getters( )
         throws Exception
     {
         Method m = OgnlRuntime.getReadMethod( TestGetters.class, "available" );
         assertNotNull( m );
 
-        assertEquals( "isAvailable", m.getName() );
+        assertEquals( "isAvailable", m.getName( ) );
 
         m = OgnlRuntime.getReadMethod( TestGetters.class, "notAvailable" );
         assertNotNull( m );
 
-        assertEquals( "isNotAvailable", m.getName() );
+        assertEquals( "isNotAvailable", m.getName( ) );
     }
 
     @Test
-    public void test_Find_Method_Mixed_Boolean_Getters()
+    public void test_Find_Method_Mixed_Boolean_Getters( )
         throws Exception
     {
         Method m = OgnlRuntime.getReadMethod( GetterMethods.class, "allowDisplay" );
         assertNotNull( m );
 
-        assertEquals( "getAllowDisplay", m.getName() );
+        assertEquals( "getAllowDisplay", m.getName( ) );
     }
 
     @Test
-    public void test_Get_Appropriate_Method()
+    public void test_Get_Appropriate_Method( )
         throws Exception
     {
-        ListSource list = new ListSourceImpl();
+        ListSource list = new ListSourceImpl( );
         OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
 
-        Object ret = OgnlRuntime.callMethod( context, list, "addValue", new String[] { null } );
+        Object ret = OgnlRuntime.callMethod( context, list, "addValue", new String[]{ null } );
 
         assert ret != null;
     }
 
     @Test
-    public void test_Call_Static_Method_Invalid_Class()
+    public void test_Call_Static_Method_Invalid_Class( )
     {
 
         try
@@ -171,18 +191,18 @@ public class TestOgnlRuntime
         {
 
             assertTrue( MethodFailedException.class.isInstance( et ) );
-            assertTrue( et.getMessage().contains( "made.up.Name" ) );
+            assertTrue( et.getMessage( ).contains( "made.up.Name" ) );
         }
     }
 
     @Test
-    public void test_Setter_Returns()
+    public void test_Setter_Returns( )
         throws Exception
     {
         OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
-        SetterReturns root = new SetterReturns();
+        SetterReturns root = new SetterReturns( );
 
-        Method m = OgnlRuntime.getWriteMethod( root.getClass(), "value" );
+        Method m = OgnlRuntime.getWriteMethod( root.getClass( ), "value" );
         assertTrue( m != null );
 
         Ognl.setValue( "value", context, root, "12__" );
@@ -190,47 +210,47 @@ public class TestOgnlRuntime
     }
 
     @Test
-    public void test_Call_Method_VarArgs()
+    public void test_Call_Method_VarArgs( )
         throws Exception
     {
         OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
-        GenericService service = new GenericServiceImpl();
+        GenericService service = new GenericServiceImpl( );
 
-        GameGenericObject argument = new GameGenericObject();
+        GameGenericObject argument = new GameGenericObject( );
 
-        Object[] args = OgnlRuntime.getObjectArrayPool().create( 2 );
+        Object[] args = OgnlRuntime.getObjectArrayPool( ).create( 2 );
         args[0] = argument;
 
         assertEquals( "Halo 3", OgnlRuntime.callMethod( context, service, "getFullMessageFor", args ) );
     }
 
     @Test
-    public void test_Class_Cache_Inspector()
+    public void test_Class_Cache_Inspector( )
         throws Exception
     {
-        OgnlRuntime.clearCache();
-        assertEquals( 0, OgnlRuntime._propertyDescriptorCache.getSize() );
+        OgnlRuntime.clearCache( );
+        assertEquals( 0, OgnlRuntime._propertyDescriptorCache.getSize( ) );
 
-        Root root = new Root();
+        Root root = new Root( );
         OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
         Node expr = Ognl.compileExpression( context, root, "property.bean3.value != null" );
 
-        assertTrue( (Boolean) expr.getAccessor().get( context, root ) );
+        assertTrue( (Boolean) expr.getAccessor( ).get( context, root ) );
 
-        int size = OgnlRuntime._propertyDescriptorCache.getSize();
+        int size = OgnlRuntime._propertyDescriptorCache.getSize( );
         assertTrue( size > 0 );
 
-        OgnlRuntime.clearCache();
-        assertEquals( 0, OgnlRuntime._propertyDescriptorCache.getSize() );
+        OgnlRuntime.clearCache( );
+        assertEquals( 0, OgnlRuntime._propertyDescriptorCache.getSize( ) );
 
         // now register class cache prevention
 
-        OgnlRuntime.setClassCacheInspector( new TestCacheInspector() );
+        OgnlRuntime.setClassCacheInspector( new TestCacheInspector( ) );
 
         expr = Ognl.compileExpression( context, root, "property.bean3.value != null" );
-        assertTrue( (Boolean) expr.getAccessor().get( context, root ) );
+        assertTrue( (Boolean) expr.getAccessor( ).get( context, root ) );
 
-        assertEquals( ( size - 1 ), OgnlRuntime._propertyDescriptorCache.getSize() );
+        assertEquals( ( size - 1 ), OgnlRuntime._propertyDescriptorCache.getSize( ) );
     }
 
     class TestCacheInspector
@@ -244,7 +264,7 @@ public class TestOgnlRuntime
     }
 
     @Test
-    public void test_Set_Generic_Parameter_Types()
+    public void test_Set_Generic_Parameter_Types( )
         throws Exception
     {
         OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
@@ -252,13 +272,13 @@ public class TestOgnlRuntime
         Method m = OgnlRuntime.getSetMethod( context, GenericCracker.class, "param" );
         assertNotNull( m );
 
-        Class[] types = m.getParameterTypes();
+        Class[] types = m.getParameterTypes( );
         assertEquals( 1, types.length );
         assertEquals( Integer.class, types[0] );
     }
 
     @Test
-    public void test_Get_Generic_Parameter_Types()
+    public void test_Get_Generic_Parameter_Types( )
         throws Exception
     {
         OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
@@ -266,11 +286,11 @@ public class TestOgnlRuntime
         Method m = OgnlRuntime.getGetMethod( context, GenericCracker.class, "param" );
         assertNotNull( m );
 
-        assertEquals( Integer.class, m.getReturnType() );
+        assertEquals( Integer.class, m.getReturnType( ) );
     }
 
     @Test
-    public void test_Find_Parameter_Types()
+    public void test_Find_Parameter_Types( )
         throws Exception
     {
         OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
@@ -284,7 +304,7 @@ public class TestOgnlRuntime
     }
 
     @Test
-    public void test_Find_Parameter_Types_Superclass()
+    public void test_Find_Parameter_Types_Superclass( )
         throws Exception
     {
         OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
@@ -298,7 +318,7 @@ public class TestOgnlRuntime
     }
 
     @Test
-    public void test_Get_Declared_Methods_With_Synthetic_Methods()
+    public void test_Get_Declared_Methods_With_Synthetic_Methods( )
         throws Exception
     {
         List result = OgnlRuntime.getDeclaredMethods( SubclassSyntheticObject.class, "list", false );
@@ -307,17 +327,17 @@ public class TestOgnlRuntime
         // "public volatile java.util.List org.ognl.test.objects.SubclassSyntheticObject.getList()",
         // causing method return size to be 3
 
-        assertEquals( 2, result.size() );
+        assertEquals( 2, result.size( ) );
     }
 
     @Test
-    public void test_Get_Property_Descriptors_With_Synthetic_Methods()
+    public void test_Get_Property_Descriptors_With_Synthetic_Methods( )
         throws Exception
     {
         PropertyDescriptor pd = OgnlRuntime.getPropertyDescriptor( SubclassSyntheticObject.class, "list" );
 
         assert pd != null;
-        assert OgnlRuntime.isMethodCallable( pd.getReadMethod() );
+        assert OgnlRuntime.isMethodCallable( pd.getReadMethod( ) );
     }
 
     private static class GenericParent<T>
@@ -344,8 +364,8 @@ public class TestOgnlRuntime
      * Tests OGNL parameter discovery.
      */
     @Test
-    public void testOGNLParameterDiscovery()
-        throws NoSuchMethodException
+    public void testOGNLParameterDiscovery( )
+        throws NoSuchMethodException, CacheException
     {
         Method saveMethod = GenericParent.class.getMethod( "save", Object.class );
         System.out.println( saveMethod );
@@ -359,4 +379,21 @@ public class TestOgnlRuntime
         assertSame( stringClass[0], String.class );
     }
 
+    @Test
+    public void testGetField( )
+        throws OgnlException
+    {
+        Field field = OgnlRuntime.getField( OtherObjectIndexed.class, "attributes" );
+        assertNotNull( "Field is null", field );
+    }
+
+    @Test
+    public void testGetSetMethod( )
+        throws IntrospectionException, OgnlException
+    {
+        Method setter = OgnlRuntime.getSetMethod( null, Bean1.class, "bean2" );
+        Method getter = OgnlRuntime.getGetMethod( null, Bean1.class, "bean2" );
+        assertNotNull( getter );
+        assertNull( setter );
+    }
 }

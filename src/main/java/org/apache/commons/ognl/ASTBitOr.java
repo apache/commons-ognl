@@ -20,7 +20,7 @@ package org.apache.commons.ognl;
  */
 
 /**
- * $Id$ 
+ * $Id$
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
@@ -46,7 +46,7 @@ class ASTBitOr
         throws OgnlException
     {
         Object result = _children[0].getValue( context, source );
-        for ( int i = 1; i < _children.length; ++i ) 
+        for ( int i = 1; i < _children.length; ++i )
         {
             result = OgnlOps.binaryOr( result, _children[i].getValue( context, source ) );
         }

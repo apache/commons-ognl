@@ -45,6 +45,7 @@ public interface TypeConverter
      * @return Converted value of type toType or TypeConverter.NoConversionPossible to indicate that the conversion was
      *         not possible.
      */
-    <T> T convertValue( Map<String, Object> context, Object target, Member member, String propertyName, Object value, Class<T> toType );
+    <T> T convertValue( Map<String, Object> context, Object target, Member member, String propertyName, Object value, Class<T> toType )
+        throws OgnlException;
 
 }

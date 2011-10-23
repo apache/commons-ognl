@@ -20,7 +20,6 @@
 package org.apache.commons.ognl.test.objects;
 
 public class Bean2
-    extends Object
 {
     private Bean3 bean3 = new Bean3();
 

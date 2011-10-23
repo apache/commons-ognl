@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Bean3
-    extends Object
 {
     private int value = 100;
 

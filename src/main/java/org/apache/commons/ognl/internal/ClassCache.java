@@ -1,6 +1,6 @@
-package org.apache.commons.ognl.internal;
-
 /*
+ * $Id$
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -19,21 +19,15 @@ package org.apache.commons.ognl.internal;
  * under the License.
  */
 
+package org.apache.commons.ognl.internal;
+
 import org.apache.commons.ognl.ClassCacheInspector;
 
 /**
  * This is a highly specialized map for storing values keyed by Class objects.
  */
-public interface ClassCache
+public interface ClassCache<V>
+    extends Cache<Class<?>, V>
 {
-
     void setClassInspector( ClassCacheInspector inspector );
-
-    void clear();
-
-    int getSize();
-
-    <T> T get( Class<?> key );
-
-    <T> T put( Class<?> key, T value );
 }
