@@ -25,6 +25,6 @@ import org.apache.commons.ognl.internal.CacheException;
 
 public interface CacheEntryFactory<K, V>
 {
-    public V create( K key )
+    V create( K key )
         throws CacheException;
 }
