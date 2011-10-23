@@ -28,6 +28,7 @@
       <action issue="OGNL-26" type="update" dev="grobmeier">JUnit Tests produce confusing output.</action>
       <action issue="OGNL-23" type="fix" dev="simonetripodi">Class.forName() usage is malicious inside OSGi (contributed by Adrian Cumiskey)</action>
       <action issue="OGNL-21" type="update" dev="grobmeier">Remove dead and broken code from OgnlRuntime/SimpleNode (with contributions by Daniel Pitts)</action>
+      <action issue="OGNL-20" type="update" dev="mcucchiara, simonetripodi">Performance - Replace synchronized blocks with ReentrantReadWriteLock (with contributions by Daniel Pitts)</action>
       <action issue="OGNL-24" type="update" dev="grobmeier">Support visitor pattern on AST (contributed by Daniel Pitts)</action>
       <action issue="OGNL-15" type="update" dev="simonetripodi">OGNL needs a new Logo</action>
       <action issue="OGNL-14" type="update" dev="mcucchiara">Documentation site has to be published</action>
