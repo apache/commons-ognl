@@ -57,7 +57,7 @@ class ASTAssign
 
         if ( ASTProperty.class.isInstance( _children[1] ) )
         {
-            second += "((" + OgnlRuntime.getCompiler().getClassName( target.getClass() ) + ")$2).";
+            second += "((" + OgnlRuntime.getCompiler( context ).getClassName( target.getClass() ) + ")$2).";
         }
 
         second += _children[1].toGetSourceString( context, target );
@@ -75,7 +75,7 @@ class ASTAssign
             }
             
             second =
-                OgnlRuntime.getCompiler().createLocalReference( context,
+                OgnlRuntime.getCompiler( context ).createLocalReference( context,
                                                                 "org.apache.commons.ognl.OgnlOps.returnValue(($w)"
                                                                     + core + ", ($w) " + seq.getLastExpression() + ")",
                                                                 Object.class );
@@ -99,7 +99,7 @@ class ASTAssign
 
             result =
                 OgnlRuntime
-                    .getCompiler()
+                    .getCompiler( context )
                     .createLocalReference( context,
                                            "org.apache.commons.ognl.OgnlOps.returnValue(($w)" + result + ", ($w)"
                                                + ( (OrderedReturn) _children[0] ).getLastExpression() + ")",
@@ -117,7 +117,7 @@ class ASTAssign
 
         if ( ASTProperty.class.isInstance( _children[1] ) )
         {
-            result += "((" + OgnlRuntime.getCompiler().getClassName( target.getClass() ) + ")$2).";
+            result += "((" + OgnlRuntime.getCompiler( context ).getClassName( target.getClass() ) + ")$2).";
         }
 
         String value = _children[1].toSetSourceString( context, target );

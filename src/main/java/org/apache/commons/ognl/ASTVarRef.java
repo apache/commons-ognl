@@ -122,7 +122,7 @@ public class ASTVarRef
         String post = "";
         if ( context.getCurrentType() != null )
         {
-            pre = "((" + OgnlRuntime.getCompiler().getInterfaceClass( context.getCurrentType() ).getName() + ")";
+            pre = "((" + OgnlRuntime.getCompiler( context ).getInterfaceClass( context.getCurrentType() ).getName() + ")";
             post = ")";
         }
 

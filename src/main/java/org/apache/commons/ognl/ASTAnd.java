@@ -143,13 +143,13 @@ public class ASTAnd
 
             if ( !OgnlRuntime.isBoolean( first ) && !context.getCurrentType().isPrimitive() ) 
             {
-                first = OgnlRuntime.getCompiler().createLocalReference( context, first, context.getCurrentType() );
+                first = OgnlRuntime.getCompiler( context ).createLocalReference( context, first, context.getCurrentType() );
             }
             
             String second = OgnlRuntime.getChildSource( context, target, _children[1] );
             if ( !OgnlRuntime.isBoolean( second ) && !context.getCurrentType().isPrimitive() ) 
             {
-                second = OgnlRuntime.getCompiler().createLocalReference( context, second, context.getCurrentType() );
+                second = OgnlRuntime.getCompiler( context ).createLocalReference( context, second, context.getCurrentType() );
             }
             
             result += "(org.apache.commons.ognl.OgnlOps.booleanValue(" + first + ")";

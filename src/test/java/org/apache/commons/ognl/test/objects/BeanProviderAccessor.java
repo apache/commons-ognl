@@ -76,7 +76,7 @@ public class BeanProviderAccessor
 
             ExpressionCompiler.addCastString( context,
                                               "(("
-                                                  + OgnlRuntime.getCompiler().getInterfaceClass( provider.getBean( beanName ).getClass() ).getName()
+                                                  + OgnlRuntime.getCompiler( context ).getInterfaceClass( provider.getBean( beanName ).getClass() ).getName()
                                                   + ")" );
 
             return ".getBean(\"" + beanName + "\"))";

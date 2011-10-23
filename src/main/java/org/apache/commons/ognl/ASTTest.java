@@ -81,7 +81,7 @@ class ASTTest
             String first = OgnlRuntime.getChildSource( context, target, _children[0] );
             if ( !OgnlRuntime.isBoolean( first ) && !context.getCurrentType().isPrimitive() )
             {
-                first = OgnlRuntime.getCompiler().createLocalReference( context, first, context.getCurrentType() );
+                first = OgnlRuntime.getCompiler( context ).createLocalReference( context, first, context.getCurrentType() );
             }
             
             if ( ExpressionNode.class.isInstance( _children[0] ) )
@@ -94,7 +94,7 @@ class ASTTest
 
             if ( !OgnlRuntime.isBoolean( second ) && !context.getCurrentType().isPrimitive() )
             {
-                second = OgnlRuntime.getCompiler().createLocalReference( context, second, context.getCurrentType() );
+                second = OgnlRuntime.getCompiler( context ).createLocalReference( context, second, context.getCurrentType() );
             }
             
             if ( ExpressionNode.class.isInstance( _children[1] ) )
@@ -107,7 +107,7 @@ class ASTTest
 
             if ( !OgnlRuntime.isBoolean( third ) && !context.getCurrentType().isPrimitive() )
             {
-                third = OgnlRuntime.getCompiler().createLocalReference( context, third, context.getCurrentType() );
+                third = OgnlRuntime.getCompiler( context ).createLocalReference( context, third, context.getCurrentType() );
             
             }
             

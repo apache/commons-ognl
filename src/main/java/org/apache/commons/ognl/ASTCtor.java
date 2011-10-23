@@ -320,7 +320,7 @@ public class ASTCtor
                             {
 
                                 value =
-                                    "(" + OgnlRuntime.getCompiler().getInterfaceClass( values[i].getClass() ).getName()
+                                    "(" + OgnlRuntime.getCompiler( context ).getInterfaceClass( values[i].getClass() ).getName()
                                         + ")" + value;
                             }
                             else if ( !ASTConst.class.isInstance( _children[i] )

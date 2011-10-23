@@ -85,7 +85,7 @@ public class ASTProperty
                 {
                     return OgnlRuntime.getIndexedPropertyType( 
                           context,
-                          ( source == null ) ? null : OgnlRuntime.getCompiler().getInterfaceClass( source.getClass() ),
+                          ( source == null ) ? null : OgnlRuntime.getCompiler( context ).getInterfaceClass( source.getClass() ),
                           (String) property );
                 }
             }
@@ -206,7 +206,7 @@ public class ASTProperty
                     context.setCurrentType( getterClass );
                     context.setCurrentObject( indexedValue );
                     context.setCurrentAccessor( 
-                        OgnlRuntime.getCompiler().getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
+                        OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
 
                     return "." + m.getName() + "(" + srcString + ")";
                 }
@@ -403,7 +403,7 @@ public class ASTProperty
 
             context.setCurrentType( m.getReturnType() );
             context.setCurrentAccessor( 
-                OgnlRuntime.getCompiler().getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
+                OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
         }
 
         context.setCurrentObject( target );
@@ -501,7 +501,7 @@ public class ASTProperty
                     }
                     context.setCurrentType( setterClass );
                     context.setCurrentAccessor( 
-                        OgnlRuntime.getCompiler().getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
+                        OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
 
                     if ( !lastChild )
                     {
@@ -598,7 +598,7 @@ public class ASTProperty
 
             PropertyDescriptor pd =
                 OgnlRuntime.getPropertyDescriptor( 
-                    OgnlRuntime.getCompiler().getInterfaceClass( 
+                    OgnlRuntime.getCompiler( context ).getInterfaceClass(
                         context.getCurrentObject().getClass() ), name );
 
             if ( pd != null )
@@ -723,7 +723,7 @@ public class ASTProperty
         {
             context.setCurrentType( m.getReturnType() );
             context.setCurrentAccessor( 
-                OgnlRuntime.getCompiler().getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
+                OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
         }
 
         return result;

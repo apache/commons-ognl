@@ -167,7 +167,7 @@ public class ASTStaticMethod
                         if ( parms[i].isArray() )
                         {
                             parmString =
-                                OgnlRuntime.getCompiler().createLocalReference( context,
+                                OgnlRuntime.getCompiler( context ).createLocalReference( context,
                                                                 "("
                                                                     + ExpressionCompiler.getCastString( parms[i] )
                                                                     + ")org.apache.commons.ognl.OgnlOps.toArray("
@@ -182,7 +182,7 @@ public class ASTStaticMethod
                             Class wrapClass = OgnlRuntime.getPrimitiveWrapperClass( parms[i] );
 
                             parmString =
-                                OgnlRuntime.getCompiler().createLocalReference( context,
+                                OgnlRuntime.getCompiler( context ).createLocalReference( context,
                                                             "(("
                                                                 + wrapClass.getName()
                                                                 + ")org.apache.commons.ognl.OgnlOps.convertValue("
@@ -197,7 +197,7 @@ public class ASTStaticMethod
                         else if ( parms[i] != Object.class )
                         {
                             parmString =
-                                OgnlRuntime.getCompiler().createLocalReference( context,
+                                OgnlRuntime.getCompiler( context ).createLocalReference( context,
                                                             "("
                                                                 + parms[i].getName()
                                                                 + ")org.apache.commons.ognl.OgnlOps.convertValue("
@@ -240,7 +240,7 @@ public class ASTStaticMethod
 
                 context.setCurrentType( m.getReturnType() );
                 context.setCurrentAccessor( 
-                    OgnlRuntime.getCompiler().getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
+                    OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
             }
 
         }

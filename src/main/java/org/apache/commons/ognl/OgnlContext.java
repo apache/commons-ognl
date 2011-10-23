@@ -65,7 +65,7 @@ public class OgnlContext
 
     private static boolean DEFAULT_KEEP_LAST_EVALUATION = false;
 
-    public static final ClassResolver DEFAULT_CLASS_RESOLVER = new DefaultClassResolver();
+    public static final DefaultClassResolver DEFAULT_CLASS_RESOLVER = new DefaultClassResolver();
 
     public static final TypeConverter DEFAULT_TYPE_CONVERTER = new DefaultTypeConverter();
 

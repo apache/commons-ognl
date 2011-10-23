@@ -59,7 +59,7 @@ public class ASTMethodTest
         assert Map.class.isAssignableFrom( context.getPreviousType() );
         assert context.getPreviousAccessor() == null;
 
-        assertEquals( OgnlRuntime.getCompiler().castExpression( context, p, ".get(\"value\")" ), ".get(\"value\")" );
+        assertEquals( OgnlRuntime.getCompiler( context ).castExpression( context, p, ".get(\"value\")" ), ".get(\"value\")" );
         assert context.get( ExpressionCompiler.PRE_CAST ) == null;
 
         // now test one context level further to see casting work properly on base object types
@@ -79,7 +79,7 @@ public class ASTMethodTest
         assertEquals( Object.class, context.getPreviousType() );
         assert Map.class.isAssignableFrom( context.getPreviousAccessor() );
 
-        assertEquals( OgnlRuntime.getCompiler().castExpression( context, prop, ".getBean3()" ), ").getBean3()" );
+        assertEquals( OgnlRuntime.getCompiler( context ).castExpression( context, prop, ".getBean3()" ), ").getBean3()" );
 
     }
 }

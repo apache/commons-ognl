@@ -326,7 +326,7 @@ public class ASTChain
                         && ( (OrderedReturn) _children[i] ).getLastExpression() != null )
                         && ( _parent == null || !ASTSequence.class.isInstance( _parent ) ) )
                     {
-                        value = OgnlRuntime.getCompiler().castExpression( context, _children[i], value );
+                        value = OgnlRuntime.getCompiler( context ).castExpression( context, _children[i], value );
                     }
 
                     /*
@@ -454,7 +454,7 @@ public class ASTChain
                         && ( (OrderedReturn) _children[i] ).getLastExpression() != null )
                         && ( _parent == null || !ASTSequence.class.isInstance( _parent ) ) )
                     {
-                        value = OgnlRuntime.getCompiler().castExpression( context, _children[i], value );
+                        value = OgnlRuntime.getCompiler( context ).castExpression( context, _children[i], value );
                     }
 
                     // System.out.println("astchain setter after cast value is: " + value);

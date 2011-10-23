@@ -22,7 +22,7 @@ package org.apache.commons.ognl;
 import java.util.Map;
 
 /**
- * This interface defines an object that will resolve a class from a string and a ognl context table.
+ * This interface defines an object that will resolve a class from a string and an ognl context table.
  * 
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)

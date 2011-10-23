@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Default class resolution. Uses Class.forName() to look up classes by name. It also looks in the "java.lang" package
+ * Default class resolution. Uses ClassLoader.loadClass() to look up classes by name. It also looks in the "java.lang" package
  * if the class named does not give a package specifier, allowing easier usage of these classes.
  * 
  * @author Luke Blanshard (blanshlu@netscape.net)
@@ -35,24 +35,38 @@ public class DefaultClassResolver
     private final Map<String, Class<?>> classes = new HashMap<String, Class<?>>( 101 );
 
     /**
+     * Resolves a class for a given className
+     *
+     * @param className The name of the Class
+     * @return The resulting Class object
+     * @throws ClassNotFoundException If the class could not be found
+     */
+    public Class<?> classForName( String className )
+        throws ClassNotFoundException
+    {
+        return classForName( className, null );
+    }
+
+    /**
      * {@inheritDoc}
      */
-    public Class<?> classForName( String className, Map<String, Object> context )
+    public Class<?> classForName( String className, Map<String, Object> unused )
         throws ClassNotFoundException
     {
         Class<?> result = classes.get( className );
 
         if ( result == null )
         {
+            ClassLoader classLoader = ClassLoader.getSystemClassLoader();
             try
             {
-                result = Class.forName( className );
+                result = classLoader.loadClass(className);
             }
             catch ( ClassNotFoundException ex )
             {
                 if ( className.indexOf( '.' ) == -1 )
                 {
-                    result = Class.forName( "java.lang." + className );
+                    result = classLoader.loadClass( "java.lang." + className );
                     classes.put( "java.lang." + className, result );
                 }
             }

@@ -32,23 +32,9 @@ import java.util.Map;
 class ASTMap
     extends SimpleNode
 {
-
-    private static Class defaultMapClass;
-
     private String className;
 
-    static
-    {
-        /* Try to get LinkedHashMap; if older JDK than 1.4 use HashMap */
-        try
-        {
-            defaultMapClass = Class.forName( "java.util.LinkedHashMap" );
-        }
-        catch ( ClassNotFoundException ex )
-        {
-            defaultMapClass = HashMap.class;
-        }
-    }
+    private Map<OgnlContext, Class> defaultMapClassMap = new HashMap<OgnlContext, Class>();
 
     public ASTMap( int id )
     {
@@ -83,6 +69,7 @@ class ASTMap
 
         if ( className == null )
         {
+            Class defaultMapClass = getDefaultMapClass( context );
             try
             {
                 answer = (Map) defaultMapClass.newInstance();
@@ -131,5 +118,24 @@ class ASTMap
         throws OgnlException
     {
         return visitor.visit( this, data );
+    }
+
+    private Class getDefaultMapClass( OgnlContext context ) {
+        Class defaultMapClass = defaultMapClassMap.get( context );
+        if (defaultMapClass != null) {
+            return defaultMapClass;
+        }
+
+        /* Try to get LinkedHashMap; if older JDK than 1.4 use HashMap */
+        try
+        {
+            defaultMapClass = OgnlRuntime.classForName( context, "java.util.LinkedHashMap" );
+        }
+        catch ( ClassNotFoundException ex )
+        {
+            defaultMapClass = HashMap.class;
+        }
+        defaultMapClassMap.put( context, defaultMapClass );
+        return defaultMapClass;
     }
 }

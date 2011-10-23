@@ -262,7 +262,7 @@ public class ObjectPropertyAccessor
             }
 
             context.setCurrentType( m.getReturnType() );
-            context.setCurrentAccessor( OgnlRuntime.getCompiler().getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
+            context.setCurrentAccessor( OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
 
             return "." + m.getName() + "()";
 
@@ -303,7 +303,7 @@ public class ObjectPropertyAccessor
             {
                 Class<?> wrapClass = OgnlRuntime.getPrimitiveWrapperClass( parm );
                 conversion =
-                    OgnlRuntime.getCompiler().createLocalReference( context,
+                    OgnlRuntime.getCompiler( context ).createLocalReference( context,
                                                                     "(("
                                                                         + wrapClass.getName()
                                                                         + ")org.apache.commons.ognl.OgnlOps#convertValue($3,"
@@ -315,7 +315,7 @@ public class ObjectPropertyAccessor
             else if ( parm.isArray() )
             {
                 conversion =
-                    OgnlRuntime.getCompiler().createLocalReference( context,
+                    OgnlRuntime.getCompiler( context ).createLocalReference( context,
                                                                     "("
                                                                         + ExpressionCompiler.getCastString( parm )
                                                                         + ")org.apache.commons.ognl.OgnlOps#toArray($3,"
@@ -326,7 +326,7 @@ public class ObjectPropertyAccessor
             else
             {
                 conversion =
-                    OgnlRuntime.getCompiler().createLocalReference( context,
+                    OgnlRuntime.getCompiler( context ).createLocalReference( context,
                                                                     "("
                                                                         + parm.getName()
                                                                         + ")org.apache.commons.ognl.OgnlOps#convertValue($3,"
@@ -334,7 +334,7 @@ public class ObjectPropertyAccessor
             }
 
             context.setCurrentType( m.getReturnType() );
-            context.setCurrentAccessor( OgnlRuntime.getCompiler().getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
+            context.setCurrentAccessor( OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
 
             return "." + m.getName() + "(" + conversion + ")";
 

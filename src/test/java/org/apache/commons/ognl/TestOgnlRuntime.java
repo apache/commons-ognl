@@ -45,7 +45,8 @@ public class TestOgnlRuntime
         Method m = OgnlRuntime.getReadMethod( list.getClass(), "total" );
         assertNotNull( m );
 
-        assertEquals( ListSource.class, OgnlRuntime.getCompiler().getSuperOrInterfaceClass( m, list.getClass() ) );
+        OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
+        assertEquals( ListSource.class, OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, list.getClass() ) );
     }
 
     @Test
@@ -57,7 +58,8 @@ public class TestOgnlRuntime
         Method m = OgnlRuntime.getReadMethod( list.getClass(), "iterator" );
         assertNotNull( m );
 
-        assertEquals( Iterable.class, OgnlRuntime.getCompiler().getSuperOrInterfaceClass( m, list.getClass() ) );
+        OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
+        assertEquals( Iterable.class, OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, list.getClass() ) );
     }
 
     @Test
@@ -69,7 +71,8 @@ public class TestOgnlRuntime
         Method m = OgnlRuntime.getWriteMethod( form.getClass(), "clientId" );
         assertNotNull( m );
 
-        assertEquals( IComponent.class, OgnlRuntime.getCompiler().getSuperOrInterfaceClass( m, form.getClass() ) );
+        OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
+        assertEquals( IComponent.class, OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, form.getClass() ) );
     }
 
     @Test

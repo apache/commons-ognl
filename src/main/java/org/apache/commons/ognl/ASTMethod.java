@@ -191,7 +191,7 @@ public class ASTMethod
 
                     context.setCurrentType( m.getReturnType() );
                     context.setCurrentAccessor( 
-                                OgnlRuntime.getCompiler().getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
+                                OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
 
                     coreExpression = toSetSourceString( context, target );
                     if ( coreExpression == null || coreExpression.length() < 1 )
@@ -293,7 +293,7 @@ public class ASTMethod
 
                             parmString =
                                 OgnlRuntime
-                                    .getCompiler()
+                                    .getCompiler( context )
                                     .createLocalReference( context, "(" + ExpressionCompiler.getCastString( parms[i] )
                                         + ")org.apache.commons.ognl.OgnlOps#toArray(" + parmString + ", "
                                         + parms[i].getComponentType().getName() + ".class, true)", parms[i] );
@@ -306,7 +306,7 @@ public class ASTMethod
 
                             parmString =
                                 OgnlRuntime
-                                    .getCompiler()
+                                    .getCompiler( context )
                                     .createLocalReference( context, "((" + wrapClass.getName()
                                         + ")org.apache.commons.ognl.OgnlOps#convertValue(" + parmString + ","
                                         + wrapClass.getName() + ".class, true))." + OgnlRuntime.getNumericValueGetter(
@@ -317,7 +317,7 @@ public class ASTMethod
                         {
                             parmString =
                                 OgnlRuntime
-                                    .getCompiler()
+                                    .getCompiler( context )
                                     .createLocalReference( context, "(" + parms[i].getName()
                                         + ")org.apache.commons.ognl.OgnlOps#convertValue(" + parmString + ","
                                         + parms[i].getName() + ".class)", parms[i] );
@@ -369,7 +369,7 @@ public class ASTMethod
         }
 
         context.setCurrentType( m.getReturnType() );
-        context.setCurrentAccessor( OgnlRuntime.getCompiler().getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
+        context.setCurrentAccessor( OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
 
         return result;
     }
@@ -489,7 +489,7 @@ public class ASTMethod
                         {
                             parmString =
                                 OgnlRuntime
-                                    .getCompiler()
+                                    .getCompiler( context )
                                     .createLocalReference( context, "(" + ExpressionCompiler.getCastString( parms[i] )
                                         + ")org.apache.commons.ognl.OgnlOps#toArray(" + parmString + ", "
                                         + parms[i].getComponentType().getName() + ".class)", parms[i] );
@@ -501,7 +501,7 @@ public class ASTMethod
 
                             parmString =
                                 OgnlRuntime
-                                    .getCompiler()
+                                    .getCompiler( context )
                                     .createLocalReference( context, "((" + wrapClass.getName()
                                         + ")org.apache.commons.ognl.OgnlOps#convertValue(" + parmString + ","
                                         + wrapClass.getName() + ".class, true))." + OgnlRuntime.getNumericValueGetter(
@@ -512,7 +512,7 @@ public class ASTMethod
                         {
                             parmString =
                                 OgnlRuntime
-                                    .getCompiler()
+                                    .getCompiler( context )
                                     .createLocalReference( context, "(" + parms[i].getName()
                                         + ")org.apache.commons.ognl.OgnlOps#convertValue(" + parmString + ","
                                         + parms[i].getName() + ".class)", parms[i] );
@@ -557,7 +557,7 @@ public class ASTMethod
         }
 
         context.setCurrentType( m.getReturnType() );
-        context.setCurrentAccessor( OgnlRuntime.getCompiler().getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
+        context.setCurrentAccessor( OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
 
         return result + ")" + post;
     }

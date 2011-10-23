@@ -101,7 +101,7 @@ public class ASTOr
             String first = OgnlRuntime.getChildSource( context, target, _children[0] );
             if ( !OgnlRuntime.isBoolean( first ) )
             {
-                first = OgnlRuntime.getCompiler().createLocalReference( context, first, context.getCurrentType() );
+                first = OgnlRuntime.getCompiler( context ).createLocalReference( context, first, context.getCurrentType() );
             }
             
             Class firstType = context.getCurrentType();
@@ -109,7 +109,7 @@ public class ASTOr
             String second = OgnlRuntime.getChildSource( context, target, _children[1] );
             if ( !OgnlRuntime.isBoolean( second ) )
             {
-                second = OgnlRuntime.getCompiler().createLocalReference( context, second, context.getCurrentType() );
+                second = OgnlRuntime.getCompiler( context ).createLocalReference( context, second, context.getCurrentType() );
             }
             
             Class secondType = context.getCurrentType();
@@ -167,7 +167,7 @@ public class ASTOr
                     + _children[0].toGetSourceString( context, target );
             if ( !OgnlRuntime.isBoolean( first ) )
             {
-                first = OgnlRuntime.getCompiler().createLocalReference( context, first, Object.class );
+                first = OgnlRuntime.getCompiler( context ).createLocalReference( context, first, Object.class );
             }
             _children[1].getValue( context, target );
 
@@ -176,7 +176,7 @@ public class ASTOr
                     + _children[1].toSetSourceString( context, target );
             if ( !OgnlRuntime.isBoolean( second ) )
             {
-                second = OgnlRuntime.getCompiler().createLocalReference( context, second, context.getCurrentType() );
+                second = OgnlRuntime.getCompiler( context ).createLocalReference( context, second, context.getCurrentType() );
             }
             result += "org.apache.commons.ognl.OgnlOps.booleanValue(" + first + ")";
 

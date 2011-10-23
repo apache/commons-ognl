@@ -156,7 +156,7 @@ public class ExpressionCompiler
             || ( root != null && ASTRootVarRef.class.isInstance( expression ) ) )
         {
 
-            Class<?> castClass = OgnlRuntime.getCompiler().getRootExpressionClass( expression, context );
+            Class<?> castClass = OgnlRuntime.getCompiler( context ).getRootExpressionClass( expression, context );
 
             if ( castClass.isArray() || ASTRootVarRef.class.isInstance( expression )
                 || ASTThisVarRef.class.isInstance( expression ) )

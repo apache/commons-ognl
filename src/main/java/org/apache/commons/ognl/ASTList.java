@@ -143,7 +143,7 @@ public class ASTList
 
                         value =
                             OgnlRuntime
-                                .getCompiler()
+                                .getCompiler( context )
                                 .createLocalReference( context, "(" + ExpressionCompiler.getCastString( ctorClass )
                                     + ")org.apache.commons.ognl.OgnlOps.toArray(" + value + ", "
                                     + ctorClass.getComponentType().getName() + ".class, true)", ctorClass );
@@ -156,7 +156,7 @@ public class ASTList
 
                         value =
                             OgnlRuntime
-                                .getCompiler()
+                                .getCompiler( context )
                                 .createLocalReference( context, "((" + wrapClass.getName()
                                     + ")org.apache.commons.ognl.OgnlOps.convertValue(" + value + ","
                                     + wrapClass.getName() + ".class, true))." + OgnlRuntime.getNumericValueGetter(
@@ -167,7 +167,7 @@ public class ASTList
 
                         value =
                             OgnlRuntime
-                                .getCompiler()
+                                .getCompiler( context )
                                 .createLocalReference( context, "(" + ctorClass.getName()
                                     + ")org.apache.commons.ognl.OgnlOps.convertValue(" + value + ","
                                     + ctorClass.getName() + ".class)", ctorClass );
