@@ -41,7 +41,7 @@ public class ConstructorCacheTest
             throws CacheException
         {
             count++;
-            return Arrays.asList( key.getConstructors( ) );
+            return Arrays.<Constructor<?>>asList( key.getConstructors( ) );
         }
     });
 
