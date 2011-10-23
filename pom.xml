@@ -146,6 +146,10 @@ limitations under the License.
     <contributor>
       <name>Daniel Pitts</name>
     </contributor>
+    <contributor>
+      <name>Adrian Cumiskey</name>
+      <email>acumiskey at apache dot org</email>
+    </contributor>
   </contributors>
 
   <scm>
