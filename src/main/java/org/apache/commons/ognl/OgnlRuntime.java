@@ -176,7 +176,7 @@ public class OgnlRuntime
             public List<Constructor<?>> create( Class<?> key )
                 throws CacheException
             {
-                return Arrays.asList( key.getConstructors( ) );
+                return Arrays.<Constructor<?>>asList( key.getConstructors( ) );
             }
         } );
 
