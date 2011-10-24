@@ -440,7 +440,7 @@ limitations under the License.
       <build>
         <testResources>
           <testResource>
-            <directory>${basedir}/benchmarks/resources</directory>
+            <directory>${basedir}/src/benchmarks/resources</directory>
           </testResource>
         </testResources>
 
@@ -458,7 +458,7 @@ limitations under the License.
                 </goals>
                 <configuration>
                   <sources>
-                    <source>${basedir}/benchmarks/java</source>
+                    <source>${basedir}/src/benchmarks/java</source>
                   </sources>
                 </configuration>
               </execution>
