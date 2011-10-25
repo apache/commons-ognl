@@ -23,95 +23,140 @@ package org.apache.commons.ognl;
 
 public interface NodeVisitor<R, P>
 {
-    R visit( ASTSequence node, P data );
+    R visit( ASTSequence node, P data )
+        throws OgnlException;
 
-    R visit( ASTAssign node, P data );
+    R visit( ASTAssign node, P data )
+        throws OgnlException;
 
-    R visit( ASTTest node, P data );
+    R visit( ASTTest node, P data )
+        throws OgnlException;
 
-    R visit( ASTOr node, P data );
+    R visit( ASTOr node, P data )
+        throws OgnlException;
 
-    R visit( ASTAnd node, P data );
+    R visit( ASTAnd node, P data )
+        throws OgnlException;
 
-    R visit( ASTBitOr node, P data );
+    R visit( ASTBitOr node, P data )
+        throws OgnlException;
 
-    R visit( ASTXor node, P data );
+    R visit( ASTXor node, P data )
+        throws OgnlException;
 
-    R visit( ASTBitAnd node, P data );
+    R visit( ASTBitAnd node, P data )
+        throws OgnlException;
 
-    R visit( ASTEq node, P data );
+    R visit( ASTEq node, P data )
+        throws OgnlException;
 
-    R visit( ASTNotEq node, P data );
+    R visit( ASTNotEq node, P data )
+        throws OgnlException;
 
-    R visit( ASTLess node, P data );
+    R visit( ASTLess node, P data )
+        throws OgnlException;
 
-    R visit( ASTGreater node, P data );
+    R visit( ASTGreater node, P data )
+        throws OgnlException;
 
-    R visit( ASTLessEq node, P data );
+    R visit( ASTLessEq node, P data )
+        throws OgnlException;
 
-    R visit( ASTGreaterEq node, P data );
+    R visit( ASTGreaterEq node, P data )
+        throws OgnlException;
 
-    R visit( ASTIn node, P data );
+    R visit( ASTIn node, P data )
+        throws OgnlException;
 
-    R visit( ASTNotIn node, P data );
+    R visit( ASTNotIn node, P data )
+        throws OgnlException;
 
-    R visit( ASTShiftLeft node, P data );
+    R visit( ASTShiftLeft node, P data )
+        throws OgnlException;
 
-    R visit( ASTShiftRight node, P data );
+    R visit( ASTShiftRight node, P data )
+        throws OgnlException;
 
-    R visit( ASTUnsignedShiftRight node, P data );
+    R visit( ASTUnsignedShiftRight node, P data )
+        throws OgnlException;
 
-    R visit( ASTAdd node, P data );
+    R visit( ASTAdd node, P data )
+        throws OgnlException;
 
-    R visit( ASTSubtract node, P data );
+    R visit( ASTSubtract node, P data )
+        throws OgnlException;
 
-    R visit( ASTMultiply node, P data );
+    R visit( ASTMultiply node, P data )
+        throws OgnlException;
 
-    R visit( ASTDivide node, P data );
+    R visit( ASTDivide node, P data )
+        throws OgnlException;
 
-    R visit( ASTRemainder node, P data );
+    R visit( ASTRemainder node, P data )
+        throws OgnlException;
 
-    R visit( ASTNegate node, P data );
+    R visit( ASTNegate node, P data )
+        throws OgnlException;
 
-    R visit( ASTBitNegate node, P data );
+    R visit( ASTBitNegate node, P data )
+        throws OgnlException;
 
-    R visit( ASTNot node, P data );
+    R visit( ASTNot node, P data )
+        throws OgnlException;
 
-    R visit( ASTInstanceof node, P data );
+    R visit( ASTInstanceof node, P data )
+        throws OgnlException;
 
-    R visit( ASTChain node, P data );
+    R visit( ASTChain node, P data )
+        throws OgnlException;
 
-    R visit( ASTEval node, P data );
+    R visit( ASTEval node, P data )
+        throws OgnlException;
 
-    R visit( ASTConst node, P data );
+    R visit( ASTConst node, P data )
+        throws OgnlException;
 
-    R visit( ASTThisVarRef node, P data );
+    R visit( ASTThisVarRef node, P data )
+        throws OgnlException;
 
-    R visit( ASTRootVarRef node, P data );
+    R visit( ASTRootVarRef node, P data )
+        throws OgnlException;
 
-    R visit( ASTVarRef node, P data );
+    R visit( ASTVarRef node, P data )
+        throws OgnlException;
 
-    R visit( ASTList node, P data );
+    R visit( ASTList node, P data )
+        throws OgnlException;
 
-    R visit( ASTMap node, P data );
+    R visit( ASTMap node, P data )
+        throws OgnlException;
 
-    R visit( ASTKeyValue node, P data );
+    R visit( ASTKeyValue node, P data )
+        throws OgnlException;
 
-    R visit( ASTStaticField node, P data );
+    R visit( ASTStaticField node, P data )
+        throws OgnlException;
 
-    R visit( ASTCtor node, P data );
+    R visit( ASTCtor node, P data )
+        throws OgnlException;
 
-    R visit( ASTProperty node, P data );
+    R visit( ASTProperty node, P data )
+        throws OgnlException;
 
-    R visit( ASTStaticMethod node, P data );
+    R visit( ASTStaticMethod node, P data )
+        throws OgnlException;
 
-    R visit( ASTMethod node, P data );
+    R visit( ASTMethod node, P data )
+        throws OgnlException;
 
-    R visit( ASTProject node, P data );
+    R visit( ASTProject node, P data )
+        throws OgnlException;
 
-    R visit( ASTSelect node, P data );
+    R visit( ASTSelect node, P data )
+        throws OgnlException;
 
-    R visit( ASTSelectFirst node, P data );
+    R visit( ASTSelectFirst node, P data )
+        throws OgnlException;
 
-    R visit( ASTSelectLast node, P data );
+    R visit(ASTSelectLast node, P data)  throws OgnlException;
 }
