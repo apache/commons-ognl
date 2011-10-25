@@ -158,14 +158,14 @@ public class ASTMethod
          * System.out.println("methodName is " + methodName + " for target " + target + " target class: " + (target !=
          * null ? target.getClass() : null) + " current type: " + context.getCurrentType());
          */
-        if ( target == null ) 
+        if ( target == null )
         {
             throw new UnsupportedCompilationException( "Target object is null." );
         }
         
         String post = "";
-        String result = null;
-        Method m = null;
+        String result;
+        Method m;
 
         try
         {
@@ -190,7 +190,7 @@ public class ASTMethod
                 {
 
                     context.setCurrentType( m.getReturnType() );
-                    context.setCurrentAccessor( 
+                    context.setCurrentAccessor(
                                 OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
 
                     coreExpression = toSetSourceString( context, target );
