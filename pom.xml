@@ -401,14 +401,11 @@ limitations under the License.
     <profile>
       <id>benchmarks</id>
       <activation>
-        <activeByDefault>false</activeByDefault>
-      </activation>
-      <!-- there are failures :/ activation>
         <property>
           <name>skipBenchmarks</name>
           <value>!true</value>
         </property>
-      </activation -->
+      </activation>
 
       <dependencies>
         <dependency>
