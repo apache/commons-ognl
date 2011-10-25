@@ -49,7 +49,9 @@ public abstract class NumericExpression
     public Class<?> getGetterClass()
     {
         if ( _getterClass != null )
+        {
             return _getterClass;
+        }
 
         return Double.TYPE;
     }
@@ -68,7 +70,7 @@ public abstract class NumericExpression
     @Override
     public String toGetSourceString( OgnlContext context, Object target )
     {
-        Object value = null;
+        Object value;
         StringBuilder result = new StringBuilder( "" );
 
         try
@@ -77,13 +79,16 @@ public abstract class NumericExpression
             value = getValueBody( context, target );
 
             if ( value != null )
-                _getterClass = value.getClass();
+            {
+                _getterClass = value.getClass( );
+            }
 
             for ( int i = 0; i < _children.length; i++ )
             {
                 if ( i > 0 )
+                {
                     result.append( " " ).append( getExpressionOperator( i ) ).append( " " );
-
+                }
                 String str = OgnlRuntime.getChildSource( context, target, _children[i] );
 
                 result.append( coerceToNumeric( str, context, _children[i] ) );
