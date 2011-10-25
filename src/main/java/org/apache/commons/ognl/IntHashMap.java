@@ -48,6 +48,13 @@ import java.util.Set;
 public class IntHashMap<K extends Number, V>
     implements Map<K, V>
 {
+
+    private static final int DEFAULT_INITIAL_CAPACITY = 101;
+
+    private static final float DEFAULT_LOAD_FACTOR = 0.75f;
+
+    private static final int MASK = 0x7FFFFFFF;
+
     private Entry table[];
 
     private int count;
@@ -91,7 +98,8 @@ public class IntHashMap<K extends Number, V>
             }
             while ( index-- > 0 )
             {
-                if ( ( entry = table[index] ) != null )
+                entry = table[index];
+                if ( entry != null )
                 {
                     return true;
                 }
@@ -198,12 +206,12 @@ public class IntHashMap<K extends Number, V>
 
     public IntHashMap( int initialCapacity )
     {
-        this( initialCapacity, 0.75f );
+        this( initialCapacity, DEFAULT_LOAD_FACTOR );
     }
 
     public IntHashMap()
     {
-        this( 101, 0.75f );
+        this( DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR );
     }
 
     /*
@@ -224,7 +232,7 @@ public class IntHashMap<K extends Number, V>
             for ( Entry old = oldTable[i]; old != null; )
             {
                 Entry e = old;
-                int index = ( e.getHash() & 0x7FFFFFFF ) % newCapacity;
+                int index = ( e.getHash() & MASK ) % newCapacity;
 
                 old = old.getNext();
                 e.setNext( newTable[index] );
