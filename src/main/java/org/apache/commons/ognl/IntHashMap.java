@@ -253,7 +253,7 @@ public class IntHashMap<K extends Number, V>
      */
     public final boolean containsKey( int key )
     {
-        int index = ( key & 0x7FFFFFFF ) % table.length;
+        int index = ( key & MASK ) % table.length;
 
         for ( Entry e = table[index]; e != null; e = e.getNext() )
         {
@@ -267,7 +267,7 @@ public class IntHashMap<K extends Number, V>
 
     public final V get( int key )
     {
-        int index = ( key & 0x7FFFFFFF ) % table.length;
+        int index = ( key & MASK ) % table.length;
 
         for ( Entry e = table[index]; e != null; e = e.getNext() )
         {
@@ -281,7 +281,7 @@ public class IntHashMap<K extends Number, V>
 
     public final V put( int key, V value )
     {
-        int index = ( key & 0x7FFFFFFF ) % table.length;
+        int index = ( key & MASK ) % table.length;
 
         if ( value == null )
         {
@@ -315,7 +315,7 @@ public class IntHashMap<K extends Number, V>
 
     public final V remove( int key )
     {
-        int index = ( key & 0x7FFFFFFF ) % table.length;
+        int index = ( key & MASK ) % table.length;
 
         for ( Entry e = table[index], prev = null; e != null; prev = e, e = e.getNext() )
         {
