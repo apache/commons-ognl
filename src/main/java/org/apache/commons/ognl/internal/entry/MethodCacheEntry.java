@@ -44,12 +44,8 @@ public class MethodCacheEntry implements CacheEntry
 
         MethodCacheEntry that = (MethodCacheEntry) o;
 
-        if ( !targetClass.equals( that.targetClass ) )
-        {
-            return false;
-        }
+        return targetClass.equals( that.targetClass );
 
-        return true;
     }
 
     @Override
