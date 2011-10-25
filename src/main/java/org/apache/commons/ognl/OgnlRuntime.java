@@ -2662,15 +2662,11 @@ public class OgnlRuntime
             return false;
         }
 
-        if ( "true".equals( expression ) || "false".equals( expression ) || "!true".equals( expression )
+        return "true".equals( expression ) || "false".equals( expression ) || "!true".equals( expression )
             || "!false".equals( expression ) || "(true)".equals( expression ) || "!(true)".equals( expression )
             || "(false)".equals( expression ) || "!(false)".equals( expression ) || expression.startsWith(
-            "org.apache.commons.ognl.OgnlOps" ) )
-        {
-            return true;
-        }
+            "org.apache.commons.ognl.OgnlOps" );
 
-        return false;
     }
 
     /**
