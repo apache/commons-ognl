@@ -115,8 +115,8 @@ public class ASTOr
             Class secondType = context.getCurrentType();
 
             boolean mismatched =
-                ( firstType.isPrimitive() && !secondType.isPrimitive() )
-                    || ( !firstType.isPrimitive() && secondType.isPrimitive() ) ? true : false;
+                ( firstType.isPrimitive( ) && !secondType.isPrimitive( ) ) || ( !firstType.isPrimitive( )
+                    && secondType.isPrimitive( ) );
 
             result += "org.apache.commons.ognl.OgnlOps.booleanValue(" + first + ")";
 
