@@ -50,16 +50,8 @@ public class GenericMethodParameterTypeCacheEntry
 
         GenericMethodParameterTypeCacheEntry that = (GenericMethodParameterTypeCacheEntry) o;
 
-        if ( !method.equals( that.method ) )
-        {
-            return false;
-        }
-        if ( !type.equals( that.type ) )
-        {
-            return false;
-        }
+        return method.equals( that.method ) && type.equals( that.type );
 
-        return true;
     }
 
     @Override
