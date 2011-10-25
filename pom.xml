@@ -470,7 +470,7 @@ limitations under the License.
                 <jub.consumers>CONSOLE,XML,H2</jub.consumers>
                 <jub.db.file>${project.build.directory}/benchmarks/database</jub.db.file>
                 <jub.xml.file>${project.build.directory}/benchmarks.xml</jub.xml.file>
-                <jub.charts.dir>${project.build.directory}/data/benchmarks/graphs</jub.charts.dir>
+                <jub.charts.dir>${project.build.directory}/site</jub.charts.dir>
               </systemPropertyVariables>
               <argLine>-Xmx512m -Xms512m -XX:MaxDirectMemorySize=512m</argLine>
             </configuration>
