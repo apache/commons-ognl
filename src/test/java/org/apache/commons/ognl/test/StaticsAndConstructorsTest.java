@@ -140,10 +140,8 @@ public class StaticsAndConstructorsTest
 
             A a = (A) o;
 
-            if ( key != null ? !key.equals( a.key ) : a.key != null )
-                return false;
+            return !( key != null ? !key.equals( a.key ) : a.key != null );
 
-            return true;
         }
     }
 
