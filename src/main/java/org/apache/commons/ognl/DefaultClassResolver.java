@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * Default class resolution. Uses ClassLoader.loadClass() to look up classes by name. It also looks in the "java.lang" package
  * if the class named does not give a package specifier, allowing easier usage of these classes.
- * 
+ *
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
@@ -57,10 +57,10 @@ public class DefaultClassResolver
 
         if ( result == null )
         {
-            ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+            ClassLoader classLoader = ClassLoader.getSystemClassLoader( );
             try
             {
-                result = classLoader.loadClass(className);
+                result = classLoader.loadClass( className );
             }
             catch ( ClassNotFoundException ex )
             {
