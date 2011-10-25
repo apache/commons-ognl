@@ -227,7 +227,6 @@ limitations under the License.
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <excludes>
-            <exclude>**/OgnlTestCase.java</exclude>
             <exclude>**/*$*</exclude>
           </excludes>
         </configuration>
