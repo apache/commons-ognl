@@ -46,12 +46,8 @@ public class PermissionCacheEntry implements CacheEntry
 
         PermissionCacheEntry that = (PermissionCacheEntry) o;
 
-        if ( method != null ? !method.equals( that.method ) : that.method != null )
-        {
-            return false;
-        }
+        return !( method != null ? !method.equals( that.method ) : that.method != null );
 
-        return true;
     }
 
     @Override
