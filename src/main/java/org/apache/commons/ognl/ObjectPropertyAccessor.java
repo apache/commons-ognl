@@ -261,7 +261,7 @@ public class ObjectPropertyAccessor
             }
 
             context.setCurrentType( m.getReturnType() );
-            context.setCurrentAccessor( OgnlRuntime.getCompiler().getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
+            context.setCurrentAccessor( OgnlRuntime.getCompiler(context).getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
 
             return "." + m.getName() + "()";
 
