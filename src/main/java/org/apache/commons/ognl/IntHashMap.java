@@ -373,7 +373,7 @@ public class IntHashMap<K extends Number, V>
      */
     public V put( K key, V value )
     {
-        return put( ( (Number) key ).intValue(), value );
+        return put( key.intValue( ), value );
     }
 
     /**
