@@ -38,7 +38,7 @@ public interface MethodAccessor
      * @param methodName the name of the method
      * @param args the arguments to the method
      * @return result of calling the method
-     * @exception MethodFailedException if there is an error calling the method
+     * @exception OgnlException if there is an error calling the method
      */
     Object callStaticMethod( Map<String, Object> context, Class<?> targetClass, String methodName, Object[] args )
         throws OgnlException;
@@ -51,7 +51,7 @@ public interface MethodAccessor
      * @param methodName the name of the method
      * @param args the arguments to the method
      * @return result of calling the method
-     * @exception MethodFailedException if there is an error calling the method
+     * @exception OgnlException if there is an error calling the method
      */
     Object callMethod( Map<String, Object> context, Object target, String methodName, Object[] args )
         throws OgnlException;
