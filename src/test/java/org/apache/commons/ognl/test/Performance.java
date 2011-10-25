@@ -30,7 +30,6 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 public class Performance
-    extends Object
 {
 
     private static int MAX_ITERATIONS = -1;
@@ -88,11 +87,11 @@ public class Performance
 
         public String getFactor( Results otherResults )
         {
-            String ret = null;
+            String ret;
 
             if ( TIME_MODE )
             {
-                float factor = 0;
+                float factor;
 
                 if ( iterations < otherResults.iterations )
                 {
@@ -222,36 +221,38 @@ public class Performance
     static void runTests( Performance[] tests, boolean output )
         throws Exception
     {
-        for ( int i = 0; i < tests.length; i++ )
+        for ( Performance perf : tests )
         {
-            Performance perf = tests[i];
-
             try
             {
 
-                Results javaResults = perf.testJava(), interpretedResults = perf.testExpression( false ), compiledResults =
-                    perf.testExpression( true );
+                Results javaResults = perf.testJava( ), interpretedResults = perf.testExpression( false ),
+                    compiledResults = perf.testExpression( true );
 
                 if ( !output )
+                {
                     return;
+                }
 
-                System.out.println( ( compiledResults.mvel ? "MVEL" : "OGNL" ) + " " + perf.getName() + ": "
-                    + perf.getExpression().toString() );
-                System.out.println( "       java: " + javaResults.iterations + " iterations in " + javaResults.time
-                    + " ms" );
+                System.out.println( ( compiledResults.mvel ? "MVEL" : "OGNL" ) + " " + perf.getName( ) + ": "
+                                        + perf.getExpression( ) );
+                System.out.println(
+                    "       java: " + javaResults.iterations + " iterations in " + javaResults.time + " ms" );
 
-                System.out.println( "   compiled: " + compiledResults.iterations + " iterations in "
-                    + compiledResults.time + " ms (" + compiledResults.getFactor( javaResults ) + "java)" );
+                System.out.println(
+                    "   compiled: " + compiledResults.iterations + " iterations in " + compiledResults.time + " ms ("
+                        + compiledResults.getFactor( javaResults ) + "java)" );
 
-                System.out.println( "interpreted: " + interpretedResults.iterations + " iterations in "
-                    + interpretedResults.time + " ms (" + interpretedResults.getFactor( javaResults ) + "java)" );
+                System.out.println(
+                    "interpreted: " + interpretedResults.iterations + " iterations in " + interpretedResults.time
+                        + " ms (" + interpretedResults.getFactor( javaResults ) + "java)" );
 
-                System.out.println();
+                System.out.println( );
 
             }
             catch ( OgnlException ex )
             {
-                ex.printStackTrace();
+                ex.printStackTrace( );
             }
         }
     }
@@ -375,7 +376,7 @@ public class Performance
     {
         try
         {
-            return (Results) _method.invoke( this, new Object[] {} );
+            return (Results) _method.invoke( this );
         }
         catch ( Exception ex )
         {
