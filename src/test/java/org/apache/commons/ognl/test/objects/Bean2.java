@@ -69,10 +69,8 @@ public class Bean2
 
         Bean2 bean2 = (Bean2) o;
 
-        if ( _pageBreakAfter != bean2._pageBreakAfter )
-            return false;
+        return _pageBreakAfter == bean2._pageBreakAfter;
 
-        return true;
     }
 
     public int hashCode()
