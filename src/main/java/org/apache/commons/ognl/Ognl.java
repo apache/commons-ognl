@@ -127,7 +127,7 @@ public abstract class Ognl
 
     /**
      * Parses and compiles the given expression using the {@link org.apache.commons.ognl.enhance.OgnlExpressionCompiler} returned from
-     * {@link org.apache.commons.ognl.OgnlRuntime#getCompiler()}.
+     * {@link org.apache.commons.ognl.OgnlRuntime#getCompiler(OgnlContext)}.
      * 
      * @param context The context to use.
      * @param root The root object for the given expression.
