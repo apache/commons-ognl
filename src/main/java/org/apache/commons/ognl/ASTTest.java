@@ -117,8 +117,8 @@ class ASTTest
             }
 
             boolean mismatched =
-                ( secondType.isPrimitive() && !thirdType.isPrimitive() )
-                    || ( !secondType.isPrimitive() && thirdType.isPrimitive() ) ? true : false;
+                ( secondType.isPrimitive( ) && !thirdType.isPrimitive( ) ) || ( !secondType.isPrimitive( )
+                    && thirdType.isPrimitive( ) );
 
             result += "org.apache.commons.ognl.OgnlOps.booleanValue(" + first + ")";
 
