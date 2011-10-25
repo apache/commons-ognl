@@ -24,7 +24,7 @@ import java.util.NoSuchElementException;
 
 /**
  * Implementation of ElementsAccessor that returns an iterator over integers from 0 up to the given target.
- * 
+ *
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
@@ -36,7 +36,7 @@ public class NumberElementsAccessor
      */
     public Enumeration<?> getElements( final Object target )
     {
-        return new Enumeration<Object>()
+        return new Enumeration<Object>( )
         {
             private int type = OgnlOps.getNumericType( target );
 
@@ -44,15 +44,17 @@ public class NumberElementsAccessor
 
             private long finish = OgnlOps.longValue( target );
 
-            public boolean hasMoreElements()
+            public boolean hasMoreElements( )
             {
                 return next < finish;
             }
 
-            public Object nextElement()
+            public Object nextElement( )
             {
                 if ( next >= finish )
-                    throw new NoSuchElementException();
+                {
+                    throw new NoSuchElementException( );
+                }
                 return OgnlOps.newInteger( type, next++ );
             }
         };
