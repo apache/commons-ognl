@@ -57,11 +57,7 @@ public class DeclaredMethodCacheEntry
 
         DeclaredMethodCacheEntry that = (DeclaredMethodCacheEntry) o;
 
-        if ( targetClass != that.targetClass )
-        {
-            return false;
-        }
-        return true;
+        return targetClass == that.targetClass;
     }
 
     @Override
