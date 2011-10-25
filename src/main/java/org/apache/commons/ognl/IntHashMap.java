@@ -381,10 +381,8 @@ public class IntHashMap<K extends Number, V>
      */
     public void putAll( Map<? extends K, ? extends V> otherMap )
     {
-        for ( Iterator<? extends K> it = otherMap.keySet().iterator(); it.hasNext(); )
+        for ( K k : otherMap.keySet( ) )
         {
-            K k = it.next();
-
             put( k, otherMap.get( k ) );
         }
     }
