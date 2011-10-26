@@ -55,10 +55,10 @@ public class GenericMethodParameterTypeCacheEntry
     }
 
     @Override
-    public int hashCode( )
+    public int hashCode()
     {
-        int result = method.hashCode( );
-        result = 31 * result + type.hashCode( );
+        int result = method.hashCode();
+        result = 31 * result + type.hashCode();
         return result;
     }
 }

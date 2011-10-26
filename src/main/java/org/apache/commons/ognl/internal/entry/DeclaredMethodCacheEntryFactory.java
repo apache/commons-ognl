@@ -41,7 +41,7 @@ public class DeclaredMethodCacheEntryFactory
         }
         else
         {
-            boolean isStatic = Modifier.isStatic( method.getModifiers( ) );
+            boolean isStatic = Modifier.isStatic( method.getModifiers() );
             if ( key.type == DeclaredMethodCacheEntry.MethodType.STATIC )
             {
                 return isStatic;

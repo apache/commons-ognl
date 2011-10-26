@@ -32,7 +32,7 @@ public class HashMapCacheFactory
         return new HashMapCache<K, V>( entryFactory );
     }
 
-    public <V> ClassCache<V> createClassCache( )
+    public <V> ClassCache<V> createClassCache()
     {
         return createClassCache( null );
     }

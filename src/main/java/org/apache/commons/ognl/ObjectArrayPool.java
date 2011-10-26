@@ -28,9 +28,9 @@ package org.apache.commons.ognl;
  */
 public final class ObjectArrayPool
 {
-    public ObjectArrayPool( )
+    public ObjectArrayPool()
     {
-        super( );
+        super();
     }
 
     public Object[] create( int arraySize )

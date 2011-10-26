@@ -21,7 +21,8 @@
 
 package org.apache.commons.ognl.internal.entry;
 
-public class MethodCacheEntry implements CacheEntry
+public class MethodCacheEntry
+    implements CacheEntry
 {
     public Class<?> targetClass;
 
@@ -49,8 +50,8 @@ public class MethodCacheEntry implements CacheEntry
     }
 
     @Override
-    public int hashCode( )
+    public int hashCode()
     {
-        return targetClass.hashCode( );
+        return targetClass.hashCode();
     }
 }

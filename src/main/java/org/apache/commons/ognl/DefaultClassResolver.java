@@ -57,7 +57,7 @@ public class DefaultClassResolver
 
         if ( result == null )
         {
-            ClassLoader classLoader = ClassLoader.getSystemClassLoader( );
+            ClassLoader classLoader = ClassLoader.getSystemClassLoader();
             try
             {
                 result = classLoader.loadClass( className );

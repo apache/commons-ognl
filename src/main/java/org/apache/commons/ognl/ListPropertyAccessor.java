@@ -49,19 +49,19 @@ public class ListPropertyAccessor
 
             if ( name.equals( "size" ) )
             {
-                result = list.size( );
+                result = list.size();
             }
             else
             {
                 if ( name.equals( "iterator" ) )
                 {
-                    result = list.iterator( );
+                    result = list.iterator();
                 }
                 else
                 {
                     if ( name.equals( "isEmpty" ) || name.equals( "empty" ) )
                     {
-                        result = list.isEmpty( ) ? Boolean.TRUE : Boolean.FALSE;
+                        result = list.isEmpty() ? Boolean.TRUE : Boolean.FALSE;
                     }
                     else
                     {
@@ -75,13 +75,13 @@ public class ListPropertyAccessor
 
         if ( name instanceof Number )
         {
-            return list.get( ( (Number) name ).intValue( ) );
+            return list.get( ( (Number) name ).intValue() );
         }
 
         if ( name instanceof DynamicSubscript )
         {
-            int len = list.size( );
-            switch ( ( (DynamicSubscript) name ).getFlag( ) )
+            int len = list.size();
+            switch ( ( (DynamicSubscript) name ).getFlag() )
             {
                 case DynamicSubscript.FIRST:
                     return len > 0 ? list.get( 0 ) : null;
@@ -114,14 +114,14 @@ public class ListPropertyAccessor
 
         if ( name instanceof Number )
         {
-            list.set( ( (Number) name ).intValue( ), value );
+            list.set( ( (Number) name ).intValue(), value );
             return;
         }
 
         if ( name instanceof DynamicSubscript )
         {
-            int len = list.size( );
-            switch ( ( (DynamicSubscript) name ).getFlag( ) )
+            int len = list.size();
+            switch ( ( (DynamicSubscript) name ).getFlag() )
             {
                 case DynamicSubscript.FIRST:
                     if ( len > 0 )
@@ -147,7 +147,7 @@ public class ListPropertyAccessor
                     {
                         throw new OgnlException( "Value must be a collection" );
                     }
-                    list.clear( );
+                    list.clear();
                     list.addAll( (Collection<?>) value );
                     return;
                 }
@@ -189,7 +189,7 @@ public class ListPropertyAccessor
     @Override
     public String getSourceAccessor( OgnlContext context, Object target, Object index )
     {
-        String indexStr = index.toString( ).replaceAll( "\"", "" );
+        String indexStr = index.toString().replaceAll( "\"", "" );
 
         if ( String.class.isInstance( index ) )
         {
@@ -216,11 +216,11 @@ public class ListPropertyAccessor
         // TODO: This feels really inefficient, must be some better way
         // check if the index string represents a method on a custom class implementing java.util.List instead..
 
-        if ( context.getCurrentObject( ) != null && !Number.class.isInstance( context.getCurrentObject( ) ) )
+        if ( context.getCurrentObject() != null && !Number.class.isInstance( context.getCurrentObject() ) )
         {
             try
             {
-                Method m = OgnlRuntime.getReadMethod( target.getClass( ), indexStr );
+                Method m = OgnlRuntime.getReadMethod( target.getClass(), indexStr );
 
                 if ( m != null )
                 {
@@ -240,17 +240,17 @@ public class ListPropertyAccessor
         // System.out.println("Curent type: " + context.getCurrentType() + " current object type " +
         // context.getCurrentObject().getClass());
 
-        if ( !context.getCurrentType( ).isPrimitive( ) && Number.class.isAssignableFrom( context.getCurrentType( ) ) )
+        if ( !context.getCurrentType().isPrimitive() && Number.class.isAssignableFrom( context.getCurrentType() ) )
         {
-            indexStr += "." + OgnlRuntime.getNumericValueGetter( context.getCurrentType( ) );
+            indexStr += "." + OgnlRuntime.getNumericValueGetter( context.getCurrentType() );
         }
-        else if ( context.getCurrentObject( ) != null && Number.class.isAssignableFrom(
-            context.getCurrentObject( ).getClass( ) ) && !context.getCurrentType( ).isPrimitive( ) )
+        else if ( context.getCurrentObject() != null && Number.class.isAssignableFrom(
+            context.getCurrentObject().getClass() ) && !context.getCurrentType().isPrimitive() )
         {
             // means it needs to be cast first as well
 
             String toString =
-                String.class.isInstance( index ) && context.getCurrentType( ) != Object.class ? "" : ".toString()";
+                String.class.isInstance( index ) && context.getCurrentType() != Object.class ? "" : ".toString()";
 
             indexStr = "org.apache.commons.ognl.OgnlOps#getIntValue(" + indexStr + toString + ")";
         }
@@ -263,7 +263,7 @@ public class ListPropertyAccessor
     @Override
     public String getSourceSetter( OgnlContext context, Object target, Object index )
     {
-        String indexStr = index.toString( ).replaceAll( "\"", "" );
+        String indexStr = index.toString().replaceAll( "\"", "" );
 
         // TODO: This feels really inefficient, must be some better way
         // check if the index string represents a method on a custom class implementing java.util.List instead..
@@ -273,13 +273,13 @@ public class ListPropertyAccessor
          * Number.class.isInstance(context.getCurrentObject()));
          */
 
-        if ( context.getCurrentObject( ) != null && !Number.class.isInstance( context.getCurrentObject( ) ) )
+        if ( context.getCurrentObject() != null && !Number.class.isInstance( context.getCurrentObject() ) )
         {
             try
             {
-                Method m = OgnlRuntime.getWriteMethod( target.getClass( ), indexStr );
+                Method m = OgnlRuntime.getWriteMethod( target.getClass(), indexStr );
 
-                if ( m != null || !context.getCurrentType( ).isPrimitive( ) )
+                if ( m != null || !context.getCurrentType().isPrimitive() )
                 {
                     System.out.println(
                         "super source setter returned: " + super.getSourceSetter( context, target, index ) );
@@ -301,17 +301,17 @@ public class ListPropertyAccessor
 
         // need to convert to primitive for list index access
 
-        if ( !context.getCurrentType( ).isPrimitive( ) && Number.class.isAssignableFrom( context.getCurrentType( ) ) )
+        if ( !context.getCurrentType().isPrimitive() && Number.class.isAssignableFrom( context.getCurrentType() ) )
         {
-            indexStr += "." + OgnlRuntime.getNumericValueGetter( context.getCurrentType( ) );
+            indexStr += "." + OgnlRuntime.getNumericValueGetter( context.getCurrentType() );
         }
-        else if ( context.getCurrentObject( ) != null && Number.class.isAssignableFrom(
-            context.getCurrentObject( ).getClass( ) ) && !context.getCurrentType( ).isPrimitive( ) )
+        else if ( context.getCurrentObject() != null && Number.class.isAssignableFrom(
+            context.getCurrentObject().getClass() ) && !context.getCurrentType().isPrimitive() )
         {
             // means it needs to be cast first as well
 
             String toString =
-                String.class.isInstance( index ) && context.getCurrentType( ) != Object.class ? "" : ".toString()";
+                String.class.isInstance( index ) && context.getCurrentType() != Object.class ? "" : ".toString()";
 
             indexStr = "org.apache.commons.ognl.OgnlOps#getIntValue(" + indexStr + toString + ")";
         }

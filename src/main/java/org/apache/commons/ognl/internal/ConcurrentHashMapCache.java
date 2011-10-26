@@ -28,11 +28,11 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ConcurrentHashMapCache<K, V>
     implements Cache<K, V>
 {
-    private ConcurrentHashMap<K, V> cache = new ConcurrentHashMap<K, V>( );
+    private ConcurrentHashMap<K, V> cache = new ConcurrentHashMap<K, V>();
 
     private CacheEntryFactory<K, V> cacheEntryFactory;
 
-    public ConcurrentHashMapCache( )
+    public ConcurrentHashMapCache()
     {
     }
 
@@ -41,17 +41,17 @@ public class ConcurrentHashMapCache<K, V>
         this.cacheEntryFactory = cacheEntryFactory;
     }
 
-    public void clear( )
+    public void clear()
     {
-        cache.clear( );
+        cache.clear();
     }
 
-    public int getSize( )
+    public int getSize()
     {
-        return cache.size( );
+        return cache.size();
     }
 
-    public V get( K key)
+    public V get( K key )
         throws CacheException
     {
         V v = cache.get( key );
@@ -85,7 +85,7 @@ public class ConcurrentHashMapCache<K, V>
         return value;
     }
 
-    public boolean contains( K key)
+    public boolean contains( K key )
     {
         return this.cache.contains( key );
     }

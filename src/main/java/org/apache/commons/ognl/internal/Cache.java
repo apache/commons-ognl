@@ -23,9 +23,9 @@ package org.apache.commons.ognl.internal;
 
 public interface Cache<K, V>
 {
-    void clear( );
+    void clear();
 
-    int getSize( );
+    int getSize();
 
     V get( K key )
         throws CacheException;

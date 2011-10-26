@@ -34,34 +34,34 @@ import java.util.List;
 import java.util.Map;
 
 public class PropertyDescriptorCacheEntryFactory
-    implements ClassCacheEntryFactory<Map<String,PropertyDescriptor>>
+    implements ClassCacheEntryFactory<Map<String, PropertyDescriptor>>
 {
-    public Map<String,PropertyDescriptor> create( Class<?> targetClass)
+    public Map<String, PropertyDescriptor> create( Class<?> targetClass )
         throws CacheException
     {
         Map<String, PropertyDescriptor> result = new HashMap<String, PropertyDescriptor>( 101 );
         PropertyDescriptor[] pda;
         try
         {
-            pda = Introspector.getBeanInfo( targetClass ).getPropertyDescriptors( );
+            pda = Introspector.getBeanInfo( targetClass ).getPropertyDescriptors();
 
             for ( int i = 0, icount = pda.length; i < icount; i++ )
             {
                 // workaround for Introspector bug 6528714 (bugs.sun.com)
-                if ( pda[i].getReadMethod( ) != null && !OgnlRuntime.isMethodCallable( pda[i].getReadMethod( ) ) )
+                if ( pda[i].getReadMethod() != null && !OgnlRuntime.isMethodCallable( pda[i].getReadMethod() ) )
                 {
                     pda[i].setReadMethod(
-                        findClosestMatchingMethod( targetClass, pda[i].getReadMethod( ), pda[i].getName( ),
-                                                   pda[i].getPropertyType( ), true ) );
+                        findClosestMatchingMethod( targetClass, pda[i].getReadMethod(), pda[i].getName(),
+                                                   pda[i].getPropertyType(), true ) );
                 }
-                if ( pda[i].getWriteMethod( ) != null && !OgnlRuntime.isMethodCallable( pda[i].getWriteMethod( ) ) )
+                if ( pda[i].getWriteMethod() != null && !OgnlRuntime.isMethodCallable( pda[i].getWriteMethod() ) )
                 {
                     pda[i].setWriteMethod(
-                        findClosestMatchingMethod( targetClass, pda[i].getWriteMethod( ), pda[i].getName( ),
-                                                   pda[i].getPropertyType( ), false ) );
+                        findClosestMatchingMethod( targetClass, pda[i].getWriteMethod(), pda[i].getName(),
+                                                   pda[i].getPropertyType(), false ) );
                 }
 
-                result.put( pda[i].getName( ), pda[i] );
+                result.put( pda[i].getName(), pda[i] );
             }
 
             OgnlRuntime.findObjectIndexedPropertyDescriptors( targetClass, result );
@@ -85,9 +85,9 @@ public class PropertyDescriptorCacheEntryFactory
 
         for ( Method method : methods )
         {
-            if ( method.getName( ).equals( m.getName( ) ) && m.getReturnType( ).isAssignableFrom( m.getReturnType( ) )
-                && method.getReturnType( ) == propertyType
-                && method.getParameterTypes( ).length == m.getParameterTypes( ).length )
+            if ( method.getName().equals( m.getName() ) && m.getReturnType().isAssignableFrom( m.getReturnType() )
+                && method.getReturnType() == propertyType
+                && method.getParameterTypes().length == m.getParameterTypes().length )
             {
                 return method;
             }

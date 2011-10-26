@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class MethodCacheEntryFactory<T extends MethodCacheEntry>
-    implements CacheEntryFactory<T,Map<String, List<Method>>>
+    implements CacheEntryFactory<T, Map<String, List<Method>>>
 {
     public Map<String, List<Method>> create( T key )
         throws CacheException
@@ -41,7 +41,7 @@ public abstract class MethodCacheEntryFactory<T extends MethodCacheEntry>
         Class<?> c = key.targetClass;
         while ( c != null )
         {
-            for ( Method method : c.getDeclaredMethods( ) )
+            for ( Method method : c.getDeclaredMethods() )
             {
                 // skip over synthetic methods
 
@@ -52,18 +52,18 @@ public abstract class MethodCacheEntryFactory<T extends MethodCacheEntry>
 
                 if ( shouldCache( key, method ) )
                 {
-                    List<Method> ml = result.get( method.getName( ) );
+                    List<Method> ml = result.get( method.getName() );
 
                     if ( ml == null )
                     {
-                        ml = new ArrayList<Method>( );
-                        result.put( method.getName( ), ml );
+                        ml = new ArrayList<Method>();
+                        result.put( method.getName(), ml );
                     }
 
                     ml.add( method );
                 }
             }
-            c = c.getSuperclass( );
+            c = c.getSuperclass();
         }
         return result;
     }

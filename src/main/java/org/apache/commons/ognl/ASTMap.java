@@ -35,7 +35,7 @@ class ASTMap
 {
     private String className;
 
-    private Map<OgnlContext, Class> defaultMapClassMap = new HashMap<OgnlContext, Class>( );
+    private Map<OgnlContext, Class> defaultMapClassMap = new HashMap<OgnlContext, Class>();
 
     public ASTMap( int id )
     {
@@ -58,7 +58,7 @@ class ASTMap
      * @return the class name.
      * @since 4.0
      */
-    String getClassName( )
+    String getClassName()
     {
         return className;
     }
@@ -73,12 +73,12 @@ class ASTMap
             Class defaultMapClass = getDefaultMapClass( context );
             try
             {
-                answer = (Map) defaultMapClass.newInstance( );
+                answer = (Map) defaultMapClass.newInstance();
             }
             catch ( Exception ex )
             {
                 /* This should never happen */
-                throw new OgnlException( "Default Map class '" + defaultMapClass.getName( ) + "' instantiation error",
+                throw new OgnlException( "Default Map class '" + defaultMapClass.getName() + "' instantiation error",
                                          ex );
             }
         }
@@ -86,7 +86,7 @@ class ASTMap
         {
             try
             {
-                answer = (Map) OgnlRuntime.classForName( context, className ).newInstance( );
+                answer = (Map) OgnlRuntime.classForName( context, className ).newInstance();
             }
             catch ( Exception ex )
             {
@@ -94,10 +94,10 @@ class ASTMap
             }
         }
 
-        for ( int i = 0; i < jjtGetNumChildren( ); ++i )
+        for ( int i = 0; i < jjtGetNumChildren(); ++i )
         {
             ASTKeyValue kv = (ASTKeyValue) _children[i];
-            Node k = kv.getKey( ), v = kv.getValue( );
+            Node k = kv.getKey(), v = kv.getValue();
 
             answer.put( k.getValue( context, source ), ( v == null ) ? null : v.getValue( context, source ) );
         }

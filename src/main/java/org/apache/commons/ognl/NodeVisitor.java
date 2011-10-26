@@ -158,5 +158,6 @@ public interface NodeVisitor<R, P>
     R visit( ASTSelectFirst node, P data )
         throws OgnlException;
 
-    R visit(ASTSelectLast node, P data)  throws OgnlException;
+    R visit( ASTSelectLast node, P data )
+        throws OgnlException;
 }

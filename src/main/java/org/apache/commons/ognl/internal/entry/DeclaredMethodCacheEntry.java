@@ -37,7 +37,7 @@ public class DeclaredMethodCacheEntry
         super( targetClass );
     }
 
-    public DeclaredMethodCacheEntry( Class<?> targetClass, MethodType type)
+    public DeclaredMethodCacheEntry( Class<?> targetClass, MethodType type )
     {
         super( targetClass );
         this.type = type;
@@ -61,10 +61,10 @@ public class DeclaredMethodCacheEntry
     }
 
     @Override
-    public int hashCode( )
+    public int hashCode()
     {
-        int result = super.hashCode( );
-        result = 31 * result + ( type != null ? type.hashCode( ) : 0 );
+        int result = super.hashCode();
+        result = 31 * result + ( type != null ? type.hashCode() : 0 );
         return result;
     }
 }

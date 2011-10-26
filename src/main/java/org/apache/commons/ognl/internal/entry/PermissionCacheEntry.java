@@ -23,7 +23,8 @@ package org.apache.commons.ognl.internal.entry;
 
 import java.lang.reflect.Method;
 
-public class PermissionCacheEntry implements CacheEntry
+public class PermissionCacheEntry
+    implements CacheEntry
 {
     public Method method;
 
@@ -51,8 +52,8 @@ public class PermissionCacheEntry implements CacheEntry
     }
 
     @Override
-    public int hashCode( )
+    public int hashCode()
     {
-        return method != null ? method.hashCode( ) : 0;
+        return method != null ? method.hashCode() : 0;
     }
 }

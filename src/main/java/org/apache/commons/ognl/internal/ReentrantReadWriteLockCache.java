@@ -33,17 +33,17 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class ReentrantReadWriteLockCache<K, V>
     implements Cache<K, V>
 {
-    private final ReadWriteLock lock = new ReentrantReadWriteLock( );
+    private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
-    private final Lock readLock = lock.readLock( );
+    private final Lock readLock = lock.readLock();
 
-    private final Lock writeLock = lock.writeLock( );
+    private final Lock writeLock = lock.writeLock();
 
-    final Map<K, V> cache = new HashMap<K, V>( );
+    final Map<K, V> cache = new HashMap<K, V>();
 
     private CacheEntryFactory<K, V> cacheEntryFactory;
 
-    public ReentrantReadWriteLockCache( )
+    public ReentrantReadWriteLockCache()
     {
     }
 
@@ -52,19 +52,19 @@ public class ReentrantReadWriteLockCache<K, V>
         this.cacheEntryFactory = cacheEntryFactory;
     }
 
-    public void clear( )
+    public void clear()
     {
         synchronized ( cache )
         {
-            cache.clear( );
+            cache.clear();
         }
     }
 
-    public int getSize( )
+    public int getSize()
     {
         synchronized ( cache )
         {
-            return cache.size( );
+            return cache.size();
         }
     }
 
@@ -74,7 +74,7 @@ public class ReentrantReadWriteLockCache<K, V>
     {
         V v;
         boolean shouldCreate;
-        readLock.lock( );
+        readLock.lock();
         try
         {
             v = cache.get( key );
@@ -82,15 +82,15 @@ public class ReentrantReadWriteLockCache<K, V>
         }
         finally
         {
-            readLock.unlock( );
+            readLock.unlock();
         }
         if ( shouldCreate )
         {
             try
             {
-                writeLock.lock( );
+                writeLock.lock();
                 v = cache.get( key );
-                if(!shouldCreate( cacheEntryFactory, v ) )
+                if ( !shouldCreate( cacheEntryFactory, v ) )
                 {
                     return v;
                 }
@@ -100,7 +100,7 @@ public class ReentrantReadWriteLockCache<K, V>
             }
             finally
             {
-                writeLock.unlock( );
+                writeLock.unlock();
             }
 
         }
@@ -123,7 +123,7 @@ public class ReentrantReadWriteLockCache<K, V>
 
     public V put( K key, V value )
     {
-        writeLock.lock( );
+        writeLock.lock();
         try
         {
             cache.put( key, value );
@@ -131,7 +131,7 @@ public class ReentrantReadWriteLockCache<K, V>
         }
         finally
         {
-            writeLock.unlock( );
+            writeLock.unlock();
         }
     }
 }

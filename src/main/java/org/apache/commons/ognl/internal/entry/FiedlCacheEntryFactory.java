@@ -33,11 +33,11 @@ public class FiedlCacheEntryFactory
     public Map<String, Field> create( Class<?> key )
         throws CacheException
     {
-        Field[] declaredFields = key.getDeclaredFields( );
+        Field[] declaredFields = key.getDeclaredFields();
         HashMap<String, Field> result = new HashMap<String, Field>( declaredFields.length );
         for ( Field field : declaredFields )
         {
-            result.put( field.getName( ), field );
+            result.put( field.getName(), field );
         }
         return result;
     }

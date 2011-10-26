@@ -26,14 +26,14 @@ import java.util.List;
  */
 public final class EvaluationPool
 {
-    public EvaluationPool( )
+    public EvaluationPool()
     {
         this( 0 );
     }
 
     public EvaluationPool( int initialSize )
     {
-        super( );
+        super();
         // do not init object pooling
     }
 
@@ -92,7 +92,7 @@ public final class EvaluationPool
      *
      * @deprecated object-pooling now relies on the jvm garbage collection
      */
-    public int getSize( )
+    public int getSize()
     {
         return 0;
     }
@@ -103,7 +103,7 @@ public final class EvaluationPool
      *
      * @deprecated object-pooling now relies on the jvm garbage collection
      */
-    public int getCreatedCount( )
+    public int getCreatedCount()
     {
         return 0;
     }
@@ -114,7 +114,7 @@ public final class EvaluationPool
      *
      * @deprecated object-pooling now relies on the jvm garbage collection
      */
-    public int getRecoveredCount( )
+    public int getRecoveredCount()
     {
         return 0;
     }
@@ -125,7 +125,7 @@ public final class EvaluationPool
      *
      * @deprecated object-pooling now relies on the jvm garbage collection
      */
-    public int getRecycledCount( )
+    public int getRecycledCount()
     {
         return 0;
     }

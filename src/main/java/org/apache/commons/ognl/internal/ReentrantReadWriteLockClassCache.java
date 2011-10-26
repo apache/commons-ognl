@@ -26,7 +26,7 @@ import org.apache.commons.ognl.internal.entry.CacheEntryFactory;
 
 
 public class ReentrantReadWriteLockClassCache<T>
-    extends HashMapCache<Class<?>,T>
+    extends HashMapCache<Class<?>, T>
     implements ClassCache<T>
 {
     private ClassCacheInspector inspector;

@@ -27,13 +27,13 @@ import org.apache.commons.ognl.internal.CacheException;
 import java.security.Permission;
 
 public class PermissionCacheEntryFactory
-    implements CacheEntryFactory<PermissionCacheEntry,Permission>
+    implements CacheEntryFactory<PermissionCacheEntry, Permission>
 {
 
     public Permission create( PermissionCacheEntry key )
         throws CacheException
     {
-        return new OgnlInvokePermission( "invoke." + key.method.getDeclaringClass( ).getName() + "." + key.method.getName( ) );
+        return new OgnlInvokePermission( "invoke." + key.method.getDeclaringClass().getName() + "." + key.method.getName() );
     }
 }
 

@@ -28,6 +28,6 @@ public class CacheException
 {
     public CacheException( Throwable e )
     {
-       super(e.getMessage(),e);
+        super( e.getMessage(), e );
     }
 }

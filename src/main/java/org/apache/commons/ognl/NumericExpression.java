@@ -80,7 +80,7 @@ public abstract class NumericExpression
 
             if ( value != null )
             {
-                _getterClass = value.getClass( );
+                _getterClass = value.getClass();
             }
 
             for ( int i = 0; i < _children.length; i++ )

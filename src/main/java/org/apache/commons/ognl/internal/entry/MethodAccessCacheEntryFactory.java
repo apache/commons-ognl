@@ -33,19 +33,18 @@ public class MethodAccessCacheEntryFactory
     public static final MethodAccessEntryValue INACCESSIBLE_NON_PUBLIC_METHOD =
         new MethodAccessEntryValue( false, true );
 
-    public static final MethodAccessEntryValue ACCESSIBLE_NON_PUBLIC_METHOD =
-        new MethodAccessEntryValue( true, true );
+    public static final MethodAccessEntryValue ACCESSIBLE_NON_PUBLIC_METHOD = new MethodAccessEntryValue( true, true );
 
     public static final MethodAccessEntryValue PUBLIC_METHOD = new MethodAccessEntryValue( true );
 
     public MethodAccessEntryValue create( Method method )
         throws CacheException
     {
-        final boolean notPublic = !Modifier.isPublic( method.getModifiers( ) ) || !Modifier.isPublic(
-            method.getDeclaringClass( ).getModifiers( ) );
+        final boolean notPublic = !Modifier.isPublic( method.getModifiers() ) || !Modifier.isPublic(
+            method.getDeclaringClass().getModifiers() );
         if ( notPublic )
         {
-            if ( !method.isAccessible( ) )
+            if ( !method.isAccessible() )
             {
                 return INACCESSIBLE_NON_PUBLIC_METHOD;
             }

@@ -24,7 +24,7 @@ package org.apache.commons.ognl.internal;
 public class ClassCacheHandler
 {
 
-    private ClassCacheHandler( )
+    private ClassCacheHandler()
     {
     }
 
@@ -39,7 +39,7 @@ public class ClassCacheHandler
             {
                 Class<?> keyFound;
 
-                if ( forClass.isArray( ) )
+                if ( forClass.isArray() )
                 {
                     answer = handlers.get( Object[].class );
                     keyFound = null;
@@ -48,19 +48,19 @@ public class ClassCacheHandler
                 {
                     keyFound = forClass;
                     outer:
-                    for ( Class<?> c = forClass; c != null; c = c.getSuperclass( ) )
+                    for ( Class<?> c = forClass; c != null; c = c.getSuperclass() )
                     {
                         answer = handlers.get( c );
                         if ( answer == null )
                         {
-                            Class<?>[] interfaces = c.getInterfaces( );
+                            Class<?>[] interfaces = c.getInterfaces();
                             for ( Class<?> iface : interfaces )
                             {
                                 answer = handlers.get( iface );
                                 if ( answer == null )
                                 {
                                     /* Try super-interfaces */
-                                    answer = getHandler( iface ,handlers);
+                                    answer = getHandler( iface, handlers );
                                 }
                                 if ( answer != null )
                                 {

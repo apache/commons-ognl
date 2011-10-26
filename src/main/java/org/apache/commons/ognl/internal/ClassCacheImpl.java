@@ -38,7 +38,7 @@ public class ClassCacheImpl<V>
     /* ...and now you see why. The table size is used as a mask for generating hashes */
     private static final int TABLE_SIZE_MASK = TABLE_SIZE - 1;
 
-    private Entry<Class<?>,V>[] _table = new Entry[TABLE_SIZE];
+    private Entry<Class<?>, V>[] _table = new Entry[TABLE_SIZE];
 
     private ClassCacheInspector _classInspector;
 
@@ -81,7 +81,7 @@ public class ClassCacheImpl<V>
     {
         int i = key.hashCode() & TABLE_SIZE_MASK;
 
-        Entry<Class<?>,V> entry = _table[i];
+        Entry<Class<?>, V> entry = _table[i];
 
         while ( entry != null )
         {
@@ -108,18 +108,18 @@ public class ClassCacheImpl<V>
         V result = null;
         int i = key.hashCode() & TABLE_SIZE_MASK;
 
-        Entry<Class<?>,V> entry = _table[i];
+        Entry<Class<?>, V> entry = _table[i];
 
         if ( entry == null )
         {
-            _table[i] = new Entry<Class<?>,V>( key, value );
+            _table[i] = new Entry<Class<?>, V>( key, value );
             _size++;
         }
         else
         {
             if ( key == entry.getKey() )
             {
-                result = entry.getValue( );
+                result = entry.getValue();
                 entry.setValue( value );
             }
             else
@@ -129,7 +129,7 @@ public class ClassCacheImpl<V>
                     if ( key == entry.getKey() )
                     {
                         /* replace value */
-                        result = entry.getValue( );
+                        result = entry.getValue();
                         entry.setValue( value );
                         break;
                     }
@@ -137,7 +137,7 @@ public class ClassCacheImpl<V>
                     if ( entry.getNext() == null )
                     {
                         /* add value */
-                        entry.setNext( new Entry<Class<?>,V>( key, value ) );
+                        entry.setNext( new Entry<Class<?>, V>( key, value ) );
                         break;
                     }
 

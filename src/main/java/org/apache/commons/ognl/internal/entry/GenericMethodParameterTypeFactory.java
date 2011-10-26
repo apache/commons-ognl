@@ -37,9 +37,9 @@ public class GenericMethodParameterTypeFactory
     {
         Class<?>[] types;
 
-        ParameterizedType param = (ParameterizedType) entry.type.getGenericSuperclass( );
-        Type[] genTypes = entry.method.getGenericParameterTypes( );
-        TypeVariable<?>[] declaredTypes = entry.method.getDeclaringClass( ).getTypeParameters( );
+        ParameterizedType param = (ParameterizedType) entry.type.getGenericSuperclass();
+        Type[] genTypes = entry.method.getGenericParameterTypes();
+        TypeVariable<?>[] declaredTypes = entry.method.getDeclaringClass().getTypeParameters();
 
         types = new Class[genTypes.length];
 
@@ -53,11 +53,11 @@ public class GenericMethodParameterTypeFactory
             }
             else if ( GenericArrayType.class.isInstance( genTypes[i] ) )
             {
-                paramType = (TypeVariable<?>) ( (GenericArrayType) genTypes[i] ).getGenericComponentType( );
+                paramType = (TypeVariable<?>) ( (GenericArrayType) genTypes[i] ).getGenericComponentType();
             }
             else if ( ParameterizedType.class.isInstance( genTypes[i] ) )
             {
-                types[i] = (Class<?>) ( (ParameterizedType) genTypes[i] ).getRawType( );
+                types[i] = (Class<?>) ( (ParameterizedType) genTypes[i] ).getRawType();
                 continue;
             }
             else if ( Class.class.isInstance( genTypes[i] ) )
@@ -72,13 +72,13 @@ public class GenericMethodParameterTypeFactory
             {
                 if ( GenericArrayType.class.isInstance( genTypes[i] ) )
                 {
-                    resolved = Array.newInstance( resolved, 0 ).getClass( );
+                    resolved = Array.newInstance( resolved, 0 ).getClass();
                 }
 
                 types[i] = resolved;
                 continue;
             }
-            types[i] = entry.method.getParameterTypes( )[i];
+            types[i] = entry.method.getParameterTypes()[i];
         }
 
         return types;
@@ -86,17 +86,17 @@ public class GenericMethodParameterTypeFactory
 
     private Class<?> resolveType( ParameterizedType param, TypeVariable<?> var, TypeVariable<?>[] declaredTypes )
     {
-        if ( param.getActualTypeArguments( ).length < 1 )
+        if ( param.getActualTypeArguments().length < 1 )
         {
             return null;
         }
 
         for ( int i = 0; i < declaredTypes.length; i++ )
         {
-            if ( !TypeVariable.class.isInstance( param.getActualTypeArguments( )[i] )
-                && declaredTypes[i].getName( ).equals( var.getName( ) ) )
+            if ( !TypeVariable.class.isInstance( param.getActualTypeArguments()[i] )
+                && declaredTypes[i].getName().equals( var.getName() ) )
             {
-                return (Class<?>) param.getActualTypeArguments( )[i];
+                return (Class<?>) param.getActualTypeArguments()[i];
             }
         }
 

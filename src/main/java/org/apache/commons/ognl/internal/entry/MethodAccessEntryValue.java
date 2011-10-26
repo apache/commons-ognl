@@ -38,12 +38,12 @@ public class MethodAccessEntryValue
         this.notPublic = notPublic;
     }
 
-    public boolean isAccessible( )
+    public boolean isAccessible()
     {
         return isAccessible;
     }
 
-    public boolean isNotPublic( )
+    public boolean isNotPublic()
     {
         return notPublic;
     }

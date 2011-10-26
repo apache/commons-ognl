@@ -32,13 +32,13 @@ public class ReentrantReadWriteLockCacheFactory
         return new ReentrantReadWriteLockCache<K, V>( entryFactory );
     }
 
-    public <V> ClassCache<V> createClassCache( )
+    public <V> ClassCache<V> createClassCache()
     {
-        return  createClassCache( null );
+        return createClassCache( null );
     }
 
     public <V> ClassCache<V> createClassCache( ClassCacheEntryFactory<V> entryFactory )
     {
-       return new ReentrantReadWriteLockClassCache<V>( entryFactory );
+        return new ReentrantReadWriteLockClassCache<V>( entryFactory );
     }
 }

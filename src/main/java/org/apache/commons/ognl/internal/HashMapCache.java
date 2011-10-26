@@ -38,19 +38,19 @@ public class HashMapCache<K, V>
         this.cacheEntryFactory = cacheEntryFactory;
     }
 
-    public void clear( )
+    public void clear()
     {
         synchronized ( cache )
         {
-            cache.clear( );
+            cache.clear();
         }
     }
 
-    public int getSize( )
+    public int getSize()
     {
         synchronized ( cache )
         {
-            return cache.size( );
+            return cache.size();
         }
     }
 

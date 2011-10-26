@@ -28,18 +28,18 @@ public class ConcurrentHashMapCacheFactory
     implements CacheFactory
 {
 
-    public <K,V> Cache<K,V> createCache(CacheEntryFactory<K,V> entryFactory )
+    public <K, V> Cache<K, V> createCache( CacheEntryFactory<K, V> entryFactory )
     {
-        return new ConcurrentHashMapCache<K, V>(entryFactory );
+        return new ConcurrentHashMapCache<K, V>( entryFactory );
     }
 
-    public <V> ClassCache<V> createClassCache( )
+    public <V> ClassCache<V> createClassCache()
     {
         return createClassCache( null );
     }
 
     public <V> ClassCache<V> createClassCache( ClassCacheEntryFactory<V> entryFactory )
     {
-        return new ConcurrentHashMapClassCache<V>(entryFactory );
+        return new ConcurrentHashMapClassCache<V>( entryFactory );
     }
 }

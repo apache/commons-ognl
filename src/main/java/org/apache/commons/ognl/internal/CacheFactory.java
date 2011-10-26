@@ -10,9 +10,9 @@ import org.apache.commons.ognl.internal.entry.ClassCacheEntryFactory;
  */
 public interface CacheFactory
 {
-    <K,V> Cache<K,V> createCache( CacheEntryFactory<K, V> entryFactory );
+    <K, V> Cache<K, V> createCache( CacheEntryFactory<K, V> entryFactory );
 
-    <V> ClassCache<V> createClassCache( );
+    <V> ClassCache<V> createClassCache();
 
     <V> ClassCache<V> createClassCache( ClassCacheEntryFactory<V> entryFactory );
 }
