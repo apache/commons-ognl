@@ -254,14 +254,8 @@ public class ASTChain
             result = true;
             for ( int i = 0; result && ( i < _children.length ); i++ )
             {
-                if ( _children[i] instanceof SimpleNode )
-                {
-                    result = ( (SimpleNode) _children[i] ).isSimpleProperty( context );
-                }
-                else
-                {
-                    result = false;
-                }
+                result =
+                    _children[i] instanceof SimpleNode && ( (SimpleNode) _children[i] ).isSimpleProperty( context );
             }
         }
         return result;
