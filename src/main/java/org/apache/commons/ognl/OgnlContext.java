@@ -37,7 +37,6 @@ import java.util.Stack;
  * @author Drew Davidson (drew@ognl.org)
  */
 public class OgnlContext
-    extends Object
     implements Map<String, Object>
 {
 
