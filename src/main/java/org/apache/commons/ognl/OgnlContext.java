@@ -24,7 +24,6 @@ import org.apache.commons.ognl.enhance.LocalReference;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -114,11 +113,11 @@ public class OgnlContext
         {
             if ( ( s = System.getProperty( PROPERTY_KEY_PREFIX + ".traceEvaluations" ) ) != null )
             {
-                DEFAULT_TRACE_EVALUATIONS = Boolean.valueOf( s.trim() ).booleanValue();
+                DEFAULT_TRACE_EVALUATIONS = Boolean.valueOf( s.trim() );
             }
             if ( ( s = System.getProperty( PROPERTY_KEY_PREFIX + ".keepLastEvaluation" ) ) != null )
             {
-                DEFAULT_KEEP_LAST_EVALUATION = Boolean.valueOf( s.trim() ).booleanValue();
+                DEFAULT_KEEP_LAST_EVALUATION = Boolean.valueOf( s.trim() );
             }
         }
         catch ( SecurityException ex )
@@ -178,12 +177,7 @@ public class OgnlContext
 
     public void setValues( Map<String, Object> value )
     {
-        for ( Iterator<String> it = value.keySet().iterator(); it.hasNext(); )
-        {
-            String k = it.next();
-
-            _values.put( k, value.get( k ) );
-        }
+        _values.putAll( value );
     }
 
     public Map<String, Object> getValues()
@@ -706,12 +700,10 @@ public class OgnlContext
         return result;
     }
 
-    public void putAll( Map<? extends String, ? extends Object> t )
+    public void putAll( Map<? extends String, ?> t )
     {
-        for ( Iterator<? extends String> it = t.keySet().iterator(); it.hasNext(); )
+        for ( String k : t.keySet() )
         {
-            String k = it.next();
-
             put( k, t.get( k ) );
         }
     }
