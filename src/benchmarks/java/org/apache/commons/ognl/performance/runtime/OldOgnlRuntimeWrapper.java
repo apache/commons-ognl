@@ -34,78 +34,79 @@ import java.lang.reflect.Method;
 public class OldOgnlRuntimeWrapper
     implements RuntimeWrapper
 {
-        @Override
+        
         public void getFields( Class<?> c )
             throws Exception
         {
             OgnlRuntime.getFields( c );
         }
 
-        @Override
+        
         public void findParameterTypes( Class<?> targetClass, Method method )
             throws Exception
         {
             OgnlRuntime.findParameterTypes( targetClass, method );
         }
 
-        @Override
+        
         public void getConstructors( Class<?> c )
             throws Exception
         {
             OgnlRuntime.getConstructors( c );
         }
 
-        @Override
+        
         public void getMethods( Class<?> c, boolean staticMethods )
             throws Exception
         {
             OgnlRuntime.getMethods( c, staticMethods );
         }
 
-        @Override
+        
         public void getDeclaredMethods( Class<?> c, String propertyName, boolean setters )
             throws Exception
         {
             OgnlRuntime.getDeclaredMethods( c, propertyName, setters );
         }
 
-        @Override
+        
         public void getParameterTypes( Method method )
             throws Exception
         {
             OgnlRuntime.getParameterTypes( method );
         }
 
-        @Override
+        
         public void getParameterTypes( Constructor<?> constructor )
             throws Exception
         {
             OgnlRuntime.getParameterTypes( constructor );
         }
 
-        @Override
+        
         public void getPermission( Method method )
             throws Exception
         {
             OgnlRuntime.getPermission( method );
         }
 
-        @Override
+        
         public void getPrimitiveDefaultValue( Class<?> type )
             throws Exception
         {
             OgnlRuntime.getPrimitiveDefaultValue( type );
         }
 
-        @Override
+        
         public void invokeMethod( Object o, Method method, Object[] args )
             throws Exception
         {
             OgnlRuntime.invokeMethod( o, method, args );
         }
 
-        @Override
+        
         public void clearCache( )
         {
             OgnlRuntime.clearCache( );
-        }}
+        }
+}
