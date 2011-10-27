@@ -38,7 +38,7 @@ import org.junit.BeforeClass;
 @BenchmarkMethodChart( filePrefix = "benchmark-old-ognl" )
 @BenchmarkHistoryChart( labelWith = LabelType.CUSTOM_KEY, maxRuns = 20 )
 public class PerformanceOldOgnlTest
-    extends PerformanceCommonsOgnlTest
+    extends BasePerformanceTest
 {
     @BeforeClass
     public static void before( )
