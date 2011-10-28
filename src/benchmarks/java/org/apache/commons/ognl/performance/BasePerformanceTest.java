@@ -25,6 +25,7 @@ import com.carrotsearch.junitbenchmarks.BenchmarkOptions;
 import com.carrotsearch.junitbenchmarks.BenchmarkRule;
 import com.carrotsearch.junitbenchmarks.annotation.AxisRange;
 import com.carrotsearch.junitbenchmarks.annotation.BenchmarkMethodChart;
+import org.apache.commons.ognl.performance.invocation.CompilerInvocation;
 import org.apache.commons.ognl.performance.invocation.FieldInvocation;
 import org.apache.commons.ognl.performance.invocation.FindParameterTypesInvocation;
 import org.apache.commons.ognl.performance.invocation.GetConstructorsInvocation;
@@ -120,5 +121,13 @@ public abstract class BasePerformanceTest
         throws Exception
     {
         new PrimitiveDefaultInvocation( runtimeWrapper, 100000 );
+    }
+
+    @BenchmarkOptions( benchmarkRounds = 50, warmupRounds = 0, concurrency = 1000 )
+    @Test
+    public void compiler( )
+        throws Exception
+    {
+        new CompilerInvocation( runtimeWrapper, 100 );
     }
 }

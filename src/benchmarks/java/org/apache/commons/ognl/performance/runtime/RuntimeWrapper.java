@@ -51,4 +51,6 @@ public interface RuntimeWrapper {
     void invokeMethod(Object o, Method method, Object[] args) throws Exception;
 
     void clearCache();
+
+    void getCompiler();
 }

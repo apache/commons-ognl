@@ -110,4 +110,9 @@ public class CommonsRuntimeWrapper
     {
         OgnlRuntime.clearCache( );
     }
+
+    public void getCompiler()
+    {
+        OgnlRuntime.getCompiler(null);
+    }
 }
