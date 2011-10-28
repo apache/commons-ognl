@@ -257,15 +257,15 @@ public class ExpressionCompiler
 
         Class<?>[] intf = clazz.getInterfaces();
 
-        for ( int i = 0; i < intf.length; i++ )
+        for ( Class<?> anIntf : intf )
         {
-            if ( intf[i].getName().indexOf( "util.List" ) > 0 )
+            if ( anIntf.getName().indexOf( "util.List" ) > 0 )
             {
-                return intf[i].getName();
+                return anIntf.getName();
             }
-            else if ( intf[i].getName().indexOf( "Iterator" ) > 0 )
+            else if ( anIntf.getName().indexOf( "Iterator" ) > 0 )
             {
-                return intf[i].getName();
+                return anIntf.getName();
             }
         }
 
@@ -287,18 +287,18 @@ public class ExpressionCompiler
             Class<?>[] intfs = clazz.getInterfaces();
             Class<?> intClass;
 
-            for ( int i = 0; i < intfs.length; i++ )
+            for ( Class<?> intf : intfs )
             {
-                intClass = getSuperOrInterfaceClass( m, intfs[i] );
+                intClass = getSuperOrInterfaceClass( m, intf );
 
                 if ( intClass != null )
                 {
                     return intClass;
                 }
 
-                if ( Modifier.isPublic( intfs[i].getModifiers() ) && containsMethod( m, intfs[i] ) )
+                if ( Modifier.isPublic( intf.getModifiers() ) && containsMethod( m, intf ) )
                 {
-                    return intfs[i];
+                    return intf;
                 }
             }
         }
@@ -338,9 +338,9 @@ public class ExpressionCompiler
             return false;
         }
 
-        for ( int i = 0; i < methods.length; i++ )
+        for ( Method method : methods )
         {
-            if ( methods[i].getName().equals( m.getName() ) && methods[i].getReturnType() == m.getReturnType() )
+            if ( method.getName().equals( m.getName() ) && method.getReturnType() == m.getReturnType() )
             {
                 Class<?>[] parms = m.getParameterTypes();
                 if ( parms == null )
@@ -348,7 +348,7 @@ public class ExpressionCompiler
                     continue;
                 }
 
-                Class<?>[] mparms = methods[i].getParameterTypes();
+                Class<?>[] mparms = method.getParameterTypes();
                 if ( mparms == null || mparms.length != parms.length )
                 {
                     continue;
@@ -375,7 +375,7 @@ public class ExpressionCompiler
                     continue;
                 }
 
-                Class<?>[] mexceptions = methods[i].getExceptionTypes();
+                Class<?>[] mexceptions = method.getExceptionTypes();
                 if ( mexceptions == null || mexceptions.length != exceptions.length )
                 {
                     continue;
@@ -420,25 +420,25 @@ public class ExpressionCompiler
 
         Class<?>[] intf = clazz.getInterfaces();
 
-        for ( int i = 0; i < intf.length; i++ )
+        for ( Class<?> anIntf : intf )
         {
-            if ( List.class.isAssignableFrom( intf[i] ) )
+            if ( List.class.isAssignableFrom( anIntf ) )
             {
                 return List.class;
             }
-            else if ( Iterator.class.isAssignableFrom( intf[i] ) )
+            else if ( Iterator.class.isAssignableFrom( anIntf ) )
             {
                 return Iterator.class;
             }
-            else if ( Map.class.isAssignableFrom( intf[i] ) )
+            else if ( Map.class.isAssignableFrom( anIntf ) )
             {
                 return Map.class;
             }
-            else if ( Set.class.isAssignableFrom( intf[i] ) )
+            else if ( Set.class.isAssignableFrom( anIntf ) )
             {
                 return Set.class;
             }
-            else if ( Collection.class.isAssignableFrom( intf[i] ) )
+            else if ( Collection.class.isAssignableFrom( anIntf ) )
             {
                 return Collection.class;
             }
@@ -667,7 +667,7 @@ public class ExpressionCompiler
         return castString + referenceName + "($$)";
     }
 
-    void createLocalReferences( OgnlContext context, ClassPool pool, CtClass clazz, CtClass objClass, CtClass[] params )
+    void createLocalReferences( OgnlContext context, ClassPool pool, CtClass clazz, CtClass unused, CtClass[] params )
         throws CannotCompileException, NotFoundException
     {
         Map<String, LocalReference> referenceMap = context.getLocalReferences();
@@ -676,12 +676,8 @@ public class ExpressionCompiler
             return;
         }
 
-        Iterator<LocalReference> it = referenceMap.values().iterator();
-
-        while ( it.hasNext() )
+        for ( LocalReference ref : referenceMap.values() )
         {
-            LocalReference ref = it.next();
-
             String widener = ref.getType().isPrimitive() ? " " : " ($w) ";
 
             String body = format( "{ return %s %s; }", widener, ref.getExpression() ).replaceAll( "\\.\\.", "." );
@@ -693,8 +689,7 @@ public class ExpressionCompiler
             method.setBody( body );
 
             clazz.addMethod( method );
-
-            it.remove();
+            referenceMap.remove( ref );
         }
     }
 
