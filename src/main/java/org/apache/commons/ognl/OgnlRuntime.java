@@ -230,32 +230,12 @@ public class OgnlRuntime
 
     static final Cache<Method, Boolean> _methodPermCache = cacheFactory.createCache( methodPermCacheEntryFactory );
 
-    static final Map<OgnlContext, OgnlExpressionCompiler> expressionCompilerMap =
-        new HashMap<OgnlContext, OgnlExpressionCompiler>();
-
     static ClassCacheInspector _cacheInspector;
 
     /**
      * Expression compiler used by {@link Ognl#compileExpression(OgnlContext, Object, String)} calls.
      */
     private static OgnlExpressionCompiler _compiler;
-
-    /**
-     * Lazy loading of Javassist library
-     */
-    static
-    {
-        try
-        {
-            Class.forName( "javassist.ClassPool" );
-            _compiler = new ExpressionCompiler();
-        }
-        catch ( ClassNotFoundException e )
-        {
-            throw new IllegalArgumentException(
-                "Javassist library is missing in classpath! Please add missed dependency!", e );
-        }
-    }
 
     private static Map<Class<?>, Class<?>> PRIMITIVE_WRAPPER_CLASSES = new IdentityHashMap<Class<?>, Class<?>>();
 
@@ -516,28 +496,25 @@ public class OgnlRuntime
      */
     public static OgnlExpressionCompiler getCompiler()
     {
-        return _compiler != null ? _compiler : getCompiler( null );
+        return getCompiler( null );
     }
 
     public static OgnlExpressionCompiler getCompiler( OgnlContext ognlContext )
     {
-        OgnlExpressionCompiler ognlExpressionCompiler = expressionCompilerMap.get( ognlContext );
-        if ( ognlExpressionCompiler == null )
+        if ( _compiler == null )
         {
             try
             {
                 OgnlRuntime.classForName( ognlContext, "javassist.ClassPool" );
-                ognlExpressionCompiler = new ExpressionCompiler();
-                expressionCompilerMap.put( ognlContext, ognlExpressionCompiler );
+                _compiler = new ExpressionCompiler();
             }
             catch ( ClassNotFoundException e )
             {
                 throw new IllegalArgumentException(
-                                                    "Javassist library is missing in classpath! Please add missed dependency!",
-                                                    e );
+                    "Javassist library is missing in classpath! Please add missed dependency!", e );
             }
         }
-        return ognlExpressionCompiler;
+        return _compiler;
     }
 
     public static void compileExpression( OgnlContext context, Node expression, Object root )

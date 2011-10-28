@@ -31,6 +31,10 @@ public final class EvaluationPool
         this( 0 );
     }
 
+    /*
+     * @deprecated evaluation-pool now relies on the jvm garbage collection
+     * therefore providing an initialSize is unnecessary
+     */
     public EvaluationPool( int initialSize )
     {
         super();
