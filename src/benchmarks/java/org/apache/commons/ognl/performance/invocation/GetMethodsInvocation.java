@@ -28,20 +28,28 @@ import org.apache.commons.ognl.performance.runtime.RuntimeWrapper;
  * Date: 18/10/11
  * Time: 15.57
  */
-public class GetMethodsInvocation extends RepeatableInvocation {
+public class GetMethodsInvocation
+    extends RepeatableInvocation
+{
 
-    public GetMethodsInvocation(RuntimeWrapper runtimeWrapper) throws Exception {
-        super(runtimeWrapper);
+    public GetMethodsInvocation( RuntimeWrapper runtimeWrapper )
+        throws Exception
+    {
+        super( runtimeWrapper );
     }
 
-    public GetMethodsInvocation(RuntimeWrapper runtimeWrapper, int times) throws Exception {
-        super(runtimeWrapper, times);
+    public GetMethodsInvocation( RuntimeWrapper runtimeWrapper, int times )
+        throws Exception
+    {
+        super( runtimeWrapper, times );
     }
 
     @Override
-    protected void invoke(Class<?> c) throws Exception {
-        getRuntime().getMethods(c, false);
-        getRuntime().getMethods(c, true);
+    protected void invoke( Class<?> c )
+        throws Exception
+    {
+        getRuntime().getMethods( c, false );
+        getRuntime().getMethods( c, true );
     }
 
 }

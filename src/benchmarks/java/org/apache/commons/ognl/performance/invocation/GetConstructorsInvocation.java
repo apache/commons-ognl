@@ -29,17 +29,25 @@ import org.apache.commons.ognl.performance.runtime.RuntimeWrapper;
  * Date: 18/10/11
  * Time: 16.21
  */
-public class GetConstructorsInvocation extends RepeatableInvocation {
-    public GetConstructorsInvocation(RuntimeWrapper runtimeWrapper) throws Exception {
-        super(runtimeWrapper);
+public class GetConstructorsInvocation
+    extends RepeatableInvocation
+{
+    public GetConstructorsInvocation( RuntimeWrapper runtimeWrapper )
+        throws Exception
+    {
+        super( runtimeWrapper );
     }
 
-    public GetConstructorsInvocation(RuntimeWrapper runtimeWrapper, int times) throws Exception {
-        super(runtimeWrapper, times);
+    public GetConstructorsInvocation( RuntimeWrapper runtimeWrapper, int times )
+        throws Exception
+    {
+        super( runtimeWrapper, times );
     }
 
     @Override
-    protected void invoke(Class<?> c) throws Exception {
-        getRuntime().getConstructors(c);
+    protected void invoke( Class<?> c )
+        throws Exception
+    {
+        getRuntime().getConstructors( c );
     }
 }

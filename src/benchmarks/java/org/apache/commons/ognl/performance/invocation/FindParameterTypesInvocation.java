@@ -31,20 +31,29 @@ import java.lang.reflect.Method;
  * Date: 18/10/11
  * Time: 16.37
  */
-public class FindParameterTypesInvocation extends RepeatableInvocation {
+public class FindParameterTypesInvocation
+    extends RepeatableInvocation
+{
 
-    public FindParameterTypesInvocation(RuntimeWrapper runtimeWrapper, int times) throws Exception {
-        super(runtimeWrapper, times);
+    public FindParameterTypesInvocation( RuntimeWrapper runtimeWrapper, int times )
+        throws Exception
+    {
+        super( runtimeWrapper, times );
     }
 
-    public FindParameterTypesInvocation(RuntimeWrapper runtimeWrapper) throws Exception {
-        super(runtimeWrapper);
+    public FindParameterTypesInvocation( RuntimeWrapper runtimeWrapper )
+        throws Exception
+    {
+        super( runtimeWrapper );
     }
 
     @Override
-    protected void invoke(Class<?> c) throws Exception {
-        for (Method method : c.getMethods()) {
-            getRuntime().findParameterTypes(String.class, method);
+    protected void invoke( Class<?> c )
+        throws Exception
+    {
+        for ( Method method : c.getMethods() )
+        {
+            getRuntime().findParameterTypes( String.class, method );
         }
     }
 }

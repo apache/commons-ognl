@@ -41,14 +41,14 @@ public class PerformanceCommonsOgnlTest
     extends BasePerformanceTest
 {
     @BeforeClass
-    public static void before( )
+    public static void before()
     {
         runtimeWrapper = COMMONS_RUNTIME_WRAPPER;
     }
 
     @AfterClass
-    public static void after( )
+    public static void after()
     {
-        runtimeWrapper.clearCache( );
+        runtimeWrapper.clearCache();
     }
 }

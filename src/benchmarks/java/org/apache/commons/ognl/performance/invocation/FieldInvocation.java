@@ -28,18 +28,26 @@ import org.apache.commons.ognl.performance.runtime.RuntimeWrapper;
  * Date: 18/10/11
  * Time: 16.28
  */
-public class FieldInvocation extends RepeatableInvocation {
-    public FieldInvocation(RuntimeWrapper runtimeWrapper) throws Exception {
-        super(runtimeWrapper);
+public class FieldInvocation
+    extends RepeatableInvocation
+{
+    public FieldInvocation( RuntimeWrapper runtimeWrapper )
+        throws Exception
+    {
+        super( runtimeWrapper );
     }
 
-    public FieldInvocation(RuntimeWrapper runtimeWrapper, int times) throws Exception {
-        super(runtimeWrapper, times);
+    public FieldInvocation( RuntimeWrapper runtimeWrapper, int times )
+        throws Exception
+    {
+        super( runtimeWrapper, times );
     }
 
     @Override
-    protected void invoke(Class<?> c) throws Exception {
-        getRuntime().getFields(c);
+    protected void invoke( Class<?> c )
+        throws Exception
+    {
+        getRuntime().getFields( c );
     }
 
 }

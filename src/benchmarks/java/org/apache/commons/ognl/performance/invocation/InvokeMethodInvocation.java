@@ -30,21 +30,29 @@ import java.lang.reflect.Method;
  * Date: 18/10/11
  * Time: 16.45
  */
-public class InvokeMethodInvocation extends RepeatableInvocation {
-    public InvokeMethodInvocation(RuntimeWrapper runtimeWrapper) throws Exception {
-        super(runtimeWrapper);
+public class InvokeMethodInvocation
+    extends RepeatableInvocation
+{
+    public InvokeMethodInvocation( RuntimeWrapper runtimeWrapper )
+        throws Exception
+    {
+        super( runtimeWrapper );
     }
 
-    public InvokeMethodInvocation(RuntimeWrapper runtimeWrapper, int times) throws Exception {
-        super(runtimeWrapper, times);
+    public InvokeMethodInvocation( RuntimeWrapper runtimeWrapper, int times )
+        throws Exception
+    {
+        super( runtimeWrapper, times );
     }
 
     @Override
-    protected void invoke(Class<?> c) throws Exception {
+    protected void invoke( Class<?> c )
+        throws Exception
+    {
         Object o;
         o = c.newInstance();
 
-        Method toString = c.getMethod("toString");
-        getRuntime().invokeMethod(o, toString, new Object[0]);
+        Method toString = c.getMethod( "toString" );
+        getRuntime().invokeMethod( o, toString, new Object[0] );
     }
 }

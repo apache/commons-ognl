@@ -31,21 +31,30 @@ import java.lang.reflect.Method;
  * Date: 18/10/11
  * Time: 16.25
  */
-public class PermissionInvocation extends RepeatableInvocation {
+public class PermissionInvocation
+    extends RepeatableInvocation
+{
 
-    public PermissionInvocation(RuntimeWrapper runtimeWrapper) throws Exception {
-        super(runtimeWrapper);
+    public PermissionInvocation( RuntimeWrapper runtimeWrapper )
+        throws Exception
+    {
+        super( runtimeWrapper );
     }
 
-    public PermissionInvocation(RuntimeWrapper runtimeWrapper, int times) throws Exception {
-        super(runtimeWrapper, times);
+    public PermissionInvocation( RuntimeWrapper runtimeWrapper, int times )
+        throws Exception
+    {
+        super( runtimeWrapper, times );
     }
 
     @Override
-    protected void invoke(Class<?> c) throws Exception {
+    protected void invoke( Class<?> c )
+        throws Exception
+    {
         Method[] methods = c.getMethods();
-        for (Method method : methods) {
-            getRuntime().getPermission(method);
+        for ( Method method : methods )
+        {
+            getRuntime().getPermission( method );
         }
     }
 

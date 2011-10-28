@@ -47,6 +47,6 @@ public class PrimitiveDefaultInvocation
     protected void invoke( Class<?> c )
         throws Exception
     {
-        getRuntime( ).getPrimitiveDefaultValue( c );
+        getRuntime().getPrimitiveDefaultValue( c );
     }
 }

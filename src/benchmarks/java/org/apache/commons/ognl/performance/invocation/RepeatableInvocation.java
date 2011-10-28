@@ -101,7 +101,7 @@ public abstract class RepeatableInvocation
 {
     private RuntimeWrapper runtimeWrapper;
 
-    private int times=1000;
+    private int times = 1000;
 
     private List<Class<?>> classes =
         Arrays.asList( ComponentImpl.class, BaseObjectIndexed.class, TestInherited2.class, MenuItem.class,
@@ -124,7 +124,7 @@ public abstract class RepeatableInvocation
         throws Exception
     {
         this.runtimeWrapper = runtimeWrapper;
-        invoke( );
+        invoke();
 
     }
 
@@ -134,10 +134,10 @@ public abstract class RepeatableInvocation
 
         this.runtimeWrapper = runtimeWrapper;
         this.times = times;
-        invoke( );
+        invoke();
     }
 
-    private void invoke( )
+    private void invoke()
         throws Exception
     {
         for ( int i = 0; i < times; i++ )
@@ -152,7 +152,7 @@ public abstract class RepeatableInvocation
     protected abstract void invoke( Class<?> c )
         throws Exception;
 
-    protected RuntimeWrapper getRuntime( )
+    protected RuntimeWrapper getRuntime()
     {
         return runtimeWrapper;
     }

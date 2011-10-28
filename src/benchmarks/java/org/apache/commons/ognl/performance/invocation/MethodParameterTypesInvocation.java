@@ -31,23 +31,33 @@ import java.lang.reflect.Method;
  * Date: 18/10/11
  * Time: 16.35
  */
-public class MethodParameterTypesInvocation extends RepeatableInvocation {
+public class MethodParameterTypesInvocation
+    extends RepeatableInvocation
+{
 
-    public MethodParameterTypesInvocation(RuntimeWrapper runtimeWrapper) throws Exception {
-        super(runtimeWrapper);
+    public MethodParameterTypesInvocation( RuntimeWrapper runtimeWrapper )
+        throws Exception
+    {
+        super( runtimeWrapper );
     }
 
-    public MethodParameterTypesInvocation(RuntimeWrapper runtimeWrapper, int times) throws Exception {
-        super(runtimeWrapper, times);
+    public MethodParameterTypesInvocation( RuntimeWrapper runtimeWrapper, int times )
+        throws Exception
+    {
+        super( runtimeWrapper, times );
     }
 
     @Override
-    protected void invoke(Class<?> c) throws Exception {
-        for (Method method : c.getMethods()) {
-            getRuntime().getParameterTypes(method);
+    protected void invoke( Class<?> c )
+        throws Exception
+    {
+        for ( Method method : c.getMethods() )
+        {
+            getRuntime().getParameterTypes( method );
         }
-        for (Constructor<?> constructor : c.getConstructors()) {
-            getRuntime().getParameterTypes(constructor);
+        for ( Constructor<?> constructor : c.getConstructors() )
+        {
+            getRuntime().getParameterTypes( constructor );
         }
     }
 }

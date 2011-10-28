@@ -29,20 +29,27 @@ import org.apache.commons.ognl.performance.runtime.RuntimeWrapper;
  * Time: 15.57
  */
 public class GetDeclaredMethodsInvocation
-    extends RepeatableInvocation {
+    extends RepeatableInvocation
+{
 
-    public GetDeclaredMethodsInvocation( RuntimeWrapper runtimeWrapper ) throws Exception {
-        super(runtimeWrapper);
+    public GetDeclaredMethodsInvocation( RuntimeWrapper runtimeWrapper )
+        throws Exception
+    {
+        super( runtimeWrapper );
     }
 
-    public GetDeclaredMethodsInvocation( RuntimeWrapper runtimeWrapper, int times ) throws Exception {
-        super(runtimeWrapper, times);
+    public GetDeclaredMethodsInvocation( RuntimeWrapper runtimeWrapper, int times )
+        throws Exception
+    {
+        super( runtimeWrapper, times );
     }
 
     @Override
-    protected void invoke(Class<?> c) throws Exception {
-        getRuntime().getDeclaredMethods(c, "class", false);
-        getRuntime().getDeclaredMethods(c, "class", true);
+    protected void invoke( Class<?> c )
+        throws Exception
+    {
+        getRuntime().getDeclaredMethods( c, "class", false );
+        getRuntime().getDeclaredMethods( c, "class", true );
     }
 
 }
