@@ -51,17 +51,17 @@ import org.junit.rules.MethodRule;
 public abstract class BasePerformanceTest
 {
     @Rule
-    public MethodRule benchmarkRun = new BenchmarkRule( );
+    public MethodRule benchmarkRun = new BenchmarkRule();
 
-    public static final RuntimeWrapper COMMONS_RUNTIME_WRAPPER = new CommonsRuntimeWrapper( );
+    public static final RuntimeWrapper COMMONS_RUNTIME_WRAPPER = new CommonsRuntimeWrapper();
 
-    public static final RuntimeWrapper OLD_RUNTIME_WRAPPER = new OldOgnlRuntimeWrapper( );
+    public static final RuntimeWrapper OLD_RUNTIME_WRAPPER = new OldOgnlRuntimeWrapper();
 
     protected static RuntimeWrapper runtimeWrapper;
 
     @BenchmarkOptions( benchmarkRounds = 50, warmupRounds = 0, concurrency = 1000 )
     @Test
-    public void constructorCache( )
+    public void constructorCache()
         throws Exception
     {
         new GetConstructorsInvocation( runtimeWrapper, 50000 );
@@ -69,7 +69,7 @@ public abstract class BasePerformanceTest
 
     @BenchmarkOptions( benchmarkRounds = 50, warmupRounds = 0, concurrency = 1000 )
     @Test
-    public void declaredMethodCache( )
+    public void declaredMethodCache()
         throws Exception
     {
         new GetDeclaredMethodsInvocation( runtimeWrapper );
@@ -77,7 +77,7 @@ public abstract class BasePerformanceTest
 
     @BenchmarkOptions( benchmarkRounds = 50, warmupRounds = 0, concurrency = 1000 )
     @Test
-    public void fieldCache( )
+    public void fieldCache()
         throws Exception
     {
         new FieldInvocation( runtimeWrapper, 50000 );
@@ -85,7 +85,7 @@ public abstract class BasePerformanceTest
 
     @BenchmarkOptions( benchmarkRounds = 50, warmupRounds = 0, concurrency = 1000 )
     @Test
-    public void findParameterTypeCache( )
+    public void findParameterTypeCache()
         throws Exception
     {
         new FindParameterTypesInvocation( runtimeWrapper, 100 );
@@ -93,7 +93,7 @@ public abstract class BasePerformanceTest
 
     @BenchmarkOptions( benchmarkRounds = 50, warmupRounds = 0, concurrency = 1000 )
     @Test
-    public void methodCache( )
+    public void methodCache()
         throws Exception
     {
         new GetMethodsInvocation( runtimeWrapper, 20000 );
@@ -101,7 +101,7 @@ public abstract class BasePerformanceTest
 
     @BenchmarkOptions( benchmarkRounds = 50, warmupRounds = 0, concurrency = 1000 )
     @Test
-    public void methodParameterTypeCache( )
+    public void methodParameterTypeCache()
         throws Exception
     {
         new MethodParameterTypesInvocation( runtimeWrapper );
@@ -109,7 +109,7 @@ public abstract class BasePerformanceTest
 
     @BenchmarkOptions( benchmarkRounds = 50, warmupRounds = 0, concurrency = 1000 )
     @Test
-    public void permissionCache( )
+    public void permissionCache()
         throws Exception
     {
         new PermissionInvocation( runtimeWrapper );
@@ -117,7 +117,7 @@ public abstract class BasePerformanceTest
 
     @BenchmarkOptions( benchmarkRounds = 50, warmupRounds = 0, concurrency = 1000 )
     @Test
-    public void primitiveCache( )
+    public void primitiveCache()
         throws Exception
     {
         new PrimitiveDefaultInvocation( runtimeWrapper, 100000 );
@@ -125,7 +125,7 @@ public abstract class BasePerformanceTest
 
     @BenchmarkOptions( benchmarkRounds = 50, warmupRounds = 0, concurrency = 1000 )
     @Test
-    public void compiler( )
+    public void compiler()
         throws Exception
     {
         new CompilerInvocation( runtimeWrapper, 100 );
