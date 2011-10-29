@@ -42,15 +42,15 @@ public class ToStringVisitor
 
     private StringBuilder commaSeparatedChildren( SimpleNode node, StringBuilder data )
     {
-        if ( ( node._children != null ) )
+        if ( ( node.children != null ) )
         {
-            for ( int i = 0; i < node._children.length; ++i )
+            for ( int i = 0; i < node.children.length; ++i )
             {
                 if ( i > 0 )
                 {
                     data.append( ", " );
                 }
-                recurse( node._children[i], data );
+                recurse( node.children[i], data );
             }
         }
         return data;
@@ -68,24 +68,24 @@ public class ToStringVisitor
 
     private StringBuilder visitExpressionNode( ExpressionNode node, StringBuilder data )
     {
-        if ( node._parent != null )
+        if ( node.parent != null )
         {
             data.append( "(" );
         }
 
-        if ( ( node._children != null ) && ( node._children.length > 0 ) )
+        if ( ( node.children != null ) && ( node.children.length > 0 ) )
         {
-            for ( int i = 0; i < node._children.length; ++i )
+            for ( int i = 0; i < node.children.length; ++i )
             {
                 if ( i > 0 )
                 {
                     data.append( " " ).append( node.getExpressionOperator( i ) ).append( " " );
                 }
-                recurse( node._children[i], data );
+                recurse( node.children[i], data );
             }
         }
 
-        if ( node._parent != null )
+        if ( node.parent != null )
         {
             data.append( ')' );
         }
@@ -155,7 +155,7 @@ public class ToStringVisitor
 
     private StringBuilder concatInfix( SimpleNode node, String infix, StringBuilder data )
     {
-        return concatInfix( node._children[0], infix, node._children[1], data );
+        return concatInfix( node.children[0], infix, node.children[1], data );
     }
 
     private StringBuilder concatInfix( Node left, String infix, Node right, StringBuilder data )
@@ -222,7 +222,7 @@ public class ToStringVisitor
     private StringBuilder appendPrefixed( String prefix, SimpleNode node, StringBuilder data )
     {
         data.append( prefix );
-        return recurse( node._children[0], data );
+        return recurse( node.children[0], data );
     }
 
     public StringBuilder visit( ASTNot node, StringBuilder data )
@@ -232,25 +232,25 @@ public class ToStringVisitor
 
     public StringBuilder visit( ASTInstanceof node, StringBuilder data )
     {
-        return recurse( node._children[0], data ).append( " instanceof " ).append( node.getTargetType() );
+        return recurse( node.children[0], data ).append( " instanceof " ).append( node.getTargetType() );
     }
 
     public StringBuilder visit( ASTChain node, StringBuilder data )
     {
 
-        if ( ( node._children != null ) && ( node._children.length > 0 ) )
+        if ( ( node.children != null ) && ( node.children.length > 0 ) )
         {
-            for ( int i = 0; i < node._children.length; i++ )
+            for ( int i = 0; i < node.children.length; i++ )
             {
                 if ( i > 0 )
                 {
-                    if ( !( node._children[i] instanceof ASTProperty )
-                        || !( (ASTProperty) node._children[i] ).isIndexedAccess() )
+                    if ( !( node.children[i] instanceof ASTProperty )
+                        || !( (ASTProperty) node.children[i] ).isIndexedAccess() )
                     {
                         data.append( "." );
                     }
                 }
-                recurse( node._children[i], data );
+                recurse( node.children[i], data );
             }
         }
         return data;
@@ -344,7 +344,7 @@ public class ToStringVisitor
         data.append( "{ " );
         for ( int i = 0; i < node.jjtGetNumChildren(); ++i )
         {
-            ASTKeyValue kv = (ASTKeyValue) node._children[i];
+            ASTKeyValue kv = (ASTKeyValue) node.children[i];
 
             if ( i > 0 )
             {
@@ -371,7 +371,7 @@ public class ToStringVisitor
 
         if ( node.isArray() )
         {
-            if ( node._children[0] instanceof ASTConst )
+            if ( node.children[0] instanceof ASTConst )
             {
                 indexedChild( node, data );
             }
@@ -402,14 +402,14 @@ public class ToStringVisitor
         }
         else
         {
-            data.append( ( (ASTConst) node._children[0] ).getValue() );
+            data.append( ( (ASTConst) node.children[0] ).getValue() );
         }
         return data;
     }
 
     private StringBuilder indexedChild( SimpleNode node, StringBuilder data )
     {
-        return surroundedNode( "[", node._children[0], "]", data );
+        return surroundedNode( "[", node.children[0], "]", data );
     }
 
     public StringBuilder visit( ASTStaticMethod node, StringBuilder data )
@@ -426,7 +426,7 @@ public class ToStringVisitor
 
     public StringBuilder visit( ASTProject node, StringBuilder data )
     {
-        return surroundedNode( "{ ", node._children[0], " }", data );
+        return surroundedNode( "{ ", node.children[0], " }", data );
     }
 
     private StringBuilder surroundedNode( String open, Node inner, String close, StringBuilder data )
@@ -437,17 +437,17 @@ public class ToStringVisitor
 
     public StringBuilder visit( ASTSelect node, StringBuilder data )
     {
-        return surroundedNode( "{? ", node._children[0], " }", data );
+        return surroundedNode( "{? ", node.children[0], " }", data );
     }
 
     public StringBuilder visit( ASTSelectFirst node, StringBuilder data )
     {
-        return surroundedNode( "{^ ", node._children[0], " }", data );
+        return surroundedNode( "{^ ", node.children[0], " }", data );
     }
 
     public StringBuilder visit( ASTSelectLast node, StringBuilder data )
     {
-        return surroundedNode( "{$ ", node._children[0], " }", data );
+        return surroundedNode( "{$ ", node.children[0], " }", data );
     }
 
     private StringBuilder recurse( Node child, StringBuilder data )

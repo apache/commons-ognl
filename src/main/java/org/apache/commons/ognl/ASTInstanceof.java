@@ -53,7 +53,7 @@ public class ASTInstanceof
     protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
-        Object value = _children[0].getValue( context, source );
+        Object value = children[0].getValue( context, source );
         return OgnlRuntime.isInstance( context, value, targetType ) ? Boolean.TRUE : Boolean.FALSE;
     }
 
@@ -74,13 +74,13 @@ public class ASTInstanceof
 
             String ret = "";
 
-            if ( ASTConst.class.isInstance( _children[0] ) )
+            if ( ASTConst.class.isInstance( children[0] ) )
             {
                 ret = ( (Boolean) getValueBody( context, target ) ).toString();
             }
             else
             {
-                ret = _children[0].toGetSourceString( context, target ) + " instanceof " + targetType;
+                ret = children[0].toGetSourceString( context, target ) + " instanceof " + targetType;
             }
             context.setCurrentType( Boolean.TYPE );
 

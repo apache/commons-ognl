@@ -40,14 +40,14 @@ class ASTNegate
     protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
-        return OgnlOps.negate( _children[0].getValue( context, source ) );
+        return OgnlOps.negate( children[0].getValue( context, source ) );
     }
 
     public String toGetSourceString( OgnlContext context, Object target )
     {
-        String source = _children[0].toGetSourceString( context, target );
+        String source = children[0].toGetSourceString( context, target );
 
-        if ( !ASTNegate.class.isInstance( _children[0] ) )
+        if ( !ASTNegate.class.isInstance( children[0] ) )
         {
             return "-" + source;
         }

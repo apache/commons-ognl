@@ -72,7 +72,7 @@ public class ASTStaticMethod
         {
             for ( int i = 0, icount = args.length; i < icount; ++i )
             {
-                args[i] = _children[i].getValue( context, root );
+                args[i] = children[i].getValue( context, root );
             }
 
             return OgnlRuntime.callStaticMethod( context, className, methodName, args );
@@ -100,7 +100,7 @@ public class ASTStaticMethod
         try
         {
             Class clazz = OgnlRuntime.classForName( context, className );
-            Method m = OgnlRuntime.getMethod( context, clazz, methodName, _children, true );
+            Method m = OgnlRuntime.getMethod( context, clazz, methodName, children, true );
 
             if ( clazz == null || m == null )
             {
@@ -116,11 +116,11 @@ public class ASTStaticMethod
             }
 
             OgnlExpressionCompiler compiler = OgnlRuntime.getCompiler( context );
-            if ( ( _children != null ) && ( _children.length > 0 ) )
+            if ( ( children != null ) && ( children.length > 0 ) )
             {
                 Class[] parms = m.getParameterTypes();
 
-                for ( int i = 0; i < _children.length; i++ )
+                for ( int i = 0; i < children.length; i++ )
                 {
                     if ( i > 0 )
                     {
@@ -129,7 +129,7 @@ public class ASTStaticMethod
 
                     Class prevType = context.getCurrentType();
 
-                    Node child = _children[i];
+                    Node child = children[i];
                     Object root = context.getRoot();
 
                     String parmString = ASTMethodUtil.getParmString( context, root, child, prevType );

@@ -103,7 +103,7 @@ public class ASTProperty
     public Object getProperty( OgnlContext context, Object source )
         throws OgnlException
     {
-        return _children[0].getValue( context, context.getRoot() );
+        return children[0].getValue( context, context.getRoot() );
     }
 
     protected Object getValueBody( OgnlContext context, Object source )
@@ -132,8 +132,8 @@ public class ASTProperty
     public boolean isNodeSimpleProperty( OgnlContext context )
         throws OgnlException
     {
-        return ( _children != null ) && ( _children.length == 1 ) 
-            && ( (SimpleNode) _children[0] ).isConstant( context );
+        return ( children != null ) && ( children.length == 1 )
+            && ( (SimpleNode) children[0] ).isConstant( context );
     }
 
     public Class getGetterClass()
@@ -165,7 +165,7 @@ public class ASTProperty
 
             if ( isIndexedAccess() )
             {
-                Object value = _children[0].getValue( context, context.getRoot() );
+                Object value = children[0].getValue( context, context.getRoot() );
 
                 if ( value == null || DynamicSubscript.class.isAssignableFrom( value.getClass() ) )
                 {
@@ -174,11 +174,11 @@ public class ASTProperty
                 }
                 // Get root cast string if the child is a type that needs it (like a nested ASTProperty)
 
-                String srcString = _children[0].toGetSourceString( context, context.getRoot() );
+                String srcString = children[0].toGetSourceString( context, context.getRoot() );
                 srcString =
-                    ExpressionCompiler.getRootExpression( _children[0], context.getRoot(), context ) + srcString;
+                    ExpressionCompiler.getRootExpression( children[0], context.getRoot(), context ) + srcString;
 
-                if ( ASTChain.class.isInstance( _children[0] ) )
+                if ( ASTChain.class.isInstance( children[0] ) )
                 {
                     String cast = (String) context.remove( ExpressionCompiler.PRE_CAST );
                     if ( cast != null )
@@ -187,7 +187,7 @@ public class ASTProperty
                     }
                 }
 
-                if ( ASTConst.class.isInstance( _children[0] ) 
+                if ( ASTConst.class.isInstance( children[0] )
                      && String.class.isInstance( context.getCurrentObject() ) )
                 {
                     srcString = "\"" + srcString + "\"";
@@ -238,7 +238,7 @@ public class ASTProperty
                      * + context.getCurrentType());
                      */
 
-                    if ( ASTConst.class.isInstance( _children[0] )
+                    if ( ASTConst.class.isInstance( children[0] )
                         && Number.class.isInstance( context.getCurrentObject() ) )
                     {
                         context.setCurrentType( 
@@ -252,7 +252,7 @@ public class ASTProperty
                 }
             }
 
-            String name = ( (ASTConst) _children[0] ).getValue().toString();
+            String name = ( (ASTConst) children[0] ).getValue().toString();
 
             target = getTarget( context, target, name );
 
@@ -287,7 +287,7 @@ public class ASTProperty
                     }
                 }
 
-                if ( _parent == null )
+                if ( parent == null )
                 {
                     // the above pd will be the wrong result sometimes, such as methods like getValue(int) vs String[]
                     // getValue()
@@ -346,9 +346,9 @@ public class ASTProperty
                         Class currType = context.getCurrentType();
                         Class prevType = context.getPreviousType();
 
-                        String srcString = _children[0].toGetSourceString( context, context.getRoot() );
+                        String srcString = children[0].toGetSourceString( context, context.getRoot() );
 
-                        if ( ASTConst.class.isInstance( _children[0] )
+                        if ( ASTConst.class.isInstance( children[0] )
                             && String.class.isInstance( context.getCurrentObject() ) ) 
                         {
                             srcString = "\"" + srcString + "\"";
@@ -452,7 +452,7 @@ public class ASTProperty
 
             if ( isIndexedAccess() )
             {
-                Object value = _children[0].getValue( context, context.getRoot() );
+                Object value = children[0].getValue( context, context.getRoot() );
 
                 if ( value == null )
                 {
@@ -460,11 +460,11 @@ public class ASTProperty
                         "Value passed as indexed property is null, can't enhance statement to bytecode." );
                 }
                 
-                String srcString = _children[0].toGetSourceString( context, context.getRoot() );
+                String srcString = children[0].toGetSourceString( context, context.getRoot() );
                 srcString =
-                    ExpressionCompiler.getRootExpression( _children[0], context.getRoot(), context ) + srcString;
+                    ExpressionCompiler.getRootExpression( children[0], context.getRoot(), context ) + srcString;
 
-                if ( ASTChain.class.isInstance( _children[0] ) )
+                if ( ASTChain.class.isInstance( children[0] ) )
                 {
                     String cast = (String) context.remove( ExpressionCompiler.PRE_CAST );
                     if ( cast != null )
@@ -473,7 +473,7 @@ public class ASTProperty
                     }
                 }
 
-                if ( ASTConst.class.isInstance( _children[0] ) 
+                if ( ASTConst.class.isInstance( children[0] )
                      && String.class.isInstance( context.getCurrentObject() ) )
                 {
                     srcString = "\"" + srcString + "\"";
@@ -536,7 +536,7 @@ public class ASTProperty
                     context.setCurrentType( currType );
                     context.setPreviousType( prevType );
 
-                    if ( ASTConst.class.isInstance( _children[0] )
+                    if ( ASTConst.class.isInstance( children[0] )
                         && Number.class.isInstance( context.getCurrentObject() ) )
                     {
                         context.setCurrentType( 
@@ -567,7 +567,7 @@ public class ASTProperty
                 }
             }
 
-            String name = ( (ASTConst) _children[0] ).getValue().toString();
+            String name = ( (ASTConst) children[0] ).getValue().toString();
 
             // System.out.println(" astprop(setter) : trying to set " + name + " on object target " +
             // context.getCurrentObject().getClass().getName());
@@ -614,7 +614,7 @@ public class ASTProperty
                     }
                 }
 
-                if ( _parent == null )
+                if ( parent == null )
                 {
                     // the above pd will be the wrong result sometimes, such as methods like getValue(int) vs String[]
                     // getValue()
@@ -646,7 +646,7 @@ public class ASTProperty
                 {
                     setterClass = target.getClass();
                 }
-                if ( _parent != null && pd != null && pa == null )
+                if ( parent != null && pd != null && pa == null )
                 {
                     m = pd.getReadMethod();
                     result = m.getName() + "()";
@@ -663,9 +663,9 @@ public class ASTProperty
                         // Class currType = context.getCurrentType();
                         // Class prevType = context.getPreviousType();
 
-                        String srcString = _children[0].toGetSourceString( context, context.getRoot() );
+                        String srcString = children[0].toGetSourceString( context, context.getRoot() );
 
-                        if ( ASTConst.class.isInstance( _children[0] )
+                        if ( ASTConst.class.isInstance( children[0] )
                             && String.class.isInstance( context.getCurrentObject() ) )
                         {
                             srcString = "\"" + srcString + "\"";

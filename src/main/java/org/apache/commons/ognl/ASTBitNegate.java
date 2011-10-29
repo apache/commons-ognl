@@ -40,16 +40,16 @@ class ASTBitNegate
     protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
-        return OgnlOps.bitNegate( _children[0].getValue( context, source ) );
+        return OgnlOps.bitNegate( children[0].getValue( context, source ) );
     }
 
     public String toGetSourceString( OgnlContext context, Object target )
     {
-        String source = _children[0].toGetSourceString( context, target );
+        String source = children[0].toGetSourceString( context, target );
 
-        if ( !ASTBitNegate.class.isInstance( _children[0] ) )
+        if ( !ASTBitNegate.class.isInstance( children[0] ) )
         {
-            return "~(" + super.coerceToNumeric( source, context, _children[0] ) + ")";
+            return "~(" + super.coerceToNumeric( source, context, children[0] ) + ")";
         }
         else
         {

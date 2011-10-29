@@ -87,7 +87,7 @@ public class ASTCtor
         {
             for ( int i = 0; i < count; ++i )
             {
-                args[i] = _children[i].getValue( context, root );
+                args[i] = children[i].getValue( context, root );
             }
             if ( isArray )
             {
@@ -189,27 +189,27 @@ public class ASTCtor
 
             if ( isArray )
             {
-                if ( _children[0] instanceof ASTConst )
+                if ( children[0] instanceof ASTConst )
                 {
 
-                    result = result + "[" + _children[0].toGetSourceString( context, target ) + "]";
+                    result = result + "[" + children[0].toGetSourceString( context, target ) + "]";
                 }
-                else if ( ASTProperty.class.isInstance( _children[0] ) )
+                else if ( ASTProperty.class.isInstance( children[0] ) )
                 {
 
                     result =
-                        result + "[" + ExpressionCompiler.getRootExpression( _children[0], target, context )
-                            + _children[0].toGetSourceString( context, target ) + "]";
+                        result + "[" + ExpressionCompiler.getRootExpression( children[0], target, context )
+                            + children[0].toGetSourceString( context, target ) + "]";
                 }
-                else if ( ASTChain.class.isInstance( _children[0] ) )
+                else if ( ASTChain.class.isInstance( children[0] ) )
                 {
 
-                    result = result + "[" + _children[0].toGetSourceString( context, target ) + "]";
+                    result = result + "[" + children[0].toGetSourceString( context, target ) + "]";
                 }
                 else
                 {
 
-                    result = result + "[] " + _children[0].toGetSourceString( context, target );
+                    result = result + "[] " + children[0].toGetSourceString( context, target );
                 }
 
             }
@@ -217,28 +217,28 @@ public class ASTCtor
             {
                 result = result + "(";
 
-                if ( ( _children != null ) && ( _children.length > 0 ) )
+                if ( ( children != null ) && ( children.length > 0 ) )
                 {
 
-                    Object[] values = new Object[_children.length];
-                    String[] expressions = new String[_children.length];
-                    Class[] types = new Class[_children.length];
+                    Object[] values = new Object[children.length];
+                    String[] expressions = new String[children.length];
+                    Class[] types = new Class[children.length];
 
                     // first populate arrays with child values
 
-                    for ( int i = 0; i < _children.length; i++ )
+                    for ( int i = 0; i < children.length; i++ )
                     {
 
-                        Object objValue = _children[i].getValue( context, context.getRoot() );
-                        String value = _children[i].toGetSourceString( context, target );
+                        Object objValue = children[i].getValue( context, context.getRoot() );
+                        String value = children[i].toGetSourceString( context, target );
 
-                        if ( !ASTRootVarRef.class.isInstance( _children[i] ) )
+                        if ( !ASTRootVarRef.class.isInstance( children[i] ) )
                         {
-                            value = ExpressionCompiler.getRootExpression( _children[i], target, context ) + value;
+                            value = ExpressionCompiler.getRootExpression( children[i], target, context ) + value;
                         }
 
                         String cast = "";
-                        if ( ExpressionCompiler.shouldCast( _children[i] ) )
+                        if ( ExpressionCompiler.shouldCast( children[i] ) )
                         {
 
                             cast = (String) context.remove( ExpressionCompiler.PRE_CAST );
@@ -248,7 +248,7 @@ public class ASTCtor
                             cast = "";
                         }
                         
-                        if ( !ASTConst.class.isInstance( _children[i] ) )
+                        if ( !ASTConst.class.isInstance( children[i] ) )
                         {
                             value = cast + value;
                         }
@@ -293,7 +293,7 @@ public class ASTCtor
 
                     // now loop over child values again and build up the actual source string
 
-                    for ( int i = 0; i < _children.length; i++ )
+                    for ( int i = 0; i < children.length; i++ )
                     {
                         if ( i > 0 )
                         {
@@ -316,15 +316,15 @@ public class ASTCtor
                         {
 
                             if ( values[i] != null && !types[i].isPrimitive() && !values[i].getClass().isArray()
-                                && !ASTConst.class.isInstance( _children[i] ) )
+                                && !ASTConst.class.isInstance( children[i] ) )
                             {
 
                                 value =
                                     "(" + OgnlRuntime.getCompiler( context ).getInterfaceClass( values[i].getClass() ).getName()
                                         + ")" + value;
                             }
-                            else if ( !ASTConst.class.isInstance( _children[i] )
-                                || ( ASTConst.class.isInstance( _children[i] ) && !types[i].isPrimitive() ) )
+                            else if ( !ASTConst.class.isInstance( children[i] )
+                                || ( ASTConst.class.isInstance( children[i] ) && !types[i].isPrimitive() ) )
                             {
 
                                 if ( !types[i].isArray() && types[i].isPrimitive() && !ctorParamTypes[i].isPrimitive() )

@@ -51,7 +51,7 @@ public class ASTList
         List answer = new ArrayList( jjtGetNumChildren() );
         for ( int i = 0; i < jjtGetNumChildren(); ++i )
         {
-            answer.add( _children[i].getValue( context, source ) );
+            answer.add( children[i].getValue( context, source ) );
         }
         return answer;
     }
@@ -71,7 +71,7 @@ public class ASTList
         String result = "";
         boolean array = false;
 
-        if ( _parent != null && ASTCtor.class.isInstance( _parent ) && ( (ASTCtor) _parent ).isArray() )
+        if ( parent != null && ASTCtor.class.isInstance( parent ) && ( (ASTCtor) parent ).isArray() )
         {
 
             array = true;
@@ -103,20 +103,20 @@ public class ASTList
 
                 Class prevType = context.getCurrentType();
 
-                Object objValue = _children[i].getValue( context, context.getRoot() );
-                String value = _children[i].toGetSourceString( context, target );
+                Object objValue = children[i].getValue( context, context.getRoot() );
+                String value = children[i].toGetSourceString( context, target );
 
                 // to undo type setting of constants when used as method parameters
-                if ( ASTConst.class.isInstance( _children[i] ) )
+                if ( ASTConst.class.isInstance( children[i] ) )
                 {
 
                     context.setCurrentType( prevType );
                 }
 
-                value = ExpressionCompiler.getRootExpression( _children[i], target, context ) + value;
+                value = ExpressionCompiler.getRootExpression( children[i], target, context ) + value;
 
                 String cast = "";
-                if ( ExpressionCompiler.shouldCast( _children[i] ) )
+                if ( ExpressionCompiler.shouldCast( children[i] ) )
                 {
 
                     cast = (String) context.remove( ExpressionCompiler.PRE_CAST );
@@ -126,7 +126,7 @@ public class ASTList
                     cast = "";
                 }
                 
-                if ( !ASTConst.class.isInstance( _children[i] ) )
+                if ( !ASTConst.class.isInstance( children[i] ) )
                 {
                     value = cast + value;
                 }
@@ -135,9 +135,9 @@ public class ASTList
                 {
 
                     Class valueClass = value != null ? value.getClass() : null;
-                    if ( NodeType.class.isAssignableFrom( _children[i].getClass() ) )
+                    if ( NodeType.class.isAssignableFrom( children[i].getClass() ) )
                     {
-                        valueClass = ( (NodeType) _children[i] ).getGetterClass();
+                        valueClass = ( (NodeType) children[i] ).getGetterClass();
                     }
                     final OgnlExpressionCompiler compiler = OgnlRuntime.getCompiler( context );
                     if ( valueClass != null && ctorClass.isArray() )
@@ -172,9 +172,9 @@ public class ASTList
                                     + ctorClass.getName() + ".class)", ctorClass );
 
                     }
-                    else if ( ( NodeType.class.isInstance( _children[i] )
-                        && ( (NodeType) _children[i] ).getGetterClass() != null 
-                        && Number.class.isAssignableFrom( ( (NodeType) _children[i] ).getGetterClass() ) )
+                    else if ( ( NodeType.class.isInstance( children[i] )
+                        && ( (NodeType) children[i] ).getGetterClass() != null
+                        && Number.class.isAssignableFrom( ( (NodeType) children[i] ).getGetterClass() ) )
                         || valueClass.isPrimitive() )
                     {
 

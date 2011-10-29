@@ -88,7 +88,7 @@ public class ASTConst
 
     public String toGetSourceString( OgnlContext context, Object target )
     {
-        if ( value == null && _parent != null && ExpressionNode.class.isInstance( _parent ) )
+        if ( value == null && parent != null && ExpressionNode.class.isInstance( parent ) )
         {
             context.setCurrentType( null );
             return "null";
@@ -102,7 +102,7 @@ public class ASTConst
         getterClass = value.getClass();
 
         Object retval = value;
-        if ( _parent != null && ASTProperty.class.isInstance( _parent ) )
+        if ( parent != null && ASTProperty.class.isInstance( parent ) )
         {
             context.setCurrentObject( value );
 
@@ -115,9 +115,9 @@ public class ASTConst
 
             return value.toString();
         }
-        else if ( !( _parent != null 
+        else if ( !( parent != null
                         && value != null 
-                        && NumericExpression.class.isAssignableFrom( _parent.getClass() ) )
+                        && NumericExpression.class.isAssignableFrom( parent.getClass() ) )
             && String.class.isAssignableFrom( value.getClass() ) )
         {
             context.setCurrentType( String.class );
@@ -162,7 +162,7 @@ public class ASTConst
 
     public String toSetSourceString( OgnlContext context, Object target )
     {
-        if ( _parent == null )
+        if ( parent == null )
         {
             throw new UnsupportedCompilationException( "Can't modify constant values." );
         }

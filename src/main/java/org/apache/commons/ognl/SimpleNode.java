@@ -34,31 +34,31 @@ public abstract class SimpleNode
 
     private static final long serialVersionUID = 8305393337889433901L;
 
-    protected Node _parent;
+    protected Node parent;
 
-    protected Node[] _children;
+    protected Node[] children;
 
-    protected int _id;
+    protected int id;
 
-    protected OgnlParser _parser;
+    protected OgnlParser parser;
 
-    private boolean _constantValueCalculated;
+    private boolean constantValueCalculated;
 
-    private volatile boolean _hasConstantValue;
+    private volatile boolean hasConstantValue;
 
-    private Object _constantValue;
+    private Object constantValue;
 
-    private ExpressionAccessor _accessor;
+    private ExpressionAccessor accessor;
 
     public SimpleNode( int i )
     {
-        _id = i;
+        id = i;
     }
 
     public SimpleNode( OgnlParser p, int i )
     {
         this( i );
-        _parser = p;
+        parser = p;
     }
 
     public void jjtOpen()
@@ -71,37 +71,37 @@ public abstract class SimpleNode
 
     public void jjtSetParent( Node n )
     {
-        _parent = n;
+        parent = n;
     }
 
     public Node jjtGetParent()
     {
-        return _parent;
+        return parent;
     }
 
     public void jjtAddChild( Node n, int i )
     {
-        if ( _children == null )
+        if ( children == null )
         {
-            _children = new Node[i + 1];
+            children = new Node[i + 1];
         }
-        else if ( i >= _children.length )
+        else if ( i >= children.length )
         {
             Node c[] = new Node[i + 1];
-            System.arraycopy( _children, 0, c, 0, _children.length );
-            _children = c;
+            System.arraycopy( children, 0, c, 0, children.length );
+            children = c;
         }
-        _children[i] = n;
+        children[i] = n;
     }
 
     public Node jjtGetChild( int i )
     {
-        return _children[i];
+        return children[i];
     }
 
     public int jjtGetNumChildren()
     {
-        return ( _children == null ) ? 0 : _children.length;
+        return ( children == null ) ? 0 : children.length;
     }
 
     /*
@@ -129,7 +129,7 @@ public abstract class SimpleNode
 
     public String toString( String prefix )
     {
-        return prefix + OgnlParserTreeConstants.jjtNodeName[_id] + " " + toString();
+        return prefix + OgnlParserTreeConstants.jjtNodeName[id] + " " + toString();
     }
 
     public String toGetSourceString( OgnlContext context, Object target )
@@ -150,11 +150,11 @@ public abstract class SimpleNode
     {
         writer.println( toString( prefix ) );
 
-        if ( _children != null )
+        if ( children != null )
         {
-            for ( int i = 0; i < _children.length; ++i )
+            for ( int i = 0; i < children.length; ++i )
             {
-                SimpleNode n = (SimpleNode) _children[i];
+                SimpleNode n = (SimpleNode) children[i];
                 if ( n != null )
                 {
                     n.dump( writer, prefix + "  " );
@@ -167,13 +167,13 @@ public abstract class SimpleNode
     {
         int result = -1;
 
-        if ( _parent != null )
+        if ( parent != null )
         {
-            int icount = _parent.jjtGetNumChildren();
+            int icount = parent.jjtGetNumChildren();
 
             for ( int i = 0; i < icount; i++ )
             {
-                if ( _parent.jjtGetChild( i ) == this )
+                if ( parent.jjtGetChild( i ) == this )
                 {
                     result = i;
                     break;
@@ -191,11 +191,11 @@ public abstract class SimpleNode
 
         if ( i >= 0 )
         {
-            int icount = _parent.jjtGetNumChildren();
+            int icount = parent.jjtGetNumChildren();
 
             if ( i < icount )
             {
-                result = _parent.jjtGetChild( i + 1 );
+                result = parent.jjtGetChild( i + 1 );
             }
         }
         return result;
@@ -207,20 +207,20 @@ public abstract class SimpleNode
         context.setCurrentObject( source );
         context.setCurrentNode( this );
 
-        if ( !_constantValueCalculated )
+        if ( !constantValueCalculated )
         {
-            _constantValueCalculated = true;
+            constantValueCalculated = true;
             boolean constant = isConstant( context );
 
             if ( constant )
             {
-                _constantValue = getValueBody( context, source );
+                constantValue = getValueBody( context, source );
             }
 
-            _hasConstantValue = constant;
+            hasConstantValue = constant;
         }
 
-        return _hasConstantValue ? _constantValue : getValueBody( context, source );
+        return hasConstantValue ? constantValue : getValueBody( context, source );
     }
 
     protected void evaluateSetValueBody( OgnlContext context, Object target, Object value )
@@ -379,7 +379,7 @@ public abstract class SimpleNode
 
     protected boolean lastChild( OgnlContext context )
     {
-        return _parent == null || context.get( "_lastChild" ) != null;
+        return parent == null || context.get( "_lastChild" ) != null;
     }
 
     /**
@@ -391,47 +391,56 @@ public abstract class SimpleNode
         boolean shouldFlatten = false;
         int newSize = 0;
 
-        for ( int i = 0; i < _children.length; ++i )
-            if ( _children[i].getClass() == getClass() )
+        for ( Node aChildren : children )
+        {
+            if ( aChildren.getClass() == getClass() )
             {
                 shouldFlatten = true;
-                newSize += _children[i].jjtGetNumChildren();
+                newSize += aChildren.jjtGetNumChildren();
             }
             else
+            {
                 ++newSize;
+            }
+        }
 
         if ( shouldFlatten )
         {
             Node[] newChildren = new Node[newSize];
             int j = 0;
 
-            for ( int i = 0; i < _children.length; ++i )
+            for ( Node c : children )
             {
-                Node c = _children[i];
                 if ( c.getClass() == getClass() )
                 {
                     for ( int k = 0; k < c.jjtGetNumChildren(); ++k )
+                    {
                         newChildren[j++] = c.jjtGetChild( k );
+                    }
 
                 }
                 else
+                {
                     newChildren[j++] = c;
+                }
             }
 
             if ( j != newSize )
+            {
                 throw new Error( "Assertion error: " + j + " != " + newSize );
+            }
 
-            _children = newChildren;
+            children = newChildren;
         }
     }
 
     public ExpressionAccessor getAccessor()
     {
-        return _accessor;
+        return accessor;
     }
 
     public void setAccessor( ExpressionAccessor accessor )
     {
-        _accessor = accessor;
+        this.accessor = accessor;
     }
 }

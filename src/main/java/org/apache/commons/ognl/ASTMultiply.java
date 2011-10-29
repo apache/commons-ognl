@@ -46,10 +46,10 @@ class ASTMultiply
     protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
-        Object result = _children[0].getValue( context, source );
-        for ( int i = 1; i < _children.length; ++i )
+        Object result = children[0].getValue( context, source );
+        for ( int i = 1; i < children.length; ++i )
         {
-            result = OgnlOps.multiply( result, _children[i].getValue( context, source ) );
+            result = OgnlOps.multiply( result, children[i].getValue( context, source ) );
         }
         return result;
     }

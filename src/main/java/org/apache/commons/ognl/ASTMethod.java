@@ -86,7 +86,7 @@ public class ASTMethod
 
             for ( int i = 0, icount = args.length; i < icount; ++i )
             {
-                args[i] = _children[i].getValue( context, root );
+                args[i] = children[i].getValue( context, root );
             }
 
             result = OgnlRuntime.callMethod( context, source, methodName, args );
@@ -147,17 +147,17 @@ public class ASTMethod
 
             method = OgnlRuntime.getMethod( context, context.getCurrentType() != null
                 ? context.getCurrentType()
-                : target.getClass(), methodName, _children, false );
+                : target.getClass(), methodName, children, false );
             if ( method == null )
             {
                 method = OgnlRuntime.getReadMethod( target.getClass(), methodName,
-                                                    _children != null ? _children.length : -1 );
+                                                    children != null ? children.length : -1 );
             }
 
             if ( method == null )
             {
                 method = OgnlRuntime.getWriteMethod( target.getClass(), methodName,
-                                                     _children != null ? _children.length : -1 );
+                                                     children != null ? children.length : -1 );
 
                 if ( method != null )
                 {
@@ -198,7 +198,7 @@ public class ASTMethod
 
             result = "." + method.getName() + "(";
 
-            if ( ( _children != null ) && ( _children.length > 0 ) )
+            if ( ( children != null ) && ( children.length > 0 ) )
             {
                 Class[] parms = method.getParameterTypes();
                 String prevCast = (String) context.remove( ExpressionCompiler.PRE_CAST );
@@ -208,7 +208,7 @@ public class ASTMethod
                  * context.getCurrentType() + " and previous type: " + context.getPreviousType());
                  */
 
-                for ( int i = 0; i < _children.length; i++ )
+                for ( int i = 0; i < children.length; i++ )
                 {
                     if ( i > 0 )
                     {
@@ -223,7 +223,7 @@ public class ASTMethod
                     context.setCurrentAccessor( null );
                     context.setPreviousType( null );
 
-                    Node child = _children[i];
+                    Node child = children[i];
 
                     String parmString = ASTMethodUtil.getParmString( context, root, child, prevType );
 
@@ -282,7 +282,7 @@ public class ASTMethod
          */
         Method m =
             OgnlRuntime.getWriteMethod( context.getCurrentType() != null ? context.getCurrentType() : target.getClass(),
-                                        methodName, _children != null ? _children.length : -1 );
+                                        methodName, children != null ? children.length : -1 );
         if ( m == null )
         {
             throw new UnsupportedCompilationException(
@@ -292,8 +292,8 @@ public class ASTMethod
         String post = "";
         String result = "." + m.getName() + "(";
 
-        if ( m.getReturnType() != void.class && m.getReturnType().isPrimitive() && ( _parent == null
-            || !ASTTest.class.isInstance( _parent ) ) )
+        if ( m.getReturnType() != void.class && m.getReturnType().isPrimitive() && ( parent == null
+            || !ASTTest.class.isInstance( parent ) ) )
         {
             Class wrapper = OgnlRuntime.getPrimitiveWrapperClass( m.getReturnType() );
 
@@ -317,12 +317,12 @@ public class ASTMethod
              * UnsupportedCompilationException("Unable to determine setter method generation for " + m);
              */
 
-            if ( ( _children != null ) && ( _children.length > 0 ) )
+            if ( ( children != null ) && ( children.length > 0 ) )
             {
                 Class[] parms = m.getParameterTypes();
                 String prevCast = (String) context.remove( ExpressionCompiler.PRE_CAST );
 
-                for ( int i = 0; i < _children.length; i++ )
+                for ( int i = 0; i < children.length; i++ )
                 {
                     if ( i > 0 )
                     {
@@ -336,7 +336,7 @@ public class ASTMethod
                     context.setCurrentAccessor( null );
                     context.setPreviousType( null );
 
-                    Node child = _children[i];
+                    Node child = children[i];
                     Object value = child.getValue( context, context.getRoot() );
                     String parmString = child.toSetSourceString( context, context.getRoot() );
 

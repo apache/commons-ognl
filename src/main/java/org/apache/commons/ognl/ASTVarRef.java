@@ -126,7 +126,7 @@ public class ASTVarRef
             post = ")";
         }
 
-        if ( _parent != null && ASTAssign.class.isInstance( _parent ) )
+        if ( parent != null && ASTAssign.class.isInstance( parent ) )
         {
             core = "$1.put(\"" + name + "\",";
             last = pre + "$1.get(\"" + name + "\")" + post;

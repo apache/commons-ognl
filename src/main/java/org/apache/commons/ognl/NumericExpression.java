@@ -83,15 +83,15 @@ public abstract class NumericExpression
                 getterClass = value.getClass();
             }
 
-            for ( int i = 0; i < _children.length; i++ )
+            for ( int i = 0; i < children.length; i++ )
             {
                 if ( i > 0 )
                 {
                     result.append( " " ).append( getExpressionOperator( i ) ).append( " " );
                 }
-                String str = OgnlRuntime.getChildSource( context, target, _children[i] );
+                String str = OgnlRuntime.getChildSource( context, target, children[i] );
 
-                result.append( coerceToNumeric( str, context, _children[i] ) );
+                result.append( coerceToNumeric( str, context, children[i] ) );
             }
 
         }

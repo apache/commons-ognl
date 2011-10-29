@@ -73,8 +73,8 @@ public abstract class ComparisonExpression
 
             // iterate over children to make numeric type detection work properly
 
-            OgnlRuntime.getChildSource( context, target, _children[0] );
-            OgnlRuntime.getChildSource( context, target, _children[1] );
+            OgnlRuntime.getChildSource( context, target, children[0] );
+            OgnlRuntime.getChildSource( context, target, children[1] );
 
             // System.out.println("comparison expression currentType: " + context.getCurrentType() + " previousType: " +
             // context.getPreviousType());
@@ -87,7 +87,7 @@ public abstract class ComparisonExpression
                 result.append( getComparisonFunction() ).append( "( ($w) (" );
             }
 
-            result.append( OgnlRuntime.getChildSource( context, target, _children[0], conversion ) )
+            result.append( OgnlRuntime.getChildSource( context, target, children[0], conversion ) )
                     .append( " " );
 
             if ( conversion )
@@ -99,7 +99,7 @@ public abstract class ComparisonExpression
                 result.append( getExpressionOperator( 0 ) );
             }
 
-            result.append( "" ).append( OgnlRuntime.getChildSource( context, target, _children[1], conversion ) );
+            result.append( "" ).append( OgnlRuntime.getChildSource( context, target, children[1], conversion ) );
 
             if ( conversion )
             {

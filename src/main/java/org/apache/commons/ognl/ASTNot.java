@@ -40,7 +40,7 @@ class ASTNot
     protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
-        return OgnlOps.booleanValue( _children[0].getValue( context, source ) ) ? Boolean.FALSE : Boolean.TRUE;
+        return OgnlOps.booleanValue( children[0].getValue( context, source ) ) ? Boolean.FALSE : Boolean.TRUE;
     }
 
     public String getExpressionOperator( int index )

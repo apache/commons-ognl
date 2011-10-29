@@ -57,14 +57,14 @@ public abstract class ExpressionNode
     {
         boolean result = isNodeConstant( context );
 
-        if ( ( _children != null ) && ( _children.length > 0 ) )
+        if ( ( children != null ) && ( children.length > 0 ) )
         {
             result = true;
-            for ( int i = 0; result && ( i < _children.length ); ++i )
+            for ( int i = 0; result && ( i < children.length ); ++i )
             {
-                if ( _children[i] instanceof SimpleNode )
+                if ( children[i] instanceof SimpleNode )
                 {
-                    result = ( (SimpleNode) _children[i] ).isConstant( context );
+                    result = ( (SimpleNode) children[i] ).isConstant( context );
                 }
                 else
                 {
@@ -77,7 +77,7 @@ public abstract class ExpressionNode
 
     public String getExpressionOperator( int index )
     {
-        throw new RuntimeException( "unknown operator for " + OgnlParserTreeConstants.jjtNodeName[_id] );
+        throw new RuntimeException( "unknown operator for " + OgnlParserTreeConstants.jjtNodeName[id] );
     }
 
     @Override
@@ -85,26 +85,26 @@ public abstract class ExpressionNode
     {
         StringBuilder result =
             new StringBuilder(
-                ( _parent == null || NumericExpression.class.isAssignableFrom( _parent.getClass() ) ) ? "" : "(" );
+                ( parent == null || NumericExpression.class.isAssignableFrom( parent.getClass() ) ) ? "" : "(" );
 
-        if ( ( _children != null ) && ( _children.length > 0 ) )
+        if ( ( children != null ) && ( children.length > 0 ) )
         {
-            for ( int i = 0; i < _children.length; ++i )
+            for ( int i = 0; i < children.length; ++i )
             {
                 if ( i > 0 )
                 {
                     result.append( " " ).append( getExpressionOperator( i ) ).append( " " );
                 }
 
-                String value = _children[i].toGetSourceString( context, target );
+                String value = children[i].toGetSourceString( context, target );
 
-                if ( ( ASTProperty.class.isInstance( _children[i] ) || ASTMethod.class.isInstance( _children[i] )
-                    || ASTSequence.class.isInstance( _children[i] ) || ASTChain.class.isInstance( _children[i] ) )
+                if ( ( ASTProperty.class.isInstance( children[i] ) || ASTMethod.class.isInstance( children[i] )
+                    || ASTSequence.class.isInstance( children[i] ) || ASTChain.class.isInstance( children[i] ) )
                     && value != null && value.trim().length() > 0 )
                 {
 
                     String pre = null;
-                    if ( ASTMethod.class.isInstance( _children[i] ) )
+                    if ( ASTMethod.class.isInstance( children[i] ) )
                     {
                         pre = (String) context.get( "_currentChain" );
                     }
@@ -121,7 +121,7 @@ public abstract class ExpressionNode
                     }
 
                     value =
-                        cast + ExpressionCompiler.getRootExpression( _children[i], context.getRoot(), context ) + pre
+                        cast + ExpressionCompiler.getRootExpression( children[i], context.getRoot(), context ) + pre
                             + value;
                 }
 
@@ -129,7 +129,7 @@ public abstract class ExpressionNode
             }
         }
 
-        if ( _parent != null && !NumericExpression.class.isAssignableFrom( _parent.getClass() ) )
+        if ( parent != null && !NumericExpression.class.isAssignableFrom( parent.getClass() ) )
         {
             result.append( ")" );
         }
@@ -140,21 +140,21 @@ public abstract class ExpressionNode
     @Override
     public String toSetSourceString( OgnlContext context, Object target )
     {
-        String result = ( _parent == null ) ? "" : "(";
+        String result = ( parent == null ) ? "" : "(";
 
-        if ( ( _children != null ) && ( _children.length > 0 ) )
+        if ( ( children != null ) && ( children.length > 0 ) )
         {
-            for ( int i = 0; i < _children.length; ++i )
+            for ( int i = 0; i < children.length; ++i )
             {
                 if ( i > 0 )
                 {
                     result += " " + getExpressionOperator( i ) + " ";
                 }
 
-                result += _children[i].toSetSourceString( context, target );
+                result += children[i].toSetSourceString( context, target );
             }
         }
-        if ( _parent != null )
+        if ( parent != null )
         {
             result = result + ")";
         }

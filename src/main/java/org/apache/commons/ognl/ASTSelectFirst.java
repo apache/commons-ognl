@@ -46,7 +46,7 @@ class ASTSelectFirst
     protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
-        Node expr = _children[0];
+        Node expr = children[0];
         List answer = new ArrayList();
         ElementsAccessor elementsAccessor = OgnlRuntime.getElementsAccessor( OgnlRuntime.getTargetClass( source ) );
 

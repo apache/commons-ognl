@@ -64,7 +64,7 @@ public class ASTRootVarRef
             context.setCurrentType( getterClass );
         }
 
-        if ( _parent == null || ( getterClass != null && getterClass.isArray() ) )
+        if ( parent == null || ( getterClass != null && getterClass.isArray() ) )
         {
             return "";
         }
@@ -76,7 +76,7 @@ public class ASTRootVarRef
 
     public String toSetSourceString( OgnlContext context, Object target )
     {
-        if ( _parent == null || ( getterClass != null && getterClass.isArray() ) )
+        if ( parent == null || ( getterClass != null && getterClass.isArray() ) )
         {
             return "";
         }

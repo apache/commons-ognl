@@ -43,8 +43,8 @@ class ASTAssign
     protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
-        Object result = _children[1].getValue( context, source );
-        _children[0].setValue( context, source, result );
+        Object result = children[1].getValue( context, source );
+        children[0].setValue( context, source, result );
         return result;
     }
 
@@ -52,19 +52,19 @@ class ASTAssign
     {
         String result = "";
 
-        String first = _children[0].toGetSourceString( context, target );
+        String first = children[0].toGetSourceString( context, target );
         String second = "";
 
-        if ( ASTProperty.class.isInstance( _children[1] ) )
+        if ( ASTProperty.class.isInstance( children[1] ) )
         {
             second += "((" + OgnlRuntime.getCompiler( context ).getClassName( target.getClass() ) + ")$2).";
         }
 
-        second += _children[1].toGetSourceString( context, target );
+        second += children[1].toGetSourceString( context, target );
 
-        if ( ASTSequence.class.isAssignableFrom( _children[1].getClass() ) )
+        if ( ASTSequence.class.isAssignableFrom( children[1].getClass() ) )
         {
-            ASTSequence seq = (ASTSequence) _children[1];
+            ASTSequence seq = (ASTSequence) children[1];
 
             context.setCurrentType( Object.class );
 
@@ -81,15 +81,15 @@ class ASTAssign
                                                                 Object.class );
         }
 
-        if ( NodeType.class.isInstance( _children[1] ) && !ASTProperty.class.isInstance( _children[1] )
-            && ( (NodeType) _children[1] ).getGetterClass() != null && !OrderedReturn.class.isInstance( _children[1] ) )
+        if ( NodeType.class.isInstance( children[1] ) && !ASTProperty.class.isInstance( children[1] )
+            && ( (NodeType) children[1] ).getGetterClass() != null && !OrderedReturn.class.isInstance( children[1] ) )
         {
 
-            second = "new " + ( (NodeType) _children[1] ).getGetterClass().getName() + "(" + second + ")";
+            second = "new " + ( (NodeType) children[1] ).getGetterClass().getName() + "(" + second + ")";
         }
 
-        if ( OrderedReturn.class.isAssignableFrom( _children[0].getClass() )
-            && ( (OrderedReturn) _children[0] ).getCoreExpression() != null )
+        if ( OrderedReturn.class.isAssignableFrom( children[0].getClass() )
+            && ( (OrderedReturn) children[0] ).getCoreExpression() != null )
         {
             context.setCurrentType( Object.class );
 
@@ -102,7 +102,7 @@ class ASTAssign
                     .getCompiler( context )
                     .createLocalReference( context,
                                            "org.apache.commons.ognl.OgnlOps.returnValue(($w)" + result + ", ($w)"
-                                               + ( (OrderedReturn) _children[0] ).getLastExpression() + ")",
+                                               + ( (OrderedReturn) children[0] ).getLastExpression() + ")",
                                            Object.class );
         }
 
@@ -113,14 +113,14 @@ class ASTAssign
     {
         String result = "";
 
-        result += _children[0].toSetSourceString( context, target );
+        result += children[0].toSetSourceString( context, target );
 
-        if ( ASTProperty.class.isInstance( _children[1] ) )
+        if ( ASTProperty.class.isInstance( children[1] ) )
         {
             result += "((" + OgnlRuntime.getCompiler( context ).getClassName( target.getClass() ) + ")$2).";
         }
 
-        String value = _children[1].toSetSourceString( context, target );
+        String value = children[1].toSetSourceString( context, target );
 
         if ( value == null )
         {
@@ -128,18 +128,18 @@ class ASTAssign
                 "Value for assignment is null, can't enhance statement to bytecode." );
         }
 
-        if ( ASTSequence.class.isAssignableFrom( _children[1].getClass() ) )
+        if ( ASTSequence.class.isAssignableFrom( children[1].getClass() ) )
         {
-            ASTSequence seq = (ASTSequence) _children[1];
+            ASTSequence seq = (ASTSequence) children[1];
             result = seq.getCoreExpression() + result;
             value = seq.getLastExpression();
         }
 
-        if ( NodeType.class.isInstance( _children[1] ) && !ASTProperty.class.isInstance( _children[1] )
-            && ( (NodeType) _children[1] ).getGetterClass() != null )
+        if ( NodeType.class.isInstance( children[1] ) && !ASTProperty.class.isInstance( children[1] )
+            && ( (NodeType) children[1] ).getGetterClass() != null )
         {
 
-            value = "new " + ( (NodeType) _children[1] ).getGetterClass().getName() + "(" + value + ")";
+            value = "new " + ( (NodeType) children[1] ).getGetterClass().getName() + "(" + value + ")";
         }
 
         return result + value + ")";

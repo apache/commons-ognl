@@ -49,10 +49,10 @@ public class ASTOr
         throws OgnlException
     {
         Object result = null;
-        int last = _children.length - 1;
+        int last = children.length - 1;
         for ( int i = 0; i <= last; ++i )
         {
-            result = _children[i].getValue( context, source );
+            result = children[i].getValue( context, source );
             if ( i != last && OgnlOps.booleanValue( result ) )
             {
                 break;
@@ -64,16 +64,16 @@ public class ASTOr
     protected void setValueBody( OgnlContext context, Object target, Object value )
         throws OgnlException
     {
-        int last = _children.length - 1;
+        int last = children.length - 1;
         for ( int i = 0; i < last; ++i )
         {
-            Object v = _children[i].getValue( context, target );
+            Object v = children[i].getValue( context, target );
             if ( OgnlOps.booleanValue( v ) )
             {
                 return;
             }
         }
-        _children[last].setValue( context, target, value );
+        children[last].setValue( context, target, value );
     }
 
     public String getExpressionOperator( int index )
@@ -88,7 +88,7 @@ public class ASTOr
 
     public String toGetSourceString( OgnlContext context, Object target )
     {
-        if ( _children.length != 2 )
+        if ( children.length != 2 )
         {
             throw new UnsupportedCompilationException( "Can only compile boolean expressions with two children." );
         }
@@ -98,7 +98,7 @@ public class ASTOr
         try
         {
 
-            String first = OgnlRuntime.getChildSource( context, target, _children[0] );
+            String first = OgnlRuntime.getChildSource( context, target, children[0] );
             if ( !OgnlRuntime.isBoolean( first ) )
             {
                 first = OgnlRuntime.getCompiler( context ).createLocalReference( context, first, context.getCurrentType() );
@@ -106,7 +106,7 @@ public class ASTOr
             
             Class firstType = context.getCurrentType();
 
-            String second = OgnlRuntime.getChildSource( context, target, _children[1] );
+            String second = OgnlRuntime.getChildSource( context, target, children[1] );
             if ( !OgnlRuntime.isBoolean( second ) )
             {
                 second = OgnlRuntime.getCompiler( context ).createLocalReference( context, second, context.getCurrentType() );
@@ -144,7 +144,7 @@ public class ASTOr
 
     public String toSetSourceString( OgnlContext context, Object target )
     {
-        if ( _children.length != 2 )
+        if ( children.length != 2 )
         {
             throw new UnsupportedCompilationException( "Can only compile boolean expressions with two children." );
         }
@@ -160,20 +160,20 @@ public class ASTOr
         try
         {
 
-            _children[0].getValue( context, target );
+            children[0].getValue( context, target );
 
             String first =
-                ExpressionCompiler.getRootExpression( _children[0], context.getRoot(), context ) + pre
-                    + _children[0].toGetSourceString( context, target );
+                ExpressionCompiler.getRootExpression( children[0], context.getRoot(), context ) + pre
+                    + children[0].toGetSourceString( context, target );
             if ( !OgnlRuntime.isBoolean( first ) )
             {
                 first = OgnlRuntime.getCompiler( context ).createLocalReference( context, first, Object.class );
             }
-            _children[1].getValue( context, target );
+            children[1].getValue( context, target );
 
             String second =
-                ExpressionCompiler.getRootExpression( _children[1], context.getRoot(), context ) + pre
-                    + _children[1].toSetSourceString( context, target );
+                ExpressionCompiler.getRootExpression( children[1], context.getRoot(), context ) + pre
+                    + children[1].toSetSourceString( context, target );
             if ( !OgnlRuntime.isBoolean( second ) )
             {
                 second = OgnlRuntime.getCompiler( context ).createLocalReference( context, second, context.getCurrentType() );

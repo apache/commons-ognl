@@ -40,8 +40,8 @@ class ASTUnsignedShiftRight
     protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
-        Object v1 = _children[0].getValue( context, source );
-        Object v2 = _children[1].getValue( context, source );
+        Object v1 = children[0].getValue( context, source );
+        Object v2 = children[1].getValue( context, source );
         return OgnlOps.unsignedShiftRight( v1, v2 );
     }
 
@@ -57,13 +57,13 @@ class ASTUnsignedShiftRight
         try
         {
 
-            String child1 = OgnlRuntime.getChildSource( context, target, _children[0] );
-            child1 = coerceToNumeric( child1, context, _children[0] );
+            String child1 = OgnlRuntime.getChildSource( context, target, children[0] );
+            child1 = coerceToNumeric( child1, context, children[0] );
 
-            String child2 = OgnlRuntime.getChildSource( context, target, _children[1] );
-            child2 = coerceToNumeric( child2, context, _children[1] );
+            String child2 = OgnlRuntime.getChildSource( context, target, children[1] );
+            child2 = coerceToNumeric( child2, context, children[1] );
 
-            Object v1 = _children[0].getValue( context, target );
+            Object v1 = children[0].getValue( context, target );
             int type = OgnlOps.getNumericType( v1 );
 
             if ( type <= OgnlOps.INT )

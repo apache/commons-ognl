@@ -42,17 +42,17 @@ class ASTTest
     protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
-        Object test = _children[0].getValue( context, source );
+        Object test = children[0].getValue( context, source );
         int branch = OgnlOps.booleanValue( test ) ? 1 : 2;
-        return _children[branch].getValue( context, source );
+        return children[branch].getValue( context, source );
     }
 
     protected void setValueBody( OgnlContext context, Object target, Object value )
         throws OgnlException
     {
-        Object test = _children[0].getValue( context, target );
+        Object test = children[0].getValue( context, target );
         int branch = OgnlOps.booleanValue( test ) ? 1 : 2;
-        _children[branch].setValue( context, target, value );
+        children[branch].setValue( context, target, value );
     }
 
     public String getExpressionOperator( int index )
@@ -67,10 +67,10 @@ class ASTTest
             throw new UnsupportedCompilationException( "evaluation resulted in null expression." );
         }
         
-        if ( _children.length != 3 )
+        if ( children.length != 3 )
         {
             throw new UnsupportedCompilationException( "Can only compile test expressions with two children."
-                + _children.length );
+                + children.length );
         }
         
         String result = "";
@@ -78,18 +78,18 @@ class ASTTest
         try
         {
 
-            String first = OgnlRuntime.getChildSource( context, target, _children[0] );
+            String first = OgnlRuntime.getChildSource( context, target, children[0] );
             if ( !OgnlRuntime.isBoolean( first ) && !context.getCurrentType().isPrimitive() )
             {
                 first = OgnlRuntime.getCompiler( context ).createLocalReference( context, first, context.getCurrentType() );
             }
             
-            if ( ExpressionNode.class.isInstance( _children[0] ) )
+            if ( ExpressionNode.class.isInstance( children[0] ) )
             {
                 first = "(" + first + ")";
             }
 
-            String second = OgnlRuntime.getChildSource( context, target, _children[1] );
+            String second = OgnlRuntime.getChildSource( context, target, children[1] );
             Class secondType = context.getCurrentType();
 
             if ( !OgnlRuntime.isBoolean( second ) && !context.getCurrentType().isPrimitive() )
@@ -97,12 +97,12 @@ class ASTTest
                 second = OgnlRuntime.getCompiler( context ).createLocalReference( context, second, context.getCurrentType() );
             }
             
-            if ( ExpressionNode.class.isInstance( _children[1] ) )
+            if ( ExpressionNode.class.isInstance( children[1] ) )
             {
                 second = "(" + second + ")";
             }
 
-            String third = OgnlRuntime.getChildSource( context, target, _children[2] );
+            String third = OgnlRuntime.getChildSource( context, target, children[2] );
             Class thirdType = context.getCurrentType();
 
             if ( !OgnlRuntime.isBoolean( third ) && !context.getCurrentType().isPrimitive() )
@@ -111,7 +111,7 @@ class ASTTest
             
             }
             
-            if ( ExpressionNode.class.isInstance( _children[2] ) )
+            if ( ExpressionNode.class.isInstance( children[2] ) )
             {
                 third = "(" + third + ")";
             }

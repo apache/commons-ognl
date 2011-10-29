@@ -43,10 +43,10 @@ class ASTEval
     protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
-        Object result, expr = _children[0].getValue( context, source ), previousRoot = context.getRoot();
+        Object result, expr = children[0].getValue( context, source ), previousRoot = context.getRoot();
         Node node;
 
-        source = _children[1].getValue( context, source );
+        source = children[1].getValue( context, source );
         node = ( expr instanceof Node ) ? (Node) expr : (Node) Ognl.parseExpression( expr.toString() );
         try
         {
@@ -63,10 +63,10 @@ class ASTEval
     protected void setValueBody( OgnlContext context, Object target, Object value )
         throws OgnlException
     {
-        Object expr = _children[0].getValue( context, target ), previousRoot = context.getRoot();
+        Object expr = children[0].getValue( context, target ), previousRoot = context.getRoot();
         Node node;
 
-        target = _children[1].getValue( context, target );
+        target = children[1].getValue( context, target );
         node = ( expr instanceof Node ) ? (Node) expr : (Node) Ognl.parseExpression( expr.toString() );
         try
         {

@@ -40,8 +40,8 @@ class ASTLessEq
     protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
-        Object v1 = _children[0].getValue( context, source );
-        Object v2 = _children[1].getValue( context, source );
+        Object v1 = children[0].getValue( context, source );
+        Object v2 = children[1].getValue( context, source );
         return OgnlOps.greater( v1, v2 ) ? Boolean.FALSE : Boolean.TRUE;
     }
 

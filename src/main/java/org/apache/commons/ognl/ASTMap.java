@@ -96,7 +96,7 @@ class ASTMap
 
         for ( int i = 0; i < jjtGetNumChildren(); ++i )
         {
-            ASTKeyValue kv = (ASTKeyValue) _children[i];
+            ASTKeyValue kv = (ASTKeyValue) children[i];
             Node k = kv.getKey(), v = kv.getValue();
 
             answer.put( k.getValue( context, source ), ( v == null ) ? null : v.getValue( context, source ) );

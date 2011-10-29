@@ -45,10 +45,10 @@ class ASTXor
     protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
-        Object result = _children[0].getValue( context, source );
-        for ( int i = 1; i < _children.length; ++i )
+        Object result = children[0].getValue( context, source );
+        for ( int i = 1; i < children.length; ++i )
         {
-            result = OgnlOps.binaryXor( result, _children[i].getValue( context, source ) );
+            result = OgnlOps.binaryXor( result, children[i].getValue( context, source ) );
         }
         return result;
     }
