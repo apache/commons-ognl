@@ -1,8 +1,6 @@
 package org.apache.commons.ognl.internal;
 
 /*
- * $Id$
- *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,7 +19,9 @@ package org.apache.commons.ognl.internal;
  * under the License.
  */
 
-
+/**
+ * $Id$
+ */
 public interface Cache<K, V>
 {
     void clear();
