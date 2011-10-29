@@ -1,3 +1,5 @@
+package org.apache.commons.ognl.internal;
+
 /*
  * $Id$
  *
@@ -19,7 +21,6 @@
  * under the License.
  */
 
-package org.apache.commons.ognl.internal;
 
 public interface Cache<K, V>
 {
