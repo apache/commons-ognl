@@ -35,7 +35,8 @@ public class PermissionCacheEntryFactory
     public Permission create( PermissionCacheEntry key )
         throws CacheException
     {
-        return new OgnlInvokePermission( "invoke." + key.method.getDeclaringClass().getName() + "." + key.method.getName() );
+        return new OgnlInvokePermission(
+            "invoke." + key.method.getDeclaringClass().getName() + "." + key.method.getName() );
     }
 }
 
