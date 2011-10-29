@@ -19,10 +19,10 @@ package org.apache.commons.ognl.enhance;
  * under the License.
  */
 
-import org.apache.commons.ognl.Node;
 
 /**
- * Marks an ognl expression {@link Node} as needing to have the return portion of a getter method happen in a specific
+ * Marks an ognl expression {@link org.apache.commons.ognl.Node} as needing to have the return portion of a getter
+ * method happen in a specific
  * part of the generated expression vs just having the whole expression returned in one chunk.
  */
 public interface OrderedReturn

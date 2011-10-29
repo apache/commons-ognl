@@ -26,17 +26,17 @@ public class LocalReferenceImpl
     implements LocalReference
 {
 
-    private final String _name;
+    private final String name;
 
-    private final Class<?> _type;
+    private final Class<?> type;
 
-    private final String _expression;
+    private final String expression;
 
     public LocalReferenceImpl( String name, String expression, Class<?> type )
     {
-        _name = name;
-        _type = type;
-        _expression = expression;
+        this.name = name;
+        this.type = type;
+        this.expression = expression;
     }
 
     /**
@@ -44,7 +44,7 @@ public class LocalReferenceImpl
      */
     public String getName()
     {
-        return _name;
+        return name;
     }
 
     /**
@@ -52,7 +52,7 @@ public class LocalReferenceImpl
      */
     public String getExpression()
     {
-        return _expression;
+        return expression;
     }
 
     /**
@@ -60,7 +60,7 @@ public class LocalReferenceImpl
      */
     public Class<?> getType()
     {
-        return _type;
+        return type;
     }
 
     /**
@@ -80,15 +80,15 @@ public class LocalReferenceImpl
 
         LocalReferenceImpl that = (LocalReferenceImpl) o;
 
-        if ( _expression != null ? !_expression.equals( that._expression ) : that._expression != null )
+        if ( expression != null ? !expression.equals( that.expression ) : that.expression != null )
         {
             return false;
         }
-        if ( _name != null ? !_name.equals( that._name ) : that._name != null )
+        if ( name != null ? !name.equals( that.name ) : that.name != null )
         {
             return false;
         }
-        if ( _type != null ? !_type.equals( that._type ) : that._type != null )
+        if ( type != null ? !type.equals( that.type ) : that.type != null )
         {
             return false;
         }
@@ -103,9 +103,9 @@ public class LocalReferenceImpl
     public int hashCode()
     {
         int result;
-        result = ( _name != null ? _name.hashCode() : 0 );
-        result = 31 * result + ( _type != null ? _type.hashCode() : 0 );
-        result = 31 * result + ( _expression != null ? _expression.hashCode() : 0 );
+        result = ( name != null ? name.hashCode() : 0 );
+        result = 31 * result + ( type != null ? type.hashCode() : 0 );
+        result = 31 * result + ( expression != null ? expression.hashCode() : 0 );
         return result;
     }
 
@@ -115,7 +115,7 @@ public class LocalReferenceImpl
     @Override
     public String toString()
     {
-        return "LocalReferenceImpl[" + "_name='" + _name + '\'' + '\n' + ", _type=" + _type + '\n' + ", _expression='"
-            + _expression + '\'' + '\n' + ']';
+        return "LocalReferenceImpl[" + "_name='" + name + '\'' + '\n' + ", _type=" + type + '\n' + ", _expression='"
+            + expression + '\'' + '\n' + ']';
     }
 }
