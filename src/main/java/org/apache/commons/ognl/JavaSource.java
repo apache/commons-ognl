@@ -30,7 +30,7 @@ public interface JavaSource
 
     /**
      * Expected to return a java source representation of itself such that it could be turned into a literal java
-     * expression to be compiled and executed for {@link ExpressionAccessor#get(OgnlContext, Object)} calls.
+     * expression to be compiled and executed for {@link org.apache.commons.ognl.enhance.ExpressionAccessor#get(OgnlContext, Object)} calls.
      * 
      * @return Literal java string representation of an object get.
      */
@@ -38,7 +38,7 @@ public interface JavaSource
 
     /**
      * Expected to return a java source representation of itself such that it could be turned into a literal java
-     * expression to be compiled and executed for {@link ExpressionAccessor#get(OgnlContext, Object)} calls.
+     * expression to be compiled and executed for {@link org.apache.commons.ognl.enhance.ExpressionAccessor#get(OgnlContext, Object)} calls.
      * 
      * @return Literal java string representation of an object get.
      */
