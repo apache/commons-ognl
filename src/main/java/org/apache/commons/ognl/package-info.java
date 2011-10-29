@@ -1,5 +1,6 @@
+package org.apache.commons.ognl;
+
 /*
- * $Id$
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -33,6 +34,6 @@
  *
  * We pronounce OGNL as a word, like the last syllables of a drunken
  * pronunciation of "orthogonal" or like "ogg-null".
+ * $Id$
  */
-package org.apache.commons.ognl;
 

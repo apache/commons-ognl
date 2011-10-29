@@ -1,6 +1,3 @@
-/**
- * Internal stuff only, users don't need to take this package in consideration.
- */
 package org.apache.commons.ognl.internal;
 
 /*
@@ -20,4 +17,8 @@ package org.apache.commons.ognl.internal;
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
+ */
+
+/**
+ * Internal stuff only, users don't need to take this package in consideration.
  */
