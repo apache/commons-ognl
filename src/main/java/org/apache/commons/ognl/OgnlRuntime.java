@@ -19,10 +19,6 @@ package org.apache.commons.ognl;
  * under the License.
  */
 
-/*
- * $Id$
- */
-
 import org.apache.commons.ognl.enhance.ExpressionCompiler;
 import org.apache.commons.ognl.enhance.OgnlExpressionCompiler;
 import org.apache.commons.ognl.internal.Cache;
@@ -83,6 +79,8 @@ import java.util.Set;
  * <li>Core runtime configuration point for setting/using global {@link TypeConverter} / {@link OgnlExpressionCompiler}
  * / {@link NullHandler} instances / etc..</li>
  * </ul>
+ *
+ * $Id$
  *
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
