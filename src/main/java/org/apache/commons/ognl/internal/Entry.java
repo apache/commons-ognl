@@ -1,6 +1,6 @@
+package org.apache.commons.ognl.internal;
+
 /*
- * $Id$
- *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -19,15 +19,16 @@
  * under the License.
  */
 
-package org.apache.commons.ognl.internal;
 
 /**
  * Used by {@link ClassCacheImpl} to store entries in the cache.
+ * <p/>
+ * $Id$
  */
-class Entry<K,V>
+class Entry<K, V>
 {
 
-    private Entry<K,V> next;
+    private Entry<K, V> next;
 
     private final K key;
 
@@ -54,12 +55,12 @@ class Entry<K,V>
         this.value = value;
     }
 
-    public Entry<K,V> getNext()
+    public Entry<K, V> getNext()
     {
         return next;
     }
 
-    public void setNext( Entry<K,V> next )
+    public void setNext( Entry<K, V> next )
     {
         this.next = next;
     }
