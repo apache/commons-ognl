@@ -40,18 +40,18 @@ public class ClassCacheImpl<V>
     /* ...and now you see why. The table size is used as a mask for generating hashes */
     private static final int TABLE_SIZE_MASK = TABLE_SIZE - 1;
 
-    private Entry<Class<?>, V>[] _table = new Entry[TABLE_SIZE];
+    private Entry<Class<?>, V>[] table = new Entry[TABLE_SIZE];
 
-    private ClassCacheInspector _classInspector;
+    private ClassCacheInspector classInspector;
 
-    private int _size = 0;
+    private int size = 0;
 
     /**
      * {@inheritDoc}
      */
     public void setClassInspector( ClassCacheInspector inspector )
     {
-        _classInspector = inspector;
+        classInspector = inspector;
     }
 
     /**
@@ -59,12 +59,12 @@ public class ClassCacheImpl<V>
      */
     public void clear()
     {
-        for ( int i = 0; i < _table.length; i++ )
+        for ( int i = 0; i < table.length; i++ )
         {
-            _table[i] = null;
+            table[i] = null;
         }
 
-        _size = 0;
+        size = 0;
     }
 
     /**
@@ -72,7 +72,7 @@ public class ClassCacheImpl<V>
      */
     public int getSize()
     {
-        return _size;
+        return size;
     }
 
     /**
@@ -83,7 +83,7 @@ public class ClassCacheImpl<V>
     {
         int i = key.hashCode() & TABLE_SIZE_MASK;
 
-        Entry<Class<?>, V> entry = _table[i];
+        Entry<Class<?>, V> entry = table[i];
 
         while ( entry != null )
         {
@@ -102,7 +102,7 @@ public class ClassCacheImpl<V>
      */
     public final V put( Class<?> key, V value )
     {
-        if ( _classInspector != null && !_classInspector.shouldCache( key ) )
+        if ( classInspector != null && !classInspector.shouldCache( key ) )
         {
             return value;
         }
@@ -110,12 +110,12 @@ public class ClassCacheImpl<V>
         V result = null;
         int i = key.hashCode() & TABLE_SIZE_MASK;
 
-        Entry<Class<?>, V> entry = _table[i];
+        Entry<Class<?>, V> entry = table[i];
 
         if ( entry == null )
         {
-            _table[i] = new Entry<Class<?>, V>( key, value );
-            _size++;
+            table[i] = new Entry<Class<?>, V>( key, value );
+            size++;
         }
         else
         {
@@ -157,8 +157,8 @@ public class ClassCacheImpl<V>
     @Override
     public String toString()
     {
-        return "ClassCacheImpl[" + "_table=" + ( _table == null ? null : Arrays.asList( _table ) ) + '\n'
-            + ", _classInspector=" + _classInspector + '\n' + ", _size=" + _size + '\n' + ']';
+        return "ClassCacheImpl[" + "_table=" + ( table == null ? null : Arrays.asList( table ) ) + '\n'
+            + ", _classInspector=" + classInspector + '\n' + ", _size=" + size + '\n' + ']';
     }
 
 }
