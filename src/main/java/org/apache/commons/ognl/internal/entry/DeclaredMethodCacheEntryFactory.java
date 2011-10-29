@@ -1,7 +1,7 @@
+package org.apache.commons.ognl.internal.entry;
+
 /*
- * $Id$
- *
- * Licensed to the Apache Software Foundation (ASF) under one  
+ * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information       
  * regarding copyright ownership.  The ASF licenses this file  
@@ -19,7 +19,9 @@
  * under the License.
  */
 
-package org.apache.commons.ognl.internal.entry;
+/*
+ * $Id$
+ */
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
