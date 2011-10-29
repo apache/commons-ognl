@@ -36,7 +36,8 @@ public class ClassCacheHandler
 
         synchronized ( handlers )
         {
-            if ( ( answer = handlers.get( forClass ) ) == null )
+            answer = handlers.get( forClass );
+            if ( answer == null )
             {
                 Class<?> keyFound;
 
