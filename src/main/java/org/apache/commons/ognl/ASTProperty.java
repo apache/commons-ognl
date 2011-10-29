@@ -254,32 +254,7 @@ public class ASTProperty
 
             String name = ( (ASTConst) _children[0] ).getValue().toString();
 
-            if ( !Iterator.class.isAssignableFrom( context.getCurrentObject().getClass() )
-                || ( Iterator.class.isAssignableFrom( context.getCurrentObject().getClass() ) 
-                     && name.indexOf( "next" ) < 0 ) )
-            {
-                Object currObj = target;
-
-                try
-                {
-                    target = getValue( context, context.getCurrentObject() );
-                }
-                catch ( NoSuchPropertyException e )
-                {
-                    try
-                    {
-                        target = getValue( context, context.getRoot() );
-                    }
-                    catch ( NoSuchPropertyException ex )
-                    {
-                        // ignore
-                    }
-                }
-                finally
-                {
-                    context.setCurrentObject( currObj );
-                }
-            }
+            target = getTarget( context, target, name );
 
             PropertyDescriptor pd = OgnlRuntime.getPropertyDescriptor( context.getCurrentObject().getClass(), name );
 
@@ -409,6 +384,39 @@ public class ASTProperty
         context.setCurrentObject( target );
 
         return result;
+    }
+
+    Object getTarget( OgnlContext context, Object target, String name )
+        throws OgnlException
+    {
+        Class<? extends Object> clazz = context.getCurrentObject().getClass();
+        if ( !Iterator.class.isAssignableFrom(clazz)
+            || ( Iterator.class.isAssignableFrom(clazz)
+                 && name.indexOf( "next" ) < 0 ) )
+        {
+            Object currObj = target;
+
+            try
+            {
+                target = getValue( context, context.getCurrentObject() );
+            }
+            catch ( NoSuchPropertyException e )
+            {
+                try
+                {
+                    target = getValue( context, context.getRoot() );
+                }
+                catch ( NoSuchPropertyException ex )
+                {
+                    // ignore
+                }
+            }
+            finally
+            {
+                context.setCurrentObject( currObj );
+            }
+        }
+        return target;
     }
 
     Method getIndexedWriteMethod( PropertyDescriptor pd )
@@ -565,36 +573,7 @@ public class ASTProperty
             // System.out.println(" astprop(setter) : trying to set " + name + " on object target " +
             // context.getCurrentObject().getClass().getName());
 
-            if ( !Iterator.class.isAssignableFrom( context.getCurrentObject().getClass() )
-                || ( Iterator.class.isAssignableFrom( context.getCurrentObject().getClass() ) 
-                     && name.indexOf( "next" ) < 0 ) )
-            {
-
-                Object currObj = target;
-
-                try
-                {
-                    target = getValue( context, context.getCurrentObject() );
-                }
-                catch ( NoSuchPropertyException e )
-                {
-                    try
-                    {
-
-                        target = getValue( context, context.getRoot() );
-
-                    }
-                    catch ( NoSuchPropertyException ex )
-                    {
-                        // TODO: how to handle this accordingly?
-                    }
-                }
-                finally
-                {
-
-                    context.setCurrentObject( currObj );
-                }
-            }
+            target = getTarget( context, target, name );
 
             PropertyDescriptor pd =
                 OgnlRuntime.getPropertyDescriptor( 
