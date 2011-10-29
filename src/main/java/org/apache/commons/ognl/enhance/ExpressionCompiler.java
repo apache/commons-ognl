@@ -74,14 +74,14 @@ public class ExpressionCompiler
     /**
      * {@link ClassLoader} instances.
      */
-    protected Map<ClassResolver, EnhancedClassLoader> _loaders = new HashMap<ClassResolver, EnhancedClassLoader>();
+    protected Map<ClassResolver, EnhancedClassLoader> loaders = new HashMap<ClassResolver, EnhancedClassLoader>();
 
     /**
      * Javassist class definition poool.
      */
-    protected ClassPool _pool;
+    protected ClassPool pool;
 
-    protected int _classCounter = 0;
+    protected int classCounter = 0;
 
     /**
      * Used by {@link #castExpression(org.apache.commons.ognl.OgnlContext, org.apache.commons.ognl.Node, String)} to
@@ -151,19 +151,21 @@ public class ExpressionCompiler
         if ( ( !ASTList.class.isInstance( expression ) && !ASTVarRef.class.isInstance( expression )
             && !ASTStaticMethod.class.isInstance( expression ) && !ASTStaticField.class.isInstance( expression )
             && !ASTConst.class.isInstance( expression ) && !ExpressionNode.class.isInstance( expression )
-            && !ASTCtor.class.isInstance( expression ) && !ASTStaticMethod.class.isInstance( expression ) && root != null )
-            || ( root != null && ASTRootVarRef.class.isInstance( expression ) ) )
+            && !ASTCtor.class.isInstance( expression ) && !ASTStaticMethod.class.isInstance( expression )
+            && root != null ) || ( root != null && ASTRootVarRef.class.isInstance( expression ) ) )
         {
 
             Class<?> castClass = OgnlRuntime.getCompiler( context ).getRootExpressionClass( expression, context );
 
-            if ( castClass.isArray() || ASTRootVarRef.class.isInstance( expression )
-                || ASTThisVarRef.class.isInstance( expression ) )
+            if ( castClass.isArray() || ASTRootVarRef.class.isInstance( expression ) || ASTThisVarRef.class.isInstance(
+                expression ) )
             {
                 rootExpr = "((" + getCastString( castClass ) + ")$2)";
 
                 if ( ASTProperty.class.isInstance( expression ) && !( (ASTProperty) expression ).isIndexedAccess() )
+                {
                     rootExpr += ".";
+                }
             }
             else if ( ( ASTProperty.class.isInstance( expression ) && ( (ASTProperty) expression ).isIndexedAccess() )
                 || ASTChain.class.isInstance( expression ) )
@@ -182,7 +184,7 @@ public class ExpressionCompiler
     /**
      * Used by {@link #getRootExpression(org.apache.commons.ognl.Node, Object, org.apache.commons.ognl.OgnlContext)} to
      * determine if the expression needs to be cast at all.
-     * 
+     *
      * @param expression The node to check against.
      * @return Yes if the node type should be cast - false otherwise.
      */
@@ -192,9 +194,11 @@ public class ExpressionCompiler
         {
             Node child = expression.jjtGetChild( 0 );
             if ( ASTConst.class.isInstance( child ) || ASTStaticMethod.class.isInstance( child )
-                || ASTStaticField.class.isInstance( child )
-                || ( ASTVarRef.class.isInstance( child ) && !ASTRootVarRef.class.isInstance( child ) ) )
+                || ASTStaticField.class.isInstance( child ) || ( ASTVarRef.class.isInstance( child )
+                && !ASTRootVarRef.class.isInstance( child ) ) )
+            {
                 return false;
+            }
         }
 
         return !ASTConst.class.isInstance( expression );
@@ -205,24 +209,21 @@ public class ExpressionCompiler
      */
     public String castExpression( OgnlContext context, Node expression, String body )
     {
-        // ok - so this looks really f-ed up ...and it is ..eh if you can do it better I'm all for it :)
+        //TODO: ok - so this looks really f-ed up ...and it is ..eh if you can do it better I'm all for it :)
 
-        if ( context.getCurrentAccessor() == null
-            || context.getPreviousType() == null
-            || context.getCurrentAccessor().isAssignableFrom( context.getPreviousType() )
-            || ( context.getCurrentType() != null && context.getCurrentObject() != null
-                && context.getCurrentType().isAssignableFrom( context.getCurrentObject().getClass() ) && context.getCurrentAccessor().isAssignableFrom( context.getPreviousType() ) )
-            || body == null
-            || body.trim().length() < 1
-            || ( context.getCurrentType() != null && context.getCurrentType().isArray() && ( context.getPreviousType() == null || context.getPreviousType() != Object.class ) )
-            || ASTOr.class.isInstance( expression )
-            || ASTAnd.class.isInstance( expression )
-            || ASTRootVarRef.class.isInstance( expression )
-            || context.getCurrentAccessor() == Class.class
-            || ( context.get( ExpressionCompiler.PRE_CAST ) != null && ( (String) context.get( ExpressionCompiler.PRE_CAST ) ).startsWith( "new" ) )
-            || ASTStaticField.class.isInstance( expression )
-            || ASTStaticMethod.class.isInstance( expression )
-            || ( OrderedReturn.class.isInstance( expression ) && ( (OrderedReturn) expression ).getLastExpression() != null ) )
+        if ( context.getCurrentAccessor() == null || context.getPreviousType() == null
+            || context.getCurrentAccessor().isAssignableFrom( context.getPreviousType() ) || (
+            context.getCurrentType() != null && context.getCurrentObject() != null
+                && context.getCurrentType().isAssignableFrom( context.getCurrentObject().getClass() )
+                && context.getCurrentAccessor().isAssignableFrom( context.getPreviousType() ) ) || body == null
+            || body.trim().length() < 1 || ( context.getCurrentType() != null && context.getCurrentType().isArray() && (
+            context.getPreviousType() == null || context.getPreviousType() != Object.class ) )
+            || ASTOr.class.isInstance( expression ) || ASTAnd.class.isInstance( expression )
+            || ASTRootVarRef.class.isInstance( expression ) || context.getCurrentAccessor() == Class.class || (
+            context.get( ExpressionCompiler.PRE_CAST ) != null && ( (String) context.get(
+                ExpressionCompiler.PRE_CAST ) ).startsWith( "new" ) ) || ASTStaticField.class.isInstance( expression )
+            || ASTStaticMethod.class.isInstance( expression ) || ( OrderedReturn.class.isInstance( expression )
+            && ( (OrderedReturn) expression ).getLastExpression() != null ) )
         {
             return body;
         }
@@ -235,7 +236,8 @@ public class ExpressionCompiler
          */
 
         ExpressionCompiler.addCastString( context,
-                                          "((" + ExpressionCompiler.getCastString( context.getCurrentAccessor() ) + ")" );
+                                          "((" + ExpressionCompiler.getCastString( context.getCurrentAccessor() )
+                                              + ")" );
 
         return ")" + body;
     }
@@ -488,10 +490,10 @@ public class ExpressionCompiler
         String getBody, setBody;
 
         EnhancedClassLoader loader = getClassLoader( context );
-        ClassPool pool = getClassPool( context, loader );
+        ClassPool classPool = getClassPool( context, loader );
 
-        CtClass newClass =
-            pool.makeClass( expression.getClass().getName() + expression.hashCode() + _classCounter++ + "Accessor" );
+        CtClass newClass = classPool.makeClass(
+            expression.getClass().getName() + expression.hashCode() + classCounter++ + "Accessor" );
         newClass.addInterface( getCtClass( ExpressionAccessor.class ) );
 
         CtClass ognlClass = getCtClass( OgnlContext.class );
@@ -509,7 +511,7 @@ public class ExpressionCompiler
         try
         {
 
-            getBody = generateGetter( context, newClass, objClass, pool, valueGetter, expression, root );
+            getBody = generateGetter( context, newClass, objClass, classPool, valueGetter, expression, root );
 
         }
         catch ( UnsupportedCompilationException uc )
@@ -528,7 +530,7 @@ public class ExpressionCompiler
         try
         {
 
-            setBody = generateSetter( context, newClass, objClass, pool, valueSetter, expression, root );
+            setBody = generateSetter( context, newClass, objClass, classPool, valueSetter, expression, root );
 
         }
         catch ( UnsupportedCompilationException uc )
@@ -555,7 +557,7 @@ public class ExpressionCompiler
         {
             newClass.addConstructor( CtNewConstructor.defaultConstructor( newClass ) );
 
-            Class<?> clazz = pool.toClass( newClass );
+            Class<?> clazz = classPool.toClass( newClass );
             newClass.detach();
 
             expression.setAccessor( (ExpressionAccessor) clazz.newInstance() );
@@ -578,7 +580,7 @@ public class ExpressionCompiler
 
     }
 
-    protected String generateGetter( OgnlContext context, CtClass newClass, CtClass objClass, ClassPool pool,
+    protected String generateGetter( OgnlContext context, CtClass newClass, CtClass objClass, ClassPool classPool,
                                      CtMethod valueGetter, Node expression, Object root )
         throws Exception
     {
@@ -607,7 +609,8 @@ public class ExpressionCompiler
         String castExpression = (String) context.get( PRE_CAST );
 
         if ( context.getCurrentType() == null || context.getCurrentType().isPrimitive()
-            || Character.class.isAssignableFrom( context.getCurrentType() ) || Object.class == context.getCurrentType() )
+            || Character.class.isAssignableFrom( context.getCurrentType() )
+            || Object.class == context.getCurrentType() )
         {
             pre = pre + " ($w) (";
             post = post + ")";
@@ -621,16 +624,16 @@ public class ExpressionCompiler
             rootExpr = "";
         }
 
-        createLocalReferences( context, pool, newClass, objClass, valueGetter.getParameterTypes() );
+        createLocalReferences( context, classPool, newClass, objClass, valueGetter.getParameterTypes() );
 
-        if ( OrderedReturn.class.isInstance( expression ) && ( (OrderedReturn) expression ).getLastExpression() != null )
+        if ( OrderedReturn.class.isInstance( expression )
+            && ( (OrderedReturn) expression ).getLastExpression() != null )
         {
-            body =
-                "{ "
-                    + ( ASTMethod.class.isInstance( expression ) || ASTChain.class.isInstance( expression ) ? rootExpr
-                                    : "" ) + ( castExpression != null ? castExpression : "" )
-                    + ( (OrderedReturn) expression ).getCoreExpression() + " return " + pre
-                    + ( (OrderedReturn) expression ).getLastExpression() + post + ";}";
+            body = "{ " + ( ASTMethod.class.isInstance( expression ) || ASTChain.class.isInstance( expression )
+                ? rootExpr
+                : "" ) + ( castExpression != null ? castExpression : "" )
+                + ( (OrderedReturn) expression ).getCoreExpression() + " return " + pre
+                + ( (OrderedReturn) expression ).getLastExpression() + post + ";}";
 
         }
         else
@@ -667,8 +670,9 @@ public class ExpressionCompiler
         return castString + referenceName + "($$)";
     }
 
-    void createLocalReferences( OgnlContext context, ClassPool pool, CtClass clazz, CtClass unused, CtClass[] params )
-        throws CannotCompileException, NotFoundException
+    void createLocalReferences( OgnlContext context, ClassPool classPool, CtClass clazz, CtClass unused,
+                                CtClass[] params )
+        throws NotFoundException, CannotCompileException
     {
         Map<String, LocalReference> referenceMap = context.getLocalReferences();
         if ( referenceMap == null || referenceMap.size() < 1 )
@@ -685,7 +689,8 @@ public class ExpressionCompiler
             // System.out.println("adding method " + ref.getName() + " with body:\n" + body + " and return type: " +
             // ref.getType());
 
-            CtMethod method = new CtMethod( pool.get( getCastString( ref.getType() ) ), ref.getName(), params, clazz );
+            CtMethod method =
+                new CtMethod( classPool.get( getCastString( ref.getType() ) ), ref.getName(), params, clazz );
             method.setBody( body );
 
             clazz.addMethod( method );
@@ -693,7 +698,7 @@ public class ExpressionCompiler
         }
     }
 
-    protected String generateSetter( OgnlContext context, CtClass newClass, CtClass objClass, ClassPool pool,
+    protected String generateSetter( OgnlContext context, CtClass newClass, CtClass objClass, ClassPool classPool,
                                      CtMethod valueSetter, Node expression, Object root )
         throws Exception
     {
@@ -728,7 +733,7 @@ public class ExpressionCompiler
             pre = "";
         }
 
-        createLocalReferences( context, pool, newClass, objClass, valueSetter.getParameterTypes() );
+        createLocalReferences( context, classPool, newClass, objClass, valueSetter.getParameterTypes() );
 
         body = "{" + ( castExpression != null ? castExpression : "" ) + pre + setterCode + ";}";
 
@@ -793,7 +798,7 @@ public class ExpressionCompiler
      */
     protected EnhancedClassLoader getClassLoader( OgnlContext context )
     {
-        EnhancedClassLoader ret = _loaders.get( context.getClassResolver() );
+        EnhancedClassLoader ret = loaders.get( context.getClassResolver() );
 
         if ( ret != null )
         {
@@ -803,7 +808,7 @@ public class ExpressionCompiler
         ClassLoader classLoader = new ContextClassLoader( OgnlContext.class.getClassLoader(), context );
 
         ret = new EnhancedClassLoader( classLoader );
-        _loaders.put( context.getClassResolver(), ret );
+        loaders.put( context.getClassResolver(), ret );
 
         return ret;
     }
@@ -813,12 +818,12 @@ public class ExpressionCompiler
      * 
      * @param searchClass The class to load.
      * @return The javassist class equivalent.
-     * @throws NotFoundException When the class definition can't be found.
+     * @throws javassist.NotFoundException When the class definition can't be found.
      */
     protected CtClass getCtClass( Class<?> searchClass )
         throws NotFoundException
     {
-        return _pool.get( searchClass.getName() );
+        return pool.get( searchClass.getName() );
     }
 
     /**
@@ -833,14 +838,14 @@ public class ExpressionCompiler
      */
     protected ClassPool getClassPool( OgnlContext context, EnhancedClassLoader loader )
     {
-        if ( _pool != null )
+        if ( pool != null )
         {
-            return _pool;
+            return pool;
         }
 
-        _pool = ClassPool.getDefault();
-        _pool.insertClassPath( new LoaderClassPath( loader.getParent() ) );
+        pool = ClassPool.getDefault();
+        pool.insertClassPath( new LoaderClassPath( loader.getParent() ) );
 
-        return _pool;
+        return pool;
     }
 }
