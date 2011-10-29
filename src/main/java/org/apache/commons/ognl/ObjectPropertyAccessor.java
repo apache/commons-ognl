@@ -20,6 +20,7 @@ package org.apache.commons.ognl;
  */
 
 import org.apache.commons.ognl.enhance.ExpressionCompiler;
+import org.apache.commons.ognl.enhance.OgnlExpressionCompiler;
 import org.apache.commons.ognl.enhance.UnsupportedCompilationException;
 
 import java.beans.IntrospectionException;
@@ -49,7 +50,8 @@ public class ObjectPropertyAccessor
 
         try
         {
-            if ( ( result = OgnlRuntime.getMethodValue( ognlContext, target, name, true ) ) == OgnlRuntime.NotFound )
+            result = OgnlRuntime.getMethodValue( ognlContext, target, name, true );
+            if ( result == OgnlRuntime.NotFound )
             {
                 result = OgnlRuntime.getFieldValue( ognlContext, target, name, true );
             }
@@ -227,10 +229,11 @@ public class ObjectPropertyAccessor
             // try last ditch effort of checking if they were trying to do reflection via a return method value
 
             if ( m == null && context.getCurrentObject() != null )
+            {
                 m =
                     OgnlRuntime.getReadMethod( target.getClass(),
                                                context.getCurrentObject().toString().replaceAll( "\"", "" ) );
-
+            }
             // System.out.println("tried to get read method from target: " + target.getClass() + " with methodName:" +
             // methodName + " result: " + m);
             // try to get field if no method could be found
@@ -261,7 +264,8 @@ public class ObjectPropertyAccessor
             }
 
             context.setCurrentType( m.getReturnType() );
-            context.setCurrentAccessor( OgnlRuntime.getCompiler(context).getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
+            final OgnlExpressionCompiler compiler = OgnlRuntime.getCompiler( context );
+            context.setCurrentAccessor( compiler.getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
 
             return "." + m.getName() + "()";
 
@@ -288,52 +292,45 @@ public class ObjectPropertyAccessor
             }
 
             if ( m == null || m.getParameterTypes() == null || m.getParameterTypes().length <= 0 )
+            {
                 throw new UnsupportedCompilationException( "Unable to determine setting expression on "
                     + context.getCurrentObject() + " with index of " + index );
+            }
 
             Class<?> parm = m.getParameterTypes()[0];
             String conversion;
 
             if ( m.getParameterTypes().length > 1 )
+            {
                 throw new UnsupportedCompilationException(
-                                                           "Object property accessors can only support single parameter setters." );
+                    "Object property accessors can only support single parameter setters." );
+            }
 
+            final OgnlExpressionCompiler compiler = OgnlRuntime.getCompiler( context );
             if ( parm.isPrimitive() )
             {
                 Class<?> wrapClass = OgnlRuntime.getPrimitiveWrapperClass( parm );
-                conversion =
-                    OgnlRuntime.getCompiler( context ).createLocalReference( context,
-                                                                    "(("
-                                                                        + wrapClass.getName()
-                                                                        + ")org.apache.commons.ognl.OgnlOps#convertValue($3,"
-                                                                        + wrapClass.getName() + ".class, true))."
-                                                                        + OgnlRuntime.getNumericValueGetter( wrapClass ),
-                                                                    parm );
+                conversion = compiler.createLocalReference( context, "((" + wrapClass.getName()
+                    + ")org.apache.commons.ognl.OgnlOps#convertValue($3," + wrapClass.getName() + ".class, true))."
+                    + OgnlRuntime.getNumericValueGetter( wrapClass ), parm );
 
             }
             else if ( parm.isArray() )
             {
-                conversion =
-                    OgnlRuntime.getCompiler( context ).createLocalReference( context,
-                                                                    "("
-                                                                        + ExpressionCompiler.getCastString( parm )
-                                                                        + ")org.apache.commons.ognl.OgnlOps#toArray($3,"
-                                                                        + parm.getComponentType().getName() + ".class)",
-                                                                    parm );
+                conversion = compiler.createLocalReference( context, "(" + ExpressionCompiler.getCastString( parm )
+                    + ")org.apache.commons.ognl.OgnlOps#toArray($3," + parm.getComponentType().getName() + ".class)",
+                                                            parm );
 
             }
             else
             {
-                conversion =
-                    OgnlRuntime.getCompiler( context ).createLocalReference( context,
-                                                                    "("
-                                                                        + parm.getName()
-                                                                        + ")org.apache.commons.ognl.OgnlOps#convertValue($3,"
-                                                                        + parm.getName() + ".class)", parm );
+                conversion = compiler.createLocalReference( context, "(" + parm.getName()
+                    + ")org.apache.commons.ognl.OgnlOps#convertValue($3," + parm.getName() + ".class)", parm );
             }
 
             context.setCurrentType( m.getReturnType() );
-            context.setCurrentAccessor( OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
+            context.setCurrentAccessor(
+                compiler.getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
 
             return "." + m.getName() + "(" + conversion + ")";
 

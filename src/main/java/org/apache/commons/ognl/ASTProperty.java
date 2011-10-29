@@ -389,10 +389,9 @@ public class ASTProperty
     Object getTarget( OgnlContext context, Object target, String name )
         throws OgnlException
     {
-        Class<? extends Object> clazz = context.getCurrentObject().getClass();
-        if ( !Iterator.class.isAssignableFrom(clazz)
-            || ( Iterator.class.isAssignableFrom(clazz)
-                 && name.indexOf( "next" ) < 0 ) )
+        Class<?> clazz = context.getCurrentObject().getClass();
+        if ( !Iterator.class.isAssignableFrom( clazz ) || ( Iterator.class.isAssignableFrom( clazz ) && !name.contains(
+            "next" ) ) )
         {
             Object currObj = target;
 

@@ -20,6 +20,7 @@ package org.apache.commons.ognl;
  */
 
 import org.apache.commons.ognl.enhance.ExpressionCompiler;
+import org.apache.commons.ognl.enhance.OgnlExpressionCompiler;
 import org.apache.commons.ognl.enhance.UnsupportedCompilationException;
 
 import java.util.ArrayList;
@@ -138,12 +139,12 @@ public class ASTList
                     {
                         valueClass = ( (NodeType) _children[i] ).getGetterClass();
                     }
+                    final OgnlExpressionCompiler compiler = OgnlRuntime.getCompiler( context );
                     if ( valueClass != null && ctorClass.isArray() )
                     {
 
                         value =
-                            OgnlRuntime
-                                .getCompiler( context )
+                            compiler
                                 .createLocalReference( context, "(" + ExpressionCompiler.getCastString( ctorClass )
                                     + ")org.apache.commons.ognl.OgnlOps.toArray(" + value + ", "
                                     + ctorClass.getComponentType().getName() + ".class, true)", ctorClass );
@@ -155,8 +156,7 @@ public class ASTList
                         Class wrapClass = OgnlRuntime.getPrimitiveWrapperClass( ctorClass );
 
                         value =
-                            OgnlRuntime
-                                .getCompiler( context )
+                            compiler
                                 .createLocalReference( context, "((" + wrapClass.getName()
                                     + ")org.apache.commons.ognl.OgnlOps.convertValue(" + value + ","
                                     + wrapClass.getName() + ".class, true))." + OgnlRuntime.getNumericValueGetter(
@@ -166,8 +166,7 @@ public class ASTList
                     {
 
                         value =
-                            OgnlRuntime
-                                .getCompiler( context )
+                            compiler
                                 .createLocalReference( context, "(" + ctorClass.getName()
                                     + ")org.apache.commons.ognl.OgnlOps.convertValue(" + value + ","
                                     + ctorClass.getName() + ".class)", ctorClass );

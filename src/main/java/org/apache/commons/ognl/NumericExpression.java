@@ -31,7 +31,7 @@ public abstract class NumericExpression
 
     private static final long serialVersionUID = -174952564587478850L;
 
-    protected Class<?> _getterClass;
+    protected Class<?> getterClass;
 
     public NumericExpression( int id )
     {
@@ -48,9 +48,9 @@ public abstract class NumericExpression
      */
     public Class<?> getGetterClass()
     {
-        if ( _getterClass != null )
+        if ( getterClass != null )
         {
-            return _getterClass;
+            return getterClass;
         }
 
         return Double.TYPE;
@@ -80,7 +80,7 @@ public abstract class NumericExpression
 
             if ( value != null )
             {
-                _getterClass = value.getClass();
+                getterClass = value.getClass();
             }
 
             for ( int i = 0; i < _children.length; i++ )
@@ -116,12 +116,10 @@ public abstract class NumericExpression
         if ( context.getCurrentType() != null && !context.getCurrentType().isPrimitive()
             && context.getCurrentObject() != null && Number.class.isInstance( context.getCurrentObject() ) )
         {
-            ret = new StringBuilder( "((" )
-                .append( ExpressionCompiler.getCastString( context.getCurrentObject().getClass() ))
-                .append( ")" )
-                .append( ret )
-                .append( ")." )
-                .append( OgnlRuntime.getNumericValueGetter( context.getCurrentObject().getClass() ) );
+            ret = new StringBuilder( "((" ).append(
+                ExpressionCompiler.getCastString( context.getCurrentObject().getClass() ) ).append( ")" ).append(
+                ret ).append( ")." ).append(
+                OgnlRuntime.getNumericValueGetter( context.getCurrentObject().getClass() ) );
         }
         else if ( context.getCurrentType() != null && context.getCurrentType().isPrimitive()
             && ( ASTConst.class.isInstance( child ) || NumericExpression.class.isInstance( child ) ) )

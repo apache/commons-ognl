@@ -1,8 +1,5 @@
 package org.apache.commons.ognl;
 
-import org.apache.commons.ognl.enhance.ExpressionCompiler;
-import org.apache.commons.ognl.enhance.OgnlExpressionCompiler;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -21,6 +18,10 @@ import org.apache.commons.ognl.enhance.OgnlExpressionCompiler;
  * specific language governing permissions and limitations
  * under the License.
  */
+
+import org.apache.commons.ognl.enhance.ExpressionCompiler;
+import org.apache.commons.ognl.enhance.OgnlExpressionCompiler;
+
 
 /**
  * $Id$

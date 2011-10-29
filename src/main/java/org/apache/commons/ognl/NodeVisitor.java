@@ -1,8 +1,6 @@
 package org.apache.commons.ognl;
 
 /*
- * $Id$
- *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,6 +19,9 @@ package org.apache.commons.ognl;
  * under the License.
  */
 
+/*
+*  $Id$
+*/
 public interface NodeVisitor<R, P>
 {
     R visit( ASTSequence node, P data )

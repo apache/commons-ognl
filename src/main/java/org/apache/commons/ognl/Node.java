@@ -96,15 +96,16 @@ public interface Node
     /**
      * Supports the Visitor pattern. The method which corresponds to
      * the runtime type of this Node will be called.
+     *
      * @param visitor The visitor to accept.
-     * @param data The second parameter to pass through to visitor.visit
-     * @param <R> The return type of the visitor.visit method.
-     * @param <P> The type of the second parameter type.
+     * @param data    The second parameter to pass through to visitor.visit
+     * @param <R>     The return type of the visitor.visit method.
+     * @param <P>     The type of the second parameter type.
      * @return the value returned by visitor.visit
      * @throws NullPointerException if visitor is null
-     * @throws RuntimeException if visitor.visit throws an exception.
+     * @throws RuntimeException     if visitor.visit throws an exception.
      */
-    <R,P> R accept(NodeVisitor<? extends R, ? super P> visitor, P data)
+    <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
         throws OgnlException;
 
 }

@@ -142,7 +142,6 @@ public class ListPropertyAccessor
                     }
                     return;
                 case DynamicSubscript.ALL:
-                {
                     if ( !( value instanceof Collection ) )
                     {
                         throw new OgnlException( "Value must be a collection" );
@@ -150,7 +149,8 @@ public class ListPropertyAccessor
                     list.clear();
                     list.addAll( (Collection<?>) value );
                     return;
-                }
+                default:
+                    return;
             }
         }
 

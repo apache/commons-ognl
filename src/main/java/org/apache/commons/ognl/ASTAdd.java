@@ -316,14 +316,14 @@ class ASTAdd
 
             if ( _parent == null || ASTSequence.class.isAssignableFrom( _parent.getClass() ) )
             {
-                if ( _getterClass != null && String.class.isAssignableFrom( _getterClass ) )
+                if ( getterClass != null && String.class.isAssignableFrom( getterClass ) )
                 {
-                    _getterClass = Object.class;
+                    getterClass = Object.class;
                 }
             }
             else
             {
-                context.setCurrentType( _getterClass );
+                context.setCurrentType( getterClass );
             }
 
             try

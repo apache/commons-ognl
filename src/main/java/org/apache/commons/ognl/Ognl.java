@@ -126,13 +126,15 @@ public abstract class Ognl
     }
 
     /**
-     * Parses and compiles the given expression using the {@link org.apache.commons.ognl.enhance.OgnlExpressionCompiler} returned from
+     * Parses and compiles the given expression using the {@link org.apache.commons.ognl.enhance.OgnlExpressionCompiler}
+     * returned from
      * {@link org.apache.commons.ognl.OgnlRuntime#getCompiler(OgnlContext)}.
      * 
      * @param context The context to use.
      * @param root The root object for the given expression.
      * @param expression The expression to compile.
-     * @return The node with a compiled accessor set on {@link org.apache.commons.ognl.Node#getAccessor()} if compilation was successfull.
+     * @return The node with a compiled accessor set on {@link org.apache.commons.ognl.Node#getAccessor()} if
+     * compilation was successfull.
      *         In instances where compilation wasn't possible because of a partially null expression the
      *         {@link ExpressionAccessor} instance may be null and the compilation of this expression still possible at
      *         some as yet indertermined point in the future.
@@ -179,7 +181,8 @@ public abstract class Ognl
      * @param converter Converter used to convert return types of an expression in to their desired types.
      * @return a new Map with the keys <code>root</code> and <code>context</code> set appropriately
      */
-    public static Map<String, Object> createDefaultContext( Object root, ClassResolver classResolver, TypeConverter converter )
+    public static Map<String, Object> createDefaultContext( Object root, ClassResolver classResolver,
+                                                            TypeConverter converter )
     {
         return addDefaultContext( root, classResolver, converter, null, new OgnlContext() );
     }
@@ -194,8 +197,8 @@ public abstract class Ognl
      *            methods / fields.
      * @return a new Map with the keys <code>root</code> and <code>context</code> set appropriately
      */
-    public static Map<String, Object> createDefaultContext( Object root, ClassResolver classResolver, TypeConverter converter,
-                                            MemberAccess memberAccess )
+    public static Map<String, Object> createDefaultContext( Object root, ClassResolver classResolver,
+                                                            TypeConverter converter, MemberAccess memberAccess )
     {
         return addDefaultContext( root, classResolver, converter, memberAccess, new OgnlContext() );
     }
@@ -222,7 +225,8 @@ public abstract class Ognl
      * @param context The context to which OGNL context will be added.
      * @return Context Map with the keys <code>root</code> and <code>context</code> set appropriately
      */
-    public static Map<String, Object> addDefaultContext( Object root, ClassResolver classResolver, Map<String, Object> context )
+    public static Map<String, Object> addDefaultContext( Object root, ClassResolver classResolver,
+                                                         Map<String, Object> context )
     {
         return addDefaultContext( root, classResolver, null, null, context );
     }
@@ -237,7 +241,8 @@ public abstract class Ognl
      * @param context The context to which OGNL context will be added.
      * @return Context Map with the keys <code>root</code> and <code>context</code> set appropriately
      */
-    public static Map<String, Object> addDefaultContext( Object root, ClassResolver classResolver, TypeConverter converter, Map<String, Object> context )
+    public static Map<String, Object> addDefaultContext( Object root, ClassResolver classResolver,
+                                                         TypeConverter converter, Map<String, Object> context )
     {
         return addDefaultContext( root, classResolver, converter, null, context );
     }
@@ -254,8 +259,9 @@ public abstract class Ognl
      *            {@link OgnlContext} object.
      * @return Context Map with the keys <code>root</code> and <code>context</code> set appropriately
      */
-    public static Map<String, Object> addDefaultContext( Object root, ClassResolver classResolver, TypeConverter converter,
-                                         MemberAccess memberAccess, Map<String, Object> context )
+    public static Map<String, Object> addDefaultContext( Object root, ClassResolver classResolver,
+                                                         TypeConverter converter, MemberAccess memberAccess,
+                                                         Map<String, Object> context )
     {
         OgnlContext result;
 

@@ -59,9 +59,9 @@ public class OgnlContext
 
     private static final String PROPERTY_KEY_PREFIX = "ognl";
 
-    private static boolean DEFAULT_TRACE_EVALUATIONS = false;
+    private static boolean defaultTraceEvaluations = false;
 
-    private static boolean DEFAULT_KEEP_LAST_EVALUATION = false;
+    private static boolean defaultKeepLastEvaluation = false;
 
     public static final DefaultClassResolver DEFAULT_CLASS_RESOLVER = new DefaultClassResolver();
 
@@ -71,29 +71,29 @@ public class OgnlContext
 
     private static final Set<String> RESERVED_KEYS = new HashSet<String>( 11 );
 
-    private Object _root;
+    private Object root;
 
-    private Object _currentObject;
+    private Object currentObject;
 
-    private Node _currentNode;
+    private Node currentNode;
 
-    private boolean _traceEvaluations = DEFAULT_TRACE_EVALUATIONS;
+    private boolean traceEvaluations = defaultTraceEvaluations;
 
-    private Evaluation _rootEvaluation;
+    private Evaluation rootEvaluation;
 
-    private Evaluation _currentEvaluation;
+    private Evaluation currentEvaluation;
 
-    private Evaluation _lastEvaluation;
+    private Evaluation lastEvaluation;
 
-    private boolean _keepLastEvaluation = DEFAULT_KEEP_LAST_EVALUATION;
+    private boolean keepLastEvaluation = defaultKeepLastEvaluation;
 
-    private Map<String, Object> _values = new HashMap<String, Object>( 23 );
+    private Map<String, Object> values = new HashMap<String, Object>( 23 );
 
-    private ClassResolver _classResolver = DEFAULT_CLASS_RESOLVER;
+    private ClassResolver classResolver = DEFAULT_CLASS_RESOLVER;
 
-    private TypeConverter _typeConverter = DEFAULT_TYPE_CONVERTER;
+    private TypeConverter typeConverter = DEFAULT_TYPE_CONVERTER;
 
-    private MemberAccess _memberAccess = DEFAULT_MEMBER_ACCESS;
+    private MemberAccess memberAccess = DEFAULT_MEMBER_ACCESS;
 
     static
     {
@@ -113,11 +113,11 @@ public class OgnlContext
         {
             if ( ( s = System.getProperty( PROPERTY_KEY_PREFIX + ".traceEvaluations" ) ) != null )
             {
-                DEFAULT_TRACE_EVALUATIONS = Boolean.valueOf( s.trim() );
+                defaultTraceEvaluations = Boolean.valueOf( s.trim() );
             }
             if ( ( s = System.getProperty( PROPERTY_KEY_PREFIX + ".keepLastEvaluation" ) ) != null )
             {
-                DEFAULT_KEEP_LAST_EVALUATION = Boolean.valueOf( s.trim() );
+                defaultKeepLastEvaluation = Boolean.valueOf( s.trim() );
             }
         }
         catch ( SecurityException ex )
@@ -126,13 +126,13 @@ public class OgnlContext
         }
     }
 
-    private Stack<Class<?>> _typeStack = new Stack<Class<?>>();
+    private Stack<Class<?>> typeStack = new Stack<Class<?>>();
 
-    private Stack<Class<?>> _accessorStack = new Stack<Class<?>>();
+    private Stack<Class<?>> accessorStack = new Stack<Class<?>>();
 
-    private int _localReferenceCounter = 0;
+    private int localReferenceCounter = 0;
 
-    private Map<String, LocalReference> _localReferenceMap = null;
+    private Map<String, LocalReference> localReferenceMap = null;
 
     /**
      * Constructs a new OgnlContext with the default class resolver, type converter and member access.
@@ -150,39 +150,39 @@ public class OgnlContext
         this();
         if ( classResolver != null )
         {
-            this._classResolver = classResolver;
+            this.classResolver = classResolver;
         }
         if ( typeConverter != null )
         {
-            this._typeConverter = typeConverter;
+            this.typeConverter = typeConverter;
         }
         if ( memberAccess != null )
         {
-            this._memberAccess = memberAccess;
+            this.memberAccess = memberAccess;
         }
     }
 
     public OgnlContext( Map<String, Object> values )
     {
         super();
-        this._values = values;
+        this.values = values;
     }
 
     public OgnlContext( ClassResolver classResolver, TypeConverter typeConverter, MemberAccess memberAccess,
                         Map<String, Object> values )
     {
         this( classResolver, typeConverter, memberAccess );
-        this._values = values;
+        this.values = values;
     }
 
     public void setValues( Map<String, Object> value )
     {
-        _values.putAll( value );
+        values.putAll( value );
     }
 
     public Map<String, Object> getValues()
     {
-        return _values;
+        return values;
     }
 
     public void setClassResolver( ClassResolver value )
@@ -191,12 +191,12 @@ public class OgnlContext
         {
             throw new IllegalArgumentException( "cannot set ClassResolver to null" );
         }
-        _classResolver = value;
+        classResolver = value;
     }
 
     public ClassResolver getClassResolver()
     {
-        return _classResolver;
+        return classResolver;
     }
 
     public void setTypeConverter( TypeConverter value )
@@ -205,12 +205,12 @@ public class OgnlContext
         {
             throw new IllegalArgumentException( "cannot set TypeConverter to null" );
         }
-        _typeConverter = value;
+        typeConverter = value;
     }
 
     public TypeConverter getTypeConverter()
     {
-        return _typeConverter;
+        return typeConverter;
     }
 
     public void setMemberAccess( MemberAccess value )
@@ -219,50 +219,50 @@ public class OgnlContext
         {
             throw new IllegalArgumentException( "cannot set MemberAccess to null" );
         }
-        _memberAccess = value;
+        memberAccess = value;
     }
 
     public MemberAccess getMemberAccess()
     {
-        return _memberAccess;
+        return memberAccess;
     }
 
     public void setRoot( Object value )
     {
-        _root = value;
-        _accessorStack.clear();
-        _typeStack.clear();
-        _currentObject = value;
+        root = value;
+        accessorStack.clear();
+        typeStack.clear();
+        currentObject = value;
 
-        if ( _currentObject != null )
+        if ( currentObject != null )
         {
-            setCurrentType( _currentObject.getClass() );
+            setCurrentType( currentObject.getClass() );
         }
     }
 
     public Object getRoot()
     {
-        return _root;
+        return root;
     }
 
     public boolean getTraceEvaluations()
     {
-        return _traceEvaluations;
+        return traceEvaluations;
     }
 
     public void setTraceEvaluations( boolean value )
     {
-        _traceEvaluations = value;
+        traceEvaluations = value;
     }
 
     public Evaluation getLastEvaluation()
     {
-        return _lastEvaluation;
+        return lastEvaluation;
     }
 
     public void setLastEvaluation( Evaluation value )
     {
-        _lastEvaluation = value;
+        lastEvaluation = value;
     }
 
     /**
@@ -272,8 +272,8 @@ public class OgnlContext
      */
     public void recycleLastEvaluation()
     {
-        OgnlRuntime.getEvaluationPool().recycleAll( _lastEvaluation );
-        _lastEvaluation = null;
+        OgnlRuntime.getEvaluationPool().recycleAll( lastEvaluation );
+        lastEvaluation = null;
     }
 
     /**
@@ -282,7 +282,7 @@ public class OgnlContext
      */
     public boolean getKeepLastEvaluation()
     {
-        return _keepLastEvaluation;
+        return keepLastEvaluation;
     }
 
     /**
@@ -291,44 +291,44 @@ public class OgnlContext
      */
     public void setKeepLastEvaluation( boolean value )
     {
-        _keepLastEvaluation = value;
+        keepLastEvaluation = value;
     }
 
     public void setCurrentObject( Object value )
     {
-        _currentObject = value;
+        currentObject = value;
     }
 
     public Object getCurrentObject()
     {
-        return _currentObject;
+        return currentObject;
     }
 
     public void setCurrentAccessor( Class<?> type )
     {
-        _accessorStack.add( type );
+        accessorStack.add( type );
     }
 
     public Class<?> getCurrentAccessor()
     {
-        if ( _accessorStack.isEmpty() )
+        if ( accessorStack.isEmpty() )
         {
             return null;
         }
 
-        return _accessorStack.peek();
+        return accessorStack.peek();
     }
 
     public Class<?> getPreviousAccessor()
     {
-        if ( _accessorStack.isEmpty() )
+        if ( accessorStack.isEmpty() )
         {
             return null;
         }
 
-        if ( _accessorStack.size() > 1 )
+        if ( accessorStack.size() > 1 )
         {
-            return _accessorStack.get( _accessorStack.size() - 2 );
+            return accessorStack.get( accessorStack.size() - 2 );
         }
 
         return null;
@@ -336,12 +336,12 @@ public class OgnlContext
 
     public Class<?> getFirstAccessor()
     {
-        if ( _accessorStack.isEmpty() )
+        if ( accessorStack.isEmpty() )
         {
             return null;
         }
 
-        return _accessorStack.get( 0 );
+        return accessorStack.get( 0 );
     }
 
     /**
@@ -351,17 +351,17 @@ public class OgnlContext
      */
     public Class<?> getCurrentType()
     {
-        if ( _typeStack.isEmpty() )
+        if ( typeStack.isEmpty() )
         {
             return null;
         }
 
-        return _typeStack.peek();
+        return typeStack.peek();
     }
 
     public void setCurrentType( Class<?> type )
     {
-        _typeStack.add( type );
+        typeStack.add( type );
     }
 
     /**
@@ -372,14 +372,14 @@ public class OgnlContext
      */
     public Class<?> getPreviousType()
     {
-        if ( _typeStack.isEmpty() )
+        if ( typeStack.isEmpty() )
         {
             return null;
         }
 
-        if ( _typeStack.size() > 1 )
+        if ( typeStack.size() > 1 )
         {
-            return _typeStack.get( _typeStack.size() - 2 );
+            return typeStack.get( typeStack.size() - 2 );
         }
 
         return null;
@@ -387,32 +387,32 @@ public class OgnlContext
 
     public void setPreviousType( Class<?> type )
     {
-        if ( _typeStack.isEmpty() || _typeStack.size() < 2 )
+        if ( typeStack.isEmpty() || typeStack.size() < 2 )
         {
             return;
         }
 
-        _typeStack.set( _typeStack.size() - 2, type );
+        typeStack.set( typeStack.size() - 2, type );
     }
 
     public Class<?> getFirstType()
     {
-        if ( _typeStack.isEmpty() )
+        if ( typeStack.isEmpty() )
         {
             return null;
         }
 
-        return _typeStack.get( 0 );
+        return typeStack.get( 0 );
     }
 
     public void setCurrentNode( Node value )
     {
-        _currentNode = value;
+        currentNode = value;
     }
 
     public Node getCurrentNode()
     {
-        return _currentNode;
+        return currentNode;
     }
 
     /**
@@ -420,12 +420,12 @@ public class OgnlContext
      */
     public Evaluation getCurrentEvaluation()
     {
-        return _currentEvaluation;
+        return currentEvaluation;
     }
 
     public void setCurrentEvaluation( Evaluation value )
     {
-        _currentEvaluation = value;
+        currentEvaluation = value;
     }
 
     /**
@@ -434,12 +434,12 @@ public class OgnlContext
      */
     public Evaluation getRootEvaluation()
     {
-        return _rootEvaluation;
+        return rootEvaluation;
     }
 
     public void setRootEvaluation( Evaluation value )
     {
-        _rootEvaluation = value;
+        rootEvaluation = value;
     }
 
     /**
@@ -452,7 +452,7 @@ public class OgnlContext
 
         if ( relativeIndex <= 0 )
         {
-            result = _currentEvaluation;
+            result = currentEvaluation;
             while ( ( ++relativeIndex < 0 ) && ( result != null ) )
             {
                 result = result.getParent();
@@ -467,9 +467,9 @@ public class OgnlContext
      */
     public void pushEvaluation( Evaluation value )
     {
-        if ( _currentEvaluation != null )
+        if ( currentEvaluation != null )
         {
-            _currentEvaluation.addChild( value );
+            currentEvaluation.addChild( value );
         }
         else
         {
@@ -485,9 +485,9 @@ public class OgnlContext
     {
         Evaluation result;
 
-        result = _currentEvaluation;
+        result = currentEvaluation;
         setCurrentEvaluation( result.getParent() );
-        if ( _currentEvaluation == null )
+        if ( currentEvaluation == null )
         {
             setLastEvaluation( getKeepLastEvaluation() ? result : null );
             setRootEvaluation( null );
@@ -498,43 +498,43 @@ public class OgnlContext
 
     public int incrementLocalReferenceCounter()
     {
-        return ++_localReferenceCounter;
+        return ++localReferenceCounter;
     }
 
     public void addLocalReference( String key, LocalReference reference )
     {
-        if ( _localReferenceMap == null )
+        if ( localReferenceMap == null )
         {
-            _localReferenceMap = new LinkedHashMap<String, LocalReference>();
+            localReferenceMap = new LinkedHashMap<String, LocalReference>();
         }
 
-        _localReferenceMap.put( key, reference );
+        localReferenceMap.put( key, reference );
     }
 
     public Map<String, LocalReference> getLocalReferences()
     {
-        return _localReferenceMap;
+        return localReferenceMap;
     }
 
     /* ================= Map interface ================= */
     public int size()
     {
-        return _values.size();
+        return values.size();
     }
 
     public boolean isEmpty()
     {
-        return _values.isEmpty();
+        return values.isEmpty();
     }
 
     public boolean containsKey( Object key )
     {
-        return _values.containsKey( key );
+        return values.containsKey( key );
     }
 
     public boolean containsValue( Object value )
     {
-        return _values.containsValue( value );
+        return values.containsValue( value );
     }
 
     public Object get( Object key )
@@ -583,7 +583,7 @@ public class OgnlContext
         }
         else
         {
-            result = _values.get( key );
+            result = values.get( key );
         }
         return result;
     }
@@ -618,7 +618,7 @@ public class OgnlContext
             else if ( LAST_EVALUATION_CONTEXT_KEY.equals( key ) )
             {
                 result = getLastEvaluation();
-                _lastEvaluation = (Evaluation) value;
+                lastEvaluation = (Evaluation) value;
             }
             else if ( KEEP_LAST_EVALUATION_CONTEXT_KEY.equals( key ) )
             {
@@ -643,7 +643,7 @@ public class OgnlContext
         }
         else
         {
-            result = _values.put( key, value );
+            result = values.put( key, value );
         }
 
         return result;
@@ -674,7 +674,7 @@ public class OgnlContext
             }
             else if ( LAST_EVALUATION_CONTEXT_KEY.equals( key ) )
             {
-                result = _lastEvaluation;
+                result = lastEvaluation;
                 setLastEvaluation( null );
             }
             else if ( CLASS_RESOLVER_CONTEXT_KEY.equals( key ) )
@@ -695,7 +695,7 @@ public class OgnlContext
         }
         else
         {
-            result = _values.remove( key );
+            result = values.remove( key );
         }
         return result;
     }
@@ -710,14 +710,14 @@ public class OgnlContext
 
     public void clear()
     {
-        _values.clear();
-        _typeStack.clear();
-        _accessorStack.clear();
+        values.clear();
+        typeStack.clear();
+        accessorStack.clear();
 
-        _localReferenceCounter = 0;
-        if ( _localReferenceMap != null )
+        localReferenceCounter = 0;
+        if ( localReferenceMap != null )
         {
-            _localReferenceMap.clear();
+            localReferenceMap.clear();
         }
 
         setRoot( null );
@@ -734,30 +734,30 @@ public class OgnlContext
     public Set<String> keySet()
     {
         /* Should root, currentObject, classResolver, typeConverter & memberAccess be included here? */
-        return _values.keySet();
+        return values.keySet();
     }
 
     public Collection<Object> values()
     {
         /* Should root, currentObject, classResolver, typeConverter & memberAccess be included here? */
-        return _values.values();
+        return values.values();
     }
 
     public Set<Entry<String, Object>> entrySet()
     {
         /* Should root, currentObject, classResolver, typeConverter & memberAccess be included here? */
-        return _values.entrySet();
+        return values.entrySet();
     }
 
     @Override
     public boolean equals( Object o )
     {
-        return _values.equals( o );
+        return values.equals( o );
     }
 
     @Override
     public int hashCode()
     {
-        return _values.hashCode();
+        return values.hashCode();
     }
 }
