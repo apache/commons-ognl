@@ -35,12 +35,12 @@ public class OgnlException
 
     private static final long serialVersionUID = -842845048743721078L;
 
-    static Method _initCause;
+    static Method initCause;
     static
     {
         try
         {
-            _initCause = OgnlException.class.getMethod( "initCause", new Class[] { Throwable.class } );
+            initCause = OgnlException.class.getMethod( "initCause", new Class[] { Throwable.class } );
         }
         catch ( NoSuchMethodException e )
         {
@@ -51,14 +51,14 @@ public class OgnlException
     /**
      * The root evaluation of the expression when the exception was thrown
      */
-    private Evaluation _evaluation;
+    private Evaluation evaluation;
 
     /**
      * Why this exception was thrown.
      * 
      * @serial
      */
-    private Throwable _reason;
+    private Throwable reason;
 
     /** Constructs an OgnlException with no message or encapsulated exception. */
     public OgnlException()
@@ -85,15 +85,15 @@ public class OgnlException
     public OgnlException( String msg, Throwable reason )
     {
         super( msg );
-        this._reason = reason;
+        this.reason = reason;
 
-        if ( _initCause != null )
+        if ( initCause != null )
         {
             try
             {
-                _initCause.invoke( this, new Object[] { reason } );
+                initCause.invoke( this, reason );
             }
-            catch ( Exception t )
+            catch ( Exception ignored )
             {
                 /** ignore */
             }
@@ -107,7 +107,7 @@ public class OgnlException
      */
     public Throwable getReason()
     {
-        return _reason;
+        return reason;
     }
 
     /**
@@ -117,7 +117,7 @@ public class OgnlException
      */
     public Evaluation getEvaluation()
     {
-        return _evaluation;
+        return evaluation;
     }
 
     /**
@@ -127,7 +127,7 @@ public class OgnlException
      */
     public void setEvaluation( Evaluation value )
     {
-        _evaluation = value;
+        evaluation = value;
     }
 
     /**
@@ -138,10 +138,12 @@ public class OgnlException
     @Override
     public String toString()
     {
-        if ( _reason == null )
+        if ( reason == null )
+        {
             return super.toString();
+        }
 
-        return super.toString() + " [" + _reason + "]";
+        return super.toString() + " [" + reason + "]";
     }
 
     /**
@@ -162,10 +164,10 @@ public class OgnlException
         synchronized ( s )
         {
             super.printStackTrace( s );
-            if ( _reason != null )
+            if ( reason != null )
             {
                 s.println( "/-- Encapsulated exception ------------\\" );
-                _reason.printStackTrace( s );
+                reason.printStackTrace( s );
                 s.println( "\\--------------------------------------/" );
             }
         }
@@ -180,10 +182,10 @@ public class OgnlException
         synchronized ( s )
         {
             super.printStackTrace( s );
-            if ( _reason != null )
+            if ( reason != null )
             {
                 s.println( "/-- Encapsulated exception ------------\\" );
-                _reason.printStackTrace( s );
+                reason.printStackTrace( s );
                 s.println( "\\--------------------------------------/" );
             }
         }

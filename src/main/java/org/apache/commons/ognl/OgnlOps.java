@@ -122,7 +122,8 @@ public abstract class OgnlOps
         {
             if ( ( object1 != null ) && object1.getClass().isArray() )
             {
-                if ( ( object2 != null ) && object2.getClass().isArray() && ( object2.getClass() == object1.getClass() ) )
+                if ( ( object2 != null ) && object2.getClass().isArray() && ( object2.getClass()
+                    == object1.getClass() ) )
                 {
                     result = ( Array.getLength( object1 ) == Array.getLength( object2 ) );
                     if ( result )
@@ -186,8 +187,9 @@ public abstract class OgnlOps
         Class<?> c = value.getClass();
 
         if ( c == Boolean.class )
+        {
             return (Boolean) value;
-
+        }
         // if ( c == String.class )
         // return ((String)value).length() > 0;
 
@@ -195,12 +197,8 @@ public abstract class OgnlOps
         {
             return (Character) value != 0;
         }
-        if ( value instanceof Number )
-        {
-            return ( (Number) value ).doubleValue() != 0;
-        }
+        return !( value instanceof Number ) || ( (Number) value ).doubleValue() != 0;
 
-        return true; // non-null
     }
 
     /**
@@ -211,7 +209,6 @@ public abstract class OgnlOps
      * @throws NumberFormatException if the given object can't be understood as a long integer
      */
     public static long longValue( Object value )
-        throws NumberFormatException
     {
         if ( value == null )
         {
@@ -241,7 +238,6 @@ public abstract class OgnlOps
      * @throws NumberFormatException if the given object can't be understood as a double
      */
     public static double doubleValue( Object value )
-        throws NumberFormatException
     {
         if ( value == null )
         {
@@ -273,7 +269,6 @@ public abstract class OgnlOps
      * @throws NumberFormatException if the given object can't be understood as a BigInteger
      */
     public static BigInteger bigIntValue( Object value )
-        throws NumberFormatException
     {
         if ( value == null )
         {
@@ -311,7 +306,6 @@ public abstract class OgnlOps
      * @throws NumberFormatException if the given object can't be understood as a BigDecimal
      */
     public static BigDecimal bigDecValue( Object value )
-        throws NumberFormatException
     {
         if ( value == null )
         {
@@ -626,7 +620,9 @@ public abstract class OgnlOps
         throws OgnlException
     {
         if ( value == null )
+        {
             return null;
+        }
 
         Object result;
 
