@@ -34,6 +34,7 @@
       <action issue="OGNL-21" type="update" dev="grobmeier">Remove dead and broken code from OgnlRuntime/SimpleNode (with contributions by Daniel Pitts)</action>
       <action issue="OGNL-20" type="update" dev="mcucchiara, simonetripodi">Performance - Replace synchronized blocks with ReentrantReadWriteLock (with contributions by Daniel Pitts)</action>
       <action issue="OGNL-24" type="update" dev="grobmeier">Support visitor pattern on AST (contributed by Daniel Pitts)</action>
+      <action issue="OGNL-17" type="update" dev="mcucchiara">Links "Download" and "Release Notes" do not work</action>
       <action issue="OGNL-15" type="update" dev="simonetripodi">OGNL needs a new Logo</action>
       <action issue="OGNL-14" type="update" dev="mcucchiara">Documentation site has to be published</action>
       <action issue="OGNL-13" type="update" dev="simonetripodi">Ant maintenance</action>
