@@ -30,7 +30,7 @@
       <!--<item name="Release Notes (4.0-incubating)"  href="http://www.apache.org/dist/commons/ognl/RELEASE-NOTES.txt" />-->
       <item name="Language Guide"                  href="/language-guide.html" />
       <item name="Developer Guide"                 href="/developer-guide.html" />
-      <item name="Benchmarks"                      href="/benchmark-ognl.html" />
+      <item name="Benchmarks"                      href="/benchmark-commons-ognl.html" />
     </menu>
 
     <menu name="Development">
