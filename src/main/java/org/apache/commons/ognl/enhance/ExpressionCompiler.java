@@ -675,15 +675,15 @@ public class ExpressionCompiler
         throws NotFoundException, CannotCompileException
     {
         Map<String, LocalReference> referenceMap = context.getLocalReferences();
-        if ( referenceMap == null || referenceMap.size() < 1 )
+        if ( referenceMap == null || referenceMap.isEmpty() )
         {
             return;
         }
 
-        for ( Map.Entry<String, LocalReference> entry : referenceMap.entrySet() )
+        Iterator<LocalReference> it = referenceMap.values().iterator();
+        while( it.hasNext() )
         {
-            LocalReference ref = entry.getValue();
-            String key = entry.getKey();
+            LocalReference ref = it.next();
             String widener = ref.getType().isPrimitive() ? " " : " ($w) ";
 
             String body = format( "{ return %s %s; }", widener, ref.getExpression() ).replaceAll( "\\.\\.", "." );
@@ -696,7 +696,7 @@ public class ExpressionCompiler
             method.setBody( body );
 
             clazz.addMethod( method );
-            referenceMap.remove( key );
+            it.remove();
         }
     }
 
