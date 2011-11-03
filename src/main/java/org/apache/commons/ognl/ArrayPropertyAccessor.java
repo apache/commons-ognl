@@ -43,7 +43,7 @@ public class ArrayPropertyAccessor
         {
             if ( name.equals( "length" ) )
             {
-                result = new Integer( Array.getLength( target ) );
+                result = Array.getLength(target);
             }
             else
             {
@@ -65,13 +65,13 @@ public class ArrayPropertyAccessor
                         System.arraycopy( target, 0, result, 0, len );
                         break;
                     case DynamicSubscript.FIRST:
-                        index = new Integer( ( len > 0 ) ? 0 : -1 );
+                        index = ( len > 0 ) ? 0 : -1;
                         break;
                     case DynamicSubscript.MID:
-                        index = new Integer( ( len > 0 ) ? ( len / 2 ) : -1 );
+                        index = ( len > 0 ) ? ( len / 2 ) : -1;
                         break;
                     case DynamicSubscript.LAST:
-                        index = new Integer( ( len > 0 ) ? ( len - 1 ) : -1 );
+                        index = ( len > 0 ) ? ( len - 1 ) : -1;
                         break;
                     default: break;
                 }
@@ -97,20 +97,18 @@ public class ArrayPropertyAccessor
     public void setProperty( Map<String, Object> context, Object target, Object name, Object value )
         throws OgnlException
     {
-        Object index = name;
-        boolean isNumber = ( index instanceof Number );
+        boolean isNumber = ( name instanceof Number );
 
-        if ( isNumber || ( index instanceof DynamicSubscript ) )
+        if ( isNumber || ( name instanceof DynamicSubscript ) )
         {
             TypeConverter converter = ( (OgnlContext) context ).getTypeConverter();
             Object convertedValue;
 
-            convertedValue =
-                converter.convertValue( context, target, null, name.toString(), value,
-                                        target.getClass().getComponentType() );
+            convertedValue = converter.convertValue( context, target, null, name.toString(), value,
+                                                     target.getClass().getComponentType() );
             if ( isNumber )
             {
-                int i = ( (Number) index ).intValue();
+                int i = ( (Number) name ).intValue();
 
                 if ( i >= 0 )
                 {
@@ -121,21 +119,13 @@ public class ArrayPropertyAccessor
             {
                 int len = Array.getLength( target );
 
-                switch ( ( (DynamicSubscript) index ).getFlag() )
+                switch ( ( (DynamicSubscript) name ).getFlag() )
                 {
                     case DynamicSubscript.ALL:
                         System.arraycopy( target, 0, convertedValue, 0, len );
                         return;
-                    case DynamicSubscript.FIRST:
-                        index = new Integer( ( len > 0 ) ? 0 : -1 );
+                    default:
                         break;
-                    case DynamicSubscript.MID:
-                        index = new Integer( ( len > 0 ) ? ( len / 2 ) : -1 );
-                        break;
-                    case DynamicSubscript.LAST:
-                        index = new Integer( ( len > 0 ) ? ( len - 1 ) : -1 );
-                        break;
-                    default: break;
                 }
             }
         }
@@ -147,7 +137,7 @@ public class ArrayPropertyAccessor
             }
             else
             {
-                throw new NoSuchPropertyException( target, index );
+                throw new NoSuchPropertyException( target, name );
             }
         }
     }
