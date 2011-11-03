@@ -335,6 +335,7 @@ public abstract class OgnlOps
      * Evaluates the given object as a String and trims it if the trim flag is true.
      * 
      * @param value an object to interpret as a String
+     * @param trim if true trims the result
      * @return the String value implied by the given object as returned by the toString() method, or "null" if the
      *         object is null.
      */
@@ -427,37 +428,37 @@ public abstract class OgnlOps
     public static Object toArray( char value, Class<?> toType )
         throws OgnlException
     {
-        return toArray( new Character( value ), toType );
+        return toArray( Character.valueOf( value ), toType );
     }
 
     public static Object toArray( byte value, Class<?> toType )
         throws OgnlException
     {
-        return toArray( new Byte( value ), toType );
+        return toArray( Byte.valueOf( value ), toType );
     }
 
     public static Object toArray( int value, Class<?> toType )
         throws OgnlException
     {
-        return toArray( new Integer( value ), toType );
+        return toArray( Integer.valueOf( value ), toType );
     }
 
     public static Object toArray( long value, Class<?> toType )
         throws OgnlException
     {
-        return toArray( new Long( value ), toType );
+        return toArray( Long.valueOf( value ), toType );
     }
 
     public static Object toArray( float value, Class<?> toType )
         throws OgnlException
     {
-        return toArray( new Float( value ), toType );
+        return toArray( Float.valueOf( value ), toType );
     }
 
     public static Object toArray( double value, Class<?> toType )
         throws OgnlException
     {
-        return toArray( new Double( value ), toType );
+        return toArray( Double.valueOf( value ), toType );
     }
 
     public static Object toArray( boolean value, Class<?> toType )
@@ -469,37 +470,37 @@ public abstract class OgnlOps
     public static <T> Object convertValue( char value, Class<T> toType )
         throws OgnlException
     {
-        return convertValue( new Character( value ), toType );
+        return convertValue( Character.valueOf(value), toType );
     }
 
     public static <T> Object convertValue( byte value, Class<T> toType )
         throws OgnlException
     {
-        return convertValue( new Byte( value ), toType );
+        return convertValue( Byte.valueOf( value ), toType );
     }
 
     public static <T> Object convertValue( int value, Class<T> toType )
         throws OgnlException
     {
-        return convertValue( new Integer( value ), toType );
+        return convertValue( Integer.valueOf( value ), toType );
     }
 
     public static <T> Object convertValue( long value, Class<T> toType )
         throws OgnlException
     {
-        return convertValue( new Long( value ), toType );
+        return convertValue( Long.valueOf( value ), toType );
     }
 
     public static <T> Object convertValue( float value, Class<T> toType )
         throws OgnlException
     {
-        return convertValue( new Float( value ), toType );
+        return convertValue( Float.valueOf( value ), toType );
     }
 
     public static <T> Object convertValue( double value, Class<T> toType )
         throws OgnlException
     {
-        return convertValue( new Double( value ), toType );
+        return convertValue( Double.valueOf( value ), toType );
     }
 
     public static <T> Object convertValue( boolean value, Class<T> toType )
@@ -513,19 +514,19 @@ public abstract class OgnlOps
     public static <T> Object convertValue( char value, Class<T> toType, boolean preventNull )
         throws OgnlException
     {
-        return convertValue( new Character( value ), toType, preventNull );
+        return convertValue( Character.valueOf( value ), toType, preventNull );
     }
 
     public static <T> Object convertValue( byte value, Class<T> toType, boolean preventNull )
         throws OgnlException
     {
-        return convertValue( new Byte( value ), toType, preventNull );
+        return convertValue( Byte.valueOf( value ), toType, preventNull );
     }
 
     public static <T> Object convertValue( int value, Class<T> toType, boolean preventNull )
         throws OgnlException
     {
-        return convertValue( new Integer( value ), toType, preventNull );
+        return convertValue( Integer.valueOf( value ), toType, preventNull );
     }
 
     public static <T> Object convertValue( long value, Class<T> toType, boolean preventNull )
@@ -557,37 +558,37 @@ public abstract class OgnlOps
     public static Object toArray( char value, Class<?> toType, boolean preventNull )
         throws OgnlException
     {
-        return toArray( new Character( value ), toType, preventNull );
+        return toArray( Character.valueOf( value ), toType, preventNull );
     }
 
     public static Object toArray( byte value, Class<?> toType, boolean preventNull )
         throws OgnlException
     {
-        return toArray( new Byte( value ), toType, preventNull );
+        return toArray( Byte.valueOf( value ), toType, preventNull );
     }
 
     public static Object toArray( int value, Class<?> toType, boolean preventNull )
         throws OgnlException
     {
-        return toArray( new Integer( value ), toType, preventNull );
+        return toArray( Integer.valueOf( value ), toType, preventNull );
     }
 
     public static Object toArray( long value, Class<?> toType, boolean preventNull )
         throws OgnlException
     {
-        return toArray( new Long( value ), toType, preventNull );
+        return toArray( Long.valueOf(value), toType, preventNull );
     }
 
     public static Object toArray( float value, Class<?> toType, boolean preventNull )
         throws OgnlException
     {
-        return toArray( new Float( value ), toType, preventNull );
+        return toArray( Float.valueOf( value ), toType, preventNull );
     }
 
     public static Object toArray( double value, Class<?> toType, boolean preventNull )
         throws OgnlException
     {
-        return toArray( new Double( value ), toType, preventNull );
+        return toArray( Double.valueOf(value), toType, preventNull );
     }
 
     public static Object toArray( boolean value, Class<?> toType, boolean preventNull )
@@ -672,7 +673,9 @@ public abstract class OgnlOps
         if ( value != null )
         {
             /* If array -> array then convert components of array individually */
-            if ( value.getClass().isArray() && toType.isArray() )
+            boolean classIsArray = value.getClass().isArray();
+            boolean toTypeIsArray = toType.isArray();
+            if ( classIsArray && toTypeIsArray)
             {
                 Class<?> componentType = toType.getComponentType();
 
@@ -682,12 +685,12 @@ public abstract class OgnlOps
                     Array.set( result, i, convertValue( Array.get( value, i ), componentType ) );
                 }
             }
-            else if ( value.getClass().isArray() && !toType.isArray() )
+            else if ( classIsArray && !toTypeIsArray)
             {
 
                 return convertValue( Array.get( value, 0 ), toType );
             }
-            else if ( !value.getClass().isArray() && toType.isArray() )
+            else if ( toTypeIsArray )
             {
 
                 if ( toType.getComponentType() == Character.TYPE )
@@ -706,43 +709,43 @@ public abstract class OgnlOps
                 {
                     result = (int) longValue( value );
                 }
-                if ( ( toType == Double.class ) || ( toType == Double.TYPE ) )
+                else if ( ( toType == Double.class ) || ( toType == Double.TYPE ) )
                 {
                     result = doubleValue( value );
                 }
-                if ( ( toType == Boolean.class ) || ( toType == Boolean.TYPE ) )
+                else if ( ( toType == Boolean.class ) || ( toType == Boolean.TYPE ) )
                 {
                     result = booleanValue( value ) ? Boolean.TRUE : Boolean.FALSE;
                 }
-                if ( ( toType == Byte.class ) || ( toType == Byte.TYPE ) )
+                else if ( ( toType == Byte.class ) || ( toType == Byte.TYPE ) )
                 {
                     result = (byte) longValue( value );
                 }
-                if ( ( toType == Character.class ) || ( toType == Character.TYPE ) )
+                else if ( ( toType == Character.class ) || ( toType == Character.TYPE ) )
                 {
                     result = (char) longValue( value );
                 }
-                if ( ( toType == Short.class ) || ( toType == Short.TYPE ) )
+                else if ( ( toType == Short.class ) || ( toType == Short.TYPE ) )
                 {
                     result = (short) longValue( value );
                 }
-                if ( ( toType == Long.class ) || ( toType == Long.TYPE ) )
+                else if ( ( toType == Long.class ) || ( toType == Long.TYPE ) )
                 {
                     result = longValue( value );
                 }
-                if ( ( toType == Float.class ) || ( toType == Float.TYPE ) )
+                else if ( ( toType == Float.class ) || ( toType == Float.TYPE ) )
                 {
                     result = new Float( doubleValue( value ) );
                 }
-                if ( toType == BigInteger.class )
+                else if ( toType == BigInteger.class )
                 {
                     result = bigIntValue( value );
                 }
-                if ( toType == BigDecimal.class )
+                else if ( toType == BigDecimal.class )
                 {
                     result = bigDecValue( value );
                 }
-                if ( toType == String.class )
+                else if ( toType == String.class )
                 {
                     result = stringValue( value );
                 }
