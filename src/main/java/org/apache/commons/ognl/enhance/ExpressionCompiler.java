@@ -257,17 +257,17 @@ public class ExpressionCompiler
             return clazz.getName();
         }
 
-        Class<?>[] intf = clazz.getInterfaces();
+        Class<?>[] interfaces = clazz.getInterfaces();
 
-        for ( Class<?> anIntf : intf )
+        for ( Class<?> intface : interfaces )
         {
-            if ( anIntf.getName().indexOf( "util.List" ) > 0 )
+            if ( intface.getName().indexOf( "util.List" ) > 0 )
             {
-                return anIntf.getName();
+                return intface.getName();
             }
-            else if ( anIntf.getName().indexOf( "Iterator" ) > 0 )
+            else if ( intface.getName().indexOf( "Iterator" ) > 0 )
             {
-                return anIntf.getName();
+                return intface.getName();
             }
         }
 
@@ -680,8 +680,10 @@ public class ExpressionCompiler
             return;
         }
 
-        for ( LocalReference ref : referenceMap.values() )
+        for ( Map.Entry<String, LocalReference> entry : referenceMap.entrySet() )
         {
+            LocalReference ref = entry.getValue();
+            String key = entry.getKey();
             String widener = ref.getType().isPrimitive() ? " " : " ($w) ";
 
             String body = format( "{ return %s %s; }", widener, ref.getExpression() ).replaceAll( "\\.\\.", "." );
@@ -694,7 +696,7 @@ public class ExpressionCompiler
             method.setBody( body );
 
             clazz.addMethod( method );
-            referenceMap.remove( ref );
+            referenceMap.remove( key );
         }
     }
 
