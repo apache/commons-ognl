@@ -140,7 +140,7 @@ public abstract class ExpressionNode
     @Override
     public String toSetSourceString( OgnlContext context, Object target )
     {
-        String result = ( parent == null ) ? "" : "(";
+        StringBuilder sourceStringBuilder = new StringBuilder( parent == null ? "" : "(" );
 
         if ( ( children != null ) && ( children.length > 0 ) )
         {
@@ -148,17 +148,17 @@ public abstract class ExpressionNode
             {
                 if ( i > 0 )
                 {
-                    result += " " + getExpressionOperator( i ) + " ";
+                    sourceStringBuilder.append( " " ).append( getExpressionOperator( i ) ).append( ' ' );
                 }
 
-                result += children[i].toSetSourceString( context, target );
+                sourceStringBuilder.append( children[i].toSetSourceString( context, target ) );
             }
         }
         if ( parent != null )
         {
-            result = result + ")";
+            sourceStringBuilder.append( ")" );
         }
 
-        return result;
+        return sourceStringBuilder.toString();
     }
 }
