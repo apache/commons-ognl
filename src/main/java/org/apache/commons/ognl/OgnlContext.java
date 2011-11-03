@@ -704,9 +704,9 @@ public class OgnlContext
 
     public void putAll( Map<? extends String, ?> t )
     {
-        for ( String k : t.keySet() )
+        for ( Entry<? extends String, ?> entry : t.entrySet() )
         {
-            put( k, t.get( k ) );
+            put( entry.getKey(), entry.getValue() );
         }
     }
 
