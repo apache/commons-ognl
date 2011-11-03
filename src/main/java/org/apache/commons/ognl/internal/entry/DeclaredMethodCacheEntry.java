@@ -46,20 +46,24 @@ public class DeclaredMethodCacheEntry
     }
 
     @Override
-    public boolean equals( Object o )
-    {
-        if ( this == o )
+    public boolean equals(Object o) {
+        if (this == o)
         {
             return true;
         }
-        if ( !( o instanceof DeclaredMethodCacheEntry ) )
+        if (!(o instanceof DeclaredMethodCacheEntry))
+        {
+            return false;
+        }
+        if (!super.equals(o))
         {
             return false;
         }
 
         DeclaredMethodCacheEntry that = (DeclaredMethodCacheEntry) o;
 
-        return targetClass == that.targetClass;
+        return type == that.type;
+
     }
 
     @Override
