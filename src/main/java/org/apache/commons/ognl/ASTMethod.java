@@ -138,7 +138,7 @@ public class ASTMethod
         }
 
         String post = "";
-        String result;
+        StringBuilder sourceStringBuilder;
         Method method;
 
         OgnlExpressionCompiler compiler = OgnlRuntime.getCompiler( context );
@@ -196,7 +196,7 @@ public class ASTMethod
                     "Javassist does not currently support varargs method calls" );
             }
 
-            result = "." + method.getName() + "(";
+            sourceStringBuilder = new StringBuilder().append( "." ).append( method.getName() ).append( "(" );
 
             if ( ( children != null ) && ( children.length > 0 ) )
             {
@@ -212,7 +212,7 @@ public class ASTMethod
                 {
                     if ( i > 0 )
                     {
-                        result = result + ", ";
+                        sourceStringBuilder.append( ", " );
                     }
 
                     Class prevType = context.getCurrentType();
@@ -235,7 +235,7 @@ public class ASTMethod
                                                                   ".class, true)" );
                     }
 
-                    result += parmString;
+                    sourceStringBuilder.append( parmString );
                 }
 
                 if ( prevCast != null )
@@ -260,18 +260,18 @@ public class ASTMethod
             throw OgnlOps.castToRuntime( t );
         }
 
-        result += ")" + post;
+        sourceStringBuilder.append( ")" ).append( post );
 
         if ( method.getReturnType() == void.class )
         {
-            coreExpression = result + ";";
+            coreExpression = sourceStringBuilder.toString() + ";";
             lastExpression = "null";
         }
 
         context.setCurrentType( method.getReturnType() );
         context.setCurrentAccessor( compiler.getSuperOrInterfaceClass( method, method.getDeclaringClass() ) );
 
-        return result;
+        return sourceStringBuilder.toString();
     }
 
     public String toSetSourceString( OgnlContext context, Object target )
