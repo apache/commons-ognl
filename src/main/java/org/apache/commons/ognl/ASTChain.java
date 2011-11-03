@@ -109,15 +109,16 @@ public class ASTChain
                                             i++;
                                             break;
                                         case DynamicSubscript.FIRST:
-                                            index = new Integer( ( len > 0 ) ? 0 : -1 );
+                                            index = ( len > 0 ) ? 0 : -1;
                                             break;
                                         case DynamicSubscript.MID:
-                                            index = new Integer( ( len > 0 ) ? ( len / 2 ) : -1 );
+                                            index = ( len > 0 ) ? ( len / 2 ) : -1;
                                             break;
                                         case DynamicSubscript.LAST:
-                                            index = new Integer( ( len > 0 ) ? ( len - 1 ) : -1 );
+                                            index = ( len > 0 ) ? ( len - 1 ) : -1;
                                             break;
-                                        default: break;    
+                                        default:
+                                            break;
                                     }
                                 }
                                 else
@@ -190,15 +191,16 @@ public class ASTChain
                                             i++;
                                             break;
                                         case DynamicSubscript.FIRST:
-                                            index = new Integer( ( len > 0 ) ? 0 : -1 );
+                                            index = ( len > 0 ) ? 0 : -1;
                                             break;
                                         case DynamicSubscript.MID:
-                                            index = new Integer( ( len > 0 ) ? ( len / 2 ) : -1 );
+                                            index = ( len > 0 ) ? ( len / 2 ) : -1;
                                             break;
                                         case DynamicSubscript.LAST:
-                                            index = new Integer( ( len > 0 ) ? ( len - 1 ) : -1 );
+                                            index = ( len > 0 ) ? ( len - 1 ) : -1;
                                             break;
-                                        default: break;
+                                        default:
+                                            break;
                                     }
                                 }
                                 else
