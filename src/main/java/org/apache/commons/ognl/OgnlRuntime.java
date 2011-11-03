@@ -106,17 +106,17 @@ public class OgnlRuntime
     /**
      * Not an indexed property
      */
-    public static int INDEXED_PROPERTY_NONE = 0;
+    public static final int INDEXED_PROPERTY_NONE = 0;
 
     /**
      * JavaBeans IndexedProperty
      */
-    public static int INDEXED_PROPERTY_INT = 1;
+    public static final int INDEXED_PROPERTY_INT = 1;
 
     /**
      * OGNL ObjectIndexedProperty
      */
-    public static int INDEXED_PROPERTY_OBJECT = 2;
+    public static final int INDEXED_PROPERTY_OBJECT = 2;
 
     /**
      * Constant string representation of null string.
@@ -1935,9 +1935,10 @@ public class OgnlRuntime
         Map<String, List<Method>> allMethods = getMethods( targetClass, false );
         Map<String, List<Method>> pairs = new HashMap<String, List<Method>>( 101 );
 
-        for ( String methodName : allMethods.keySet() )
+        for ( Map.Entry<String, List<Method>> entry : allMethods.entrySet() )
         {
-            List<Method> methods = allMethods.get( methodName );
+            String methodName = entry.getKey();
+            List<Method> methods = entry.getValue();
 
             /*
              * Only process set/get where there is exactly one implementation of the method per class and those
@@ -2032,6 +2033,11 @@ public class OgnlRuntime
     /**
      * This method returns a PropertyDescriptor for the given class and property name using a Map lookup (using
      * getPropertyDescriptorsMap()).
+     * @param targetClass a target class.
+     * @param propertyName a property name.
+     * @return the PropertyDescriptor for the given targetClass and propertyName.
+     * @throws java.beans.IntrospectionException
+     * @throws OgnlException
      */
     public static PropertyDescriptor getPropertyDescriptor( Class<?> targetClass, String propertyName )
         throws IntrospectionException, OgnlException
@@ -2047,7 +2053,8 @@ public class OgnlRuntime
     public static PropertyDescriptor[] getPropertyDescriptorsArray( Class<?> targetClass )
         throws IntrospectionException, OgnlException
     {
-        return (PropertyDescriptor[]) getPropertyDescriptors( targetClass ).entrySet().toArray();
+        Collection<PropertyDescriptor> propertyDescriptors = getPropertyDescriptors( targetClass ).values();
+        return propertyDescriptors.toArray( new PropertyDescriptor[propertyDescriptors.size()] );
     }
 
     /**
@@ -2056,6 +2063,8 @@ public class OgnlRuntime
      * @param targetClass Class for which property descriptor is desired
      * @param name        Name of property
      * @return PropertyDescriptor of the named property or null if the class has no property with the given name
+     * @throws java.beans.IntrospectionException
+     * @throws OgnlException
      */
     public static PropertyDescriptor getPropertyDescriptorFromArray( Class<?> targetClass, String name )
         throws IntrospectionException, OgnlException
