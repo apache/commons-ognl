@@ -291,7 +291,7 @@ public class ASTChain
         {
             if ( ( children != null ) && ( children.length > 0 ) )
             {
-                for ( int i = 0; i < children.length; i++ )
+                for ( Node child : children )
                 {
                     /*
                      * System.out.println("astchain child: " + _children[i].getClass().getName() +
@@ -299,30 +299,28 @@ public class ASTChain
                      * context.getCurrentType());
                      */
 
-                    String value = children[i].toGetSourceString( context, context.getCurrentObject() );
+                    String value = child.toGetSourceString( context, context.getCurrentObject() );
 
                     // System.out.println("astchain child returned >>  " + value + "  <<");
 
-                    if ( ASTCtor.class.isInstance( children[i] ) )
+                    if ( ASTCtor.class.isInstance( child ) )
                     {
                         constructor = true;
                     }
-                    
-                    if ( NodeType.class.isInstance( children[i] )
-                        && ( (NodeType) children[i] ).getGetterClass() != null )
+
+                    if ( NodeType.class.isInstance( child ) && ( (NodeType) child ).getGetterClass() != null )
                     {
-                        lastType = (NodeType) children[i];
+                        lastType = (NodeType) child;
                     }
 
                     // System.out.println("Astchain i: " + i + " currentobj : " + context.getCurrentObject() +
                     // " and root: " + context.getRoot());
-                    if ( !ASTVarRef.class.isInstance( children[i] )
-                        && !constructor
-                        && !( OrderedReturn.class.isInstance( children[i] )
-                        && ( (OrderedReturn) children[i] ).getLastExpression() != null )
-                        && ( parent == null || !ASTSequence.class.isInstance( parent ) ) )
+                    if ( !ASTVarRef.class.isInstance( child ) && !constructor && !(
+                        OrderedReturn.class.isInstance( child )
+                            && ( (OrderedReturn) child ).getLastExpression() != null ) && ( parent == null
+                        || !ASTSequence.class.isInstance( parent ) ) )
                     {
-                        value = OgnlRuntime.getCompiler( context ).castExpression( context, children[i], value );
+                        value = OgnlRuntime.getCompiler( context ).castExpression( context, child, value );
                     }
 
                     /*
@@ -331,11 +329,11 @@ public class ASTChain
                      * context.getPreviousType() + " prev accessor " + context.getPreviousAccessor());
                      */
 
-                    if ( OrderedReturn.class.isInstance( children[i] )
-                        && ( (OrderedReturn) children[i] ).getLastExpression() != null )
+                    if ( OrderedReturn.class.isInstance( child )
+                        && ( (OrderedReturn) child ).getLastExpression() != null )
                     {
                         ordered = true;
-                        OrderedReturn or = (OrderedReturn) children[i];
+                        OrderedReturn or = (OrderedReturn) child;
 
                         if ( or.getCoreExpression() == null || or.getCoreExpression().trim().length() <= 0 )
                         {
@@ -345,7 +343,7 @@ public class ASTChain
                         {
                             result += or.getCoreExpression();
                         }
-                        
+
                         lastExpression = or.getLastExpression();
 
                         if ( context.get( ExpressionCompiler.PRE_CAST ) != null )
@@ -353,9 +351,9 @@ public class ASTChain
                             lastExpression = context.remove( ExpressionCompiler.PRE_CAST ) + lastExpression;
                         }
                     }
-                    else if ( ASTOr.class.isInstance( children[i] ) || ASTAnd.class.isInstance( children[i] )
-                        || ASTCtor.class.isInstance( children[i] )
-                        || ( ASTStaticField.class.isInstance( children[i] ) && parent == null ) )
+                    else if ( ASTOr.class.isInstance( child ) || ASTAnd.class.isInstance( child )
+                        || ASTCtor.class.isInstance( child ) || ( ASTStaticField.class.isInstance( child )
+                        && parent == null ) )
                     {
                         context.put( "_noRoot", "true" );
                         result = value;
