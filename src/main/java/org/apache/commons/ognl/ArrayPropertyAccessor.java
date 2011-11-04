@@ -145,7 +145,7 @@ public class ArrayPropertyAccessor
     @Override
     public String getSourceAccessor( OgnlContext context, Object target, Object index )
     {
-        String indexStr = getIndexString(context, index);
+        String indexStr = getIndexString( context, index );
 
         context.setCurrentAccessor( target.getClass() );
         context.setCurrentType( target.getClass().getComponentType() );
@@ -156,7 +156,7 @@ public class ArrayPropertyAccessor
     @Override
     public String getSourceSetter( OgnlContext context, Object target, Object index )
     {
-        String indexStr = getIndexString(context, index);
+        String indexStr = getIndexString( context, index );
 
         Class<?> type = target.getClass().isArray() ? target.getClass().getComponentType() : target.getClass();
 
@@ -173,7 +173,8 @@ public class ArrayPropertyAccessor
         return "[" + indexStr + "]=org.apache.commons.ognl.OgnlOps.convertValue($3," + type.getName() + ".class)";
     }
 
-    private static String getIndexString( OgnlContext context, Object index ) {
+    private static String getIndexString( OgnlContext context, Object index )
+    {
         String indexStr = index.toString();
 
         // need to convert to primitive for list index access
@@ -186,9 +187,8 @@ public class ArrayPropertyAccessor
         {
             indexStr += "." + OgnlRuntime.getNumericValueGetter( context.getCurrentType() );
         }
-        else if ( context.getCurrentObject() != null
-            && Number.class.isAssignableFrom( context.getCurrentObject().getClass() )
-            && !context.getCurrentType().isPrimitive() )
+        else if ( context.getCurrentObject() != null && Number.class.isAssignableFrom(
+            context.getCurrentObject().getClass() ) && !context.getCurrentType().isPrimitive() )
         {
             // means it needs to be cast first as well
 
