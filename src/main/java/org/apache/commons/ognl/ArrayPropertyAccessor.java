@@ -145,6 +145,35 @@ public class ArrayPropertyAccessor
     @Override
     public String getSourceAccessor( OgnlContext context, Object target, Object index )
     {
+        String indexStr = getIndexString(context, index);
+
+        context.setCurrentAccessor( target.getClass() );
+        context.setCurrentType( target.getClass().getComponentType() );
+
+        return "[" + indexStr + "]";
+    }
+
+    @Override
+    public String getSourceSetter( OgnlContext context, Object target, Object index )
+    {
+        String indexStr = getIndexString(context, index);
+
+        Class<?> type = target.getClass().isArray() ? target.getClass().getComponentType() : target.getClass();
+
+        context.setCurrentAccessor( target.getClass() );
+        context.setCurrentType( target.getClass().getComponentType() );
+
+        if ( type.isPrimitive() )
+        {
+            Class<?> wrapClass = OgnlRuntime.getPrimitiveWrapperClass( type );
+
+            return "[" + indexStr + "]=((" + wrapClass.getName() + ")org.apache.commons.ognl.OgnlOps.convertValue($3,"
+                + wrapClass.getName() + ".class, true))." + OgnlRuntime.getNumericValueGetter( wrapClass );
+        }
+        return "[" + indexStr + "]=org.apache.commons.ognl.OgnlOps.convertValue($3," + type.getName() + ".class)";
+    }
+
+    private static String getIndexString( OgnlContext context, Object index ) {
         String indexStr = index.toString();
 
         // need to convert to primitive for list index access
@@ -168,49 +197,6 @@ public class ArrayPropertyAccessor
 
             indexStr = "org.apache.commons.ognl.OgnlOps#getIntValue(" + indexStr + toString + ")";
         }
-
-        context.setCurrentAccessor( target.getClass() );
-        context.setCurrentType( target.getClass().getComponentType() );
-
-        return "[" + indexStr + "]";
-    }
-
-    @Override
-    public String getSourceSetter( OgnlContext context, Object target, Object index )
-    {
-        String indexStr = index.toString();
-
-        // need to convert to primitive for list index access
-
-        if ( context.getCurrentType() != null && !context.getCurrentType().isPrimitive()
-            && Number.class.isAssignableFrom( context.getCurrentType() ) )
-        {
-            indexStr += "." + OgnlRuntime.getNumericValueGetter( context.getCurrentType() );
-        }
-        else if ( context.getCurrentObject() != null
-            && Number.class.isAssignableFrom( context.getCurrentObject().getClass() )
-            && !context.getCurrentType().isPrimitive() )
-        {
-            // means it needs to be cast first as well
-
-            String toString =
-                String.class.isInstance( index ) && context.getCurrentType() != Object.class ? "" : ".toString()";
-
-            indexStr = "org.apache.commons.ognl.OgnlOps#getIntValue(" + indexStr + toString + ")";
-        }
-
-        Class<?> type = target.getClass().isArray() ? target.getClass().getComponentType() : target.getClass();
-
-        context.setCurrentAccessor( target.getClass() );
-        context.setCurrentType( target.getClass().getComponentType() );
-
-        if ( type.isPrimitive() )
-        {
-            Class<?> wrapClass = OgnlRuntime.getPrimitiveWrapperClass( type );
-
-            return "[" + indexStr + "]=((" + wrapClass.getName() + ")org.apache.commons.ognl.OgnlOps.convertValue($3,"
-                + wrapClass.getName() + ".class, true))." + OgnlRuntime.getNumericValueGetter( wrapClass );
-        }
-        return "[" + indexStr + "]=org.apache.commons.ognl.OgnlOps.convertValue($3," + type.getName() + ".class)";
+        return indexStr;
     }
 }
