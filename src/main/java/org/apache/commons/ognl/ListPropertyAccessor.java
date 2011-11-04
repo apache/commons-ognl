@@ -42,19 +42,19 @@ public class ListPropertyAccessor
         {
             Object result;
 
-            if ( "size".equals(name) )
+            if ( "size".equals( name ) )
             {
                 result = list.size();
             }
             else
             {
-                if ( "iterator".equals(name) )
+                if ( "iterator".equals( name ) )
                 {
                     result = list.iterator();
                 }
                 else
                 {
-                    if ( "isEmpty".equals(name) || "empty".equals(name) )
+                    if ( "isEmpty".equals( name ) || "empty".equals( name ) )
                     {
                         result = list.isEmpty() ? Boolean.TRUE : Boolean.FALSE;
                     }
@@ -229,19 +229,25 @@ public class ListPropertyAccessor
         return getSourceBeanMethod( context, target, index, indexStr, true );
     }
 
-    private String getSourceBeanMethod( OgnlContext context, Object target, Object index, String indexStr, boolean isSetter ) {
+    private String getSourceBeanMethod( OgnlContext context, Object target, Object index, String indexStr,
+                                        boolean isSetter )
+    {
         Object currentObject = context.getCurrentObject();
         Class<?> currentType = context.getCurrentType();
         if ( currentObject != null && !Number.class.isInstance( currentObject ) )
         {
             try
             {
-                if ( isSetter ) {
-                    if ( OgnlRuntime.getWriteMethod( target.getClass(), indexStr ) != null || !currentType.isPrimitive() )
+                if ( isSetter )
+                {
+                    if ( OgnlRuntime.getWriteMethod( target.getClass(), indexStr ) != null
+                        || !currentType.isPrimitive() )
                     {
                         return super.getSourceSetter( context, target, index );
                     }
-                } else {
+                }
+                else
+                {
                     if ( OgnlRuntime.getReadMethod( target.getClass(), indexStr ) != null )
                     {
                         return super.getSourceAccessor( context, target, index );
@@ -250,7 +256,7 @@ public class ListPropertyAccessor
             }
             catch ( Throwable t )
             {
-                throw OgnlOps.castToRuntime(t);
+                throw OgnlOps.castToRuntime( t );
             }
         }
 
@@ -266,13 +272,12 @@ public class ListPropertyAccessor
         {
             indexStr += "." + OgnlRuntime.getNumericValueGetter( currentType );
         }
-        else if ( currentObject != null && Number.class.isAssignableFrom(
-            currentObject.getClass() ) && !currentType.isPrimitive() )
+        else if ( currentObject != null && Number.class.isAssignableFrom( currentObject.getClass() )
+            && !currentType.isPrimitive() )
         {
             // means it needs to be cast first as well
 
-            String toString =
-                String.class.isInstance( index ) && currentType != Object.class ? "" : ".toString()";
+            String toString = String.class.isInstance( index ) && currentType != Object.class ? "" : ".toString()";
 
             indexStr = "org.apache.commons.ognl.OgnlOps#getIntValue(" + indexStr + toString + ")";
         }
