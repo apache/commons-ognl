@@ -25,7 +25,8 @@ import java.util.Set;
 
 /**
  * Implementation of PropertyAccessor that sets and gets properties by storing and looking up values in Maps.
- * 
+ *
+ * $Id$
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
@@ -57,25 +58,25 @@ public class MapPropertyAccessor
 
         if ( ( name instanceof String ) && !indexedAccess )
         {
-            if ( name.equals( "size" ) )
+            if ( "size".equals( name ) )
             {
-                result = Integer.valueOf( map.size() );
+                result = map.size();
             }
             else
             {
-                if ( name.equals( "keys" ) || name.equals( "keySet" ) )
+                if ( "keys".equals( name ) || "keySet".equals( name ) )
                 {
                     result = map.keySet();
                 }
                 else
                 {
-                    if ( name.equals( "values" ) )
+                    if ( "values".equals( name ) )
                     {
                         result = map.values();
                     }
                     else
                     {
-                        if ( name.equals( "isEmpty" ) )
+                        if ( "isEmpty".equals( name ) )
                         {
                             result = map.isEmpty() ? Boolean.TRUE : Boolean.FALSE;
                         }
@@ -132,22 +133,22 @@ public class MapPropertyAccessor
         {
             String key = indexStr.replaceAll( "\"", "" );
 
-            if ( key.equals( "size" ) )
+            if ( "size".equals( key ) )
             {
                 context.setCurrentType( int.class );
                 return ".size()";
             }
-            else if ( key.equals( "keys" ) || key.equals( "keySet" ) )
+            else if ( "keys".equals( key ) || "keySet".equals( key ) )
             {
                 context.setCurrentType( Set.class );
                 return ".keySet()";
             }
-            else if ( key.equals( "values" ) )
+            else if ( "values".equals( key ) )
             {
                 context.setCurrentType( Collection.class );
                 return ".values()";
             }
-            else if ( key.equals( "isEmpty" ) )
+            else if ( "isEmpty".equals( key ) )
             {
                 context.setCurrentType( boolean.class );
                 return ".isEmpty()";
@@ -168,19 +169,19 @@ public class MapPropertyAccessor
         {
             String key = indexStr.replaceAll( "\"", "" );
 
-            if ( key.equals( "size" ) )
+            if ( "size".equals( key ) )
             {
                 return "";
             }
-            else if ( key.equals( "keys" ) || key.equals( "keySet" ) )
+            else if ( "keys".equals( key ) || "keySet".equals( key ) )
             {
                 return "";
             }
-            else if ( key.equals( "values" ) )
+            else if ( "values".equals( key ) )
             {
                 return "";
             }
-            else if ( key.equals( "isEmpty" ) )
+            else if ( "isEmpty".equals( key ) )
             {
                 return "";
             }
