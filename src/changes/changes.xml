@@ -24,6 +24,7 @@
   <body>
     <release version="4.0-incubating" date="TBD" description="First ASF release under Incubation.">
       <action issue="OGNL-37" type="fix" dev="mcucchiara">Findbugs fixes (contributed by Adrian Cumiskey).</action>
+      <action issue="OGNL-35" type="update" dev="mcucchiara">Improvements to {List,Map,Array}PropertyAccessor and ASTProperty (contributed by Adrian Cumiskey).</action>
       <action issue="OGNL-36" type="fix" dev="mcucchiara">Link "Benchmarks" on left hand navigation is broken (contributed by Adrian Cumiskey).</action>
       <action issue="OGNL-33" type="update" dev="mcucchiara">Improvements to JJTOgnlParserState (contributed by Adrian Cumiskey).</action>
       <action issue="OGNL-32" type="update" dev="mcucchiara">CPD fix to ASTProperty (contributed by Adrian Cumiskey).</action>
