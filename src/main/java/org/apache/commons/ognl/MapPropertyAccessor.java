@@ -39,7 +39,7 @@ public class MapPropertyAccessor
     {
         Object result;
         @SuppressWarnings( "unchecked" ) // checked by the invoker
-        Map<Object, Object> map = (Map<Object, Object>) target;
+            Map<Object, Object> map = (Map<Object, Object>) target;
         Node currentNode = ( (OgnlContext) context ).getCurrentNode().jjtGetParent();
         boolean indexedAccess = false;
 
@@ -169,19 +169,8 @@ public class MapPropertyAccessor
         {
             String key = indexStr.replaceAll( "\"", "" );
 
-            if ( "size".equals( key ) )
-            {
-                return "";
-            }
-            else if ( "keys".equals( key ) || "keySet".equals( key ) )
-            {
-                return "";
-            }
-            else if ( "values".equals( key ) )
-            {
-                return "";
-            }
-            else if ( "isEmpty".equals( key ) )
+            if ( "size".equals( key ) || "keys".equals( key ) || "keySet".equals( key ) || "values".equals( key )
+                || "isEmpty".equals( key ) )
             {
                 return "";
             }
