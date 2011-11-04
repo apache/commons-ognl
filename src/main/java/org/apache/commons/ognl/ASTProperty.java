@@ -29,6 +29,7 @@ import java.util.Iterator;
 
 /**
  * $Id$
+ *
  * @author Luke Blanshard (blanshlu@netscape.net)
  * @author Drew Davidson (drew@ognl.org)
  */
@@ -54,7 +55,8 @@ public class ASTProperty
 
     /**
      * Returns true if this property is itself an index reference.
-     * @return Returns true if this property is itself an index reference. 
+     *
+     * @return Returns true if this property is itself an index reference.
      */
     public boolean isIndexedAccess()
     {
@@ -64,11 +66,11 @@ public class ASTProperty
     /**
      * Returns true if this property is described by an IndexedPropertyDescriptor and that if followed by an index
      * specifier it will call the index get/set methods rather than go through property accessors.
-     * 
+     *
      * @param context The context
-     * @param source The object source
-     * @throws OgnlException if an error occurs
+     * @param source  The object source
      * @return true, if this property is described by an IndexedPropertyDescriptor
+     * @throws OgnlException if an error occurs
      */
     public int getIndexedPropertyType( OgnlContext context, Object source )
         throws OgnlException
@@ -83,10 +85,10 @@ public class ASTProperty
 
                 if ( property instanceof String )
                 {
-                    return OgnlRuntime.getIndexedPropertyType( 
-                          context,
-                          ( source == null ) ? null : OgnlRuntime.getCompiler( context ).getInterfaceClass( source.getClass() ),
-                          (String) property );
+                    return OgnlRuntime.getIndexedPropertyType( context, ( source == null )
+                        ? null
+                        : OgnlRuntime.getCompiler( context ).getInterfaceClass( source.getClass() ),
+                                                               (String) property );
                 }
             }
 
@@ -132,8 +134,7 @@ public class ASTProperty
     public boolean isNodeSimpleProperty( OgnlContext context )
         throws OgnlException
     {
-        return ( children != null ) && ( children.length == 1 )
-            && ( (SimpleNode) children[0] ).isConstant( context );
+        return ( children != null ) && ( children.length == 1 ) && ( (SimpleNode) children[0] ).isConstant( context );
     }
 
     public Class getGetterClass()
@@ -166,7 +167,7 @@ public class ASTProperty
             Node child = children[0];
             if ( isIndexedAccess() )
             {
-                Object value = child.getValue(context, context.getRoot());
+                Object value = child.getValue( context, context.getRoot() );
 
                 if ( value == null || DynamicSubscript.class.isAssignableFrom( value.getClass() ) )
                 {
@@ -175,19 +176,18 @@ public class ASTProperty
                 }
                 // Get root cast string if the child is a type that needs it (like a nested ASTProperty)
 
-                String srcString = getSourceString(context, child);
+                String srcString = getSourceString( context, child );
 
                 if ( context.get( "_indexedMethod" ) != null )
                 {
                     m = (Method) context.remove( "_indexedMethod" );
                     getterClass = m.getReturnType();
 
-                    Object indexedValue = 
-                        OgnlRuntime.callMethod( context, target, m.getName(), new Object[] { value } );
+                    Object indexedValue = OgnlRuntime.callMethod( context, target, m.getName(), new Object[]{ value } );
 
                     context.setCurrentType( getterClass );
                     context.setCurrentObject( indexedValue );
-                    context.setCurrentAccessor( 
+                    context.setCurrentAccessor(
                         OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
 
                     return "." + m.getName() + "(" + srcString + ")";
@@ -201,13 +201,11 @@ public class ASTProperty
                     // + " and srcString " + srcString + " on target: " + target);
 
                     Object currentObject = context.getCurrentObject();
-                    if ( ASTConst.class.isInstance(child)
-                        && Number.class.isInstance( currentObject ) )
+                    if ( ASTConst.class.isInstance( child ) && Number.class.isInstance( currentObject ) )
                     {
-                        context.setCurrentType(
-                                OgnlRuntime.getPrimitiveWrapperClass(currentObject.getClass()));
+                        context.setCurrentType( OgnlRuntime.getPrimitiveWrapperClass( currentObject.getClass() ) );
                     }
-                    Object indexValue = propertyAccessor.getProperty(context, target, value);
+                    Object indexValue = propertyAccessor.getProperty( context, target, value );
                     result = propertyAccessor.getSourceAccessor( context, target, srcString );
                     getterClass = context.getCurrentType();
                     context.setCurrentObject( indexValue );
@@ -216,19 +214,19 @@ public class ASTProperty
                 }
             }
 
-            String name = ( (ASTConst) child).getValue().toString();
+            String name = ( (ASTConst) child ).getValue().toString();
 
             target = getTarget( context, target, name );
 
             PropertyDescriptor pd = OgnlRuntime.getPropertyDescriptor( context.getCurrentObject().getClass(), name );
 
-            if ( pd != null
-                && pd.getReadMethod() != null
-                && !context.getMemberAccess().isAccessible( context, context.getCurrentObject(), pd.getReadMethod(),
-                                                            name ) )
+            if ( pd != null && pd.getReadMethod() != null && !context.getMemberAccess().isAccessible( context,
+                                                                                                      context.getCurrentObject(),
+                                                                                                      pd.getReadMethod(),
+                                                                                                      name ) )
             {
-                throw new UnsupportedCompilationException( "Member access forbidden for property " + name
-                    + " on class " + context.getCurrentObject().getClass() );
+                throw new UnsupportedCompilationException( "Member access forbidden for property " + name + " on class "
+                                                               + context.getCurrentObject().getClass() );
             }
 
             if ( this.getIndexedPropertyType( context, context.getCurrentObject() ) > 0 && pd != null )
@@ -310,10 +308,10 @@ public class ASTProperty
                         Class currType = context.getCurrentType();
                         Class prevType = context.getPreviousType();
 
-                        String srcString = child.toGetSourceString(context, context.getRoot());
+                        String srcString = child.toGetSourceString( context, context.getRoot() );
 
-                        if ( ASTConst.class.isInstance(child)
-                            && String.class.isInstance( context.getCurrentObject() ) ) 
+                        if ( ASTConst.class.isInstance( child ) && String.class.isInstance(
+                            context.getCurrentObject() ) )
                         {
                             srcString = "\"" + srcString + "\"";
                         }
@@ -341,7 +339,7 @@ public class ASTProperty
             getterClass = m.getReturnType();
 
             context.setCurrentType( m.getReturnType() );
-            context.setCurrentAccessor( 
+            context.setCurrentAccessor(
                 OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
         }
 
@@ -417,7 +415,7 @@ public class ASTProperty
             Node child = children[0];
             if ( isIndexedAccess() )
             {
-                Object value = child.getValue(context, context.getRoot());
+                Object value = child.getValue( context, context.getRoot() );
 
                 if ( value == null )
                 {
@@ -425,7 +423,7 @@ public class ASTProperty
                         "Value passed as indexed property is null, can't enhance statement to bytecode." );
                 }
 
-                String srcString = getSourceString(context, child);
+                String srcString = getSourceString( context, child );
 
                 // System.out.println("astproperty setter using indexed value " + value + " and srcString: " +
                 // srcString);
@@ -452,10 +450,10 @@ public class ASTProperty
                     Object indexedValue = null;
                     if ( !lastChild )
                     {
-                        indexedValue = OgnlRuntime.callMethod( context, target, m.getName(), new Object[] { value } );
+                        indexedValue = OgnlRuntime.callMethod( context, target, m.getName(), new Object[]{ value } );
                     }
                     context.setCurrentType( setterClass );
-                    context.setCurrentAccessor( 
+                    context.setCurrentAccessor(
                         OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
 
                     if ( !lastChild )
@@ -473,16 +471,14 @@ public class ASTProperty
                     PropertyAccessor propertyAccessor = OgnlRuntime.getPropertyAccessor( target.getClass() );
 
                     Object currentObject = context.getCurrentObject();
-                    if ( ASTConst.class.isInstance(child)
-                        && Number.class.isInstance( currentObject ) )
+                    if ( ASTConst.class.isInstance( child ) && Number.class.isInstance( currentObject ) )
                     {
-                        context.setCurrentType(
-                                OgnlRuntime.getPrimitiveWrapperClass(currentObject.getClass()));
+                        context.setCurrentType( OgnlRuntime.getPrimitiveWrapperClass( currentObject.getClass() ) );
                     }
-                    Object indexValue = propertyAccessor.getProperty(context, target, value);
-                    result =
-                        lastChild( context ) ? propertyAccessor.getSourceSetter( context, target, srcString )
-                                        : propertyAccessor.getSourceAccessor( context, target, srcString );
+                    Object indexValue = propertyAccessor.getProperty( context, target, value );
+                    result = lastChild( context )
+                        ? propertyAccessor.getSourceSetter( context, target, srcString )
+                        : propertyAccessor.getSourceAccessor( context, target, srcString );
 
                     /*
                      * System.out.println("ASTProperty using propertyaccessor and isLastChild? " + lastChild(context) +
@@ -505,27 +501,26 @@ public class ASTProperty
                 }
             }
 
-            String name = ( (ASTConst) child).getValue().toString();
+            String name = ( (ASTConst) child ).getValue().toString();
 
             // System.out.println(" astprop(setter) : trying to set " + name + " on object target " +
             // context.getCurrentObject().getClass().getName());
 
             target = getTarget( context, target, name );
 
-            PropertyDescriptor pd =
-                OgnlRuntime.getPropertyDescriptor( 
-                    OgnlRuntime.getCompiler( context ).getInterfaceClass(
-                        context.getCurrentObject().getClass() ), name );
+            PropertyDescriptor pd = OgnlRuntime.getPropertyDescriptor(
+                OgnlRuntime.getCompiler( context ).getInterfaceClass( context.getCurrentObject().getClass() ), name );
 
             if ( pd != null )
             {
                 Method pdMethod = lastChild( context ) ? pd.getWriteMethod() : pd.getReadMethod();
 
-                if ( pdMethod != null
-                    && !context.getMemberAccess().isAccessible( context, context.getCurrentObject(), pdMethod, name ) )
+                if ( pdMethod != null && !context.getMemberAccess().isAccessible( context, context.getCurrentObject(),
+                                                                                  pdMethod, name ) )
                 {
-                    throw new UnsupportedCompilationException( "Member access forbidden for property " + name
-                        + " on class " + context.getCurrentObject().getClass() );
+                    throw new UnsupportedCompilationException(
+                        "Member access forbidden for property " + name + " on class "
+                            + context.getCurrentObject().getClass() );
                 }
             }
 
@@ -601,10 +596,10 @@ public class ASTProperty
                         // Class currType = context.getCurrentType();
                         // Class prevType = context.getPreviousType();
 
-                        String srcString = child.toGetSourceString(context, context.getRoot());
+                        String srcString = child.toGetSourceString( context, context.getRoot() );
 
-                        if ( ASTConst.class.isInstance(child)
-                            && String.class.isInstance( context.getCurrentObject() ) )
+                        if ( ASTConst.class.isInstance( child ) && String.class.isInstance(
+                            context.getCurrentObject() ) )
                         {
                             srcString = "\"" + srcString + "\"";
                         }
@@ -638,23 +633,23 @@ public class ASTProperty
         if ( m != null )
         {
             context.setCurrentType( m.getReturnType() );
-            context.setCurrentAccessor( 
+            context.setCurrentAccessor(
                 OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
         }
 
         return result;
     }
-    
+
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
         throws OgnlException
     {
         return visitor.visit( this, data );
     }
 
-    private static String getSourceString( OgnlContext context, Node child ) {
-        String srcString = child.toGetSourceString(context, context.getRoot());
-        srcString =
-            ExpressionCompiler.getRootExpression( child, context.getRoot(), context ) + srcString;
+    private static String getSourceString( OgnlContext context, Node child )
+    {
+        String srcString = child.toGetSourceString( context, context.getRoot() );
+        srcString = ExpressionCompiler.getRootExpression( child, context.getRoot(), context ) + srcString;
 
         if ( ASTChain.class.isInstance( child ) )
         {
@@ -665,8 +660,7 @@ public class ASTProperty
             }
         }
 
-        if ( ASTConst.class.isInstance( child )
-             && String.class.isInstance( context.getCurrentObject() ) )
+        if ( ASTConst.class.isInstance( child ) && String.class.isInstance( context.getCurrentObject() ) )
         {
             srcString = "\"" + srcString + "\"";
         }
