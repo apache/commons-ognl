@@ -65,51 +65,51 @@ public class ASTStaticField
         throws OgnlException
     {
         boolean result = false;
-        Exception reason = null;
+        Exception cause = null;
 
         try
         {
-            Class c = OgnlRuntime.classForName( context, className );
+            Class clazz = OgnlRuntime.classForName( context, className );
 
             /*
              * Check for virtual static field "class"; this cannot interfere with normal static fields because it is a
              * reserved word. It is considered constant.
              */
-            if ( fieldName.equals( "class" ) )
+            if ( "class".equals( fieldName ) )
             {
                 result = true;
             }
-            else if ( OgnlRuntime.isJdk15() && c.isEnum() )
+            else if ( clazz.isEnum() )
             {
                 result = true;
             }
             else
             {
-                Field f = c.getField( fieldName );
+                Field field = clazz.getField( fieldName );
 
-                if ( !Modifier.isStatic( f.getModifiers() ) )
+                if ( !Modifier.isStatic( field.getModifiers() ) )
                 {
                     throw new OgnlException( "Field " + fieldName + " of class " + className + " is not static" );
                 }
-                result = Modifier.isFinal( f.getModifiers() );
+                result = Modifier.isFinal( field.getModifiers() );
             }
         }
         catch ( ClassNotFoundException e )
         {
-            reason = e;
+            cause = e;
         }
         catch ( NoSuchFieldException e )
         {
-            reason = e;
+            cause = e;
         }
         catch ( SecurityException e )
         {
-            reason = e;
+            cause = e;
         }
 
-        if ( reason != null )
+        if ( cause != null )
         {
-            throw new OgnlException( "Could not get static field " + fieldName + " from class " + className, reason );
+            throw new OgnlException( "Could not get static field " + fieldName + " from class " + className, cause );
         }
         
         return result;
@@ -118,44 +118,44 @@ public class ASTStaticField
     Class getFieldClass( OgnlContext context )
         throws OgnlException
     {
-        Exception reason = null;
+        Exception cause;
 
         try
         {
-            Class c = OgnlRuntime.classForName( context, className );
+            Class clazz = OgnlRuntime.classForName( context, className );
 
             /*
              * Check for virtual static field "class"; this cannot interfere with normal static fields because it is a
              * reserved word. It is considered constant.
              */
-            if ( fieldName.equals( "class" ) )
+            if ( "class".equals( fieldName ) )
             {
-                return c;
+                return clazz;
             }
-            else if ( OgnlRuntime.isJdk15() && c.isEnum() )
+            else if ( clazz.isEnum() )
             {
-                return c;
+                return clazz;
             }
             else
             {
-                Field f = c.getField( fieldName );
+                Field field = clazz.getField( fieldName );
 
-                return f.getType();
+                return field.getType();
             }
         }
         catch ( ClassNotFoundException e )
         {
-            reason = e;
+            cause = e;
         }
         catch ( NoSuchFieldException e )
         {
-            reason = e;
+            cause = e;
         }
         catch ( SecurityException e )
         {
-            reason = e;
+            cause = e;
         }
-        throw new OgnlException( "Could not get static field " + fieldName + " from class " + className, reason );
+        throw new OgnlException( "Could not get static field " + fieldName + " from class " + className, cause );
     }
 
     public Class getGetterClass()
