@@ -42,13 +42,13 @@ public class EnumerationPropertyAccessor
 
         if ( name instanceof String )
         {
-            if ( name.equals( "next" ) || name.equals( "nextElement" ) )
+            if ( "next".equals( name ) || "nextElement".equals( name ) )
             {
                 result = e.nextElement();
             }
             else
             {
-                if ( name.equals( "hasNext" ) || name.equals( "hasMoreElements" ) )
+                if ( "hasNext".equals( name ) || "hasMoreElements".equals( name ) )
                 {
                     result = e.hasMoreElements() ? Boolean.TRUE : Boolean.FALSE;
                 }
