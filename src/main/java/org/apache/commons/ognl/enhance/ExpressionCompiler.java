@@ -247,7 +247,7 @@ public class ExpressionCompiler
      */
     public String getClassName( Class<?> clazz )
     {
-        if ( clazz.getName().equals( "java.util.AbstractList$Itr" ) )
+        if ( "java.util.AbstractList$Itr".equals( clazz.getName() ) )
         {
             return Iterator.class.getName();
         }
@@ -410,7 +410,7 @@ public class ExpressionCompiler
      */
     public Class<?> getInterfaceClass( Class<?> clazz )
     {
-        if ( clazz.getName().equals( "java.util.AbstractList$Itr" ) )
+        if ( "java.util.AbstractList$Itr".equals( clazz.getName() ) )
         {
             return Iterator.class;
         }
@@ -616,7 +616,7 @@ public class ExpressionCompiler
             post = post + ")";
         }
 
-        String rootExpr = !getterCode.equals( "null" ) ? getRootExpression( expression, root, context ) : "";
+        String rootExpr = !"null".equals( getterCode ) ? getRootExpression( expression, root, context ) : "";
 
         String noRoot = (String) context.remove( "_noRoot" );
         if ( noRoot != null )
