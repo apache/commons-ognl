@@ -410,4 +410,13 @@ public class TestOgnlRuntime
         OgnlExpressionCompiler compiler2 = OgnlRuntime.getCompiler( context );
         assertSame( "compilers are not the same", compiler1, compiler2 );
     }
+
+    @Test
+    public void testGetPropertyDescriptorFromArray()
+        throws Exception
+    {
+        PropertyDescriptor propertyDescriptor =
+            OgnlRuntime.getPropertyDescriptorFromArray( Root.class, "disabled" );
+        assertEquals( "disabled", propertyDescriptor.getName() );
+    }
 }

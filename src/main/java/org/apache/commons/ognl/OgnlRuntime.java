@@ -2031,11 +2031,15 @@ public class OgnlRuntime
         PropertyDescriptor result = null;
         PropertyDescriptor[] propertyDescriptors = getPropertyDescriptorsArray( targetClass );
 
-        for ( int i = 0, icount = propertyDescriptors.length; ( result == null ) && ( i < icount ); i++ )
+        for ( PropertyDescriptor propertyDescriptor : propertyDescriptors )
         {
-            if ( propertyDescriptors[i].getName().compareTo( name ) == 0 )
+            if ( result != null )
             {
-                result = propertyDescriptors[i];
+                break;
+            }
+            if ( propertyDescriptor.getName().compareTo( name ) == 0 )
+            {
+                result = propertyDescriptor;
             }
         }
         return result;
