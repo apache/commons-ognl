@@ -63,11 +63,13 @@ public class MenuItem
 
     public String toString()
     {
-        StringBuffer sb = new StringBuffer( "MenuItem[" );
-        sb.append( "page=" + getPage() );
-        sb.append( ",label=" + getLabel() );
-        sb.append( ",children=" + getChildren().size() );
-        sb.append( "]" );
-        return sb.toString();
+        return new StringBuilder( "MenuItem[" )
+            .append( "page=" )
+            .append( getPage() )
+            .append( ",label=" )
+            .append( getLabel() )
+            .append( ",children=" )
+            .append( getChildren().size() )
+            .append( "]" ).toString();
     }
 }
