@@ -1750,7 +1750,7 @@ public class OgnlRuntime
      * @param method The method to check.
      * @return True if the method should be callable, false otherwise.
      */
-    //TODO: the method was intented as private, so it'd need to move in a util class
+    //TODO: the method was intended as private, so it'd need to move in a util class
     public static boolean isMethodCallable( Method method )
     {
         return !( method.isSynthetic() || Modifier.isVolatile( method.getModifiers() ) );
