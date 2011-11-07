@@ -1208,13 +1208,14 @@ public abstract class OgnlOps
 
     public static String getEscapeString( String value )
     {
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
 
-        for ( int i = 0, icount = value.length(); i < icount; i++ )
+        int length = value.length();
+        for ( int i = 0; i < length; i++ )
         {
             result.append( getEscapedChar( value.charAt( i ) ) );
         }
-        return new String( result );
+        return result.toString();
     }
 
     public static String getEscapedChar( char ch )
