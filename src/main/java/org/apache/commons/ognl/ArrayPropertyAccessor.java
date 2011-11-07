@@ -41,9 +41,9 @@ public class ArrayPropertyAccessor
 
         if ( name instanceof String )
         {
-            if ( name.equals( "length" ) )
+            if ( "length".equals( name ) )
             {
-                result = Array.getLength(target);
+                result = Array.getLength( target );
             }
             else
             {
