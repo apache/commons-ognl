@@ -43,27 +43,21 @@ public class SetPropertyAccessor
         {
             Object result;
 
-            if ( name.equals( "size" ) )
+            if ( "size".equals( name ) )
             {
-                result = Integer.valueOf( set.size() );
+                result = set.size();
+            }
+            else if ( "iterator".equals( name ) )
+            {
+                result = set.iterator();
+            }
+            else if ( "isEmpty".equals( name ) )
+            {
+                result = set.isEmpty() ? Boolean.TRUE : Boolean.FALSE;
             }
             else
             {
-                if ( name.equals( "iterator" ) )
-                {
-                    result = set.iterator();
-                }
-                else
-                {
-                    if ( name.equals( "isEmpty" ) )
-                    {
-                        result = set.isEmpty() ? Boolean.TRUE : Boolean.FALSE;
-                    }
-                    else
-                    {
-                        result = super.getProperty( context, target, name );
-                    }
-                }
+                result = super.getProperty( context, target, name );
             }
             return result;
         }
