@@ -195,8 +195,8 @@ void multiplicativeExpression() : {}
 
 // unary (level 1)
 void unaryExpression() : {
-    StringBuffer sb;
-    Token t;
+    StringBuilder stringBuilder;
+    Token token;
     ASTInstanceof ionode;
 }
 {
@@ -212,9 +212,9 @@ void unaryExpression() : {
         navigationChain()
         [
             "instanceof"
-            t = <IDENT>  { sb = new StringBuffer(t.image); ionode = jjtThis; } #Instanceof(1)
-            (   "." t = <IDENT>         { sb.append('.').append( t.image ); }
-            )*                          { ionode.setTargetType( new String(sb) ); }
+            token = <IDENT>  { stringBuilder = new StringBuilder(token.image); ionode = jjtThis; } #Instanceof(1)
+            (   "." token = <IDENT>         { stringBuilder.append('.').append( token.image ); }
+            )*                          { ionode.setTargetType( stringBuilder.toString() ); }
         ]
     )
 }
@@ -249,7 +249,7 @@ void navigationChain() : {}
 
 
 void primaryExpression() : {
-    Token   t;
+    Token   token;
     String  className = null;
 }
 {
@@ -267,7 +267,7 @@ void primaryExpression() : {
      |
         LOOKAHEAD(2) "#root"                 { jjtThis.setName( "root" ); } #RootVarRef(0)
      |
-        LOOKAHEAD(2) "#" t=<IDENT>              { jjtThis.setName( t.image ); } #VarRef(0)
+        LOOKAHEAD(2) "#" t=<IDENT>              { jjtThis.setName( token.image ); } #VarRef(0)
      |
         LOOKAHEAD(2) ":" "[" expression() "]"   { jjtThis.setValue( jjtThis.jjtGetChild(0) ); } #Const(1)
      |
@@ -295,7 +295,7 @@ void keyValueExpression() : {}
 
 void staticReference() : {
     String className = "java.lang.Math";
-    Token t;
+    Token token;
 }
 {
     className=classReference()
@@ -303,7 +303,7 @@ void staticReference() : {
             LOOKAHEAD(2)
             staticMethodCall( className )
          |
-            t=<IDENT>               { jjtThis.init( className, t.image ); } #StaticField(0)
+            token=<IDENT>               { jjtThis.init( className, token.image ); } #StaticField(0)
         )
 }
 
@@ -315,19 +315,19 @@ String classReference(): {
 }
 
 String className(): {
-    Token t;
-    StringBuffer result;
+    Token token;
+    StringBuilder result;
 }
 {
-    t=<IDENT>               { result = new StringBuffer( t.image ); }
-    ( "." t=<IDENT>         { result.append('.').append( t.image ); }
-    )*                      { return new String(result); }
+    token=<IDENT>               { result = new StringBuilder( token.image ); }
+    ( "." token=<IDENT>         { result.append('.').append( token.image ); }
+    )*                      { return result.toString(); }
 }
 
 void constructorCall() #Ctor : {
     String className;
-    Token t;
-    StringBuffer sb;
+    Token token;
+    StringBuilder stringBuilder;
 }
 {
     "new" className=className()
@@ -358,26 +358,26 @@ void constructorCall() #Ctor : {
 }
 
 void propertyName() #Property : {
-    Token t;
+    Token token;
 }
 {
-    t=<IDENT> { jjtThis.setValue( t.image ); } #Const
+    token=<IDENT> { jjtThis.setValue( token.image ); } #Const
 }
 
 void staticMethodCall( String className ) #StaticMethod : {
-    Token t;
+    Token token;
 }
 {
-    t=<IDENT> "(" [ assignmentExpression() ( "," assignmentExpression() )* ] ")"
-                                        { jjtThis.init( className, t.image ); }
+    token=<IDENT> "(" [ assignmentExpression() ( "," assignmentExpression() )* ] ")"
+                                        { jjtThis.init( className, token.image ); }
 }
 
 void methodCall() #Method : {
-    Token t;
+    Token token;
 }
 {
-    t=<IDENT> "(" [ assignmentExpression() ( "," assignmentExpression() )* ] ")"
-                                        { jjtThis.setMethodName( t.image ); }
+    token=<IDENT> "(" [ assignmentExpression() ( "," assignmentExpression() )* ] ")"
+                                        { jjtThis.setMethodName( token.image ); }
 }
 
 /**
@@ -446,7 +446,7 @@ TOKEN_MGR_DECLS:
       /** Holds char literal start token. */
     private char charLiteralStartQuote;
       /** Holds the last string literal parsed. */
-    private StringBuffer stringBuffer;
+    private StringBuilder stringBuilder;
 
       /** Converts an escape sequence into a character value. */
     private char escapeChar()
@@ -586,9 +586,9 @@ MORE:
 {
     "`"     : WithinBackCharLiteral
  |
-    "'"     { stringBuffer = new StringBuffer(); }: WithinCharLiteral
+    "'"     { stringBuilder = new StringBuilder(); }: WithinCharLiteral
  |
-    "\""    { stringBuffer = new StringBuffer(); }: WithinStringLiteral
+    "\""    { stringBuilder = new StringBuilder(); }: WithinStringLiteral
 }
 
 <WithinCharLiteral> MORE:
@@ -597,20 +597,20 @@ MORE:
                 | (["0"-"3"])? ["0"-"7"] (["0"-"7"])?
                 )
     >
-        { charValue = escapeChar(); stringBuffer.append(charValue); }
+        { charValue = escapeChar(); stringBuilder.append(charValue); }
  |
     < (~["'","\\"]) >
-        { charValue = image.charAt( image.length()-1 ); stringBuffer.append(charValue); }
+        { charValue = image.charAt( image.length()-1 ); stringBuilder.append(charValue); }
 }
 
 <WithinCharLiteral> TOKEN:
 {
     < CHAR_LITERAL: "'">
         {
-            if (stringBuffer.length() == 1) {
+            if (stringBuilder.length() == 1) {
                 literalValue = new Character( charValue );
             } else {
-                literalValue = new String( stringBuffer );
+                literalValue = new String( stringBuilder );
             }
         }
         : DEFAULT
@@ -634,16 +634,16 @@ MORE:
 <WithinStringLiteral> MORE:
 {
     < STRING_ESC: <ESC> >
-        { stringBuffer.append( escapeChar() ); }
+        { stringBuilder.append( escapeChar() ); }
  |
     < (~["\"","\\"]) >
-        { stringBuffer.append( image.charAt(image.length()-1) ); }
+        { stringBuilder.append( image.charAt(image.length()-1) ); }
 }
 
 <WithinStringLiteral> TOKEN:
 {
     <STRING_LITERAL: "\"">
-        { literalValue = new String( stringBuffer ); }
+        { literalValue = new String( stringBuilder ); }
         : DEFAULT
 }
 
