@@ -84,7 +84,7 @@ public class ASTMethod
         {
             Object result, root = context.getRoot();
 
-            for ( int i = 0, icount = args.length; i < icount; ++i )
+            for ( int i = 0; i < args.length; ++i )
             {
                 args[i] = children[i].getValue( context, root );
             }
@@ -93,8 +93,8 @@ public class ASTMethod
 
             if ( result == null )
             {
-                NullHandler nh = OgnlRuntime.getNullHandler( OgnlRuntime.getTargetClass( source ) );
-                result = nh.nullMethodResult( context, source, methodName, args );
+                NullHandler nullHandler = OgnlRuntime.getNullHandler( OgnlRuntime.getTargetClass( source ) );
+                result = nullHandler.nullMethodResult( context, source, methodName, args );
             }
 
             return result;
@@ -182,13 +182,11 @@ public class ASTMethod
             }
             else
             {
-
                 getterClass = method.getReturnType();
             }
 
             // TODO: This is a hacky workaround until javassist supports varargs method invocations
-
-            boolean varArgs = OgnlRuntime.isJdk15() && method.isVarArgs();
+            boolean varArgs = method.isVarArgs();
 
             if ( varArgs )
             {
@@ -280,29 +278,29 @@ public class ASTMethod
          * System.out.println("current type: " + context.getCurrentType() + " target:" + target + " " +
          * context.getCurrentObject() + " last child? " + lastChild(context));
          */
-        Method m =
+        Method method =
             OgnlRuntime.getWriteMethod( context.getCurrentType() != null ? context.getCurrentType() : target.getClass(),
                                         methodName, children != null ? children.length : -1 );
-        if ( m == null )
+        if ( method == null )
         {
             throw new UnsupportedCompilationException(
                 "Unable to determine setter method generation for " + methodName );
         }
 
         String post = "";
-        String result = "." + m.getName() + "(";
+        String result = "." + method.getName() + "(";
 
-        if ( m.getReturnType() != void.class && m.getReturnType().isPrimitive() && ( parent == null
+        if ( method.getReturnType() != void.class && method.getReturnType().isPrimitive() && ( parent == null
             || !ASTTest.class.isInstance( parent ) ) )
         {
-            Class wrapper = OgnlRuntime.getPrimitiveWrapperClass( m.getReturnType() );
+            Class wrapper = OgnlRuntime.getPrimitiveWrapperClass( method.getReturnType() );
 
             ExpressionCompiler.addCastString( context, "new " + wrapper.getName() + "(" );
             post = ")";
             getterClass = wrapper;
         }
 
-        boolean varArgs = OgnlRuntime.isJdk15() && m.isVarArgs();
+        boolean varArgs = method.isVarArgs();
 
         if ( varArgs )
         {
@@ -313,13 +311,13 @@ public class ASTMethod
         try
         {
             /*
-             * if (lastChild(context) && m.getParameterTypes().length > 0 && _children.length <= 0) throw new
-             * UnsupportedCompilationException("Unable to determine setter method generation for " + m);
+             * if (lastChild(context) && method.getParameterTypes().length > 0 && _children.length <= 0) throw new
+             * UnsupportedCompilationException("Unable to determine setter method generation for " + method);
              */
 
             if ( ( children != null ) && ( children.length > 0 ) )
             {
-                Class[] parms = m.getParameterTypes();
+                Class[] parms = method.getParameterTypes();
                 String prevCast = (String) context.remove( ExpressionCompiler.PRE_CAST );
 
                 for ( int i = 0; i < children.length; i++ )
@@ -414,8 +412,8 @@ public class ASTMethod
             // ignore
         }
 
-        context.setCurrentType( m.getReturnType() );
-        context.setCurrentAccessor( compiler.getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
+        context.setCurrentType( method.getReturnType() );
+        context.setCurrentAccessor( compiler.getSuperOrInterfaceClass( method, method.getDeclaringClass() ) );
 
         return result + ")" + post;
     }
