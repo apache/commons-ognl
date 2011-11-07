@@ -41,13 +41,13 @@ public class IteratorPropertyAccessor
 
         if ( name instanceof String )
         {
-            if ( name.equals( "next" ) )
+            if ( "next".equals( name ) )
             {
                 result = iterator.next();
             }
             else
             {
-                if ( name.equals( "hasNext" ) )
+                if ( "hasNext".equals( name ) )
                 {
                     result = iterator.hasNext() ? Boolean.TRUE : Boolean.FALSE;
                 }
