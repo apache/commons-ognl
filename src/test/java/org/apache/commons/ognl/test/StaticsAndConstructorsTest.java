@@ -38,9 +38,9 @@ public class StaticsAndConstructorsTest
     private static Object[][] TESTS =
         {
             { "@java.lang.Class@forName(\"java.lang.Object\")", Object.class },
-            { "@java.lang.Integer@MAX_VALUE", new Integer( Integer.MAX_VALUE ) },
-            { "@@max(3,4)", new Integer( 4 ) },
-            { "new java.lang.StringBuffer().append(55).toString()", "55" },
+            { "@java.lang.Integer@MAX_VALUE", Integer.MAX_VALUE },
+            { "@@max(3,4)", 4 },
+            { "new java.lang.StringBuilder().append(55).toString()", "55" },
             { "class", ROOT.getClass() },
             { "@org.apache.commons.ognl.test.objects.Root@class", ROOT.getClass() },
             { "class.getName()", ROOT.getClass().getName() },
@@ -49,8 +49,8 @@ public class StaticsAndConstructorsTest
             { "class.getSuperclass()", ROOT.getClass().getSuperclass() },
             { "class.superclass", ROOT.getClass().getSuperclass() },
             { "class.name", ROOT.getClass().getName() },
-            { "getStaticInt()", new Integer( Root.getStaticInt() ) },
-            { "@org.apache.commons.ognl.test.objects.Root@getStaticInt()", new Integer( Root.getStaticInt() ) },
+            { "getStaticInt()", Root.getStaticInt() },
+            { "@org.apache.commons.ognl.test.objects.Root@getStaticInt()", Root.getStaticInt() },
             { "new org.apache.commons.ognl.test.objects.Simple(property).getStringValue()",
                 new Simple().getStringValue() },
             { "new org.apache.commons.ognl.test.objects.Simple(map['test'].property).getStringValue()",
@@ -159,13 +159,13 @@ public class StaticsAndConstructorsTest
     public static Collection<Object[]> data()
     {
         Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
-        for ( int i = 0; i < TESTS.length; i++ )
+        for ( Object[] TEST : TESTS )
         {
             Object[] tmp = new Object[6];
-            tmp[0] = TESTS[i][0] + " (" + TESTS[i][1] + ")";
+            tmp[0] = TEST[0] + " (" + TEST[1] + ")";
             tmp[1] = ROOT;
-            tmp[2] = TESTS[i][0];
-            tmp[3] = TESTS[i][1];
+            tmp[2] = TEST[0];
+            tmp[3] = TEST[1];
 
             data.add( tmp );
         }
