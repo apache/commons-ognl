@@ -62,30 +62,21 @@ public class MapPropertyAccessor
             {
                 result = map.size();
             }
+            else if ( "keys".equals( name ) || "keySet".equals( name ) )
+            {
+                result = map.keySet();
+            }
+            else if ( "values".equals( name ) )
+            {
+                result = map.values();
+            }
+            else if ( "isEmpty".equals( name ) )
+            {
+                result = map.isEmpty() ? Boolean.TRUE : Boolean.FALSE;
+            }
             else
             {
-                if ( "keys".equals( name ) || "keySet".equals( name ) )
-                {
-                    result = map.keySet();
-                }
-                else
-                {
-                    if ( "values".equals( name ) )
-                    {
-                        result = map.values();
-                    }
-                    else
-                    {
-                        if ( "isEmpty".equals( name ) )
-                        {
-                            result = map.isEmpty() ? Boolean.TRUE : Boolean.FALSE;
-                        }
-                        else
-                        {
-                            result = map.get( name );
-                        }
-                    }
-                }
+                result = map.get( name );
             }
         }
         else
