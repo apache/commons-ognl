@@ -1605,7 +1605,7 @@ public class OgnlRuntime
 
         try
         {
-            Class<? extends Object> targetClass = target == null ? null : target.getClass();
+            Class<?> targetClass = target == null ? null : target.getClass();
             Field field = getField( targetClass, propertyName );
             Object state;
 
