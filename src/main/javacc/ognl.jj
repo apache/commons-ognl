@@ -847,8 +847,8 @@ void multiplicativeExpression() : {}
 
 // unary (level 1)
 void unaryExpression() : {
-    StringBuffer sb;
-    Token t;
+    StringBuilder stringBuilder;
+    Token token;
     ASTInstanceof ionode;
 }
 {
@@ -945,7 +945,7 @@ void unaryExpression() : {
         navigationChain()
         [
             "instanceof"
-            t = <IDENT>/*@bgen(jjtree) #Instanceof( 1) */
+            token = <IDENT>/*@bgen(jjtree) #Instanceof( 1) */
                          {
                            ASTInstanceof jjtn004 = new ASTInstanceof(JJTINSTANCEOF);
                            boolean jjtc004 = true;
@@ -957,15 +957,15 @@ void unaryExpression() : {
                            jjtree.closeNodeScope(jjtn004,  1);
                            jjtc004 = false;
                          }
-/*@egen*/  { sb = new StringBuffer(t.image); ionode = jjtn004; }/*@bgen(jjtree)*/
+/*@egen*/  { stringBuilder = new StringBuilder(token.image); ionode = jjtn004; }/*@bgen(jjtree)*/
                          } finally {
                            if (jjtc004) {
                              jjtree.closeNodeScope(jjtn004,  1);
                            }
                          }
 /*@egen*/               
-            (   "." t = <IDENT>         { sb.append('.').append( t.image ); }
-            )*                          { ionode.setTargetType( new String(sb) ); }
+            (   "." token = <IDENT>         { stringBuilder.append('.').append( token.image ); }
+            )*                          { ionode.setTargetType( stringBuilder.toString() ); }
         ]
     )
 }
@@ -1067,7 +1067,7 @@ void navigationChain() : {}
 
 
 void primaryExpression() : {
-    Token   t;
+    Token   token;
     String  className = null;
 }
 {
@@ -1188,7 +1188,7 @@ void primaryExpression() : {
                                              }
 /*@egen*/               
      |
-        LOOKAHEAD(2) "#" t=<IDENT>/*@bgen(jjtree) #VarRef( 0) */
+        LOOKAHEAD(2) "#" token=<IDENT>/*@bgen(jjtree) #VarRef( 0) */
                                                 {
                                                   ASTVarRef jjtn007 = new ASTVarRef(JJTVARREF);
                                                   boolean jjtc007 = true;
@@ -1200,7 +1200,7 @@ void primaryExpression() : {
                                                   jjtree.closeNodeScope(jjtn007,  0);
                                                   jjtc007 = false;
                                                 }
-/*@egen*/              { jjtn007.setName( t.image ); }/*@bgen(jjtree)*/
+/*@egen*/              { jjtn007.setName( token.image ); }/*@bgen(jjtree)*/
                                                 } finally {
                                                   if (jjtc007) {
                                                     jjtree.closeNodeScope(jjtn007,  0);
@@ -1333,7 +1333,7 @@ void keyValueExpression() : {}
 
 void staticReference() : {
     String className = "java.lang.Math";
-    Token t;
+    Token token;
 }
 {
     className=classReference()
@@ -1341,7 +1341,7 @@ void staticReference() : {
             LOOKAHEAD(2)
             staticMethodCall( className )
          |
-            t=<IDENT>/*@bgen(jjtree) #StaticField( 0) */
+            token=<IDENT>/*@bgen(jjtree) #StaticField( 0) */
                                     {
                                       ASTStaticField jjtn001 = new ASTStaticField(JJTSTATICFIELD);
                                       boolean jjtc001 = true;
@@ -1353,7 +1353,7 @@ void staticReference() : {
                                       jjtree.closeNodeScope(jjtn001,  0);
                                       jjtc001 = false;
                                     }
-/*@egen*/               { jjtn001.init( className, t.image ); }/*@bgen(jjtree)*/
+/*@egen*/               { jjtn001.init( className, token.image ); }/*@bgen(jjtree)*/
                                     } finally {
                                       if (jjtc001) {
                                         jjtree.closeNodeScope(jjtn001,  0);
@@ -1371,13 +1371,13 @@ String classReference(): {
 }
 
 String className(): {
-    Token t;
-    StringBuffer result;
+    Token token;
+    StringBuilder result;
 }
 {
-    t=<IDENT>               { result = new StringBuffer( t.image ); }
-    ( "." t=<IDENT>         { result.append('.').append( t.image ); }
-    )*                      { return new String(result); }
+    token=<IDENT>               { result = new StringBuilder( token.image ); }
+    ( "." token=<IDENT>         { result.append('.').append( token.image ); }
+    )*                      { return result.toString(); }
 }
 
 void constructorCall()       : {/*@bgen(jjtree) Ctor */
@@ -1386,8 +1386,8 @@ void constructorCall()       : {/*@bgen(jjtree) Ctor */
     jjtree.openNodeScope(jjtn000);
 /*@egen*/
     String className;
-    Token t;
-    StringBuffer sb;
+    Token token;
+    StringBuilder stringBuilder;
 }
 {/*@bgen(jjtree) Ctor */
     try {
@@ -1486,12 +1486,12 @@ void propertyName()           : {/*@bgen(jjtree) Property */
     boolean jjtc000 = true;
     jjtree.openNodeScope(jjtn000);
 /*@egen*/
-    Token t;
+    Token token;
 }
 {/*@bgen(jjtree) Property */
     try {
 /*@egen*/
-    t=<IDENT>/*@bgen(jjtree) Const */
+    token=<IDENT>/*@bgen(jjtree) Const */
               {
                 ASTConst jjtn001 = new ASTConst(JJTCONST);
                 boolean jjtc001 = true;
@@ -1503,7 +1503,7 @@ void propertyName()           : {/*@bgen(jjtree) Property */
                 jjtree.closeNodeScope(jjtn001, true);
                 jjtc001 = false;
               }
-/*@egen*/ { jjtn001.setValue( t.image ); }/*@bgen(jjtree)*/
+/*@egen*/ { jjtn001.setValue( token.image ); }/*@bgen(jjtree)*/
               } finally {
                 if (jjtc001) {
                   jjtree.closeNodeScope(jjtn001, true);
@@ -1523,18 +1523,18 @@ void staticMethodCall( String className )               : {/*@bgen(jjtree) Stati
     boolean jjtc000 = true;
     jjtree.openNodeScope(jjtn000);
 /*@egen*/
-    Token t;
+    Token token;
 }
 {/*@bgen(jjtree) StaticMethod */
     try {
 /*@egen*/
-    t=<IDENT> "(" [ assignmentExpression() ( "," assignmentExpression() )* ] ")"/*@bgen(jjtree)*/
+    token=<IDENT> "(" [ assignmentExpression() ( "," assignmentExpression() )* ] ")"/*@bgen(jjtree)*/
                                         {
                                           jjtree.closeNodeScope(jjtn000, true);
                                           jjtc000 = false;
                                         }
 /*@egen*/
-                                        { jjtn000.init( className, t.image ); }/*@bgen(jjtree)*/
+                                        { jjtn000.init( className, token.image ); }/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
@@ -1562,18 +1562,18 @@ void methodCall()         : {/*@bgen(jjtree) Method */
     boolean jjtc000 = true;
     jjtree.openNodeScope(jjtn000);
 /*@egen*/
-    Token t;
+    Token token;
 }
 {/*@bgen(jjtree) Method */
     try {
 /*@egen*/
-    t=<IDENT> "(" [ assignmentExpression() ( "," assignmentExpression() )* ] ")"/*@bgen(jjtree)*/
+    token=<IDENT> "(" [ assignmentExpression() ( "," assignmentExpression() )* ] ")"/*@bgen(jjtree)*/
                                         {
                                           jjtree.closeNodeScope(jjtn000, true);
                                           jjtc000 = false;
                                         }
 /*@egen*/
-                                        { jjtn000.setMethodName( t.image ); }/*@bgen(jjtree)*/
+                                        { jjtn000.setMethodName( token.image ); }/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
@@ -1820,7 +1820,7 @@ TOKEN_MGR_DECLS:
       /** Holds char literal start token. */
     private char charLiteralStartQuote;
       /** Holds the last string literal parsed. */
-    private StringBuffer stringBuffer;
+    private StringBuilder stringBuilder;
 
       /** Converts an escape sequence into a character value. */
     private char escapeChar()
@@ -1960,9 +1960,9 @@ MORE:
 {
     "`"     : WithinBackCharLiteral
  |
-    "'"     { stringBuffer = new StringBuffer(); }: WithinCharLiteral
+    "'"     { stringBuilder = new StringBuilder(); }: WithinCharLiteral
  |
-    "\""    { stringBuffer = new StringBuffer(); }: WithinStringLiteral
+    "\""    { stringBuilder = new StringBuilder(); }: WithinStringLiteral
 }
 
 <WithinCharLiteral> MORE:
@@ -1971,20 +1971,20 @@ MORE:
                 | (["0"-"3"])? ["0"-"7"] (["0"-"7"])?
                 )
     >
-        { charValue = escapeChar(); stringBuffer.append(charValue); }
+        { charValue = escapeChar(); stringBuilder.append(charValue); }
  |
     < (~["'","\\"]) >
-        { charValue = image.charAt( image.length()-1 ); stringBuffer.append(charValue); }
+        { charValue = image.charAt( image.length()-1 ); stringBuilder.append(charValue); }
 }
 
 <WithinCharLiteral> TOKEN:
 {
     < CHAR_LITERAL: "'">
         {
-            if (stringBuffer.length() == 1) {
+            if (stringBuilder.length() == 1) {
                 literalValue = new Character( charValue );
             } else {
-                literalValue = new String( stringBuffer );
+                literalValue = stringBuilder.toString();
             }
         }
         : DEFAULT
@@ -2008,16 +2008,16 @@ MORE:
 <WithinStringLiteral> MORE:
 {
     < STRING_ESC: <ESC> >
-        { stringBuffer.append( escapeChar() ); }
+        { stringBuilder.append( escapeChar() ); }
  |
     < (~["\"","\\"]) >
-        { stringBuffer.append( image.charAt(image.length()-1) ); }
+        { stringBuilder.append( image.charAt(image.length()-1) ); }
 }
 
 <WithinStringLiteral> TOKEN:
 {
     <STRING_LITERAL: "\"">
-        { literalValue = new String( stringBuffer ); }
+        { literalValue = stringBuilder.toString(); }
         : DEFAULT
 }
 
