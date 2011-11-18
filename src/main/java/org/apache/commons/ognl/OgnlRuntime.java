@@ -21,25 +21,11 @@ package org.apache.commons.ognl;
 
 import org.apache.commons.ognl.enhance.ExpressionCompiler;
 import org.apache.commons.ognl.enhance.OgnlExpressionCompiler;
-import org.apache.commons.ognl.internal.Cache;
 import org.apache.commons.ognl.internal.CacheException;
-import org.apache.commons.ognl.internal.CacheFactory;
-import org.apache.commons.ognl.internal.ClassCache;
-import org.apache.commons.ognl.internal.ClassCacheHandler;
-import org.apache.commons.ognl.internal.HashMapCacheFactory;
-import org.apache.commons.ognl.internal.entry.CacheEntryFactory;
-import org.apache.commons.ognl.internal.entry.ClassCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.DeclaredMethodCacheEntry;
-import org.apache.commons.ognl.internal.entry.DeclaredMethodCacheEntryFactory;
-import org.apache.commons.ognl.internal.entry.FiedlCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.GenericMethodParameterTypeCacheEntry;
-import org.apache.commons.ognl.internal.entry.GenericMethodParameterTypeFactory;
-import org.apache.commons.ognl.internal.entry.MethodAccessCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.MethodAccessEntryValue;
-import org.apache.commons.ognl.internal.entry.MethodPermCacheEntryFactory;
 import org.apache.commons.ognl.internal.entry.PermissionCacheEntry;
-import org.apache.commons.ognl.internal.entry.PermissionCacheEntryFactory;
-import org.apache.commons.ognl.internal.entry.PropertyDescriptorCacheEntryFactory;
 
 import java.beans.BeanInfo;
 import java.beans.IndexedPropertyDescriptor;
@@ -55,20 +41,13 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.security.Permission;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.IdentityHashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Utility class used by internal OGNL API to do various things like:
@@ -86,7 +65,6 @@ import java.util.Set;
  */
 public class OgnlRuntime
 {
-
     /**
      * Constant expression used to indicate that a given method / property couldn't be found during reflection
      * operations.
@@ -94,8 +72,6 @@ public class OgnlRuntime
     public static final Object NotFound = new Object();
 
     public static final Object[] NoArguments = new Object[]{ };
-
-    public static final Class<?>[] NoArgumentTypes = new Class<?>[]{ };
 
     /**
      * Token returned by TypeConverter for no conversion possible
@@ -149,268 +125,45 @@ public class OgnlRuntime
      */
     private static final String NULL_OBJECT_STRING = "<null>";
 
-    private static CacheFactory cacheFactory = new HashMapCacheFactory();
+    static OgnlCache cache = new OgnlCache();
 
-    static final ClassCache<MethodAccessor> _methodAccessors = cacheFactory.createClassCache();
+    private static final PrimitiveTypes primitiveTypes = new PrimitiveTypes();
 
-    static final ClassCache<PropertyAccessor> _propertyAccessors = cacheFactory.createClassCache();
+    private static final PrimitiveDefaults primitiveDefaults = new PrimitiveDefaults();
 
-    static final ClassCache<ElementsAccessor> _elementsAccessors = cacheFactory.createClassCache();
+    private static SecurityManager securityManager = System.getSecurityManager();
 
-    static final ClassCache<NullHandler> _nullHandlers = cacheFactory.createClassCache();
+    private static final EvaluationPool evaluationPool = new EvaluationPool();
 
-    static final ClassCache<Map<String, PropertyDescriptor>> _propertyDescriptorCache =
-        cacheFactory.createClassCache( new PropertyDescriptorCacheEntryFactory() );
-
-    static final ClassCache<List<Constructor<?>>> _constructorCache =
-        cacheFactory.createClassCache( new ClassCacheEntryFactory<List<Constructor<?>>>()
-        {
-            public List<Constructor<?>> create( Class<?> key )
-                throws CacheException
-            {
-                return Arrays.<Constructor<?>>asList( key.getConstructors() );
-            }
-        } );
-
-    static final Cache<DeclaredMethodCacheEntry, Map<String, List<Method>>> _methodCache =
-        cacheFactory.createCache( new DeclaredMethodCacheEntryFactory() );
-
-    static final Cache<PermissionCacheEntry, Permission> _invokePermissionCache =
-        cacheFactory.createCache( new PermissionCacheEntryFactory() );
-
-    static final ClassCache<Map<String, Field>> _fieldCache =
-        cacheFactory.createClassCache( new FiedlCacheEntryFactory() );
-
-    static final Map<String, Class<?>> _primitiveTypes = new HashMap<String, Class<?>>( 101 );
-
-    static final Map<Class<?>, Object> _primitiveDefaults = new HashMap<Class<?>, Object>( 20 );
-
-    static final Cache<Method, Class<?>[]> _methodParameterTypesCache =
-        cacheFactory.createCache( new CacheEntryFactory<Method, Class<?>[]>()
-        {
-            public Class<?>[] create( Method key )
-                throws CacheException
-            {
-                return key.getParameterTypes();
-            }
-        } );
-
-    static final Cache<GenericMethodParameterTypeCacheEntry, Class<?>[]> _genericMethodParameterTypesCache =
-        cacheFactory.createCache( new GenericMethodParameterTypeFactory() );
-
-    static final Cache<Constructor<?>, Class<?>[]> _ctorParameterTypesCache =
-        cacheFactory.createCache( new CacheEntryFactory<Constructor<?>, Class<?>[]>()
-        {
-            public Class<?>[] create( Constructor<?> key )
-                throws CacheException
-            {
-                return key.getParameterTypes();
-            }
-        } );
-
-    static SecurityManager _securityManager = System.getSecurityManager();
-
-    static final EvaluationPool _evaluationPool = new EvaluationPool();
-
-    static final ObjectArrayPool _objectArrayPool = new ObjectArrayPool();
-
-    static final Cache<Method, MethodAccessEntryValue> _methodAccessCache =
-        cacheFactory.createCache( new MethodAccessCacheEntryFactory() );
-
-    private static final MethodPermCacheEntryFactory methodPermCacheEntryFactory =
-        new MethodPermCacheEntryFactory( _securityManager );
-
-    static final Cache<Method, Boolean> _methodPermCache = cacheFactory.createCache( methodPermCacheEntryFactory );
-
-    static ClassCacheInspector _cacheInspector;
+    private static final ObjectArrayPool objectArrayPool = new ObjectArrayPool();
 
     /**
      * Expression compiler used by {@link Ognl#compileExpression(OgnlContext, Object, String)} calls.
      */
-    private static OgnlExpressionCompiler _compiler;
-
-    private static Map<Class<?>, Class<?>> PRIMITIVE_WRAPPER_CLASSES = new IdentityHashMap<Class<?>, Class<?>>();
+    private static OgnlExpressionCompiler compiler;
 
     /**
      * Used to provide primitive type equivalent conversions into and out of native / object types.
      */
-    static
-    {
-        PRIMITIVE_WRAPPER_CLASSES.put( Boolean.TYPE, Boolean.class );
-        PRIMITIVE_WRAPPER_CLASSES.put( Boolean.class, Boolean.TYPE );
-        PRIMITIVE_WRAPPER_CLASSES.put( Byte.TYPE, Byte.class );
-        PRIMITIVE_WRAPPER_CLASSES.put( Byte.class, Byte.TYPE );
-        PRIMITIVE_WRAPPER_CLASSES.put( Character.TYPE, Character.class );
-        PRIMITIVE_WRAPPER_CLASSES.put( Character.class, Character.TYPE );
-        PRIMITIVE_WRAPPER_CLASSES.put( Short.TYPE, Short.class );
-        PRIMITIVE_WRAPPER_CLASSES.put( Short.class, Short.TYPE );
-        PRIMITIVE_WRAPPER_CLASSES.put( Integer.TYPE, Integer.class );
-        PRIMITIVE_WRAPPER_CLASSES.put( Integer.class, Integer.TYPE );
-        PRIMITIVE_WRAPPER_CLASSES.put( Long.TYPE, Long.class );
-        PRIMITIVE_WRAPPER_CLASSES.put( Long.class, Long.TYPE );
-        PRIMITIVE_WRAPPER_CLASSES.put( Float.TYPE, Float.class );
-        PRIMITIVE_WRAPPER_CLASSES.put( Float.class, Float.TYPE );
-        PRIMITIVE_WRAPPER_CLASSES.put( Double.TYPE, Double.class );
-        PRIMITIVE_WRAPPER_CLASSES.put( Double.class, Double.TYPE );
-    }
-
-    private static final Map<Class<? extends Number>, String> NUMERIC_CASTS =
-        new HashMap<Class<? extends Number>, String>();
+    private static final PrimitiveWrapperClasses primitiveWrapperClasses = new PrimitiveWrapperClasses();
 
     /**
      * Constant strings for casting different primitive types.
      */
-    static
-    {
-        NUMERIC_CASTS.put( Double.class, "(double)" );
-        NUMERIC_CASTS.put( Float.class, "(float)" );
-        NUMERIC_CASTS.put( Integer.class, "(int)" );
-        NUMERIC_CASTS.put( Long.class, "(long)" );
-        NUMERIC_CASTS.put( BigDecimal.class, "(double)" );
-        NUMERIC_CASTS.put( BigInteger.class, "" );
-    }
-
-    private static final Map<Class<?>, String> NUMERIC_VALUES = new HashMap<Class<?>, String>();
+    private static final NumericCasts numericCasts = new NumericCasts();
 
     /**
      * Constant strings for getting the primitive value of different native types on the generic {@link Number} object
      * interface. (or the less generic BigDecimal/BigInteger types)
      */
-    static
-    {
-        NUMERIC_VALUES.put( Double.class, "doubleValue()" );
-        NUMERIC_VALUES.put( Float.class, "floatValue()" );
-        NUMERIC_VALUES.put( Integer.class, "intValue()" );
-        NUMERIC_VALUES.put( Long.class, "longValue()" );
-        NUMERIC_VALUES.put( Short.class, "shortValue()" );
-        NUMERIC_VALUES.put( Byte.class, "byteValue()" );
-        NUMERIC_VALUES.put( BigDecimal.class, "doubleValue()" );
-        NUMERIC_VALUES.put( BigInteger.class, "doubleValue()" );
-        NUMERIC_VALUES.put( Boolean.class, "booleanValue()" );
-    }
-
-    private static final Map<Class<? extends Number>, String> NUMERIC_LITERALS =
-        new HashMap<Class<? extends Number>, String>();
+    private static final NumericValues numericValues = new NumericValues();
 
     /**
      * Numeric primitive literal string expressions.
      */
-    static
-    {
-        NUMERIC_LITERALS.put( Integer.class, "" );
-        NUMERIC_LITERALS.put( Integer.TYPE, "" );
-        NUMERIC_LITERALS.put( Long.class, "l" );
-        NUMERIC_LITERALS.put( Long.TYPE, "l" );
-        NUMERIC_LITERALS.put( BigInteger.class, "d" );
-        NUMERIC_LITERALS.put( Float.class, "f" );
-        NUMERIC_LITERALS.put( Float.TYPE, "f" );
-        NUMERIC_LITERALS.put( Double.class, "d" );
-        NUMERIC_LITERALS.put( Double.TYPE, "d" );
-        NUMERIC_LITERALS.put( BigInteger.class, "d" );
-        NUMERIC_LITERALS.put( BigDecimal.class, "d" );
-    }
+    private static final NumericLiterals numericLiterals = new NumericLiterals();
 
-    private static final Map<Class<?>, Object> NUMERIC_DEFAULTS = new HashMap<Class<?>, Object>();
-
-    static
-    {
-        NUMERIC_DEFAULTS.put( Boolean.class, Boolean.FALSE );
-        NUMERIC_DEFAULTS.put( Byte.class, (byte) 0 );
-        NUMERIC_DEFAULTS.put( Short.class, (short) 0 );
-        NUMERIC_DEFAULTS.put( Character.class, (char) 0 );
-        NUMERIC_DEFAULTS.put( Integer.class, 0 );
-        NUMERIC_DEFAULTS.put( Long.class, 0L );
-        NUMERIC_DEFAULTS.put( Float.class, 0.0f );
-        NUMERIC_DEFAULTS.put( Double.class, 0.0 );
-
-        NUMERIC_DEFAULTS.put( BigInteger.class, new BigInteger( "0" ) );
-        NUMERIC_DEFAULTS.put( BigDecimal.class, new BigDecimal( 0.0 ) );
-    }
-
-    static
-    {
-        PropertyAccessor p = new ArrayPropertyAccessor();
-
-        setPropertyAccessor( Object.class, new ObjectPropertyAccessor() );
-        setPropertyAccessor( byte[].class, p );
-        setPropertyAccessor( short[].class, p );
-        setPropertyAccessor( char[].class, p );
-        setPropertyAccessor( int[].class, p );
-        setPropertyAccessor( long[].class, p );
-        setPropertyAccessor( float[].class, p );
-        setPropertyAccessor( double[].class, p );
-        setPropertyAccessor( Object[].class, p );
-        setPropertyAccessor( List.class, new ListPropertyAccessor() );
-        setPropertyAccessor( Map.class, new MapPropertyAccessor() );
-        setPropertyAccessor( Set.class, new SetPropertyAccessor() );
-        setPropertyAccessor( Iterator.class, new IteratorPropertyAccessor() );
-        setPropertyAccessor( Enumeration.class, new EnumerationPropertyAccessor() );
-
-        ElementsAccessor e = new ArrayElementsAccessor();
-
-        setElementsAccessor( Object.class, new ObjectElementsAccessor() );
-        setElementsAccessor( byte[].class, e );
-        setElementsAccessor( short[].class, e );
-        setElementsAccessor( char[].class, e );
-        setElementsAccessor( int[].class, e );
-        setElementsAccessor( long[].class, e );
-        setElementsAccessor( float[].class, e );
-        setElementsAccessor( double[].class, e );
-        setElementsAccessor( Object[].class, e );
-        setElementsAccessor( Collection.class, new CollectionElementsAccessor() );
-        setElementsAccessor( Map.class, new MapElementsAccessor() );
-        setElementsAccessor( Iterator.class, new IteratorElementsAccessor() );
-        setElementsAccessor( Enumeration.class, new EnumerationElementsAccessor() );
-        setElementsAccessor( Number.class, new NumberElementsAccessor() );
-
-        NullHandler nh = new ObjectNullHandler();
-
-        setNullHandler( Object.class, nh );
-        setNullHandler( byte[].class, nh );
-        setNullHandler( short[].class, nh );
-        setNullHandler( char[].class, nh );
-        setNullHandler( int[].class, nh );
-        setNullHandler( long[].class, nh );
-        setNullHandler( float[].class, nh );
-        setNullHandler( double[].class, nh );
-        setNullHandler( Object[].class, nh );
-
-        MethodAccessor ma = new ObjectMethodAccessor();
-
-        setMethodAccessor( Object.class, ma );
-        setMethodAccessor( byte[].class, ma );
-        setMethodAccessor( short[].class, ma );
-        setMethodAccessor( char[].class, ma );
-        setMethodAccessor( int[].class, ma );
-        setMethodAccessor( long[].class, ma );
-        setMethodAccessor( float[].class, ma );
-        setMethodAccessor( double[].class, ma );
-        setMethodAccessor( Object[].class, ma );
-
-        _primitiveTypes.put( "boolean", Boolean.TYPE );
-        _primitiveTypes.put( "byte", Byte.TYPE );
-        _primitiveTypes.put( "short", Short.TYPE );
-        _primitiveTypes.put( "char", Character.TYPE );
-        _primitiveTypes.put( "int", Integer.TYPE );
-        _primitiveTypes.put( "long", Long.TYPE );
-        _primitiveTypes.put( "float", Float.TYPE );
-        _primitiveTypes.put( "double", Double.TYPE );
-
-        _primitiveDefaults.put( Boolean.TYPE, Boolean.FALSE );
-        _primitiveDefaults.put( Boolean.class, Boolean.FALSE );
-        _primitiveDefaults.put( Byte.TYPE, (byte) 0 );
-        _primitiveDefaults.put( Byte.class, (byte) 0 );
-        _primitiveDefaults.put( Short.TYPE, (short) 0 );
-        _primitiveDefaults.put( Short.class, (short) 0 );
-        _primitiveDefaults.put( Character.TYPE, (char) 0 );
-        _primitiveDefaults.put( Integer.TYPE, 0 );
-        _primitiveDefaults.put( Long.TYPE, 0L );
-        _primitiveDefaults.put( Float.TYPE, 0.0f );
-        _primitiveDefaults.put( Double.TYPE, 0.0 );
-
-        _primitiveDefaults.put( BigInteger.class, new BigInteger( "0" ) );
-        _primitiveDefaults.put( BigDecimal.class, new BigDecimal( 0.0 ) );
-    }
+    private static final NumericDefaults numericDefaults = new NumericDefaults();
 
     /**
      * Clears all of the cached reflection information normally used to improve the speed of expressions that operate on
@@ -422,14 +175,7 @@ public class OgnlRuntime
      */
     public static void clearCache()
     {
-        _methodParameterTypesCache.clear();
-        _ctorParameterTypesCache.clear();
-        _propertyDescriptorCache.clear();
-        _constructorCache.clear();
-        _methodCache.clear();
-        _invokePermissionCache.clear();
-        _fieldCache.clear();
-        _methodAccessCache.clear();
+        cache.clear();
     }
 
     /**
@@ -443,27 +189,27 @@ public class OgnlRuntime
 
     public static String getNumericValueGetter( Class<?> type )
     {
-        return NUMERIC_VALUES.get( type );
+        return numericValues.get( type );
     }
 
     public static Class<?> getPrimitiveWrapperClass( Class<?> primitiveClass )
     {
-        return PRIMITIVE_WRAPPER_CLASSES.get( primitiveClass );
+        return primitiveWrapperClasses.get( primitiveClass );
     }
 
     public static String getNumericCast( Class<? extends Number> type )
     {
-        return NUMERIC_CASTS.get( type );
+        return numericCasts.get( type );
     }
 
     public static String getNumericLiteral( Class<? extends Number> type )
     {
-        return NUMERIC_LITERALS.get( type );
+        return numericLiterals.get( type );
     }
 
     public static void setCompiler( OgnlExpressionCompiler compiler )
     {
-        _compiler = compiler;
+        OgnlRuntime.compiler = compiler;
     }
 
     /**
@@ -476,12 +222,12 @@ public class OgnlRuntime
 
     public static OgnlExpressionCompiler getCompiler( OgnlContext ognlContext )
     {
-        if ( _compiler == null )
+        if ( compiler == null )
         {
             try
             {
                 OgnlRuntime.classForName( ognlContext, "javassist.ClassPool" );
-                _compiler = new ExpressionCompiler();
+                compiler = new ExpressionCompiler();
             }
             catch ( ClassNotFoundException e )
             {
@@ -489,7 +235,7 @@ public class OgnlRuntime
                     "Javassist library is missing in classpath! Please add missed dependency!", e );
             }
         }
-        return _compiler;
+        return compiler;
     }
 
     public static void compileExpression( OgnlContext context, Node expression, Object root )
@@ -658,8 +404,7 @@ public class OgnlRuntime
     public static Class<?>[] getParameterTypes( Method method )
         throws CacheException
     {
-        return _methodParameterTypesCache.get( method );
-
+        return cache.getMethodParameterTypes( method );
     }
 
     /**
@@ -674,18 +419,14 @@ public class OgnlRuntime
     public static Class<?>[] findParameterTypes( Class<?> type, Method method )
         throws CacheException
     {
-        if ( type == null )
-        {
-            return getParameterTypes( method );
-        }
-
-        if ( type.getGenericSuperclass() == null || !ParameterizedType.class.isInstance(
+        if ( type == null || type.getGenericSuperclass() == null || !ParameterizedType.class.isInstance(
             type.getGenericSuperclass() ) || method.getDeclaringClass().getTypeParameters() == null )
         {
             return getParameterTypes( method );
         }
 
-        return _genericMethodParameterTypesCache.get( new GenericMethodParameterTypeCacheEntry( method, type ) );
+        GenericMethodParameterTypeCacheEntry key = new GenericMethodParameterTypeCacheEntry( method, type );
+        return cache.getGenericMethodParameterTypes( key );
     }
 
     /**
@@ -697,7 +438,7 @@ public class OgnlRuntime
     public static Class<?>[] getParameterTypes( Constructor<?> constructor )
         throws CacheException
     {
-        return _ctorParameterTypesCache.get( constructor );
+        return cache.getParameterTypes( constructor );
     }
 
     /**
@@ -707,18 +448,18 @@ public class OgnlRuntime
      */
     public static SecurityManager getSecurityManager()
     {
-        return _securityManager;
+        return securityManager;
     }
 
     /**
      * Sets the SecurityManager that OGNL uses to determine permissions for invoking methods.
      *
-     * @param value SecurityManager to set
+     * @param securityManager SecurityManager to set
      */
-    public static void setSecurityManager( SecurityManager value )
+    public static void setSecurityManager( SecurityManager securityManager )
     {
-        _securityManager = value;
-        methodPermCacheEntryFactory.setSecurityManager( value );
+        OgnlRuntime.securityManager = securityManager;
+        cache.setSecurityManager(securityManager);
     }
 
     /**
@@ -730,7 +471,8 @@ public class OgnlRuntime
     public static Permission getPermission( Method method )
         throws CacheException
     {
-        return _invokePermissionCache.get( new PermissionCacheEntry( method ) );
+        PermissionCacheEntry key = new PermissionCacheEntry( method );
+        return cache.getInvokePermission( key );
     }
 
     public static Object invokeMethod( Object target, Method method, Object[] argsArray )
@@ -738,15 +480,15 @@ public class OgnlRuntime
     {
         Object result;
 
-        if ( _securityManager != null )
+        if ( securityManager != null )
         {
-            if ( !_methodPermCache.get( method ) )
+            if ( !cache.getMethodPerm( method ) )
             {
                 throw new IllegalAccessException( "Method [" + method + "] cannot be accessed." );
             }
         }
-        MethodAccessEntryValue entry = _methodAccessCache.get( method );
 
+        MethodAccessEntryValue entry = cache.getMethodAccess( method );
         if ( !entry.isAccessible() )
         {
             // only synchronize method invocation if it actually requires it
@@ -931,6 +673,8 @@ public class OgnlRuntime
 
     /**
      * @deprecated This method is no longer used.
+     * @param modifiers
+     * @return
      */
     public static String getModifierString( int modifiers )
     {
@@ -978,7 +722,7 @@ public class OgnlRuntime
     public static Class<?> classForName( OgnlContext context, String className )
         throws ClassNotFoundException
     {
-        Class<?> result = _primitiveTypes.get( className );
+        Class<?> result = primitiveTypes.get( className );
 
         if ( result == null )
         {
@@ -1016,12 +760,12 @@ public class OgnlRuntime
     public static Object getPrimitiveDefaultValue( Class<?> forClass )
         throws OgnlException
     {
-        return _primitiveDefaults.get( forClass );
+        return primitiveDefaults.get( forClass );
     }
 
     public static Object getNumericDefaultValue( Class<?> forClass )
     {
-        return NUMERIC_DEFAULTS.get( forClass );
+        return numericDefaults.get( forClass );
     }
 
     public static Object getConvertedType( OgnlContext context, Object target, Member member, String propertyName,
@@ -1182,7 +926,7 @@ public class OgnlRuntime
         throws MethodFailedException
     {
         Throwable cause = null;
-        Object[] actualArgs = _objectArrayPool.create( args.length );
+        Object[] actualArgs = objectArrayPool.create( args.length );
 
         try
         {
@@ -1278,7 +1022,7 @@ public class OgnlRuntime
         }
         finally
         {
-            _objectArrayPool.recycle( actualArgs );
+            objectArrayPool.recycle( actualArgs );
         }
 
         throw new MethodFailedException( source, methodName, cause );
@@ -1352,7 +1096,7 @@ public class OgnlRuntime
             }
             if ( ctor == null )
             {
-                actualArgs = _objectArrayPool.create( args.length );
+                actualArgs = objectArrayPool.create( args.length );
                 if ( ( ctor = getConvertedConstructorAndArgs( context, target, constructors, args, actualArgs ) )
                     == null )
                 {
@@ -1389,7 +1133,7 @@ public class OgnlRuntime
         {
             if ( actualArgs != args )
             {
-                _objectArrayPool.recycle( actualArgs );
+                objectArrayPool.recycle( actualArgs );
             }
         }
 
@@ -1411,7 +1155,7 @@ public class OgnlRuntime
         throws OgnlException, IllegalAccessException, NoSuchMethodException, IntrospectionException
     {
         Object methodValue = null;
-        Class<? extends Object> targetClass = target == null ? null : target.getClass();
+        Class<?> targetClass = target == null ? null : target.getClass();
         Method method = getGetMethod( context, targetClass, propertyName );
         if ( method == null )
         {
@@ -1471,7 +1215,7 @@ public class OgnlRuntime
         {
             if ( method != null )
             {
-                Object[] args = _objectArrayPool.create( value );
+                Object[] args = objectArrayPool.create( value );
 
                 try
                 {
@@ -1480,7 +1224,7 @@ public class OgnlRuntime
                 }
                 finally
                 {
-                    _objectArrayPool.recycle( args );
+                    objectArrayPool.recycle( args );
                 }
             }
             else
@@ -1495,7 +1239,7 @@ public class OgnlRuntime
     public static List<Constructor<?>> getConstructors( Class<?> targetClass )
         throws OgnlException
     {
-        return _constructorCache.get( targetClass );
+        return cache.getConstructor( targetClass );
     }
 
     /**
@@ -1510,7 +1254,8 @@ public class OgnlRuntime
         DeclaredMethodCacheEntry.MethodType type = staticMethods ?
             DeclaredMethodCacheEntry.MethodType.STATIC :
             DeclaredMethodCacheEntry.MethodType.NON_STATIC;
-        return _methodCache.get( new DeclaredMethodCacheEntry( targetClass, type ) );
+        DeclaredMethodCacheEntry key = new DeclaredMethodCacheEntry( targetClass, type );
+        return cache.getMethod( key );
     }
 
     public static List<Method> getMethods( Class<?> targetClass, String name, boolean staticMethods )
@@ -1522,7 +1267,7 @@ public class OgnlRuntime
     public static Map<String, Field> getFields( Class<?> targetClass )
         throws OgnlException
     {
-        return _fieldCache.get( targetClass );
+        return cache.getField( targetClass );
     }
 
     public static Field getField( Class<?> inClass, String name )
@@ -1558,7 +1303,7 @@ public class OgnlRuntime
         throws NoSuchFieldException, OgnlException
     {
         Object result = null;
-        Class<? extends Object> targetClass = target == null ? null : target.getClass();
+        Class<?> targetClass = target == null ? null : target.getClass();
         Field field = getField( targetClass, propertyName );
 
         if ( checkAccessAndExistence )
@@ -1734,7 +1479,8 @@ public class OgnlRuntime
         }
         for ( String methodName : methodNames )
         {
-            List<Method> methodList = _methodCache.get( new DeclaredMethodCacheEntry( targetClass ) ).get( methodName );
+            DeclaredMethodCacheEntry key = new DeclaredMethodCacheEntry( targetClass );
+            List<Method> methodList = cache.getMethod( key ).get( methodName );
             if ( methodList != null )
             {
                 methods.addAll( methodList );
@@ -1986,7 +1732,7 @@ public class OgnlRuntime
     public static Map<String, PropertyDescriptor> getPropertyDescriptors( Class<?> targetClass )
         throws IntrospectionException, OgnlException
     {
-        return _propertyDescriptorCache.get( targetClass );
+        return cache.getPropertyDescriptor( targetClass );
     }
 
     /**
@@ -2045,69 +1791,48 @@ public class OgnlRuntime
         return result;
     }
 
-    public static void setMethodAccessor( Class<?> cls, MethodAccessor accessor )
+    public static void setMethodAccessor( Class<?> clazz, MethodAccessor accessor )
     {
-        _methodAccessors.put( cls, accessor );
+        cache.setMethodAccessor( clazz, accessor );
     }
 
-    public static MethodAccessor getMethodAccessor( Class<?> cls )
+    public static MethodAccessor getMethodAccessor( Class<?> clazz )
         throws OgnlException
     {
-        MethodAccessor answer = ClassCacheHandler.getHandler( cls, _methodAccessors );
-        if ( answer != null )
-        {
-            return answer;
-        }
-        throw new OgnlException( "No method accessor for " + cls );
+        return cache.getMethodAccessor( clazz );
     }
 
-    public static void setPropertyAccessor( Class<?> cls, PropertyAccessor accessor )
+    public static void setPropertyAccessor( Class<?> clazz, PropertyAccessor accessor )
     {
-        _propertyAccessors.put( cls, accessor );
+        cache.setPropertyAccessor( clazz, accessor );
     }
 
-    public static PropertyAccessor getPropertyAccessor( Class<?> cls )
+    public static PropertyAccessor getPropertyAccessor( Class<?> clazz )
         throws OgnlException
     {
-        PropertyAccessor answer = ClassCacheHandler.getHandler( cls, _propertyAccessors );
-        if ( answer != null )
-        {
-            return answer;
-        }
-
-        throw new OgnlException( "No property accessor for class " + cls );
+        return cache.getPropertyAccessor( clazz );
     }
 
-    public static ElementsAccessor getElementsAccessor( Class<?> cls )
+    public static ElementsAccessor getElementsAccessor( Class<?> clazz )
         throws OgnlException
     {
-        ElementsAccessor answer = ClassCacheHandler.getHandler( cls, _elementsAccessors );
-        if ( answer != null )
-        {
-            return answer;
-        }
-        throw new OgnlException( "No elements accessor for class " + cls );
+        return cache.getElementsAccessor( clazz );
     }
 
-    public static void setElementsAccessor( Class<?> cls, ElementsAccessor accessor )
+    public static void setElementsAccessor( Class<?> clazz, ElementsAccessor accessor )
     {
-        _elementsAccessors.put( cls, accessor );
+        cache.setElementsAccessor( clazz, accessor );
     }
 
-    public static NullHandler getNullHandler( Class<?> cls )
+    public static NullHandler getNullHandler( Class<?> clazz )
         throws OgnlException
     {
-        NullHandler answer = ClassCacheHandler.getHandler( cls, _nullHandlers );
-        if ( answer != null )
-        {
-            return answer;
-        }
-        throw new OgnlException( "No null handler for class " + cls );
+        return cache.getNullHandler( clazz );
     }
 
-    public static void setNullHandler( Class<?> cls, NullHandler handler )
+    public static void setNullHandler( Class<?> clazz, NullHandler handler )
     {
-        _nullHandlers.put( cls, handler );
+        cache.setNullHandler( clazz, handler );
     }
 
     public static Object getProperty( OgnlContext context, Object source, Object name )
@@ -2184,7 +1909,7 @@ public class OgnlRuntime
     public static Object getIndexedProperty( OgnlContext context, Object source, String name, Object index )
         throws OgnlException
     {
-        Object[] args = _objectArrayPool.create( index );
+        Object[] args = objectArrayPool.create( index );
 
         try
         {
@@ -2220,14 +1945,14 @@ public class OgnlRuntime
         }
         finally
         {
-            _objectArrayPool.recycle( args );
+            objectArrayPool.recycle( args );
         }
     }
 
     public static void setIndexedProperty( OgnlContext context, Object source, String name, Object index, Object value )
         throws OgnlException
     {
-        Object[] args = _objectArrayPool.create( index, value );
+        Object[] args = objectArrayPool.create( index, value );
 
         try
         {
@@ -2263,18 +1988,18 @@ public class OgnlRuntime
         }
         finally
         {
-            _objectArrayPool.recycle( args );
+            objectArrayPool.recycle( args );
         }
     }
 
     public static EvaluationPool getEvaluationPool()
     {
-        return _evaluationPool;
+        return evaluationPool;
     }
 
     public static ObjectArrayPool getObjectArrayPool()
     {
-        return _objectArrayPool;
+        return objectArrayPool;
     }
 
     /**
@@ -2285,14 +2010,7 @@ public class OgnlRuntime
      */
     public static void setClassCacheInspector( ClassCacheInspector inspector )
     {
-        _cacheInspector = inspector;
-
-        _propertyDescriptorCache.setClassInspector( _cacheInspector );
-        _constructorCache.setClassInspector( _cacheInspector );
-        //TODO: methodCache and invokePC should allow to use classCacheInsecptor
-//        _methodCache.setClassInspector( _cacheInspector );
-//        _invokePermissionCache.setClassInspector( _cacheInspector );
-        _fieldCache.setClassInspector( _cacheInspector );
+        cache.setClassCacheInspector( inspector );
     }
 
     public static Method getMethod( OgnlContext context, Class<?> target, String name, Node[] children,
@@ -2363,12 +2081,7 @@ public class OgnlRuntime
                     break;
                 }
 
-                if ( parm == methodParameterType)
-                {
-                    continue;
-                }
-
-                if ( methodParameterType.isPrimitive() && Character.TYPE != methodParameterType && Byte.TYPE != methodParameterType
+                if ( parm == methodParameterType || methodParameterType.isPrimitive() && Character.TYPE != methodParameterType && Byte.TYPE != methodParameterType
                     && Number.class.isAssignableFrom(parm)
                     && OgnlRuntime.getPrimitiveWrapperClass(parm) == methodParameterType)
                 {
@@ -2611,16 +2324,10 @@ public class OgnlRuntime
 
     public static boolean isBoolean( String expression )
     {
-        if ( expression == null )
-        {
-            return false;
-        }
-
-        return "true".equals( expression ) || "false".equals( expression ) || "!true".equals( expression )
-            || "!false".equals( expression ) || "(true)".equals( expression ) || "!(true)".equals( expression )
-            || "(false)".equals( expression ) || "!(false)".equals( expression ) || expression.startsWith(
-            "org.apache.commons.ognl.OgnlOps" );
-
+        return expression != null && ( "true".equals( expression ) || "false".equals( expression )
+            || "!true".equals( expression ) || "!false".equals( expression ) || "(true)".equals( expression )
+            || "!(true)".equals( expression ) || "(false)".equals( expression ) || "!(false)".equals( expression )
+            || expression.startsWith( "org.apache.commons.ognl.OgnlOps" ) );
     }
 
     /**
@@ -2638,19 +2345,11 @@ public class OgnlRuntime
      */
     public static boolean shouldConvertNumericTypes( OgnlContext context )
     {
-        if ( context.getCurrentType() == null || context.getPreviousType() == null )
-        {
-            return true;
-        }
-
-        if ( context.getCurrentType() == context.getPreviousType() && context.getCurrentType().isPrimitive()
-            && context.getPreviousType().isPrimitive() )
-        {
-            return false;
-        }
-
-        return context.getCurrentType() != null && !context.getCurrentType().isArray()
-            && context.getPreviousType() != null && !context.getPreviousType().isArray();
+        Class<?> currentType = context.getCurrentType();
+        Class<?> previousType = context.getPreviousType();
+        return currentType == null || previousType == null
+            || !( currentType == previousType && currentType.isPrimitive() && previousType.isPrimitive() )
+            && !currentType.isArray() && !previousType.isArray();
     }
 
     /**

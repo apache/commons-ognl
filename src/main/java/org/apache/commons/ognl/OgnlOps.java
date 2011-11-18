@@ -627,12 +627,13 @@ public abstract class OgnlOps
 
         Object result;
 
-        if ( value.getClass().isArray() && toType.isAssignableFrom( value.getClass().getComponentType() ) )
+        Class<?> aClass = value.getClass();
+        if ( aClass.isArray() && toType.isAssignableFrom( aClass.getComponentType() ) )
         {
             return value;
         }
 
-        if ( !value.getClass().isArray() )
+        if ( !aClass.isArray() )
         {
 
             if ( toType == Character.TYPE )

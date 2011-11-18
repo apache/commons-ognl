@@ -63,12 +63,12 @@ public class TestOgnlRuntime
     {
         ListSource list = new ListSourceImpl();
 
-        Method m = OgnlRuntime.getReadMethod( list.getClass(), "total" );
-        assertNotNull( m );
+        Method method = OgnlRuntime.getReadMethod( list.getClass(), "total" );
+        assertNotNull( method );
 
         OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
         assertEquals( ListSource.class,
-                      OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, list.getClass() ) );
+                      OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( method, list.getClass() ) );
     }
 
     @Test
@@ -91,22 +91,22 @@ public class TestOgnlRuntime
     {
         IForm form = new FormImpl();
 
-        Method m = OgnlRuntime.getWriteMethod( form.getClass(), "clientId" );
-        assertNotNull( m );
+        Method method = OgnlRuntime.getWriteMethod( form.getClass(), "clientId" );
+        assertNotNull( method );
 
         OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
         assertEquals( IComponent.class,
-                      OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, form.getClass() ) );
+                      OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( method, form.getClass() ) );
     }
 
     @Test
     public void test_Get_Read_Method()
         throws Exception
     {
-        Method m = OgnlRuntime.getReadMethod( Bean2.class, "pageBreakAfter" );
-        assertNotNull( m );
+        Method method = OgnlRuntime.getReadMethod( Bean2.class, "pageBreakAfter" );
+        assertNotNull( method );
 
-        assertEquals( "isPageBreakAfter", m.getName() );
+        assertEquals( "isPageBreakAfter", method.getName() );
     }
 
     class TestGetters
@@ -136,35 +136,35 @@ public class TestOgnlRuntime
     public void test_Get_Read_Method_Multiple()
         throws Exception
     {
-        Method m = OgnlRuntime.getReadMethod( TestGetters.class, "disabled" );
-        assertNotNull( m );
+        Method method = OgnlRuntime.getReadMethod( TestGetters.class, "disabled" );
+        assertNotNull( method );
 
-        assertEquals( "isDisabled", m.getName() );
+        assertEquals( "isDisabled", method.getName() );
     }
 
     @Test
     public void test_Get_Read_Method_Multiple_Boolean_Getters()
         throws Exception
     {
-        Method m = OgnlRuntime.getReadMethod( TestGetters.class, "available" );
-        assertNotNull( m );
+        Method method = OgnlRuntime.getReadMethod( TestGetters.class, "available" );
+        assertNotNull( method );
 
-        assertEquals( "isAvailable", m.getName() );
+        assertEquals( "isAvailable", method.getName() );
 
-        m = OgnlRuntime.getReadMethod( TestGetters.class, "notAvailable" );
-        assertNotNull( m );
+        method = OgnlRuntime.getReadMethod( TestGetters.class, "notAvailable" );
+        assertNotNull( method );
 
-        assertEquals( "isNotAvailable", m.getName() );
+        assertEquals( "isNotAvailable", method.getName() );
     }
 
     @Test
     public void test_Find_Method_Mixed_Boolean_Getters()
         throws Exception
     {
-        Method m = OgnlRuntime.getReadMethod( GetterMethods.class, "allowDisplay" );
-        assertNotNull( m );
+        Method method = OgnlRuntime.getReadMethod( GetterMethods.class, "allowDisplay" );
+        assertNotNull( method );
 
-        assertEquals( "getAllowDisplay", m.getName() );
+        assertEquals( "getAllowDisplay", method.getName() );
     }
 
     @Test
@@ -185,7 +185,6 @@ public class TestOgnlRuntime
 
         try
         {
-
             OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
             OgnlRuntime.callStaticMethod( context, "made.up.Name", "foo", null );
 
@@ -193,7 +192,6 @@ public class TestOgnlRuntime
         }
         catch ( Exception et )
         {
-
             assertTrue( MethodFailedException.class.isInstance( et ) );
             assertTrue( et.getMessage().contains( "made.up.Name" ) );
         }
@@ -232,8 +230,9 @@ public class TestOgnlRuntime
     public void test_Class_Cache_Inspector()
         throws Exception
     {
-        OgnlRuntime.clearCache();
-        assertEquals( 0, OgnlRuntime._propertyDescriptorCache.getSize() );
+        OgnlRuntime.cache.clear();
+
+        assertEquals( 0, OgnlRuntime.cache.propertyDescriptorCache.getSize() );
 
         Root root = new Root();
         OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
@@ -241,11 +240,11 @@ public class TestOgnlRuntime
 
         assertTrue( (Boolean) expr.getAccessor().get( context, root ) );
 
-        int size = OgnlRuntime._propertyDescriptorCache.getSize();
+        int size = OgnlRuntime.cache.propertyDescriptorCache.getSize();
         assertTrue( size > 0 );
 
         OgnlRuntime.clearCache();
-        assertEquals( 0, OgnlRuntime._propertyDescriptorCache.getSize() );
+        assertEquals( 0, OgnlRuntime.cache.propertyDescriptorCache.getSize() );
 
         // now register class cache prevention
 
@@ -254,7 +253,7 @@ public class TestOgnlRuntime
         expr = Ognl.compileExpression( context, root, "property.bean3.value != null" );
         assertTrue( (Boolean) expr.getAccessor().get( context, root ) );
 
-        assertEquals( ( size - 1 ), OgnlRuntime._propertyDescriptorCache.getSize() );
+        assertEquals( ( size - 1 ), OgnlRuntime.cache.propertyDescriptorCache.getSize() );
     }
 
     class TestCacheInspector
@@ -273,10 +272,10 @@ public class TestOgnlRuntime
     {
         OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
 
-        Method m = OgnlRuntime.getSetMethod( context, GenericCracker.class, "param" );
-        assertNotNull( m );
+        Method method = OgnlRuntime.getSetMethod( context, GenericCracker.class, "param" );
+        assertNotNull( method );
 
-        Class[] types = m.getParameterTypes();
+        Class[] types = method.getParameterTypes();
         assertEquals( 1, types.length );
         assertEquals( Integer.class, types[0] );
     }
@@ -287,10 +286,10 @@ public class TestOgnlRuntime
     {
         OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
 
-        Method m = OgnlRuntime.getGetMethod( context, GenericCracker.class, "param" );
-        assertNotNull( m );
+        Method method = OgnlRuntime.getGetMethod( context, GenericCracker.class, "param" );
+        assertNotNull( method );
 
-        assertEquals( Integer.class, m.getReturnType() );
+        assertEquals( Integer.class, method.getReturnType() );
     }
 
     @Test
@@ -299,10 +298,10 @@ public class TestOgnlRuntime
     {
         OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
 
-        Method m = OgnlRuntime.getSetMethod( context, GameGeneric.class, "ids" );
-        assertNotNull( m );
+        Method method = OgnlRuntime.getSetMethod( context, GameGeneric.class, "ids" );
+        assertNotNull( method );
 
-        Class[] types = OgnlRuntime.findParameterTypes( GameGeneric.class, m );
+        Class[] types = OgnlRuntime.findParameterTypes( GameGeneric.class, method );
         assertEquals( 1, types.length );
         assertEquals( Long[].class, types[0] );
     }
@@ -313,10 +312,10 @@ public class TestOgnlRuntime
     {
         OgnlContext context = (OgnlContext) Ognl.createDefaultContext( null );
 
-        Method m = OgnlRuntime.getSetMethod( context, BaseGeneric.class, "ids" );
-        assertNotNull( m );
+        Method method = OgnlRuntime.getSetMethod( context, BaseGeneric.class, "ids" );
+        assertNotNull( method );
 
-        Class[] types = OgnlRuntime.findParameterTypes( BaseGeneric.class, m );
+        Class[] types = OgnlRuntime.findParameterTypes( BaseGeneric.class, method );
         assertEquals( 1, types.length );
         assertEquals( Serializable[].class, types[0] );
     }
@@ -338,10 +337,10 @@ public class TestOgnlRuntime
     public void test_Get_Property_Descriptors_With_Synthetic_Methods()
         throws Exception
     {
-        PropertyDescriptor pd = OgnlRuntime.getPropertyDescriptor( SubclassSyntheticObject.class, "list" );
+        PropertyDescriptor propertyDescriptor = OgnlRuntime.getPropertyDescriptor( SubclassSyntheticObject.class, "list" );
 
-        assert pd != null;
-        assert OgnlRuntime.isMethodCallable( pd.getReadMethod() );
+        assert propertyDescriptor != null;
+        assert OgnlRuntime.isMethodCallable( propertyDescriptor.getReadMethod() );
     }
 
     private static class GenericParent<T>
