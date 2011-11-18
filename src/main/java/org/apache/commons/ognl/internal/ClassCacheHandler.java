@@ -50,12 +50,12 @@ public class ClassCacheHandler
                 {
                     keyFound = forClass;
                     outer:
-                    for ( Class<?> c = forClass; c != null; c = c.getSuperclass() )
+                    for ( Class<?> clazz = forClass; clazz != null; clazz = clazz.getSuperclass() )
                     {
-                        answer = handlers.get( c );
+                        answer = handlers.get( clazz );
                         if ( answer == null )
                         {
-                            Class<?>[] interfaces = c.getInterfaces();
+                            Class<?>[] interfaces = clazz.getInterfaces();
                             for ( Class<?> iface : interfaces )
                             {
                                 answer = handlers.get( iface );
@@ -73,7 +73,7 @@ public class ClassCacheHandler
                         }
                         else
                         {
-                            keyFound = c;
+                            keyFound = clazz;
                             break;
                         }
                     }
