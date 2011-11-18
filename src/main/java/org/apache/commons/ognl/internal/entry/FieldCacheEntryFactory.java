@@ -20,7 +20,7 @@ package org.apache.commons.ognl.internal.entry;
  */
 
 /*
- * $Id$
+ * $Id: FiedlCacheEntryFactory.java 1194954 2011-10-29 18:00:27Z mcucchiara $
  */
 
 import org.apache.commons.ognl.internal.CacheException;
@@ -29,14 +29,14 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FiedlCacheEntryFactory
+public class FieldCacheEntryFactory
     implements ClassCacheEntryFactory<Map<String, Field>>
 {
     public Map<String, Field> create( Class<?> key )
         throws CacheException
     {
         Field[] declaredFields = key.getDeclaredFields();
-        HashMap<String, Field> result = new HashMap<String, Field>( declaredFields.length );
+        Map<String, Field> result = new HashMap<String, Field>( declaredFields.length );
         for ( Field field : declaredFields )
         {
             result.put( field.getName(), field );
