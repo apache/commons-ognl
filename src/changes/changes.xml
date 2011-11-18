@@ -23,6 +23,12 @@
   </properties>
   <body>
     <release version="4.0-incubating" date="TBD" description="First ASF release under Incubation.">
+      <action issue="OGNL-39" type="update" dev="mcucchiara">
+        Simplify OgnlRuntime: Greatly simplified OgnlRuntime, delegating away responsibilities to several new classes.
+        Caching responsibilities are now taken by a new OgnlCache class.
+        Added new classes PrimitiveWrapperClasses, NumericCasts, PrimitiveDefaults, NumericValues, PrimitiveTypes,
+        NumericLiterals and NumericDefaults. (contributed by Adrian Cumiskey).
+      </action>
       <action issue="OGNL-38" type="update" dev="mcucchiara">Use StringBuilder instead of StringBuffer, deprecate
         >=JDK1.5 conditionals and use CONSTANT.equals(variable) (contributed by Adrian Cumiskey).
       </action>
