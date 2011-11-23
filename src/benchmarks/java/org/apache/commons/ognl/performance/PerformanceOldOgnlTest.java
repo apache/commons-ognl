@@ -21,10 +21,7 @@
 
 package org.apache.commons.ognl.performance;
 
-import com.carrotsearch.junitbenchmarks.annotation.AxisRange;
-import com.carrotsearch.junitbenchmarks.annotation.BenchmarkHistoryChart;
 import com.carrotsearch.junitbenchmarks.annotation.BenchmarkMethodChart;
-import com.carrotsearch.junitbenchmarks.annotation.LabelType;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
@@ -34,9 +31,7 @@ import org.junit.BeforeClass;
  * Time: 12:49 AM
  */
 
-@AxisRange( min = 0, max = 1 )
-@BenchmarkMethodChart( filePrefix = "benchmark-old-ognl" )
-@BenchmarkHistoryChart( labelWith = LabelType.CUSTOM_KEY, maxRuns = 20 )
+@BenchmarkMethodChart( filePrefix = "benchmark-legacy" )
 public class PerformanceOldOgnlTest
     extends BasePerformanceTest
 {

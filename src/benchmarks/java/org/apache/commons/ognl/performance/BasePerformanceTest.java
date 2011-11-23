@@ -24,7 +24,8 @@ package org.apache.commons.ognl.performance;
 import com.carrotsearch.junitbenchmarks.BenchmarkOptions;
 import com.carrotsearch.junitbenchmarks.BenchmarkRule;
 import com.carrotsearch.junitbenchmarks.annotation.AxisRange;
-import com.carrotsearch.junitbenchmarks.annotation.BenchmarkMethodChart;
+import com.carrotsearch.junitbenchmarks.annotation.BenchmarkHistoryChart;
+import com.carrotsearch.junitbenchmarks.annotation.LabelType;
 import org.apache.commons.ognl.performance.invocation.CompilerInvocation;
 import org.apache.commons.ognl.performance.invocation.FieldInvocation;
 import org.apache.commons.ognl.performance.invocation.FindParameterTypesInvocation;
@@ -47,7 +48,7 @@ import org.junit.rules.MethodRule;
  * Time: 10:25 AM
  */
 @AxisRange( min = 0, max = 1 )
-@BenchmarkMethodChart( filePrefix = "benchmark-ognl" )
+@BenchmarkHistoryChart( labelWith = LabelType.CUSTOM_KEY, maxRuns = 20 )
 public abstract class BasePerformanceTest
 {
     @Rule
