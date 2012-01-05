@@ -21,6 +21,7 @@
 
   <properties>
     <title>Apache Commons OGNL - Language Guide</title>
+    <author>Apache Commons community (dev AT apache DOT org)</author>
   </properties>
 
   <body>
