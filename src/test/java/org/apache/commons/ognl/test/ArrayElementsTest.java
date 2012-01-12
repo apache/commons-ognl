@@ -42,18 +42,18 @@ public class ArrayElementsTest
 
     private static Object[][] TESTS = {
         // Array elements test
-        { STRING_ARRAY, "length", new Integer( 2 ) },
+        { STRING_ARRAY, "length", 2 },
         { STRING_ARRAY, "#root[1]", "world" },
-        { INT_ARRAY, "#root[1]", new Integer( 20 ) },
-        { INT_ARRAY, "#root[1]", new Integer( 20 ), "50", new Integer( 50 ) },
-        { INT_ARRAY, "#root[1]", new Integer( 50 ), new String[] { "50", "100" }, new Integer( 50 ) },
-        { ROOT, "intValue", new Integer( 0 ), new String[] { "50", "100" }, new Integer( 50 ) },
+        { INT_ARRAY, "#root[1]", 20 },
+        { INT_ARRAY, "#root[1]", 20, "50", 50 },
+        { INT_ARRAY, "#root[1]", 50, new String[] { "50", "100" }, 50 },
+        { ROOT, "intValue", 0, new String[] { "50", "100" }, 50 },
         { ROOT, "array", ROOT.getArray(), new String[] { "50", "100" }, new int[] { 50, 100 } },
-        { null, "\"{Hello}\".toCharArray()[6]", new Character( '}' ) },
-        { null, "\"Tapestry\".toCharArray()[2]", new Character( 'p' ) },
+        { null, "\"{Hello}\".toCharArray()[6]", '}' },
+        { null, "\"Tapestry\".toCharArray()[2]", 'p' },
         { null, "{'1','2','3'}",
-            Arrays.asList( new Object[] { new Character( '1' ), new Character( '2' ), new Character( '3' ) } ) },
-        { null, "{ true, !false }", Arrays.asList( new Boolean[] { Boolean.TRUE, Boolean.TRUE } ) } };
+            Arrays.asList( '1', '2', '3' ) },
+        { null, "{ true, !false }", Arrays.asList( Boolean.TRUE, Boolean.TRUE ) } };
 
     /*
      * =================================================================== Private static methods
@@ -67,28 +67,28 @@ public class ArrayElementsTest
     public static Collection<Object[]> data()
     {
         Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
-        for ( int i = 0; i < TESTS.length; i++ )
+        for ( Object[] TEST : TESTS )
         {
             Object[] tmp = new Object[6];
-            tmp[0] = TESTS[i][1];
-            tmp[1] = TESTS[i][0];
-            tmp[2] = TESTS[i][1];
+            tmp[0] = TEST[1];
+            tmp[1] = TEST[0];
+            tmp[2] = TEST[1];
 
-            switch ( TESTS[i].length )
+            switch ( TEST.length )
             {
                 case 3:
-                    tmp[3] = TESTS[i][2];
+                    tmp[3] = TEST[2];
                     break;
 
                 case 4:
-                    tmp[3] = TESTS[i][2];
-                    tmp[4] = TESTS[i][3];
+                    tmp[3] = TEST[2];
+                    tmp[4] = TEST[3];
                     break;
 
                 case 5:
-                    tmp[3] = TESTS[i][2];
-                    tmp[4] = TESTS[i][3];
-                    tmp[5] = TESTS[i][4];
+                    tmp[3] = TEST[2];
+                    tmp[4] = TEST[3];
+                    tmp[5] = TEST[4];
                     break;
 
                 default:

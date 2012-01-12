@@ -43,7 +43,7 @@ public class ArrayCreationTest
             { ROOT, "new String[] { \"one\", \"two\" }", new String[] { "one", "two" } },
             { ROOT, "new String[] { 1, 2 }", new String[] { "1", "2" } },
             { ROOT, "new Integer[] { \"1\", 2, \"3\" }",
-                new Integer[] { new Integer( 1 ), new Integer( 2 ), new Integer( 3 ) } },
+                new Integer[] { 1, 2, 3 } },
             { ROOT, "new String[10]", new String[10] },
             { ROOT, "new Object[4] { #root, #this }", ExpressionSyntaxException.class },
             { ROOT, "new Object[4]", new Object[4] },
@@ -69,28 +69,28 @@ public class ArrayCreationTest
     public static Collection<Object[]> data()
     {
         Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
-        for ( int i = 0; i < TESTS.length; i++ )
+        for ( Object[] TEST : TESTS )
         {
             Object[] tmp = new Object[6];
-            tmp[0] = TESTS[i][1];
-            tmp[1] = TESTS[i][0];
-            tmp[2] = TESTS[i][1];
+            tmp[0] = TEST[1];
+            tmp[1] = TEST[0];
+            tmp[2] = TEST[1];
 
-            switch ( TESTS[i].length )
+            switch ( TEST.length )
             {
                 case 3:
-                    tmp[3] = TESTS[i][2];
+                    tmp[3] = TEST[2];
                     break;
 
                 case 4:
-                    tmp[3] = TESTS[i][2];
-                    tmp[4] = TESTS[i][3];
+                    tmp[3] = TEST[2];
+                    tmp[4] = TEST[3];
                     break;
 
                 case 5:
-                    tmp[3] = TESTS[i][2];
-                    tmp[4] = TESTS[i][3];
-                    tmp[5] = TESTS[i][4];
+                    tmp[3] = TEST[2];
+                    tmp[4] = TEST[3];
+                    tmp[5] = TEST[4];
                     break;
 
                 default:

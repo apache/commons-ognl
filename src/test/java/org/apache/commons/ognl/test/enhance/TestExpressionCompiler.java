@@ -199,7 +199,7 @@ public class TestExpressionCompiler
     public void test_Indexed_Property()
         throws Throwable
     {
-        Map map = new HashMap();
+        Map<String,String> map = new HashMap<String,String>();
         map.put( "key", "value" );
 
         Node expression = Ognl.compileExpression( _context, this, "key" );
