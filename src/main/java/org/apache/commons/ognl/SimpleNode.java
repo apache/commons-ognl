@@ -377,6 +377,26 @@ public abstract class SimpleNode
         return isSimpleProperty( context );
     }
 
+    public boolean isEvalChain( OgnlContext context )
+        throws OgnlException
+    {
+        if ( children == null )
+        {
+            return false;
+        }
+        for ( Node child : children )
+        {
+            if ( child instanceof SimpleNode )
+            {
+                if ( ( (SimpleNode) child ).isEvalChain( context ) )
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     protected boolean lastChild( OgnlContext context )
     {
         return parent == null || context.get( "_lastChild" ) != null;

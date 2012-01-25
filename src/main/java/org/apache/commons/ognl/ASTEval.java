@@ -94,4 +94,11 @@ class ASTEval
     {
         return visitor.visit( this, data );
     }
+
+    @Override
+    public boolean isEvalChain( OgnlContext context )
+        throws OgnlException
+    {
+        return true;
+    }
 }
