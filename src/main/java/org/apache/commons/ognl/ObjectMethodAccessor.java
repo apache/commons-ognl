@@ -39,7 +39,7 @@ public class ObjectMethodAccessor
      */
     public Object callStaticMethod( Map<String, Object> context, Class<?> targetClass, String methodName,
                                     Object[] args )
-        throws OgnlException
+        throws MethodFailedException
     {
         List<Method> methods = OgnlRuntime.getMethods( targetClass, methodName, true );
 
@@ -51,7 +51,7 @@ public class ObjectMethodAccessor
      * {@inheritDoc}
      */
     public Object callMethod( Map<String, Object> context, Object target, String methodName, Object[] args )
-        throws OgnlException
+        throws MethodFailedException
     {
         Class<?> targetClass = ( target == null ) ? null : target.getClass();
         List<Method> methods = OgnlRuntime.getMethods( targetClass, methodName, false );

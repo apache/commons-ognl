@@ -758,7 +758,6 @@ public class OgnlRuntime
     }
 
     public static Object getPrimitiveDefaultValue( Class<?> forClass )
-        throws OgnlException
     {
         return primitiveDefaults.get( forClass );
     }
@@ -770,14 +769,13 @@ public class OgnlRuntime
 
     public static Object getConvertedType( OgnlContext context, Object target, Member member, String propertyName,
                                            Object value, Class<?> type )
-        throws OgnlException
     {
         return context.getTypeConverter().convertValue( context, target, member, propertyName, value, type );
     }
 
     public static boolean getConvertedTypes( OgnlContext context, Object target, Member member, String propertyName,
                                              Class<?>[] parameterTypes, Object[] args, Object[] newArgs )
-        throws OgnlException
+        
     {
         boolean result = false;
 
@@ -813,7 +811,7 @@ public class OgnlRuntime
 
     public static Method getConvertedMethodAndArgs( OgnlContext context, Object target, String propertyName,
                                                     List<Method> methods, Object[] args, Object[] newArgs )
-        throws OgnlException
+        
     {
         Method convertedMethod = null;
         TypeConverter typeConverter = context.getTypeConverter();
@@ -839,7 +837,7 @@ public class OgnlRuntime
     public static Constructor<?> getConvertedConstructorAndArgs( OgnlContext context, Object target,
                                                                  List<Constructor<?>> constructors, Object[] args,
                                                                  Object[] newArgs )
-        throws OgnlException
+        
     {
         Constructor<?> constructor = null;
         TypeConverter typeConverter = context.getTypeConverter();
@@ -876,7 +874,7 @@ public class OgnlRuntime
      */
     public static Method getAppropriateMethod( OgnlContext context, Object source, Object target, String propertyName,
                                                List<Method> methods, Object[] args, Object[] actualArgs )
-        throws OgnlException
+        
     {
         Method appropriateMethod = null;
         Class<?>[] resultParameterTypes = null;
@@ -1015,10 +1013,6 @@ public class OgnlRuntime
         catch ( InvocationTargetException e )
         {
             cause = e.getTargetException();
-        }
-        catch ( OgnlException e )
-        {
-            cause = e;
         }
         finally
         {
@@ -1237,7 +1231,6 @@ public class OgnlRuntime
     }
 
     public static List<Constructor<?>> getConstructors( Class<?> targetClass )
-        throws OgnlException
     {
         return cache.getConstructor( targetClass );
     }
@@ -1246,10 +1239,8 @@ public class OgnlRuntime
      * @param targetClass
      * @param staticMethods if true (false) returns only the (non-)static methods
      * @return Returns the map of methods for a given class
-     * @throws OgnlException
      */
     public static Map<String, List<Method>> getMethods( Class<?> targetClass, boolean staticMethods )
-        throws OgnlException
     {
         DeclaredMethodCacheEntry.MethodType type = staticMethods ?
             DeclaredMethodCacheEntry.MethodType.STATIC :
@@ -1259,19 +1250,16 @@ public class OgnlRuntime
     }
 
     public static List<Method> getMethods( Class<?> targetClass, String name, boolean staticMethods )
-        throws OgnlException
     {
         return getMethods( targetClass, staticMethods ).get( name );
     }
 
     public static Map<String, Field> getFields( Class<?> targetClass )
-        throws OgnlException
     {
         return cache.getField( targetClass );
     }
 
     public static Field getField( Class<?> inClass, String name )
-        throws OgnlException
     {
         Field field = getFields( inClass ).get( name );
 
@@ -1293,14 +1281,14 @@ public class OgnlRuntime
     }
 
     public static Object getFieldValue( OgnlContext context, Object target, String propertyName )
-        throws NoSuchFieldException, OgnlException
+        throws NoSuchFieldException
     {
         return getFieldValue( context, target, propertyName, false );
     }
 
     public static Object getFieldValue( OgnlContext context, Object target, String propertyName,
                                         boolean checkAccessAndExistence )
-        throws NoSuchFieldException, OgnlException
+        throws NoSuchFieldException
     {
         Object result = null;
         Class<?> targetClass = target == null ? null : target.getClass();
@@ -1380,7 +1368,6 @@ public class OgnlRuntime
     }
 
     public static boolean isFieldAccessible( OgnlContext context, Object target, Class<?> inClass, String propertyName )
-        throws OgnlException
     {
         return isFieldAccessible( context, target, getField( inClass, propertyName ), propertyName );
     }
@@ -1391,7 +1378,6 @@ public class OgnlRuntime
     }
 
     public static boolean hasField( OgnlContext context, Object target, Class<?> inClass, String propertyName )
-        throws OgnlException
     {
         Field field = getField( inClass, propertyName );
 
@@ -1460,10 +1446,9 @@ public class OgnlRuntime
      * @param propertyName
      * @param findSets
      * @return Returns the list of (g)setter of a class for a given property name
-     * @throws OgnlException
+     * @
      */
     public static List<Method> getDeclaredMethods( Class<?> targetClass, String propertyName, boolean findSets )
-        throws OgnlException
     {
         String baseName = Character.toUpperCase( propertyName.charAt( 0 ) ) + propertyName.substring( 1 );
         List<Method> methods = new ArrayList<Method>();

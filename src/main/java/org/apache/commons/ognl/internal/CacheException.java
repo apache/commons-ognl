@@ -22,10 +22,8 @@ package org.apache.commons.ognl.internal;
 /*
  * $Id$
  */
-import org.apache.commons.ognl.OgnlException;
-
 public class CacheException
-    extends OgnlException
+    extends RuntimeException
 {
     public CacheException( Throwable e )
     {

@@ -606,7 +606,6 @@ public abstract class OgnlOps
      * @return converted value of the type given, or value if the value cannot be converted to the given type.
      */
     public static Object convertValue( Object value, Class<?> toType )
-        throws OgnlException
     {
         return convertValue( value, toType, false );
     }
@@ -662,7 +661,6 @@ public abstract class OgnlOps
     }
 
     public static <T> Object convertValue( Object value, Class<T> toType, boolean preventNulls )
-        throws OgnlException
     {
         Object result = null;
 
