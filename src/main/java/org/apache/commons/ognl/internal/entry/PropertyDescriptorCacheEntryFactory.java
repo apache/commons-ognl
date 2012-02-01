@@ -23,6 +23,7 @@ package org.apache.commons.ognl.internal.entry;
  * $Id$
  */
 
+import org.apache.commons.ognl.ObjectIndexedPropertyDescriptor;
 import org.apache.commons.ognl.OgnlException;
 import org.apache.commons.ognl.OgnlRuntime;
 import org.apache.commons.ognl.internal.CacheException;
@@ -31,6 +32,7 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +68,7 @@ public class PropertyDescriptorCacheEntryFactory
                 result.put( pda[i].getName(), pda[i] );
             }
 
-            OgnlRuntime.findObjectIndexedPropertyDescriptors( targetClass, result );
+            findObjectIndexedPropertyDescriptors( targetClass, result );
         }
         catch ( IntrospectionException e )
         {
@@ -96,6 +98,138 @@ public class PropertyDescriptorCacheEntryFactory
         }
 
         return m;
+    }
+
+    private static void findObjectIndexedPropertyDescriptors( Class<?> targetClass,
+                                                             Map<String, PropertyDescriptor> intoMap )
+        throws OgnlException
+    {
+        Map<String, List<Method>> allMethods = OgnlRuntime.getMethods( targetClass, false );
+        Map<String, List<Method>> pairs = new HashMap<String, List<Method>>( 101 );
+
+        for ( Map.Entry<String, List<Method>> entry : allMethods.entrySet() )
+        {
+            String methodName = entry.getKey();
+            List<Method> methods = entry.getValue();
+
+            /*
+             * Only process set/get where there is exactly one implementation of the method per class and those
+             * implementations are all the same
+             */
+            if ( indexMethodCheck( methods ) )
+            {
+                boolean isGet = false, isSet;
+                Method method = methods.get( 0 );
+
+                if ( ( ( isSet = methodName.startsWith( OgnlRuntime.SET_PREFIX ) ) || ( isGet =
+                    methodName.startsWith( OgnlRuntime.GET_PREFIX ) ) ) && ( methodName.length() > 3 ) )
+                {
+                    String propertyName = Introspector.decapitalize( methodName.substring( 3 ) );
+                    Class<?>[] parameterTypes = OgnlRuntime.getParameterTypes( method );
+                    int parameterCount = parameterTypes.length;
+
+                    if ( isGet && ( parameterCount == 1 ) && ( method.getReturnType() != Void.TYPE ) )
+                    {
+                        List<Method> pair = pairs.get( propertyName );
+
+                        if ( pair == null )
+                        {
+                            pairs.put( propertyName, pair = new ArrayList<Method>() );
+                        }
+                        pair.add( method );
+                    }
+                    if ( isSet && ( parameterCount == 2 ) && ( method.getReturnType() == Void.TYPE ) )
+                    {
+                        List<Method> pair = pairs.get( propertyName );
+
+                        if ( pair == null )
+                        {
+                            pairs.put( propertyName, pair = new ArrayList<Method>() );
+                        }
+                        pair.add( method );
+                    }
+                }
+            }
+        }
+
+        for ( String propertyName : pairs.keySet() )
+        {
+            List<Method> methods = pairs.get( propertyName );
+
+            if ( methods.size() == 2 )
+            {
+                Method method1 = methods.get( 0 ), method2 = methods.get( 1 ), setMethod =
+                    ( method1.getParameterTypes().length == 2 ) ? method1 : method2, getMethod =
+                    ( setMethod == method1 ) ? method2 : method1;
+                Class<?> keyType = getMethod.getParameterTypes()[0], propertyType = getMethod.getReturnType();
+
+                if ( keyType == setMethod.getParameterTypes()[0] )
+                {
+                    if ( propertyType == setMethod.getParameterTypes()[1] )
+                    {
+                        ObjectIndexedPropertyDescriptor propertyDescriptor;
+
+                        try
+                        {
+                            propertyDescriptor =
+                                new ObjectIndexedPropertyDescriptor( propertyName, propertyType, getMethod, setMethod );
+                        }
+                        catch ( Exception ex )
+                        {
+                            throw new OgnlException(
+                                "creating object indexed property descriptor for '" + propertyName + "' in "
+                                    + targetClass, ex );
+                        }
+                        intoMap.put( propertyName, propertyDescriptor );
+                    }
+                }
+
+            }
+        }
+    }
+    private static boolean indexMethodCheck( List<Method> methods )
+    {
+        boolean result = false;
+
+        if ( methods.size() > 0 )
+        {
+            Method method = methods.get( 0 );
+            Class<?>[] parameterTypes = OgnlRuntime.getParameterTypes( method );
+            int numParameterTypes = parameterTypes.length;
+            Class<?> lastMethodClass = method.getDeclaringClass();
+
+            result = true;
+            for ( int i = 1; result && ( i < methods.size() ); i++ )
+            {
+                Class<?> clazz = methods.get( i ).getDeclaringClass();
+
+                // Check to see if more than one method implemented per class
+                if ( lastMethodClass == clazz )
+                {
+                    result = false;
+                }
+                else
+                {
+                    Class<?>[] mpt = OgnlRuntime.getParameterTypes( method );
+                    int mpc = parameterTypes.length;
+
+                    if ( numParameterTypes != mpc )
+                    {
+                        result = false;
+                    }
+                    for ( int j = 0; j < numParameterTypes; j++ )
+                    {
+                        if ( parameterTypes[j] != mpt[j] )
+                        {
+                            result = false;
+                            break;
+                        }
+                    }
+                }
+                lastMethodClass = clazz;
+            }
+        }
+        return result;
     }
 
 
