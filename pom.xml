@@ -199,6 +199,19 @@ limitations under the License.
       <artifactId>javassist</artifactId>
       <version>3.12.1.GA</version>
     </dependency>
+    <dependency>
+      <groupId>com.carrotsearch</groupId>
+      <artifactId>junit-benchmarks</artifactId>
+      <classifier>jdk15</classifier>
+      <version>0.3.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>ognl</groupId>
+      <artifactId>ognl</artifactId>
+      <version>3.0.2</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -415,8 +428,8 @@ limitations under the License.
       <id>benchmarks</id>
       <activation>
         <property>
-          <name>skipBenchmarks</name>
-          <value>!true</value>
+          <name>runBenchmarks</name>
+          <value>true</value>
         </property>
       </activation>
 
