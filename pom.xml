@@ -22,7 +22,7 @@ limitations under the License.
  <parent>
    <groupId>org.apache.commons</groupId>
    <artifactId>commons-parent</artifactId>
-   <version>25</version>
+   <version>28-SNAPSHOT</version>
  </parent>
 
   <groupId>org.apache.commons</groupId>
@@ -177,6 +177,8 @@ limitations under the License.
     <commons.javadoc.version>2.8</commons.javadoc.version>
     <maven.compile.source>1.5</maven.compile.source>
     <maven.compile.target>1.5</maven.compile.target>
+
+    <commons.site.path>ognl</commons.site.path>
   </properties>
 
   <dependencies>
