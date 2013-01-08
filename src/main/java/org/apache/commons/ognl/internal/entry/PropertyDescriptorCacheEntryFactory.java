@@ -49,23 +49,20 @@ public class PropertyDescriptorCacheEntryFactory
         {
             pda = Introspector.getBeanInfo( targetClass ).getPropertyDescriptors();
 
-            for ( int i = 0, icount = pda.length; i < icount; i++ )
-            {
+            for (PropertyDescriptor aPda : pda) {
                 // workaround for Introspector bug 6528714 (bugs.sun.com)
-                if ( pda[i].getReadMethod() != null && !OgnlRuntime.isMethodCallable( pda[i].getReadMethod() ) )
-                {
-                    pda[i].setReadMethod(
-                        findClosestMatchingMethod( targetClass, pda[i].getReadMethod(), pda[i].getName(),
-                                                   pda[i].getPropertyType(), true ) );
+                if (aPda.getReadMethod() != null && !OgnlRuntime.isMethodCallable(aPda.getReadMethod())) {
+                    aPda.setReadMethod(
+                            findClosestMatchingMethod(targetClass, aPda.getReadMethod(), aPda.getName(),
+                                    aPda.getPropertyType(), true));
                 }
-                if ( pda[i].getWriteMethod() != null && !OgnlRuntime.isMethodCallable( pda[i].getWriteMethod() ) )
-                {
-                    pda[i].setWriteMethod(
-                        findClosestMatchingMethod( targetClass, pda[i].getWriteMethod(), pda[i].getName(),
-                                                   pda[i].getPropertyType(), false ) );
+                if (aPda.getWriteMethod() != null && !OgnlRuntime.isMethodCallable(aPda.getWriteMethod())) {
+                    aPda.setWriteMethod(
+                            findClosestMatchingMethod(targetClass, aPda.getWriteMethod(), aPda.getName(),
+                                    aPda.getPropertyType(), false));
                 }
 
-                result.put( pda[i].getName(), pda[i] );
+                result.put(aPda.getName(), aPda);
             }
 
             findObjectIndexedPropertyDescriptors( targetClass, result );
