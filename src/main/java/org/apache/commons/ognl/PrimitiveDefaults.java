@@ -43,8 +43,8 @@ class PrimitiveDefaults {
         map.put( Float.TYPE, 0.0f );
         map.put( Double.TYPE, 0.0 );
 
-        map.put( BigInteger.class, new BigInteger( "0" ) );
-        map.put( BigDecimal.class, new BigDecimal( 0.0 ) );
+        map.put( BigInteger.class, BigInteger.ZERO );
+        map.put( BigDecimal.class, BigDecimal.ZERO );
     }
 
     Object get( Class<?> cls ) {

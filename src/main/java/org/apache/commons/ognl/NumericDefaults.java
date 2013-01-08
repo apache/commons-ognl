@@ -40,8 +40,8 @@ class NumericDefaults {
         NUMERIC_DEFAULTS.put( Float.class, 0.0f );
         NUMERIC_DEFAULTS.put( Double.class, 0.0 );
 
-        NUMERIC_DEFAULTS.put( BigInteger.class, new BigInteger( "0" ) );
-        NUMERIC_DEFAULTS.put( BigDecimal.class, new BigDecimal( 0.0 ) );
+        NUMERIC_DEFAULTS.put( BigInteger.class, BigInteger.ZERO );
+        NUMERIC_DEFAULTS.put( BigDecimal.class, BigDecimal.ZERO );
     }
 
     Object get( Class<?> cls ) {
