@@ -532,7 +532,7 @@ public abstract class OgnlOps
     public static <T> Object convertValue( long value, Class<T> toType, boolean preventNull )
         throws OgnlException
     {
-        return convertValue( new Long( value ), toType, preventNull );
+        return convertValue( Long.valueOf( value ), toType, preventNull );
     }
 
     public static <T> Object convertValue( float value, Class<T> toType, boolean preventNull )
