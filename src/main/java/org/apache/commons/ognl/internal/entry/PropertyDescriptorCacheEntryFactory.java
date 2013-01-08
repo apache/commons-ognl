@@ -152,9 +152,10 @@ public class PropertyDescriptorCacheEntryFactory
             }
         }
 
-        for ( String propertyName : pairs.keySet() )
+        for ( Map.Entry<String, List<Method>> entry : pairs.entrySet() )
         {
-            List<Method> methods = pairs.get( propertyName );
+            String propertyName = entry.getKey();
+            List<Method> methods = entry.getValue();
 
             if ( methods.size() == 2 )
             {
