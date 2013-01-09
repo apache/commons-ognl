@@ -22,7 +22,7 @@ limitations under the License.
  <parent>
    <groupId>org.apache.commons</groupId>
    <artifactId>commons-parent</artifactId>
-   <version>27</version>
+   <version>28-SNAPSHOT</version>
  </parent>
 
   <groupId>org.apache.commons</groupId>
@@ -179,6 +179,7 @@ limitations under the License.
     <maven.compile.target>1.5</maven.compile.target>
 
     <commons.site.path>ognl</commons.site.path>
+    <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
   </properties>
 
   <dependencies>
@@ -500,6 +501,55 @@ limitations under the License.
               </systemPropertyVariables>
               <argLine>-Xmx512m -Xms512m</argLine>
             </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>setup-checkout</id>
+      <activation>
+        <file>
+          <missing>site-content</missing>
+        </file>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.7</version>
+            <executions>
+              <execution>
+                <id>prepare-checkout</id>
+                <phase>pre-site</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <tasks>
+                    <exec executable="svn">
+                      <arg line="checkout ${commons.scmPubUrl} ${commons.scmPubCheckoutDirectory}" />
+                    </exec>
+                    <!-- in case of paths to ignore (added manually) -->
+                    <!--
+                    <exec executable="svn">
+                      <arg line="update - -set-depth exclude ${commons.scmPubCheckoutDirectory}/javadocs" />
+                    </exec>
+
+                    <pathconvert pathsep=" " property="dirs">
+                      <dirset dir="${commons.scmPubCheckoutDirectory}" includes="*" />
+                    </pathconvert>
+                    <exec executable="svn">
+                      <arg line="update - -set-depth infinity ${dirs}" />
+                    </exec>
+                    -->
+                    <exec executable="svn">
+                      <arg line="update" />
+                    </exec>
+                  </tasks>
+                </configuration>
+              </execution>
+            </executions>
           </plugin>
         </plugins>
       </build>
