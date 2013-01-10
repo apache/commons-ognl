@@ -178,7 +178,6 @@ limitations under the License.
     <maven.compile.source>1.5</maven.compile.source>
     <maven.compile.target>1.5</maven.compile.target>
 
-    <commons.site.path>ognl</commons.site.path>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
   </properties>
 
