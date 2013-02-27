@@ -28,7 +28,7 @@
   <body>
     <menu name="OGNL">
       <item name="Overview"                        href="/index.html" />
-      <!--<item name="Download"                        href="http://commons.apache.org/ognl/download_ognl.cgi" />-->
+      <item name="Download"                        href="http://commons.apache.org/ognl/download_ognl.cgi" />
       <!--<item name="Release Notes (4.0-incubating)"  href="http://www.apache.org/dist/commons/ognl/RELEASE-NOTES.txt" />-->
       <item name="Language Guide"                  href="/language-guide.html" />
       <item name="Developer Guide"                 href="/developer-guide.html" />
