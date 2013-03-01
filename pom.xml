@@ -178,7 +178,7 @@ limitations under the License.
     <maven.compile.source>1.5</maven.compile.source>
     <maven.compile.target>1.5</maven.compile.target>
 
-    <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
+    <commons.scmPubCheckoutDirectory>${project.build.directory}/site-content</commons.scmPubCheckoutDirectory>
   </properties>
 
   <dependencies>
@@ -408,6 +408,16 @@ limitations under the License.
               <sonarHostURL>https://analysis.apache.org/</sonarHostURL>
             </configuration>
           </plugin>
+            <plugin>
+                <groupId>org.apache.rat</groupId>
+                <artifactId>apache-rat-plugin</artifactId>
+                <configuration>
+                    <useDefaultExcludes>true</useDefaultExcludes>
+                    <includes>
+                        <include>src/**/*</include>
+                    </includes>
+                </configuration>
+            </plugin>
         </plugins>
       </reporting>
     </profile>
@@ -496,7 +506,7 @@ limitations under the License.
       <id>setup-checkout</id>
       <activation>
         <file>
-          <missing>site-content</missing>
+          <missing>${project.build.directory}/site-content</missing>
         </file>
       </activation>
       <build>
