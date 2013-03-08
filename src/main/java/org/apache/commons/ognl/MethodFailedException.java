@@ -25,8 +25,7 @@ package org.apache.commons.ognl;
 public class MethodFailedException
     extends OgnlException
 {
-
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -8537354635249153386L;
 
     public MethodFailedException( Object source, String name )
     {
