@@ -22,8 +22,6 @@ package org.apache.commons.ognl;
 /**
  * Defines an object that can return a representation of itself and any objects it contains in the form of a
  * {@link String} embedded with literal java statements.
- *
- * @author jkuhnert
  */
 public interface JavaSource
 {

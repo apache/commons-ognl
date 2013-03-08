@@ -21,10 +21,6 @@ package org.apache.commons.ognl;
 
 import org.apache.commons.ognl.enhance.ExpressionCompiler;
 
-/**
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
- */
 public abstract class ExpressionNode
     extends SimpleNode
 {

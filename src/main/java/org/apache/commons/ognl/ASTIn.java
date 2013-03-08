@@ -23,8 +23,6 @@ import org.apache.commons.ognl.enhance.UnsupportedCompilationException;
 
 /**
  * $Id$
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 class ASTIn
     extends SimpleNode

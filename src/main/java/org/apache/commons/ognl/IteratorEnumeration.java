@@ -24,9 +24,6 @@ import java.util.Iterator;
 
 /**
  * Maps an Iterator to an Enumeration
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class IteratorEnumeration<T>
     implements Enumeration<T>

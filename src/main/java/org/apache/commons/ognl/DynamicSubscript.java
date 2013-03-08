@@ -23,9 +23,6 @@ package org.apache.commons.ognl;
  * This class has predefined instances that stand for OGNL's special "dynamic subscripts" for getting at the first,
  * middle, or last elements of a list. In OGNL expressions, these subscripts look like special kinds of array indexes:
  * [^] means the first element, [$] means the last, [|] means the middle, and [*] means the whole list.
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class DynamicSubscript
 {

@@ -25,9 +25,6 @@ import java.security.BasicPermission;
  * BasicPermission subclass that defines a permission token for invoking methods within OGNL. This does not override any
  * methods (except constructors) and does not implement actions. It is similar in spirit to the
  * {@link java.lang.reflect.ReflectPermission} class in that it guards access to methods.
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class OgnlInvokePermission
     extends BasicPermission

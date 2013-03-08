@@ -21,9 +21,6 @@ package org.apache.commons.ognl;
 
 /**
  * Exception thrown if a malformed OGNL expression is encountered.
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class ExpressionSyntaxException
     extends OgnlException

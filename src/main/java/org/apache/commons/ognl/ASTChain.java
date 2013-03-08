@@ -27,8 +27,6 @@ import java.lang.reflect.Array;
 
 /**
  * $Id$
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class ASTChain
     extends SimpleNode

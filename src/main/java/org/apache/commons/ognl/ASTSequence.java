@@ -24,8 +24,6 @@ import org.apache.commons.ognl.enhance.OrderedReturn;
 
 /**
  * $Id$
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class ASTSequence
     extends SimpleNode

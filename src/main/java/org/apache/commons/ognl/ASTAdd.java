@@ -26,8 +26,6 @@ import java.math.BigInteger;
 
 /**
  * $Id$
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 class ASTAdd
     extends NumericExpression

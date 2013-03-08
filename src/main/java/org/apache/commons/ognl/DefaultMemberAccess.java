@@ -28,10 +28,6 @@ import java.util.Map;
  * This class provides methods for setting up and restoring access in a Field. Java 2 provides access utilities for
  * setting and getting fields that are non-public. This object provides coarse-grained access controls to allow access
  * to private, protected and package protected members. This will apply to all classes and members.
- *
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
- * @version 15 October 1999
  */
 public class DefaultMemberAccess
     implements MemberAccess

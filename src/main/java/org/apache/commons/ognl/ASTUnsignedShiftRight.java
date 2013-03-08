@@ -21,8 +21,6 @@ package org.apache.commons.ognl;
 
 /**
  * $Id$
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 class ASTUnsignedShiftRight
     extends NumericExpression

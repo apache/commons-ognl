@@ -28,9 +28,6 @@ import java.util.Enumeration;
 
 /**
  * This is an abstract class with static methods that define the operations of OGNL.
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public abstract class OgnlOps
     implements NumericTypes

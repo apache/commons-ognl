@@ -25,9 +25,6 @@ import java.util.Map;
 /**
  * Implementation of PropertyAccessor that provides "property" reference to "nextElement" (aliases to "next" also) and
  * "hasMoreElements" (also aliased to "hasNext").
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class EnumerationPropertyAccessor
     extends ObjectPropertyAccessor

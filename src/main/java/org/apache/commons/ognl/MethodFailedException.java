@@ -21,9 +21,6 @@ package org.apache.commons.ognl;
 
 /**
  * Exception thrown if a method or constructor call fails.
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class MethodFailedException
     extends OgnlException

@@ -24,9 +24,6 @@ import java.util.Set;
 
 /**
  * Implementation of PropertyAccessor that uses numbers and dynamic subscripts as properties to index into Lists.
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class SetPropertyAccessor
     extends ObjectPropertyAccessor

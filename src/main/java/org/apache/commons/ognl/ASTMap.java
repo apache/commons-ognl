@@ -26,9 +26,6 @@ import java.util.Map;
 
 /**
  * $Id$
- *
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 class ASTMap
     extends SimpleNode

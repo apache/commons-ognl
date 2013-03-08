@@ -24,9 +24,6 @@ import java.util.Iterator;
 
 /**
  * Object that implements Iterator from an Enumeration
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class EnumerationIterator<E>
     implements Iterator<E>

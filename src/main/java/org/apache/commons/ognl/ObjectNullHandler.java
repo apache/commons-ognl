@@ -24,9 +24,6 @@ import java.util.Map;
 /**
  * Implementation of NullHandler that returns null in all cases, so that NullPointerException will be thrown by the
  * caller.
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class ObjectNullHandler
     implements NullHandler

@@ -26,9 +26,6 @@ import java.util.Map;
 
 /**
  * Implementation of ElementsAccessor that returns an iterator over the map's values.
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class MapElementsAccessor
     implements ElementsAccessor

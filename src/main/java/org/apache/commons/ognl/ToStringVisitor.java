@@ -28,7 +28,6 @@ import java.math.BigInteger;
  * This class is meant to be used by SimpleNode.toString(), but you may use it to
  *
  * @since 4.0
- * @author Daniel Pitts
  */
 public class ToStringVisitor
     implements NodeVisitor<StringBuilder, StringBuilder>

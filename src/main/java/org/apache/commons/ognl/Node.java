@@ -25,9 +25,6 @@ import org.apache.commons.ognl.enhance.ExpressionAccessor;
  * JJTree interface for AST nodes, as modified to handle the OGNL operations getValue and setValue. JJTree's original
  * comment: All AST nodes must implement this interface. It provides basic machinery for constructing the parent and
  * child relationships between nodes.
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public interface Node
     extends JavaSource

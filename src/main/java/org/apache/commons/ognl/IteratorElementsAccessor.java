@@ -26,9 +26,6 @@ import java.util.Iterator;
 
 /**
  * Implementation of the ElementsAccessor interface for Iterators, which simply returns the target iterator itself.
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class IteratorElementsAccessor
     implements ElementsAccessor

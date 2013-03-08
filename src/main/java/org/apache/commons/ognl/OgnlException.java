@@ -23,9 +23,6 @@ import java.lang.reflect.Method;
 
 /**
  * Superclass for OGNL exceptions, incorporating an optional encapsulated exception.
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class OgnlException
     extends Exception

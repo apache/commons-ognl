@@ -28,9 +28,6 @@ import java.util.Enumeration;
  * <p>
  * An implementation of this interface will often require that its target objects all be of some particular type. For
  * example, the MapElementsAccessor class requires that its targets all implement the Map interface.
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public interface ElementsAccessor
 {

@@ -21,9 +21,6 @@ package org.apache.commons.ognl;
 
 /**
  * Exception thrown if a property is attempted to be extracted from an object that does not have such a property.
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class NoSuchPropertyException
     extends OgnlException

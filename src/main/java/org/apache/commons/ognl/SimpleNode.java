@@ -24,10 +24,6 @@ import org.apache.commons.ognl.enhance.ExpressionAccessor;
 import java.io.PrintWriter;
 import java.io.Serializable;
 
-/**
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
- */
 public abstract class SimpleNode
     implements Node, Serializable
 {

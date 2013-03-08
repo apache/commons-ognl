@@ -21,9 +21,6 @@ package org.apache.commons.ognl;
 
 /**
  * This interface defines some useful constants for describing the various possible numeric types of OGNL.
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public interface NumericTypes
 {

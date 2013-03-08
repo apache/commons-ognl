@@ -24,9 +24,6 @@ import java.util.Map;
 
 /**
  * Implementation of PropertyAccessor that provides "property" reference to "next" and "hasNext".
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class IteratorPropertyAccessor
     extends ObjectPropertyAccessor

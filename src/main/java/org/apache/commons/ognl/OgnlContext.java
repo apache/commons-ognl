@@ -31,9 +31,6 @@ import java.util.Stack;
 
 /**
  * This class defines the execution context for an OGNL expression
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class OgnlContext
     implements Map<String, Object>

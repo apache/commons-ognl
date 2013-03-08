@@ -80,9 +80,6 @@ import java.lang.reflect.Method;
  * index set accessor.</td>
  * </tr>
  * </table>
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class ObjectIndexedPropertyDescriptor
     extends PropertyDescriptor

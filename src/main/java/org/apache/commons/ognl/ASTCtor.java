@@ -27,8 +27,6 @@ import java.util.List;
 
 /**
  * $Id$
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class ASTCtor
     extends SimpleNode

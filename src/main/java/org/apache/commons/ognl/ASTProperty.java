@@ -29,9 +29,6 @@ import java.util.Iterator;
 
 /**
  * $Id$
- *
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class ASTProperty
     extends SimpleNode

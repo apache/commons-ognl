@@ -23,8 +23,6 @@ import org.apache.commons.ognl.enhance.ExpressionCompiler;
 
 /**
  * $Id$
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class ASTRootVarRef
     extends ASTVarRef

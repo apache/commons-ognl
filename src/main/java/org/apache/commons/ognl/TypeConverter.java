@@ -24,9 +24,6 @@ import java.util.Map;
 
 /**
  * Interface for accessing the type conversion facilities within a context.
- *
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public interface TypeConverter
 {

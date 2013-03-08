@@ -23,9 +23,6 @@ import java.util.Enumeration;
 
 /**
  * Implementation of ElementsAccessor that returns a single-element iterator, containing the original target object.
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class ObjectElementsAccessor
     implements ElementsAccessor

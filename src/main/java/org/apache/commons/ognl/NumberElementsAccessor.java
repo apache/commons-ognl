@@ -24,9 +24,6 @@ import java.util.NoSuchElementException;
 
 /**
  * Implementation of ElementsAccessor that returns an iterator over integers from 0 up to the given target.
- *
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class NumberElementsAccessor
     implements ElementsAccessor, NumericTypes

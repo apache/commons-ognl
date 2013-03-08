@@ -24,9 +24,6 @@ import java.util.Map;
 
 /**
  * Default type conversion. Converts among numeric types and also strings.
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class DefaultTypeConverter
     implements TypeConverter

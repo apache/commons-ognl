@@ -34,9 +34,6 @@ import java.util.Map;
  * Note that the "name" of a property is represented by a generic Object. Some implementations may require properties'
  * names to be Strings, while others may allow them to be other types---for example, ArrayPropertyAccessor treats Number
  * names as indexes into the target object, which must be an array.
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public interface PropertyAccessor
 {

@@ -23,8 +23,6 @@ import org.apache.commons.ognl.enhance.UnsupportedCompilationException;
 
 /**
  * Base class for boolean expressions.
- * 
- * @author jkuhnert
  */
 public abstract class BooleanExpression
     extends ExpressionNode

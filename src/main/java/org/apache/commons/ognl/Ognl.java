@@ -90,10 +90,6 @@ import java.util.Map;
  * }
  * 
  * </pre>
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
- * @version 27 June 1999
  */
 public abstract class Ognl
 {

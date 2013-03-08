@@ -24,9 +24,6 @@ import java.util.Map;
 
 /**
  * Implementation of PropertyAccessor that uses numbers and dynamic subscripts as properties to index into Java arrays.
- * 
- * @author Luke Blanshard (blanshlu@netscape.net)
- * @author Drew Davidson (drew@ognl.org)
  */
 public class ArrayPropertyAccessor
     extends ObjectPropertyAccessor
