@@ -27,5 +27,13 @@
   <Match>
     <Bug pattern="DM_NUMBER_CTOR" />
   </Match>
+  <Match>
+    <Class name="org.apache.commons.ognl.OgnlParser" />
+    <Bug pattern="NM_METHOD_NAMING_CONVENTION" />
+  </Match>
+  <Match>
+    <Class name="org.apache.commons.ognl.OgnlParserTokenManager" />
+    <Bug pattern="NM_METHOD_NAMING_CONVENTION" />
+  </Match>
 
 </FindBugsFilter>
