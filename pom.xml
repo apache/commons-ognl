@@ -359,7 +359,7 @@ limitations under the License.
             <configuration>
               <threshold>Normal</threshold>
               <effort>Default</effort>
-              <!--  <excludeFilterFile>${basedir}/findbugs-exclude-filter.xml</excludeFilterFile> -->
+              <excludeFilterFile>findbugs-exclude-filter.xml</excludeFilterFile>
            </configuration>
           </plugin>
           <plugin>
