@@ -408,16 +408,20 @@ limitations under the License.
               <sonarHostURL>https://analysis.apache.org/</sonarHostURL>
             </configuration>
           </plugin>
-            <plugin>
-                <groupId>org.apache.rat</groupId>
-                <artifactId>apache-rat-plugin</artifactId>
-                <configuration>
-                    <useDefaultExcludes>true</useDefaultExcludes>
-                    <includes>
-                        <include>src/**/*</include>
-                    </includes>
-                </configuration>
-            </plugin>
+          <plugin>
+            <groupId>org.apache.rat</groupId>
+            <artifactId>apache-rat-plugin</artifactId>
+            <configuration>
+              <useDefaultExcludes>true</useDefaultExcludes>
+              <includes>
+                <include>src/**/*</include>
+              </includes>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>clirr-maven-plugin</artifactId>
+          </plugin>
         </plugins>
       </reporting>
     </profile>
