@@ -33,7 +33,7 @@ limitations under the License.
   <name>Apache Commons OGNL - Object Graph Navigation Library</name>
   <description>The Apache Commons OGNL library is a Java development framework for Object-Graph Navigation Language,
   plus other extras such as list projection and selection and lambda expressions.</description>
-  <url>http://commons.apache.org/ognl/</url>
+  <url>http://commons.apache.org/proper/commons-ognl/</url>
   <inceptionYear>1997</inceptionYear>
   <organization>
     <name>The Apache Software Foundation</name>
