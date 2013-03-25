@@ -19,6 +19,8 @@ package org.apache.commons.ognl;
  * under the License.
  */
 
+import static java.lang.String.format;
+
 /**
  * Exception thrown if a method or constructor call fails.
  */
@@ -29,11 +31,11 @@ public class MethodFailedException
 
     public MethodFailedException( Object source, String name )
     {
-        super( "Method \"" + name + "\" failed for object " + source );
+        super( format( "Method \"%s\" failed for object %s", name, source ) );
     }
 
     public MethodFailedException( Object source, String name, Throwable reason )
     {
-        super( "Method \"" + name + "\" failed for object " + source, reason );
+        super( format( "Method \"%s\" failed for object %s", name, source ), reason );
     }
 }
