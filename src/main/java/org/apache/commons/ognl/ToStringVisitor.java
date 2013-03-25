@@ -241,13 +241,10 @@ public class ToStringVisitor
         {
             for ( int i = 0; i < node.children.length; i++ )
             {
-                if ( i > 0 )
+                if ( i > 0 && !( node.children[i] instanceof ASTProperty )
+                    || !( (ASTProperty) node.children[i] ).isIndexedAccess() )
                 {
-                    if ( !( node.children[i] instanceof ASTProperty )
-                        || !( (ASTProperty) node.children[i] ).isIndexedAccess() )
-                    {
-                        data.append( "." );
-                    }
+                    data.append( "." );
                 }
                 recurse( node.children[i], data );
             }

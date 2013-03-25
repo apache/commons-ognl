@@ -161,27 +161,23 @@ public class PropertyDescriptorCacheEntryFactory
                     ( setMethod == method1 ) ? method2 : method1;
                 Class<?> keyType = getMethod.getParameterTypes()[0], propertyType = getMethod.getReturnType();
 
-                if ( keyType == setMethod.getParameterTypes()[0] )
+                if ( keyType == setMethod.getParameterTypes()[0] && propertyType == setMethod.getParameterTypes()[1] )
                 {
-                    if ( propertyType == setMethod.getParameterTypes()[1] )
+                    ObjectIndexedPropertyDescriptor propertyDescriptor;
+
+                    try
                     {
-                        ObjectIndexedPropertyDescriptor propertyDescriptor;
-
-                        try
-                        {
-                            propertyDescriptor =
-                                new ObjectIndexedPropertyDescriptor( propertyName, propertyType, getMethod, setMethod );
-                        }
-                        catch ( Exception ex )
-                        {
-                            throw new OgnlException(
-                                "creating object indexed property descriptor for '" + propertyName + "' in "
-                                    + targetClass, ex );
-                        }
-                        intoMap.put( propertyName, propertyDescriptor );
+                        propertyDescriptor =
+                            new ObjectIndexedPropertyDescriptor( propertyName, propertyType, getMethod, setMethod );
                     }
+                    catch ( Exception ex )
+                    {
+                        throw new OgnlException(
+                            "creating object indexed property descriptor for '" + propertyName + "' in "
+                                + targetClass, ex );
+                    }
+                    intoMap.put( propertyName, propertyDescriptor );
                 }
-
             }
         }
     }

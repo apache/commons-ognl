@@ -382,13 +382,11 @@ public abstract class SimpleNode
         }
         for ( Node child : children )
         {
-            if ( child instanceof SimpleNode )
+            if ( child instanceof SimpleNode && ( (SimpleNode) child ).isEvalChain( context ) )
             {
-                if ( ( (SimpleNode) child ).isEvalChain( context ) )
-                {
-                    return true;
-                }
+                return true;
             }
+
         }
         return false;
     }

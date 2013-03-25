@@ -78,12 +78,9 @@ public class ClassCacheHandler
                         }
                     }
                 }
-                if ( answer != null )
+                if ( answer != null  && keyFound != forClass )
                 {
-                    if ( keyFound != forClass )
-                    {
-                        handlers.put( forClass, answer );
-                    }
+                    handlers.put( forClass, answer );
                 }
             }
         }

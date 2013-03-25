@@ -477,12 +477,9 @@ public class OgnlRuntime
     {
         Object result;
 
-        if ( securityManager != null )
+        if ( securityManager != null && !cache.getMethodPerm( method ) )
         {
-            if ( !cache.getMethodPerm( method ) )
-            {
-                throw new IllegalAccessException( "Method [" + method + "] cannot be accessed." );
-            }
+            throw new IllegalAccessException( "Method [" + method + "] cannot be accessed." );
         }
 
         MethodAccessEntryValue entry = cache.getMethodAccess( method );
@@ -2031,9 +2028,8 @@ public class OgnlRuntime
                     }
                     else if ( numParms < 0 )
                     {
-                        if ( ( method != null
-                            && method.getParameterTypes().length > methodDescriptor.getMethod().getParameterTypes().length )
-                            || method == null )
+                        if ( method == null || ( method.getParameterTypes().length
+                            > methodDescriptor.getMethod().getParameterTypes().length ) )
                         {
                             method = methodDescriptor.getMethod();
                         }

@@ -66,14 +66,7 @@ public class ConcurrentHashMapCache<K, V>
     protected boolean shouldCreate( CacheEntryFactory<K, V> cacheEntryFactory, V v )
         throws CacheException
     {
-        if ( cacheEntryFactory != null )
-        {
-            if ( v == null )
-            {
-                return true;
-            }
-        }
-        return false;
+        return cacheEntryFactory != null && v == null;
     }
 
     public V put( K key, V value )
