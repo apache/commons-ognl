@@ -22,6 +22,8 @@ package org.apache.commons.ognl;
 import org.apache.commons.ognl.enhance.ExpressionCompiler;
 import org.apache.commons.ognl.enhance.UnsupportedCompilationException;
 
+import static java.lang.String.format;
+
 /**
  * $Id$
  */
@@ -150,16 +152,7 @@ public class ASTAnd
                 second = OgnlRuntime.getCompiler( context ).createLocalReference( context, second, context.getCurrentType() );
             }
 
-            result += "(org.apache.commons.ognl.OgnlOps.booleanValue(" + first + ")";
-
-            result += " ? ";
-
-            result += " ($w) (" + second + ")";
-            result += " : ";
-
-            result += " ($w) (" + first + ")";
-
-            result += ")";
+            result += format( "(org.apache.commons.ognl.OgnlOps.booleanValue(%s) ?  ($w) (%s) :  ($w) (%s))", first, second, first );
 
             context.setCurrentObject( target );
             context.setCurrentType( Object.class );

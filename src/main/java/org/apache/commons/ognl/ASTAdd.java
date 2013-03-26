@@ -24,6 +24,8 @@ import org.apache.commons.ognl.enhance.ExpressionCompiler;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import static java.lang.String.format;
+
 /**
  * $Id$
  */
@@ -153,15 +155,14 @@ class ASTAdd
 
                 Object cast = context.get( ExpressionCompiler.PRE_CAST );
 
-                for ( int i = 0; i < children.length; ++i )
+                for ( Node aChildren : children )
                 {
-                    children[i].toGetSourceString( context, target );
+                    aChildren.toGetSourceString( context, target );
 
-                    if ( NodeType.class.isInstance( children[i] )
-                        && ( (NodeType) children[i] ).getGetterClass() != null
-                        && isWider( (NodeType) children[i], lastType ) )
+                    if ( NodeType.class.isInstance( aChildren ) && ( (NodeType) aChildren ).getGetterClass() != null
+                        && isWider( (NodeType) aChildren, lastType ) )
                     {
-                        lastType = (NodeType) children[i];
+                        lastType = (NodeType) aChildren;
                     }
                 }
 
@@ -275,7 +276,7 @@ class ASTAdd
                                 // System.out.println("Input expr >>" + expr + "<<");
                                 expr = expr.replaceAll( "&quot;", "\"" );
                                 expr = expr.replaceAll( "\"", "'" );
-                                expr = "\"" + expr + "\"";
+                                expr = format( "\"%s\"", expr );
                                 // System.out.println("Expr now >>" + expr + "<<");
                             }
                         }

@@ -22,6 +22,8 @@ package org.apache.commons.ognl;
 import java.lang.reflect.Array;
 import java.util.Map;
 
+import static java.lang.String.format;
+
 /**
  * Implementation of PropertyAccessor that uses numbers and dynamic subscripts as properties to index into Java arrays.
  */
@@ -147,7 +149,7 @@ public class ArrayPropertyAccessor
         context.setCurrentAccessor( target.getClass() );
         context.setCurrentType( target.getClass().getComponentType() );
 
-        return "[" + indexStr + "]";
+        return format( "[%s]", indexStr );
     }
 
     @Override
@@ -164,10 +166,10 @@ public class ArrayPropertyAccessor
         {
             Class<?> wrapClass = OgnlRuntime.getPrimitiveWrapperClass( type );
 
-            return "[" + indexStr + "]=((" + wrapClass.getName() + ")org.apache.commons.ognl.OgnlOps.convertValue($3,"
-                + wrapClass.getName() + ".class, true))." + OgnlRuntime.getNumericValueGetter( wrapClass );
+            return format( "[%s]=((%s)org.apache.commons.ognl.OgnlOps.convertValue($3,%s.class, true)).%s", indexStr,
+                           wrapClass.getName(), wrapClass.getName(), OgnlRuntime.getNumericValueGetter( wrapClass ) );
         }
-        return "[" + indexStr + "]=org.apache.commons.ognl.OgnlOps.convertValue($3," + type.getName() + ".class)";
+        return format( "[%s]=org.apache.commons.ognl.OgnlOps.convertValue($3,%s.class)", indexStr, type.getName() );
     }
 
     private static String getIndexString( OgnlContext context, Object index )
@@ -192,7 +194,7 @@ public class ArrayPropertyAccessor
             String toString =
                 String.class.isInstance( index ) && context.getCurrentType() != Object.class ? "" : ".toString()";
 
-            indexStr = "org.apache.commons.ognl.OgnlOps#getIntValue(" + indexStr + toString + ")";
+            indexStr = format( "org.apache.commons.ognl.OgnlOps#getIntValue(%s%s)", indexStr, toString );
         }
         return indexStr;
     }
