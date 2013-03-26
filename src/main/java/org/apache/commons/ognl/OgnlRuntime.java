@@ -130,10 +130,6 @@ public class OgnlRuntime
 
     private static SecurityManager securityManager = System.getSecurityManager();
 
-    private static final EvaluationPool evaluationPool = new EvaluationPool();
-
-    private static final ObjectArrayPool objectArrayPool = new ObjectArrayPool();
-
     /**
      * Expression compiler used by {@link Ognl#compileExpression(OgnlContext, Object, String)} calls.
      */
@@ -386,7 +382,7 @@ public class OgnlRuntime
         }
         else
         {
-            array = getObjectArrayPool().create( size );
+            array = new Object[size];
             for ( int i = 0; i < size; i++ )
             {
                 array[i] = list.get( i );
@@ -918,7 +914,7 @@ public class OgnlRuntime
         throws MethodFailedException
     {
         Throwable cause = null;
-        Object[] actualArgs = objectArrayPool.create( args.length );
+        Object[] actualArgs = new Object[args.length];
 
         try
         {
@@ -1008,10 +1004,6 @@ public class OgnlRuntime
         {
             cause = e.getTargetException();
         }
-        finally
-        {
-            objectArrayPool.recycle( actualArgs );
-        }
 
         throw new MethodFailedException( source, methodName, cause );
     }
@@ -1084,9 +1076,8 @@ public class OgnlRuntime
             }
             if ( ctor == null )
             {
-                actualArgs = objectArrayPool.create( args.length );
-                if ( ( ctor = getConvertedConstructorAndArgs( context, target, constructors, args, actualArgs ) )
-                    == null )
+                actualArgs = new Object[args.length];
+                if ( ( ctor = getConvertedConstructorAndArgs( context, target, constructors, args, actualArgs ) ) == null )
                 {
                     throw new NoSuchMethodException();
                 }
@@ -1116,13 +1107,6 @@ public class OgnlRuntime
         catch ( InstantiationException e )
         {
             cause = e;
-        }
-        finally
-        {
-            if ( actualArgs != args )
-            {
-                objectArrayPool.recycle( actualArgs );
-            }
         }
 
         throw new MethodFailedException( className, "new", cause );
@@ -1203,17 +1187,9 @@ public class OgnlRuntime
         {
             if ( method != null )
             {
-                Object[] args = objectArrayPool.create( value );
-
-                try
-                {
-                    callAppropriateMethod( context, target, target, method.getName(), propertyName,
-                                           Collections.nCopies( 1, method ), args );
-                }
-                finally
-                {
-                    objectArrayPool.recycle( args );
-                }
+                Object[] args = new Object[]{ value };
+                callAppropriateMethod( context, target, target, method.getName(), propertyName,
+                                       Collections.nCopies( 1, method ), args );
             }
             else
             {
@@ -1753,7 +1729,7 @@ public class OgnlRuntime
     public static Object getIndexedProperty( OgnlContext context, Object source, String name, Object index )
         throws OgnlException
     {
-        Object[] args = objectArrayPool.create( index );
+        Object[] args = new Object[] { index };
 
         try
         {
@@ -1787,16 +1763,12 @@ public class OgnlRuntime
         {
             throw new OgnlException( "getting indexed property descriptor for '" + name + "'", ex );
         }
-        finally
-        {
-            objectArrayPool.recycle( args );
-        }
     }
 
     public static void setIndexedProperty( OgnlContext context, Object source, String name, Object index, Object value )
         throws OgnlException
     {
-        Object[] args = objectArrayPool.create( index, value );
+        Object[] args = new Object[] { index, value };
 
         try
         {
@@ -1830,20 +1802,6 @@ public class OgnlRuntime
         {
             throw new OgnlException( "getting indexed property descriptor for '" + name + "'", ex );
         }
-        finally
-        {
-            objectArrayPool.recycle( args );
-        }
-    }
-
-    public static EvaluationPool getEvaluationPool()
-    {
-        return evaluationPool;
-    }
-
-    public static ObjectArrayPool getObjectArrayPool()
-    {
-        return objectArrayPool;
     }
 
     /**

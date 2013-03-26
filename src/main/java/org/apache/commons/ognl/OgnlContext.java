@@ -271,7 +271,6 @@ public class OgnlContext
      */
     public void recycleLastEvaluation()
     {
-        OgnlRuntime.getEvaluationPool().recycleAll( lastEvaluation );
         lastEvaluation = null;
     }
 

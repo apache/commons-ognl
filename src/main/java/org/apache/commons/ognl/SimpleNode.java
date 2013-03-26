@@ -235,9 +235,8 @@ public abstract class SimpleNode
         if ( context.getTraceEvaluations() )
         {
 
-            EvaluationPool pool = OgnlRuntime.getEvaluationPool();
             Throwable evalException = null;
-            Evaluation evaluation = pool.create( this, source );
+            Evaluation evaluation = new Evaluation( this, source );
 
             context.pushEvaluation( evaluation );
             try
@@ -263,11 +262,6 @@ public abstract class SimpleNode
                 {
                     eval.setException( evalException );
                 }
-                if ( ( evalException == null ) && ( context.getRootEvaluation() == null )
-                    && !context.getKeepLastEvaluation() )
-                {
-                    pool.recycleAll( eval );
-                }
             }
         }
         else
@@ -290,9 +284,8 @@ public abstract class SimpleNode
     {
         if ( context.getTraceEvaluations() )
         {
-            EvaluationPool pool = OgnlRuntime.getEvaluationPool();
             Throwable evalException = null;
-            Evaluation evaluation = pool.create( this, target, true );
+            Evaluation evaluation = new Evaluation( this, target, true );
 
             context.pushEvaluation( evaluation );
             try
@@ -317,11 +310,6 @@ public abstract class SimpleNode
                 if ( evalException != null )
                 {
                     eval.setException( evalException );
-                }
-                if ( ( evalException == null ) && ( context.getRootEvaluation() == null )
-                    && !context.getKeepLastEvaluation() )
-                {
-                    pool.recycleAll( eval );
                 }
             }
         }

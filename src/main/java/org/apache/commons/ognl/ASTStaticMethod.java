@@ -61,23 +61,15 @@ public class ASTStaticMethod
     protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
-        ObjectArrayPool objectArrayPool = OgnlRuntime.getObjectArrayPool();
-        Object[] args = objectArrayPool.create( jjtGetNumChildren() );
+        Object[] args = new Object[jjtGetNumChildren()];
         Object root = context.getRoot();
 
-        try
+        for ( int i = 0, icount = args.length; i < icount; ++i )
         {
-            for ( int i = 0, icount = args.length; i < icount; ++i )
-            {
-                args[i] = children[i].getValue( context, root );
-            }
+            args[i] = children[i].getValue( context, root );
+        }
 
-            return OgnlRuntime.callStaticMethod( context, className, methodName, args );
-        }
-        finally
-        {
-            objectArrayPool.recycle( args );
-        }
+        return OgnlRuntime.callStaticMethod( context, className, methodName, args );
     }
 
     public Class getGetterClass()

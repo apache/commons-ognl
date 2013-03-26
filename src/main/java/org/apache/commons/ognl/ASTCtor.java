@@ -79,75 +79,68 @@ public class ASTCtor
     {
         Object result, root = context.getRoot();
         int count = jjtGetNumChildren();
-        Object[] args = OgnlRuntime.getObjectArrayPool().create( count );
+        Object[] args = new Object[count];
 
-        try
+        for ( int i = 0; i < count; ++i )
         {
-            for ( int i = 0; i < count; ++i )
+            args[i] = children[i].getValue( context, root );
+        }
+        if ( isArray )
+        {
+            if ( args.length == 1 )
             {
-                args[i] = children[i].getValue( context, root );
-            }
-            if ( isArray )
-            {
-                if ( args.length == 1 )
+                try
                 {
-                    try
+                    Class componentClass = OgnlRuntime.classForName( context, className );
+                    List sourceList = null;
+                    int size;
+
+                    if ( args[0] instanceof List )
                     {
-                        Class componentClass = OgnlRuntime.classForName( context, className );
-                        List sourceList = null;
-                        int size;
+                        sourceList = (List) args[0];
+                        size = sourceList.size();
+                    }
+                    else
+                    {
+                        size = (int) OgnlOps.longValue( args[0] );
+                    }
+                    result = Array.newInstance( componentClass, size );
+                    if ( sourceList != null )
+                    {
+                        TypeConverter converter = context.getTypeConverter();
 
-                        if ( args[0] instanceof List )
+                        for ( int i = 0, icount = sourceList.size(); i < icount; i++ )
                         {
-                            sourceList = (List) args[0];
-                            size = sourceList.size();
-                        }
-                        else
-                        {
-                            size = (int) OgnlOps.longValue( args[0] );
-                        }
-                        result = Array.newInstance( componentClass, size );
-                        if ( sourceList != null )
-                        {
-                            TypeConverter converter = context.getTypeConverter();
+                            Object o = sourceList.get( i );
 
-                            for ( int i = 0, icount = sourceList.size(); i < icount; i++ )
+                            if ( ( o == null ) || componentClass.isInstance( o ) )
                             {
-                                Object o = sourceList.get( i );
-
-                                if ( ( o == null ) || componentClass.isInstance( o ) )
-                                {
-                                    Array.set( result, i, o );
-                                }
-                                else
-                                {
-                                    Array.set( result, i,
-                                               converter.convertValue( context, null, null, null, o, componentClass ) );
-                                }
+                                Array.set( result, i, o );
+                            }
+                            else
+                            {
+                                Array.set( result, i,
+                                           converter.convertValue( context, null, null, null, o, componentClass ) );
                             }
                         }
                     }
-                    catch ( ClassNotFoundException ex )
-                    {
-                        throw new OgnlException( "array component class '" + className + "' not found", ex );
-                    }
                 }
-                else
+                catch ( ClassNotFoundException ex )
                 {
-                    throw new OgnlException( "only expect array size or fixed initializer list" );
+                    throw new OgnlException( "array component class '" + className + "' not found", ex );
                 }
             }
             else
             {
-                result = OgnlRuntime.callConstructor( context, className, args );
+                throw new OgnlException( "only expect array size or fixed initializer list" );
             }
-
-            return result;
         }
-        finally
+        else
         {
-            OgnlRuntime.getObjectArrayPool().recycle( args );
+            result = OgnlRuntime.callConstructor( context, className, args );
         }
+
+        return result;
     }
 
 

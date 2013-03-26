@@ -220,7 +220,7 @@ public class TestOgnlRuntime
 
         GameGenericObject argument = new GameGenericObject();
 
-        Object[] args = OgnlRuntime.getObjectArrayPool().create( 2 );
+        Object[] args = new Object[2];
         args[0] = argument;
 
         assertEquals( "Halo 3", OgnlRuntime.callMethod( context, service, "getFullMessageFor", args ) );

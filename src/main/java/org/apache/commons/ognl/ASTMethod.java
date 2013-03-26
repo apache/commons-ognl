@@ -75,32 +75,24 @@ public class ASTMethod
     protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
     {
-        Object[] args = OgnlRuntime.getObjectArrayPool().create( jjtGetNumChildren() );
+        Object[] args = new Object[jjtGetNumChildren()];
 
-        try
+        Object result, root = context.getRoot();
+
+        for ( int i = 0; i < args.length; ++i )
         {
-            Object result, root = context.getRoot();
-
-            for ( int i = 0; i < args.length; ++i )
-            {
-                args[i] = children[i].getValue( context, root );
-            }
-
-            result = OgnlRuntime.callMethod( context, source, methodName, args );
-
-            if ( result == null )
-            {
-                NullHandler nullHandler = OgnlRuntime.getNullHandler( OgnlRuntime.getTargetClass( source ) );
-                result = nullHandler.nullMethodResult( context, source, methodName, args );
-            }
-
-            return result;
-
+            args[i] = children[i].getValue( context, root );
         }
-        finally
+
+        result = OgnlRuntime.callMethod( context, source, methodName, args );
+
+        if ( result == null )
         {
-            OgnlRuntime.getObjectArrayPool().recycle( args );
+            NullHandler nullHandler = OgnlRuntime.getNullHandler( OgnlRuntime.getTargetClass( source ) );
+            result = nullHandler.nullMethodResult( context, source, methodName, args );
         }
+
+        return result;
     }
 
     public String getLastExpression()
