@@ -34,13 +34,14 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-@RunWith(value = Parameterized.class)
+@RunWith( value = Parameterized.class )
 public class NumericConversionTest
     extends OgnlTestCase
 {
+
     private static Object[][] TESTS = {
-    /* To Integer.class */
-    { "55", Integer.class, new Integer( 55 ) }, { new Integer( 55 ), Integer.class, new Integer( 55 ) },
+        /* To Integer.class */
+        { "55", Integer.class, new Integer( 55 ) }, { new Integer( 55 ), Integer.class, new Integer( 55 ) },
         { new Double( 55 ), Integer.class, new Integer( 55 ) }, { Boolean.TRUE, Integer.class, new Integer( 1 ) },
         { new Byte( (byte) 55 ), Integer.class, new Integer( 55 ) },
         { new Character( (char) 55 ), Integer.class, new Integer( 55 ) },
@@ -151,7 +152,7 @@ public class NumericConversionTest
 
     private Object value;
 
-    private Class toClass;
+    private Class<? extends Number> toClass;
 
     private Object expectedValue;
 
@@ -182,7 +183,7 @@ public class NumericConversionTest
      * =================================================================== Constructors
      * ===================================================================
      */
-    public NumericConversionTest( Object value, Class toClass, Object expectedValue, int scale )
+    public NumericConversionTest( Object value, Class<? extends Number> toClass, Object expectedValue, int scale )
     {
         super( value + " [" + value.getClass().getName() + "] -> " + toClass.getName() + " == " + expectedValue + " ["
             + expectedValue.getClass().getName() + "]"
