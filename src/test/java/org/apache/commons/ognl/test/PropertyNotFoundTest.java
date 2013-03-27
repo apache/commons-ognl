@@ -75,12 +75,12 @@ public class PropertyNotFoundTest
     public static class BlahPropertyAccessor
         implements PropertyAccessor
     {
-        public void setProperty( Map context, Object target, Object name, Object value )
+        public void setProperty( Map<String, Object> context, Object target, Object name, Object value )
             throws OgnlException
         {
         }
 
-        public Object getProperty( Map context, Object target, Object name )
+        public Object getProperty( Map<String, Object> context, Object target, Object name )
             throws OgnlException
         {
             if ( "x".equals( name ) || "y".equals( name ) )
