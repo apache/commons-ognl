@@ -35,7 +35,7 @@ public class EnhancedClassLoader
      * =================================================================== Overridden methods
      * ===================================================================
      */
-    public Class defineClass( String enhancedClassName, byte[] byteCode )
+    public Class<?> defineClass( String enhancedClassName, byte[] byteCode )
     {
         return defineClass( enhancedClassName, byteCode, 0, byteCode.length );
     }

@@ -40,7 +40,7 @@ public class ContextClassLoader
      * =================================================================== Overridden methods
      * ===================================================================
      */
-    protected Class findClass( String name )
+    protected Class<?> findClass( String name )
         throws ClassNotFoundException
     {
         if ( ( context != null ) && ( context.getClassResolver() != null ) )
