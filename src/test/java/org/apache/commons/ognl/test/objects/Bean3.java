@@ -26,9 +26,9 @@ public class Bean3
 {
     private int value = 100;
 
-    private Map map;
+    private Map<String, String> map;
     {
-        map = new HashMap();
+        map = new HashMap<String, String>();
         map.put( "foo", "bar" );
         map.put( "bar", "baz" );
     }
@@ -57,7 +57,7 @@ public class Bean3
         _indexValue = value;
     }
 
-    public Map getMap()
+    public Map<String, String> getMap()
     {
         return map;
     }
