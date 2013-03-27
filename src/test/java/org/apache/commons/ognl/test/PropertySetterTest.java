@@ -33,7 +33,7 @@ public class PropertySetterTest
     extends TestCase
 {
 
-    private Map map;
+    private Map<String, String> map;
 
     private TestObject testObject = new TestObject( "propertyValue" );
 
@@ -73,7 +73,7 @@ public class PropertySetterTest
         }
     }
 
-    public Map getMap()
+    public Map<String, String> getMap()
     {
         return map;
     }
