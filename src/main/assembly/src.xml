@@ -26,17 +26,17 @@
   <baseDirectory>${project.build.finalName}-src</baseDirectory>
   <fileSets>
     <fileSet>
-      <includes>
-        <include>checkstyle.xml</include>
-        <include>LICENSE.txt</include>
-        <include>NOTICE.txt</include>
-        <include>pom.xml</include>
-        <include>RELEASE-NOTES.txt</include>
-        <include>findbugs-exclude-filter.xml</include>
-      </includes>
-    </fileSet>
-    <fileSet>
-      <directory>src</directory>
+      <directory>${basedir}</directory>
+      <excludes>
+        <exclude>**/.classpath</exclude>
+        <exclude>**/.project</exclude>
+        <exclude>**/.settings/</exclude>
+        <exclude>**/doap_*.rdf</exclude>
+        <exclude>**/bin/</exclude>
+        <exclude>**/.externalToolBuilders/</exclude>
+        <exclude>**/${project.build.directory}/</exclude>
+        <exclude>**/download*.cgi</exclude>
+      </excludes>
     </fileSet>
   </fileSets>
 </assembly>
