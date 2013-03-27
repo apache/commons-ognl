@@ -7,7 +7,7 @@
  (the "License"); you may not use this file except in compliance with
  the License.  You may obtain a copy of the License at
 
-      http://www.apache.org/licenses/LICENSE-2.0
+    http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,32 +16,32 @@
  limitations under the License.
 -->
 <assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.1"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.1 http://maven.apache.org/xsd/assembly-1.1.1.xsd">
-    <id>bin</id>
-    <formats>
-        <format>tar.gz</format>
-        <format>zip</format>
-    </formats>
-    <includeSiteDirectory>false</includeSiteDirectory>
-    <fileSets>
-        <fileSet>
-            <includes>
-                <include>LICENSE.txt</include>
-                <include>NOTICE.txt</include>
-                <include>RELEASE-NOTES.txt</include>
-            </includes>
-        </fileSet>
-        <fileSet>
-            <directory>target</directory>
-            <outputDirectory></outputDirectory>
-            <includes>
-                <include>*.jar</include>
-            </includes>
-        </fileSet>
-        <fileSet>
-            <directory>target/site/apidocs</directory>
-            <outputDirectory>apidocs</outputDirectory>
-        </fileSet>
-    </fileSets>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.1 http://maven.apache.org/xsd/assembly-1.1.1.xsd">
+  <id>bin</id>
+  <formats>
+    <format>tar.gz</format>
+    <format>zip</format>
+  </formats>
+  <includeSiteDirectory>false</includeSiteDirectory>
+  <fileSets>
+    <fileSet>
+      <includes>
+        <include>LICENSE.txt</include>
+        <include>NOTICE.txt</include>
+        <include>RELEASE-NOTES.txt</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <directory>target</directory>
+      <outputDirectory></outputDirectory>
+      <includes>
+        <include>*.jar</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <directory>target/site/apidocs</directory>
+      <outputDirectory>apidocs</outputDirectory>
+    </fileSet>
+  </fileSets>
 </assembly>
