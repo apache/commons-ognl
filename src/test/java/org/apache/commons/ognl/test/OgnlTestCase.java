@@ -19,16 +19,17 @@
  */
 package org.apache.commons.ognl.test;
 
-import junit.framework.Assert;
+import static org.junit.Assert.assertTrue;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.lang.reflect.Array;
+
 import org.apache.commons.ognl.Ognl;
 import org.apache.commons.ognl.OgnlContext;
 import org.apache.commons.ognl.SimpleNode;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.lang.reflect.Array;
 
 public abstract class OgnlTestCase
 {
@@ -149,7 +150,7 @@ public abstract class OgnlTestCase
     public static void assertEquals(Object expected, Object actual) {
         if (expected != null && expected.getClass().isArray() && actual != null && actual.getClass().isArray()) {
 
-            Assert.assertEquals(Array.getLength(expected), Array.getLength(actual));
+            assertEquals(Array.getLength(expected), Array.getLength(actual));
 
             int length = Array.getLength(expected);
 
@@ -158,17 +159,17 @@ public abstract class OgnlTestCase
                 Object aactual = Array.get(actual, i);
 
                 if (aexpected != null && aactual != null && Boolean.class.isAssignableFrom(aexpected.getClass())) {
-                    Assert.assertEquals(aexpected.toString(), aactual.toString());
+                    assertEquals(aexpected.toString(), aactual.toString());
                 } else
                     OgnlTestCase.assertEquals(aexpected, aactual);
             }
         } else if (expected != null && actual != null && Character.class.isInstance(expected)
                 && Character.class.isInstance(actual)) {
 
-            Assert.assertEquals(((Character) expected).charValue(), ((Character) actual).charValue());
+            assertEquals(((Character) expected).charValue(), ((Character) actual).charValue());
         } else {
 
-            Assert.assertEquals(expected, actual);
+            assertEquals(expected, actual);
         }
     }
 
@@ -203,7 +204,7 @@ public abstract class OgnlTestCase
             }
 
             if (testedResult instanceof Class) {
-                Assert.assertTrue(Exception.class.isAssignableFrom((Class<?>) testedResult));
+                assertTrue(Exception.class.isAssignableFrom((Class<?>) testedResult));
             } else {
             	throw ex;
             }
