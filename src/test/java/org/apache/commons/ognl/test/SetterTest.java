@@ -34,7 +34,7 @@ public class SetterTest
 {
     private static Root ROOT = new Root();
 
-    static Set _list = new HashSet();
+    static Set<String> _list = new HashSet<String>();
     static
     {
         _list.add( "Test1" );
@@ -54,7 +54,7 @@ public class SetterTest
         { ROOT, "settableList[|]", "bar", "oompa" },
         { ROOT, "settableList[|]", "oompa" },
         { ROOT, "map.newValue", new Integer( 101 ), new Integer( 555 ) },
-        { ROOT, "map", ROOT.getMap(), new HashMap(), NoSuchPropertyException.class },
+        { ROOT, "map", ROOT.getMap(), new HashMap<String, String>(), NoSuchPropertyException.class },
         { ROOT.getMap(), "newValue2 || put(\"newValue2\",987), newValue2", new Integer( 987 ), new Integer( 1002 ) },
         { ROOT, "map.(someMissingKey || newValue)", new Integer( 555 ), new Integer( 666 ) },
         { ROOT.getMap(), "newValue || someMissingKey", new Integer( 666 ), new Integer( 666 ) }, // no setting happens!
