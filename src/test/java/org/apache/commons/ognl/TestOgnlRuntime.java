@@ -75,7 +75,7 @@ public class TestOgnlRuntime
     public void test_Get_Private_Class()
         throws Exception
     {
-        List list = Arrays.asList( "hello", "world" );
+        List<String> list = Arrays.asList( "hello", "world" );
 
         Method m = OgnlRuntime.getReadMethod( list.getClass(), "iterator" );
         assertNotNull( m );
@@ -275,7 +275,7 @@ public class TestOgnlRuntime
         Method method = OgnlRuntime.getSetMethod( context, GenericCracker.class, "param" );
         assertNotNull( method );
 
-        Class[] types = method.getParameterTypes();
+        Class<?>[] types = method.getParameterTypes();
         assertEquals( 1, types.length );
         assertEquals( Integer.class, types[0] );
     }
@@ -301,7 +301,7 @@ public class TestOgnlRuntime
         Method method = OgnlRuntime.getSetMethod( context, GameGeneric.class, "ids" );
         assertNotNull( method );
 
-        Class[] types = OgnlRuntime.findParameterTypes( GameGeneric.class, method );
+        Class<?>[] types = OgnlRuntime.findParameterTypes( GameGeneric.class, method );
         assertEquals( 1, types.length );
         assertEquals( Long[].class, types[0] );
     }
@@ -315,7 +315,7 @@ public class TestOgnlRuntime
         Method method = OgnlRuntime.getSetMethod( context, BaseGeneric.class, "ids" );
         assertNotNull( method );
 
-        Class[] types = OgnlRuntime.findParameterTypes( BaseGeneric.class, method );
+        Class<?>[] types = OgnlRuntime.findParameterTypes( BaseGeneric.class, method );
         assertEquals( 1, types.length );
         assertEquals( Serializable[].class, types[0] );
     }
@@ -324,7 +324,7 @@ public class TestOgnlRuntime
     public void test_Get_Declared_Methods_With_Synthetic_Methods()
         throws Exception
     {
-        List result = OgnlRuntime.getDeclaredMethods( SubclassSyntheticObject.class, "list", false );
+        List<Method> result = OgnlRuntime.getDeclaredMethods( SubclassSyntheticObject.class, "list", false );
 
         // synthetic method would be
         // "public volatile java.util.List org.ognl.test.objects.SubclassSyntheticObject.getList()",
@@ -345,6 +345,7 @@ public class TestOgnlRuntime
 
     private static class GenericParent<T>
     {
+        @SuppressWarnings( "unused" )
         public void save( T entity )
         {
 
@@ -373,11 +374,11 @@ public class TestOgnlRuntime
         Method saveMethod = GenericParent.class.getMethod( "save", Object.class );
         System.out.println( saveMethod );
 
-        Class[] longClass = OgnlRuntime.findParameterTypes( LongChild.class, saveMethod );
+        Class<?>[] longClass = OgnlRuntime.findParameterTypes( LongChild.class, saveMethod );
         assertNotSame( longClass[0], String.class );
         assertSame( longClass[0], Long.class );
 
-        Class[] stringClass = OgnlRuntime.findParameterTypes( StringChild.class, saveMethod );
+        Class<?>[] stringClass = OgnlRuntime.findParameterTypes( StringChild.class, saveMethod );
         assertNotSame( "The cached parameter types from previous calls are used", stringClass[0], Long.class );
         assertSame( stringClass[0], String.class );
     }
