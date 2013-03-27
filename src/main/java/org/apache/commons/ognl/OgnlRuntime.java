@@ -171,15 +171,6 @@ public class OgnlRuntime
         cache.clear();
     }
 
-    /**
-     * @deprecated This always returns true now since OGNL requires Java 1.5.
-     * @return Always returns true.
-     */
-    public static boolean isJdk15()
-    {
-        return true;
-    }
-
     public static String getNumericValueGetter( Class<?> type )
     {
         return numericValues.get( type );
@@ -203,14 +194,6 @@ public class OgnlRuntime
     public static void setCompiler( OgnlExpressionCompiler compiler )
     {
         OgnlRuntime.compiler = compiler;
-    }
-
-    /**
-     * @deprecated use getCompiler(OgnlContext) instead
-     */
-    public static OgnlExpressionCompiler getCompiler()
-    {
-        return getCompiler( null );
     }
 
     public static OgnlExpressionCompiler getCompiler( OgnlContext ognlContext )
@@ -659,54 +642,6 @@ public class OgnlRuntime
 
         // They are the same! So the first is not more specific than the second.
         return false;
-    }
-
-    /**
-     * @deprecated This method is no longer used.
-     * @param modifiers
-     * @return
-     */
-    public static String getModifierString( int modifiers )
-    {
-        String modifierString;
-
-        if ( Modifier.isPublic( modifiers ) )
-        {
-            modifierString = "public";
-        }
-        else if ( Modifier.isProtected( modifiers ) )
-        {
-            modifierString = "protected";
-        }
-        else if ( Modifier.isPrivate( modifiers ) )
-        {
-            modifierString = "private";
-        }
-        else
-        {
-            modifierString = "";
-        }
-        if ( Modifier.isStatic( modifiers ) )
-        {
-            modifierString = "static " + modifierString;
-        }
-        if ( Modifier.isFinal( modifiers ) )
-        {
-            modifierString = "final " + modifierString;
-        }
-        if ( Modifier.isNative( modifiers ) )
-        {
-            modifierString = "native " + modifierString;
-        }
-        if ( Modifier.isSynchronized( modifiers ) )
-        {
-            modifierString = "synchronized " + modifierString;
-        }
-        if ( Modifier.isTransient( modifiers ) )
-        {
-            modifierString = "transient " + modifierString;
-        }
-        return modifierString;
     }
 
     public static Class<?> classForName( OgnlContext context, String className )
