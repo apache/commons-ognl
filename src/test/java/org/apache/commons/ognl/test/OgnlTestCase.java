@@ -63,23 +63,33 @@ public abstract class OgnlTestCase
      * Returns true if object1 is equal to object2 in either the sense that they are the same object or, if both are
      * non-null if they are equal in the <CODE>equals()</CODE> sense.
      */
-    public static boolean isEqual(Object object1, Object object2) {
+    public static boolean isEqual( Object object1, Object object2 )
+    {
         boolean result = false;
 
-        if (object1 == object2) {
+        if ( object1 == object2 )
+        {
             result = true;
-        } else {
-            if ((object1 != null) && object1.getClass().isArray()) {
-                if ((object2 != null) && object2.getClass().isArray() && (object2.getClass() == object1.getClass())) {
-                    result = (Array.getLength(object1) == Array.getLength(object2));
-                    if (result) {
-                        for (int i = 0, icount = Array.getLength(object1); result && (i < icount); i++) {
-                            result = isEqual(Array.get(object1, i), Array.get(object2, i));
+        }
+        else
+        {
+            if ( ( object1 != null ) && object1.getClass().isArray() )
+            {
+                if ( ( object2 != null ) && object2.getClass().isArray() && ( object2.getClass() == object1.getClass() ) )
+                {
+                    result = ( Array.getLength( object1 ) == Array.getLength( object2 ) );
+                    if ( result )
+                    {
+                        for ( int i = 0, icount = Array.getLength( object1 ); result && ( i < icount ); i++ )
+                        {
+                            result = isEqual( Array.get( object1, i ), Array.get( object2, i ) );
                         }
                     }
                 }
-            } else {
-                result = (object1 != null) && (object2 != null) && object1.equals(object2);
+            }
+            else
+            {
+                result = ( object1 != null ) && ( object2 != null ) && object1.equals( object2 );
             }
         }
         return result;
@@ -119,57 +129,72 @@ public abstract class OgnlTestCase
      * =================================================================== Public methods
      * ===================================================================
      */
-    public String getExpressionDump(SimpleNode node) {
+    public String getExpressionDump( SimpleNode node )
+    {
         StringWriter writer = new StringWriter();
 
-        node.dump(new PrintWriter(writer), "   ");
+        node.dump( new PrintWriter( writer ), "   " );
         return writer.toString();
     }
 
-    public String getExpressionString() {
+    public String getExpressionString()
+    {
         return _expressionString;
     }
 
     public SimpleNode getExpression()
-            throws Exception {
-        if (_expression == null) {
-            _expression = (SimpleNode) Ognl.parseExpression(_expressionString);
+        throws Exception
+    {
+        if ( _expression == null )
+        {
+            _expression = (SimpleNode) Ognl.parseExpression( _expressionString );
         }
 
-        if (_compileExpressions) {
-            _expression = (SimpleNode) Ognl.compileExpression(_context, _root, _expressionString);
+        if ( _compileExpressions )
+        {
+            _expression = (SimpleNode) Ognl.compileExpression( _context, _root, _expressionString );
         }
 
         return _expression;
     }
 
-    public Object getExpectedResult() {
+    public Object getExpectedResult()
+    {
         return _expectedResult;
     }
 
-    public static void assertEquals(Object expected, Object actual) {
-        if (expected != null && expected.getClass().isArray() && actual != null && actual.getClass().isArray()) {
+    public static void assertEquals( Object expected, Object actual )
+    {
+        if ( expected != null && expected.getClass().isArray() && actual != null && actual.getClass().isArray() )
+        {
 
-            assertEquals(Array.getLength(expected), Array.getLength(actual));
+            assertEquals( Array.getLength( expected ), Array.getLength( actual ) );
 
-            int length = Array.getLength(expected);
+            int length = Array.getLength( expected );
 
-            for (int i = 0; i < length; i++) {
-                Object aexpected = Array.get(expected, i);
-                Object aactual = Array.get(actual, i);
+            for ( int i = 0; i < length; i++ )
+            {
+                Object aexpected = Array.get( expected, i );
+                Object aactual = Array.get( actual, i );
 
-                if (aexpected != null && aactual != null && Boolean.class.isAssignableFrom(aexpected.getClass())) {
-                    assertEquals(aexpected.toString(), aactual.toString());
-                } else
-                    OgnlTestCase.assertEquals(aexpected, aactual);
+                if ( aexpected != null && aactual != null && Boolean.class.isAssignableFrom( aexpected.getClass() ) )
+                {
+                    assertEquals( aexpected.toString(), aactual.toString() );
+                }
+                else
+                    OgnlTestCase.assertEquals( aexpected, aactual );
             }
-        } else if (expected != null && actual != null && Character.class.isInstance(expected)
-                && Character.class.isInstance(actual)) {
+        }
+        else if ( expected != null && actual != null && Character.class.isInstance( expected )
+            && Character.class.isInstance( actual ) )
+        {
 
-            assertEquals(((Character) expected).charValue(), ((Character) actual).charValue());
-        } else {
+            assertEquals( ( (Character) expected ).charValue(), ( (Character) actual ).charValue() );
+        }
+        else
+        {
 
-            assertEquals(expected, actual);
+            assertEquals( expected, actual );
         }
     }
 
@@ -179,40 +204,51 @@ public abstract class OgnlTestCase
      */
     @Test
     public void runTest()
-            throws Exception {
+        throws Exception
+    {
         Object testedResult = null;
 
-        try {
+        try
+        {
             SimpleNode expr;
 
             testedResult = _expectedResult;
             expr = getExpression();
 
-            assertEquals(_expectedResult, Ognl.getValue(expr, _context, _root));
+            assertEquals( _expectedResult, Ognl.getValue( expr, _context, _root ) );
 
-            if (hasSetValue) {
+            if ( hasSetValue )
+            {
                 testedResult = hasExpectedAfterSetResult ? expectedAfterSetResult : setValue;
-                Ognl.setValue(expr, _context, _root, setValue);
+                Ognl.setValue( expr, _context, _root, setValue );
 
-                assertEquals(testedResult, Ognl.getValue(expr, _context, _root));
+                assertEquals( testedResult, Ognl.getValue( expr, _context, _root ) );
             }
 
-        } catch (Exception ex) {
-            if (RuntimeException.class.isInstance(ex) && ex.getCause() != null
-                    && Exception.class.isAssignableFrom( ex.getCause().getClass())) {
-            	ex = (Exception) ex.getCause( );
+        }
+        catch ( Exception ex )
+        {
+            if ( RuntimeException.class.isInstance( ex ) && ex.getCause() != null
+                && Exception.class.isAssignableFrom( ex.getCause().getClass() ) )
+            {
+                ex = (Exception) ex.getCause();
             }
 
-            if (testedResult instanceof Class) {
-                assertTrue(Exception.class.isAssignableFrom((Class<?>) testedResult));
-            } else {
-            	throw ex;
+            if ( testedResult instanceof Class )
+            {
+                assertTrue( Exception.class.isAssignableFrom( (Class<?>) testedResult ) );
+            }
+            else
+            {
+                throw ex;
             }
         }
     }
 
     @Before
-    public void setUp() {
-        _context = (OgnlContext) Ognl.createDefaultContext(null);
+    public void setUp()
+    {
+        _context = (OgnlContext) Ognl.createDefaultContext( null );
     }
+
 }
