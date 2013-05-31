@@ -16,7 +16,7 @@
  limitations under the License.
 -->
 <rdf:RDF xmlns="http://usefulinc.com/ns/doap#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:asfext="http://projects.apache.org/ns/asfext#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:doap="http://usefulinc.com/ns/doap#" xml:lang="en">
-  <Project rdf:about="http://commons.apache.org/fileupload/">
+  <Project rdf:about="http://commons.apache.org/ognl/">
     <name>Apache Commons OGNL</name>
     <homepage rdf:resource="http://commons.apache.org/proper/commons-ognl/"/>
     <programming-language>Java</programming-language>
