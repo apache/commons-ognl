@@ -437,12 +437,6 @@ limitations under the License.
 
       <dependencies>
         <dependency>
-          <groupId>ognl</groupId>
-          <artifactId>ognl</artifactId>
-          <version>3.0.2</version>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-api</artifactId>
           <version>1.6.1</version>
