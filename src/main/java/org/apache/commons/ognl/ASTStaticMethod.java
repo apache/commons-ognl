@@ -91,7 +91,7 @@ public class ASTStaticMethod
             Class clazz = OgnlRuntime.classForName( context, className );
             Method m = OgnlRuntime.getMethod( context, clazz, methodName, children, true );
 
-            if ( clazz == null || m == null )
+            if ( m == null )
             {
                 throw new UnsupportedCompilationException(
                     "Unable to find class/method combo " + className + " / " + methodName );

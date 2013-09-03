@@ -158,7 +158,7 @@ public class ASTCtor
             ctorValue = this.getValueBody( context, target );
             context.setCurrentObject( ctorValue );
 
-            if ( clazz != null && ctorValue != null )
+            if ( ctorValue != null )
             {
 
                 context.setCurrentType( ctorValue.getClass() );

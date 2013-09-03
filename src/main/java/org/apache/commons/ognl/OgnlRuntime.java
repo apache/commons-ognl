@@ -949,10 +949,6 @@ public class OgnlRuntime
         try
         {
             Class<?> targetClass = classForName( context, className );
-            if ( targetClass == null )
-            {
-                throw new ClassNotFoundException( "Unable to resolve class with name " + className );
-            }
 
             MethodAccessor methodAccessor = getMethodAccessor( targetClass );
 
@@ -1296,12 +1292,6 @@ public class OgnlRuntime
         try
         {
             Class<?> clazz = classForName( context, className );
-
-            if ( clazz == null )
-            {
-                throw new OgnlException(
-                    "Unable to find class " + className + " when resolving field name of " + fieldName );
-            }
 
             /*
              * Check for virtual static field "class"; this cannot interfere with normal static fields because it is a
