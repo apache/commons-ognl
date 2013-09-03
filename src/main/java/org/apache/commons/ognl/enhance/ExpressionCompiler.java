@@ -516,8 +516,6 @@ public class ExpressionCompiler
         }
         catch ( UnsupportedCompilationException uc )
         {
-            // uc.printStackTrace();
-
             nodeMember = new CtField( nodeClass, "_node", newClass );
             newClass.addField( nodeMember );
 
@@ -535,9 +533,6 @@ public class ExpressionCompiler
         }
         catch ( UnsupportedCompilationException uc )
         {
-
-            // uc.printStackTrace();
-
             if ( nodeMember == null )
             {
                 nodeMember = new CtField( nodeClass, "_node", newClass );
@@ -572,8 +567,6 @@ public class ExpressionCompiler
         }
         catch ( Throwable t )
         {
-            // t.printStackTrace();
-
             throw new RuntimeException( "Error compiling expression on object " + root + " with expression node "
                 + expression + " getter body: " + getBody + " setter body: " + setBody, t );
         }
