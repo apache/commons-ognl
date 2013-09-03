@@ -22,6 +22,7 @@ package org.apache.commons.ognl;
 import org.apache.commons.ognl.enhance.UnsupportedCompilationException;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -126,16 +127,8 @@ class ASTMap
             return defaultMapClass;
         }
 
-        /* Try to get LinkedHashMap; if older JDK than 1.4 use HashMap */
-        // TODO: support for JDK < 1.4?
-        try
-        {
-            defaultMapClass = OgnlRuntime.classForName( context, "java.util.LinkedHashMap" );
-        }
-        catch ( ClassNotFoundException ex )
-        {
-            defaultMapClass = HashMap.class;
-        }
+        defaultMapClass = LinkedHashMap.class;
+
         defaultMapClassMap.put( context, defaultMapClass );
         return defaultMapClass;
     }
