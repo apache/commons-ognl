@@ -127,6 +127,7 @@ class ASTMap
         }
 
         /* Try to get LinkedHashMap; if older JDK than 1.4 use HashMap */
+        // TODO: support for JDK < 1.4?
         try
         {
             defaultMapClass = OgnlRuntime.classForName( context, "java.util.LinkedHashMap" );
