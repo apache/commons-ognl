@@ -36,7 +36,7 @@ public interface ElementsAccessor
      * 
      * @param target the object to get the elements of
      * @return an iterator over the elements of the given object
-     * @exception OgnlException if there is an error getting the given object's elements
+     * @throws OgnlException if there is an error getting the given object's elements
      */
     Enumeration<?> getElements( Object target ) throws OgnlException;
 }
