@@ -177,6 +177,8 @@ limitations under the License.
     <commons.javadoc.version>2.9</commons.javadoc.version>
     <maven.compile.source>1.5</maven.compile.source>
     <maven.compile.target>1.5</maven.compile.target>
+    <commons.componentid>ognl</commons.componentid>
+    <commons.module.name>org.apache.commons.ognl</commons.module.name>
 
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
   </properties>
