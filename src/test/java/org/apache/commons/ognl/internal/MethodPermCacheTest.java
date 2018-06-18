@@ -34,26 +34,50 @@ import java.security.Permission;
  * Date: 10/17/11
  * Time: 12:13 AM
  */
-public class MethodPermCacheTest
-{
-    private SecurityManager securityManager =new DummySecurityManager();
+public class MethodPermCacheTest {
+    private SecurityManager allowAllSecurityManager = new AllowAllSecurityManager();
+    private SecurityManager denyAllSecurityManager = new DenyAllSecurityManager();
 
-    Cache<Method, Boolean> cache =
-        new ConcurrentHashMapCache<Method, Boolean>( new MethodPermCacheEntryFactory( securityManager ) );
+    private Cache<Method, Boolean> createCache(SecurityManager securityManager) {
+        return new ConcurrentHashMapCache<Method, Boolean>(new MethodPermCacheEntryFactory(securityManager) );
+    }
+
     @Test
-    public void testGetPublicMethod( )
+    public void testGetPublicMethod_returnsTrue( )
         throws CacheException, NoSuchMethodException
     {
+        Cache<Method, Boolean> cache = createCache(allowAllSecurityManager);
+
         Method method = Root.class.getMethod( "getArray");
         Assert.assertTrue( cache.get( method ) );
     }
 
-    private class DummySecurityManager
+    @Test
+    public void testGetPublicMethod_returnsFalse( )
+            throws CacheException, NoSuchMethodException
+    {
+        Cache<Method, Boolean> cache = createCache(denyAllSecurityManager);
+        Method method = Root.class.getMethod( "getArray");
+
+        Assert.assertFalse( cache.get( method ) );
+    }
+
+    private class AllowAllSecurityManager
         extends SecurityManager
     {
         @Override
         public void checkPermission( Permission perm )
         {
+        }
+    }
+
+    private class DenyAllSecurityManager
+            extends SecurityManager
+    {
+        @Override
+        public void checkPermission( Permission perm )
+        {
+            throw new SecurityException("Denied.");
         }
     }
 }
