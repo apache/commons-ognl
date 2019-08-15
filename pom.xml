@@ -153,9 +153,9 @@ limitations under the License.
   </contributors>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/commons/proper/ognl/trunk/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/proper/ognl/trunk/</developerConnection>
-    <url>http://svn.apache.org/viewvc/commons/proper/ognl/trunk/</url>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-ognl</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-ognl</developerConnection>
+    <url>https://gitbox.apache.org/repos/asf/commons-ognl</url>
   </scm>
   <issueManagement>
     <system>jira</system>
