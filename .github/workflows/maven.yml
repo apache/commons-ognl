@@ -32,4 +32,4 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
     - name: Build with Maven
-      run: ./mvnw -V clean test package
+      run: mvn -V clean test package
