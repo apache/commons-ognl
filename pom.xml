@@ -426,6 +426,9 @@ limitations under the License.
                 <include>pom.xml</include>
                 <include>src/**</include>
               </includes>
+              <excludes>
+                <exclude>README.md</exclude>
+              </excludes>
             </configuration>
           </plugin>
           <plugin>
