@@ -219,6 +219,8 @@ limitations under the License.
   </dependencies>
 
   <build>
+    <!-- TODO SpotBugs, Checkstyle -->
+    <defaultGoal>clean package javadoc:javadoc</defaultGoal>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

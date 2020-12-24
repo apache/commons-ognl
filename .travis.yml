@@ -14,7 +14,6 @@
 # limitations under the License.
 
 language: java
-sudo: false
 
 cache:
   directories:
@@ -23,6 +22,12 @@ cache:
 jdk:
   - openjdk8
   - openjdk11
+  - openjdk15
+  - openjdk-ea
+
+matrix:
+  allow_failures:
+    - jdk: openjdk-ea
 
 script:
-  - mvn -V -B clean test
+  - mvn -V --no-transfer-progress
