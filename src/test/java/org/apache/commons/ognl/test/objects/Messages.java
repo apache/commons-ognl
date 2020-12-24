@@ -39,7 +39,7 @@ public class Messages
         return (String) _source.get( key );
     }
 
-    public String format( String key, Object[] parms )
+    public String format( String key, Object[] params )
     {
         return "foo";
     }

@@ -38,15 +38,18 @@ public class MethodTest
 
     private static BaseGeneric<GameGenericObject, Long> GENERIC = new GameGeneric();
 
-    private static Object[][] TESTS = { { "hashCode()", new Integer( ROOT.hashCode() ) },
+    private static Object[][] TESTS = {
+        { "hashCode()", new Integer( ROOT.hashCode() ) },
         { "getBooleanValue() ? \"here\" : \"\"", "" }, { "getValueIsTrue(!false) ? \"\" : \"here\" ", "" },
-        { "messages.format('ShowAllCount', one)", "foo" },
+        { "messages.format('ShowAllCount', new Object[]{one,two})", "foo" },
+        { "messages.format('ShowAllCount', one)", "first" },
         { "getTestValue(@org.apache.commons.ognl.test.objects.SimpleEnum@ONE.value)", new Integer( 2 ) },
         { "@org.apache.commons.ognl.test.MethodTest@getA().isProperty()", Boolean.FALSE },
         { "isDisabled()", Boolean.TRUE }, { "isEditorDisabled()", Boolean.FALSE },
         { LIST, "addValue(name)", Boolean.TRUE }, { "getDisplayValue(methodsTest.allowDisplay)", "test" },
         { "isThisVarArgsWorking(three, rootValue)", Boolean.TRUE },
-        { GENERIC, "service.getFullMessageFor(value, null)", "Halo 3" } };
+        { GENERIC, "service.getFullMessageFor(value, null)", "Halo 3" }
+    };
 
     public static class A
     {

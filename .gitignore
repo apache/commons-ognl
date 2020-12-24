@@ -1,5 +1,5 @@
 .java-version
-target
-.idea
+target/
+.idea/
 *.iml
-  
+.mvn/
