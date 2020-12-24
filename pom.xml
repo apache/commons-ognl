@@ -172,14 +172,18 @@ limitations under the License.
   </distributionManagement>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <commons.javadoc.version>2.9</commons.javadoc.version>
-    <maven.compile.source>1.8</maven.compile.source>
-    <maven.compile.target>1.8</maven.compile.target>
+    <commons.encoding>UTF-8</commons.encoding>
     <commons.componentid>ognl</commons.componentid>
+    <commons.javadoc.version>3.0.1</commons.javadoc.version>
     <commons.module.name>org.apache.commons.ognl</commons.module.name>
+    <commons.scmPubCheckoutDirectory>target/site-content</commons.scmPubCheckoutDirectory>
+
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+
     <animal-sniffer.signature>java15</animal-sniffer.signature>
-    <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
+
+    <commons.releaseManagerKey>63AFBB1F</commons.releaseManagerKey>
   </properties>
 
   <dependencies>
@@ -221,8 +225,8 @@ limitations under the License.
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.7.0</version>
         <configuration>
-          <source>${maven.compile.source}</source>
-          <target>${maven.compile.target}</target>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
         </configuration>
         <executions>
           <execution>
@@ -232,8 +236,8 @@ limitations under the License.
               <goal>testCompile</goal>
             </goals>
             <configuration>
-              <source>${maven.compile.source}</source>
-              <target>${maven.compile.target}</target>
+              <source>${maven.compiler.source}</source>
+              <target>${maven.compiler.target}</target>
             </configuration>
           </execution>
         </executions>
@@ -294,6 +298,38 @@ limitations under the License.
             <goal>javacc</goal>
           </goals>
         </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-release-plugin</artifactId>
+        <version>1.7</version>
+        <configuration>
+          <distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/ognl</distSvnStagingUrl>
+          <isDistModule>true</isDistModule>
+        </configuration>
+        <executions>
+          <execution>
+            <id>clean-staging</id>
+            <phase>post-clean</phase>
+            <goals>
+              <goal>clean-staging</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>detach-distributions</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>detach-distributions</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>stage-distributions</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>stage-distributions</goal>
+            </goals>
+          </execution>
         </executions>
       </plugin>
     </plugins>
@@ -513,6 +549,7 @@ limitations under the License.
         </plugins>
       </build>
     </profile>
+
     <profile>
       <id>setup-checkout</id>
       <activation>
@@ -560,6 +597,27 @@ limitations under the License.
             </executions>
           </plugin>
         </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>jdk8</id>
+      <activation>
+        <jdk>[1.8,)</jdk>
+      </activation>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-javadoc-plugin</artifactId>
+              <configuration>
+                <doclint>none</doclint>
+                <failOnError>false</failOnError>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
       </build>
     </profile>
   </profiles>
