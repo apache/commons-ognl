@@ -21,7 +21,6 @@ cache:
     - $HOME/.m2
 
 jdk:
-  - openjdk7
   - openjdk8
   - openjdk11
 
