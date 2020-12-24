@@ -225,7 +225,6 @@ limitations under the License.
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.7.0</version>
         <configuration>
           <source>${maven.compiler.source}</source>
           <target>${maven.compiler.target}</target>
@@ -266,7 +265,6 @@ limitations under the License.
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-clean-plugin</artifactId>
-        <version>3.1.0</version>
       </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
@@ -305,7 +303,6 @@ limitations under the License.
       <plugin>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-release-plugin</artifactId>
-        <version>1.7</version>
         <configuration>
           <distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/ognl</distSvnStagingUrl>
           <isDistModule>true</isDistModule>
