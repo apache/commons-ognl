@@ -23,7 +23,7 @@
   </properties>
   <body>
     <release version="4.0-incubating" date="TBD" description="First ASF release under Incubation.">
-      <action issue="OGNL-39" type="update" dev="nhojpatrick">
+      <action issue="" type="update" dev="nhojpatrick">
         Upgrade to JUnit v4.13.1
       </action>
       <action issue="OGNL-39" type="update" dev="mcucchiara">
