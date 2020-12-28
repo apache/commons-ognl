@@ -494,7 +494,7 @@ limitations under the License.
           <groupId>com.carrotsearch</groupId>
           <artifactId>junit-benchmarks</artifactId>
           <classifier>jdk15</classifier>
-          <version>0.3.0</version>
+          <version>0.7.2</version>
           <scope>test</scope>
         </dependency>
       </dependencies>
