@@ -23,6 +23,9 @@
   </properties>
   <body>
     <release version="4.0-incubating" date="TBD" description="First ASF release under Incubation.">
+      <action issue="" type="update" dev="nhojpatrick">
+        Upgrade to JUnit v4.13.1
+      </action>
       <action issue="OGNL-39" type="update" dev="mcucchiara">
         Simplify OgnlRuntime: Greatly simplified OgnlRuntime, delegating away responsibilities to several new classes.
         Caching responsibilities are now taken by a new OgnlCache class.

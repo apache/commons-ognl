@@ -16,5 +16,6 @@
 -->
 # Apache Commons OGNL
 
-[![Build Status](https://travis-ci.com/apache/commons-ognl.svg?branch=master)](https://travis-ci.com/apache/commons-ognl)
+[![Java CI Status](https://github.com/apache/commons-ognl/workflows/Java%20CI/badge.svg)](https://github.com/apache/commons-ognl/actions?query=workflow%3A%22Java+CI%22)
+[![Travis Status](https://travis-ci.com/apache/commons-ognl.svg?branch=master)](https://travis-ci.com/apache/commons-ognl)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-ognl/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-ognl)
