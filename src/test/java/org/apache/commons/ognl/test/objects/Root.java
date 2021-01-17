@@ -37,21 +37,21 @@ public class Root
 
     private int[] array = { 1, 2, 3, 4 };
 
-    private Map map = new HashMap( 23 );
+    private final Map map = new HashMap( 23 );
 
-    private MyMap myMap = new MyMapImpl();
+    private final MyMap myMap = new MyMapImpl();
 
-    private List list = Arrays.asList( new Object[] { null, this, array } );
+    private final List list = Arrays.asList( new Object[] { null, this, array } );
 
-    private List settableList = new ArrayList( Arrays.asList( new Object[] { "foo", "bar", "baz" } ) );
+    private final List settableList = new ArrayList( Arrays.asList( new Object[] { "foo", "bar", "baz" } ) );
 
-    private int index = 1;
+    private final int index = 1;
 
     private int intValue = 0;
 
     private String stringValue;
 
-    private int yetAnotherIntValue = 46;
+    private final int yetAnotherIntValue = 46;
 
     private boolean privateAccessorBooleanValue = true;
 
@@ -71,31 +71,31 @@ public class Root
 
     private Locale _selected = Locale.getDefault();
 
-    private List<List<Boolean>> _booleanValues = new ArrayList<List<Boolean>>();
+    private final List<List<Boolean>> _booleanValues = new ArrayList<List<Boolean>>();
 
-    private boolean[] _booleanArray = { true, false, true, true };
+    private final boolean[] _booleanArray = { true, false, true, true };
 
     private List _list;
 
-    private int verbosity = 87;
+    private final int verbosity = 87;
 
-    private BeanProvider _beanProvider = new BeanProviderImpl();
+    private final BeanProvider _beanProvider = new BeanProviderImpl();
 
     private boolean _render;
 
     private Boolean _readOnly = Boolean.FALSE;
 
-    private Integer _objIndex = new Integer( 1 );
+    private final Integer _objIndex = new Integer( 1 );
 
-    private Object _genericObjIndex = new Integer( 2 );
+    private final Object _genericObjIndex = new Integer( 2 );
 
-    private Date _date = new Date();
+    private final Date _date = new Date();
 
     private boolean _openWindow = false;
 
-    private ITreeContentProvider _contentProvider = new TreeContentProvider();
+    private final ITreeContentProvider _contentProvider = new TreeContentProvider();
 
-    private Indexed _indexed = new Indexed();
+    private final Indexed _indexed = new Indexed();
 
     private SearchTab _tab = new SearchTab();
 

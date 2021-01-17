@@ -21,7 +21,7 @@ package org.apache.commons.ognl.test.objects;
 
 public class Bean2
 {
-    private Bean3 bean3 = new Bean3();
+    private final Bean3 bean3 = new Bean3();
 
     private boolean _pageBreakAfter = false;
 

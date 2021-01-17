@@ -35,9 +35,9 @@ public class ArrayCreationTest
     extends OgnlTestCase
 {
 
-    private static Root ROOT = new Root();
+    private static final Root ROOT = new Root();
 
-    private static Object[][] TESTS =
+    private static final Object[][] TESTS =
         {
             // Array creation
             { ROOT, "new String[] { \"one\", \"two\" }", new String[] { "one", "two" } },

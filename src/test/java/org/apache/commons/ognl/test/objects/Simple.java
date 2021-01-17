@@ -41,7 +41,7 @@ public class Simple
 
     private BigDecimal bigDecValue = new BigDecimal( 0.0 );
 
-    private Root root = new Root();
+    private final Root root = new Root();
 
     private Bean3 _bean;
 

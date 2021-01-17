@@ -29,7 +29,7 @@ public class MyMapImpl
     extends Object
     implements MyMap
 {
-    private Map map = new HashMap();
+    private final Map map = new HashMap();
 
     public void clear()
     {

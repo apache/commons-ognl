@@ -29,7 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ConcurrentHashMapCache<K, V>
     implements Cache<K, V>
 {
-    private ConcurrentHashMap<K, V> cache = new ConcurrentHashMap<K, V>();
+    private final ConcurrentHashMap<K, V> cache = new ConcurrentHashMap<K, V>();
 
     private CacheEntryFactory<K, V> cacheEntryFactory;
 

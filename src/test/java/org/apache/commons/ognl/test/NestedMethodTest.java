@@ -33,9 +33,9 @@ public class NestedMethodTest
     extends OgnlTestCase
 {
 
-    private static Component COMPONENT = new Component();
+    private static final Component COMPONENT = new Component();
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         // Expression in a method call argument
         { COMPONENT, "toDisplay.pictureUrl", COMPONENT.getToDisplay().getPictureUrl() },
         { COMPONENT, "page.createRelativeAsset(toDisplay.pictureUrl)",

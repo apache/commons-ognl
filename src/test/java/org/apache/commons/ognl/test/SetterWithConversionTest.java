@@ -31,9 +31,9 @@ import java.util.Collection;
 public class SetterWithConversionTest
     extends OgnlTestCase
 {
-    private static Root ROOT = new Root();
+    private static final Root ROOT = new Root();
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         // Property set with conversion
         { ROOT, "intValue", new Integer( 0 ), new Double( 6.5 ), new Integer( 6 ) },
         { ROOT, "intValue", new Integer( 6 ), new Double( 1025.87645 ), new Integer( 1025 ) },

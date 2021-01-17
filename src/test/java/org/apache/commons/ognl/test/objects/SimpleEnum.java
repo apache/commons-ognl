@@ -27,7 +27,7 @@ public enum SimpleEnum
 
     ONE( 1 );
 
-    private int _value;
+    private final int _value;
 
     private SimpleEnum( int value )
     {

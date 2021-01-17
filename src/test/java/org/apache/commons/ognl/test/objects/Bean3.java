@@ -26,7 +26,7 @@ public class Bean3
 {
     private int value = 100;
 
-    private Map<String, String> map;
+    private final Map<String, String> map;
     {
         map = new HashMap<String, String>();
         map.put( "foo", "bar" );

@@ -42,7 +42,7 @@ public class DynamicSubscript
 
     public static final DynamicSubscript all = new DynamicSubscript( ALL );
 
-    private int flag;
+    private final int flag;
 
     private DynamicSubscript( int flag )
     {

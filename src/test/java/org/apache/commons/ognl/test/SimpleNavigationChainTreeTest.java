@@ -35,7 +35,7 @@ public class SimpleNavigationChainTreeTest
     extends OgnlTestCase
 {
 
-    private static Object[][] TESTS = { { "name", Boolean.TRUE }, { "name[i]", Boolean.FALSE },
+    private static final Object[][] TESTS = { { "name", Boolean.TRUE }, { "name[i]", Boolean.FALSE },
         { "name + foo", Boolean.FALSE }, { "name.foo", Boolean.TRUE } };
 
     /*

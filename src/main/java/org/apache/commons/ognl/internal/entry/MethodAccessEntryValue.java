@@ -25,7 +25,7 @@ package org.apache.commons.ognl.internal.entry;
 
 public class MethodAccessEntryValue
 {
-    private boolean isAccessible;
+    private final boolean isAccessible;
 
     private boolean notPublic;
 

@@ -33,7 +33,7 @@ import org.junit.Before;
 public class PrivateMemberTest
     extends TestCase
 {
-    private String _privateProperty = "private value";
+    private final String _privateProperty = "private value";
 
     protected OgnlContext context;
 

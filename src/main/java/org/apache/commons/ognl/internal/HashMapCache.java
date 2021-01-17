@@ -33,7 +33,7 @@ public class HashMapCache<K, V>
 {
     private final Map<K, V> cache = new HashMap<K, V>( 512 );
 
-    private CacheEntryFactory<K, V> cacheEntryFactory;
+    private final CacheEntryFactory<K, V> cacheEntryFactory;
 
     public HashMapCache( CacheEntryFactory<K, V> cacheEntryFactory )
     {

@@ -35,23 +35,23 @@ public abstract class OgnlTestCase
 
     protected OgnlContext _context;
 
-    private String _expressionString;
+    private final String _expressionString;
 
     private SimpleNode _expression;
 
-    private Object _expectedResult;
+    private final Object _expectedResult;
 
-    private Object _root;
+    private final Object _root;
 
     protected boolean _compileExpressions = true;
 
-    private boolean hasSetValue;
+    private final boolean hasSetValue;
 
-    private Object setValue;
+    private final Object setValue;
 
-    private boolean hasExpectedAfterSetResult;
+    private final boolean hasExpectedAfterSetResult;
 
-    private Object expectedAfterSetResult;
+    private final Object expectedAfterSetResult;
 
     /*
      * =================================================================== Public static methods

@@ -38,9 +38,9 @@ public class MemberAccessTest
     extends OgnlTestCase
 {
 
-    private static Simple ROOT = new Simple();
+    private static final Simple ROOT = new Simple();
 
-    private static Object[][] TESTS = { { "@Runtime@getRuntime()", OgnlException.class },
+    private static final Object[][] TESTS = { { "@Runtime@getRuntime()", OgnlException.class },
         { "@System@getProperty('java.specification.version')", System.getProperty( "java.specification.version" ) },
         { "bigIntValue", OgnlException.class },
         { "bigIntValue", OgnlException.class, 25, OgnlException.class },

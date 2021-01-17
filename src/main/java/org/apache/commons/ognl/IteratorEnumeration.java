@@ -34,7 +34,7 @@ public class IteratorEnumeration<T>
         return new IteratorEnumeration<E>( iterator );
     }
 
-    private Iterator<T> it;
+    private final Iterator<T> it;
 
     private IteratorEnumeration( Iterator<T> it )
     {

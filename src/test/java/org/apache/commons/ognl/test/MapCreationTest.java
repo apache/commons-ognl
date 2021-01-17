@@ -31,43 +31,43 @@ public class MapCreationTest
     extends OgnlTestCase
 {
 
-    private static Root ROOT = new Root();
+    private static final Root ROOT = new Root();
 
-    private static Map fooBarMap1;
+    private static final Map FOO_BAR_MAP_1;
 
-    private static Map fooBarMap2;
+    private static final Map FOO_BAR_MAP_2;
 
-    private static Map fooBarMap3;
+    private static final Map FOO_BAR_MAP_3;
 
-    private static Map fooBarMap4;
+    private static final Map FOO_BAR_MAP_4;
 
-    private static Map fooBarMap5;
+    private static final Map FOO_BAR_MAP_5;
 
     static
     {
-        fooBarMap1 = new HashMap();
-        fooBarMap1.put( "foo", "bar" );
-        fooBarMap2 = new HashMap();
-        fooBarMap2.put( "foo", "bar" );
-        fooBarMap2.put( "bar", "baz" );
-        fooBarMap3 = new HashMap();
-        fooBarMap3.put( "foo", null );
-        fooBarMap3.put( "bar", "baz" );
-        fooBarMap4 = new LinkedHashMap();
-        fooBarMap4.put( "foo", "bar" );
-        fooBarMap4.put( "bar", "baz" );
-        fooBarMap5 = new TreeMap();
-        fooBarMap5.put( "foo", "bar" );
-        fooBarMap5.put( "bar", "baz" );
+        FOO_BAR_MAP_1 = new HashMap();
+        FOO_BAR_MAP_1.put( "foo", "bar" );
+        FOO_BAR_MAP_2 = new HashMap();
+        FOO_BAR_MAP_2.put( "foo", "bar" );
+        FOO_BAR_MAP_2.put( "bar", "baz" );
+        FOO_BAR_MAP_3 = new HashMap();
+        FOO_BAR_MAP_3.put( "foo", null );
+        FOO_BAR_MAP_3.put( "bar", "baz" );
+        FOO_BAR_MAP_4 = new LinkedHashMap();
+        FOO_BAR_MAP_4.put( "foo", "bar" );
+        FOO_BAR_MAP_4.put( "bar", "baz" );
+        FOO_BAR_MAP_5 = new TreeMap();
+        FOO_BAR_MAP_5.put( "foo", "bar" );
+        FOO_BAR_MAP_5.put( "bar", "baz" );
     }
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         // Map creation
-        { ROOT, "#{ \"foo\" : \"bar\" }", fooBarMap1 },
-        { ROOT, "#{ \"foo\" : \"bar\", \"bar\" : \"baz\"  }", fooBarMap2 },
-        { ROOT, "#{ \"foo\", \"bar\" : \"baz\"  }", fooBarMap3 },
-        { ROOT, "#@java.util.LinkedHashMap@{ \"foo\" : \"bar\", \"bar\" : \"baz\"  }", fooBarMap4 },
-        { ROOT, "#@java.util.TreeMap@{ \"foo\" : \"bar\", \"bar\" : \"baz\"  }", fooBarMap5 },
+        { ROOT, "#{ \"foo\" : \"bar\" }", FOO_BAR_MAP_1 },
+        { ROOT, "#{ \"foo\" : \"bar\", \"bar\" : \"baz\"  }", FOO_BAR_MAP_2 },
+        { ROOT, "#{ \"foo\", \"bar\" : \"baz\"  }", FOO_BAR_MAP_3 },
+        { ROOT, "#@java.util.LinkedHashMap@{ \"foo\" : \"bar\", \"bar\" : \"baz\"  }", FOO_BAR_MAP_4 },
+        { ROOT, "#@java.util.TreeMap@{ \"foo\" : \"bar\", \"bar\" : \"baz\"  }", FOO_BAR_MAP_5 },
 
     };
 

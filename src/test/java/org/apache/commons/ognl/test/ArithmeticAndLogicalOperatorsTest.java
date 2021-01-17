@@ -33,7 +33,7 @@ public class ArithmeticAndLogicalOperatorsTest
     extends OgnlTestCase
 {
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         // Double-valued arithmetic expressions
         { "-1d", new Double( -1 ) },
         { "+1d", new Double( 1 ) },

@@ -33,7 +33,7 @@ class ASTMap
 {
     private String className;
 
-    private Map<OgnlContext, Class> defaultMapClassMap = new HashMap<OgnlContext, Class>();
+    private final Map<OgnlContext, Class> defaultMapClassMap = new HashMap<OgnlContext, Class>();
 
     public ASTMap( int id )
     {

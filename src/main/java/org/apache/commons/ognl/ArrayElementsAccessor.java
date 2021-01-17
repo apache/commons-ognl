@@ -35,7 +35,7 @@ public class ArrayElementsAccessor
     {
         return new Enumeration<Object>()
         {
-            private int count = Array.getLength( target );
+            private final int count = Array.getLength( target );
 
             private int index = 0;
 

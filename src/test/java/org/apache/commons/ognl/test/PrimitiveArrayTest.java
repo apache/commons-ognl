@@ -31,9 +31,9 @@ import java.util.Collection;
 public class PrimitiveArrayTest
     extends OgnlTestCase
 {
-    private static Root ROOT = new Root();
+    private static final Root ROOT = new Root();
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         // Primitive array creation
         { ROOT, "new boolean[5]", new boolean[5] },
         { ROOT, "new boolean[] { true, false }", new boolean[] { true, false } },

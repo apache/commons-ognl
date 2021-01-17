@@ -32,7 +32,7 @@ public class PrimitiveNullHandlingTest
     extends OgnlTestCase
 {
 
-    private static Simple SIMPLE = new Simple();
+    private static final Simple SIMPLE = new Simple();
 
     static
     {
@@ -40,7 +40,7 @@ public class PrimitiveNullHandlingTest
         SIMPLE.setIntValue( 34 );
     }
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         // Primitive null handling
         { SIMPLE, "floatValue", new Float( 10.56f ), null, new Float( 0f ) }, // set float to
         // null, should

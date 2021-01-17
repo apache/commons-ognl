@@ -34,7 +34,7 @@ import org.junit.runners.Parameterized.Parameters;
 public class SimplePropertyTreeTest
     extends OgnlTestCase
 {
-    private static Object[][] TESTS = { { "name", Boolean.TRUE }, { "foo", Boolean.TRUE },
+    private static final Object[][] TESTS = { { "name", Boolean.TRUE }, { "foo", Boolean.TRUE },
         { "name[i]", Boolean.FALSE }, { "name + foo", Boolean.FALSE }, { "name.foo", Boolean.FALSE },
         { "name.foo.bar", Boolean.FALSE }, { "name.{? foo }", Boolean.FALSE }, { "name.( foo )", Boolean.FALSE } };
 

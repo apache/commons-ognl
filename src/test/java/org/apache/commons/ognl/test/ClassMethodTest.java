@@ -34,9 +34,9 @@ public class ClassMethodTest
     extends OgnlTestCase
 {
 
-    private static CorrectedObject CORRECTED = new CorrectedObject();
+    private static final CorrectedObject CORRECTED = new CorrectedObject();
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         // Methods on Class
         { CORRECTED, "getClass().getName()", CORRECTED.getClass().getName() },
         { CORRECTED, "getClass().getInterfaces()", CORRECTED.getClass().getInterfaces() },

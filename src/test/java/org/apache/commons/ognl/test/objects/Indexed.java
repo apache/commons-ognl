@@ -26,11 +26,11 @@ public class Indexed
 {
     private String[] _values = new String[] { "foo", "bar", "baz" };
 
-    private List _list = new ArrayList();
+    private final List _list = new ArrayList();
 
-    private ListSource _source = new ListSourceImpl();
+    private final ListSource _source = new ListSourceImpl();
 
-    private Map _props = new HashMap();
+    private final Map _props = new HashMap();
 
     public Indexed()
     {

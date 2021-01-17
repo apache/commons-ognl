@@ -125,9 +125,9 @@ public class OgnlContext
         }
     }
 
-    private Stack<Class<?>> typeStack = new Stack<Class<?>>();
+    private final Stack<Class<?>> typeStack = new Stack<Class<?>>();
 
-    private Stack<Class<?>> accessorStack = new Stack<Class<?>>();
+    private final Stack<Class<?>> accessorStack = new Stack<Class<?>>();
 
     private int localReferenceCounter = 0;
 

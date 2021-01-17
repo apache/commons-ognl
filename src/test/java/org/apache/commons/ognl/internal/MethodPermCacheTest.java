@@ -35,8 +35,8 @@ import java.security.Permission;
  * Time: 12:13 AM
  */
 public class MethodPermCacheTest {
-    private SecurityManager allowAllSecurityManager = new AllowAllSecurityManager();
-    private SecurityManager denyAllSecurityManager = new DenyAllSecurityManager();
+    private final SecurityManager allowAllSecurityManager = new AllowAllSecurityManager();
+    private final SecurityManager denyAllSecurityManager = new DenyAllSecurityManager();
 
     private Cache<Method, Boolean> createCache(SecurityManager securityManager) {
         return new ConcurrentHashMapCache<Method, Boolean>(new MethodPermCacheEntryFactory(securityManager) );

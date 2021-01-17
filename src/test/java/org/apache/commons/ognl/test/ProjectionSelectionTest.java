@@ -33,9 +33,9 @@ import java.util.Collection;
 public class ProjectionSelectionTest
     extends OgnlTestCase
 {
-    private static Root ROOT = new Root();
+    private static final Root ROOT = new Root();
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         // Projection, selection
         { ROOT, "array.{class}",
             Arrays.asList( new Class[] { Integer.class, Integer.class, Integer.class, Integer.class } ) },

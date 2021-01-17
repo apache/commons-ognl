@@ -40,7 +40,7 @@ public class ClassCacheImpl<V>
     /* ...and now you see why. The table size is used as a mask for generating hashes */
     private static final int TABLE_SIZE_MASK = TABLE_SIZE - 1;
 
-    private Entry<Class<?>, V>[] table = new Entry[TABLE_SIZE];
+    private final Entry<Class<?>, V>[] table = new Entry[TABLE_SIZE];
 
     private ClassCacheInspector classInspector;
 

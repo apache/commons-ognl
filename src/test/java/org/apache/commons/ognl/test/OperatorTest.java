@@ -30,7 +30,7 @@ import java.util.Collection;
 public class OperatorTest
     extends OgnlTestCase
 {
-    private static Object[][] TESTS = { { null, "\"one\" > \"two\"", Boolean.FALSE },
+    private static final Object[][] TESTS = { { null, "\"one\" > \"two\"", Boolean.FALSE },
         { null, "\"one\" >= \"two\"", Boolean.FALSE }, { null, "\"one\" < \"two\"", Boolean.TRUE },
         { null, "\"one\" <= \"two\"", Boolean.TRUE }, { null, "\"one\" == \"two\"", Boolean.FALSE },
         { null, "\"o\" > \"o\"", Boolean.FALSE }, { null, "\"o\" gt \"o\"", Boolean.FALSE },

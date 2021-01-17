@@ -33,9 +33,9 @@ public class MethodWithConversionTest
     extends OgnlTestCase
 {
 
-    private static Simple SIMPLE = new Simple();
+    private static final Simple SIMPLE = new Simple();
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         // Method call with conversion
         { SIMPLE, "setValues(new Integer(10), \"10.56\", new Double(34.225))", null }, { SIMPLE, "stringValue", "10" },
         { SIMPLE, "stringValue", "10", new Character( 'x' ), "x" },

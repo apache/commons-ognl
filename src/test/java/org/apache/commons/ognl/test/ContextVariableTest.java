@@ -32,9 +32,9 @@ public class ContextVariableTest
     extends OgnlTestCase
 {
 
-    private static Object ROOT = new Simple();
+    private static final Object ROOT = new Simple();
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         // Naming and referring to names
         { "#root", ROOT }, // Special root reference
         { "#this", ROOT }, // Special this reference

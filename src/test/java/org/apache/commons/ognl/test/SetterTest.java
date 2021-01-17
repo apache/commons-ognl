@@ -32,7 +32,7 @@ import java.util.*;
 public class SetterTest
     extends OgnlTestCase
 {
-    private static Root ROOT = new Root();
+    private static final Root ROOT = new Root();
 
     static Set<String> _list = new HashSet<String>();
     static
@@ -40,7 +40,7 @@ public class SetterTest
         _list.add( "Test1" );
     }
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         // Setting values
         { ROOT.getMap(), "newValue", null, new Integer( 101 ) },
         { ROOT, "settableList[0]", "foo", "quux" }, // absolute indexes

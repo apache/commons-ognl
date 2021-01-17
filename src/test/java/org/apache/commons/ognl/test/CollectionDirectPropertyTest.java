@@ -33,9 +33,9 @@ public class CollectionDirectPropertyTest
     extends OgnlTestCase
 {
 
-    private static Root ROOT = new Root();
+    private static final Root ROOT = new Root();
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         // Collection direct properties
         { Arrays.asList( "hello", "world" ), "size", 2 },
         { Arrays.asList( "hello", "world" ), "isEmpty", Boolean.FALSE },

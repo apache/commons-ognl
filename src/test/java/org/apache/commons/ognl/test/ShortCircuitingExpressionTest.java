@@ -32,7 +32,7 @@ import java.util.Collection;
 public class ShortCircuitingExpressionTest
     extends OgnlTestCase
 {
-    private static Object[][] TESTS = { { "#root ? someProperty : 99", new Integer( 99 ) },
+    private static final Object[][] TESTS = { { "#root ? someProperty : 99", new Integer( 99 ) },
         { "#root ? 99 : someProperty", OgnlException.class },
         { "(#x=99)? #x.someProperty : #x", NoSuchPropertyException.class },
         { "#xyzzy.doubleValue()", NullPointerException.class }, { "#xyzzy && #xyzzy.doubleValue()", null },

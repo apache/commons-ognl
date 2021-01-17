@@ -41,7 +41,7 @@ public class InterfaceInheritanceTest
     extends OgnlTestCase
 {
 
-    private static Root ROOT = new Root();
+    private static final Root ROOT = new Root();
 
     static
     {
@@ -54,7 +54,7 @@ public class InterfaceInheritanceTest
         ROOT.getMap().put( "customList", list );
     }
 
-    private static Object[][] TESTS = { { ROOT, "myMap", ROOT.getMyMap() }, { ROOT, "myMap.test", ROOT },
+    private static final Object[][] TESTS = { { ROOT, "myMap", ROOT.getMyMap() }, { ROOT, "myMap.test", ROOT },
         { ROOT.getMyMap(), "list", ROOT.getList() }, { ROOT, "myMap.array[0]", new Integer( ROOT.getArray()[0] ) },
         { ROOT, "myMap.list[1]", ROOT.getList().get( 1 ) }, { ROOT, "myMap[^]", new Integer( 99 ) },
         { ROOT, "myMap[$]", null },

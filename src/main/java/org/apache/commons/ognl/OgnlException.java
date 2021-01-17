@@ -55,7 +55,7 @@ public class OgnlException
      * 
      * @serial
      */
-    private Throwable reason;
+    private final Throwable reason;
 
     /** Constructs an OgnlException with no message or encapsulated exception. */
     public OgnlException()

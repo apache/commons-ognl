@@ -34,9 +34,9 @@ import java.util.Collection;
 public class NumberFormatExceptionTest
     extends OgnlTestCase
 {
-    private static Simple SIMPLE = new Simple();
+    private static final Simple SIMPLE = new Simple();
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         // NumberFormatException handling (default is to throw NumberFormatException on bad string conversions)
         { SIMPLE, "floatValue", 0f, 10f, 10f },
         { SIMPLE, "floatValue", 10f, "x10x", OgnlException.class },

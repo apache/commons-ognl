@@ -33,9 +33,9 @@ import java.util.Collection;
 public class StaticsAndConstructorsTest
     extends OgnlTestCase
 {
-    private static Root ROOT = new Root();
+    private static final Root ROOT = new Root();
 
-    private static Object[][] TESTS =
+    private static final Object[][] TESTS =
         {
             { "@java.lang.Class@forName(\"java.lang.Object\")", Object.class },
             { "@java.lang.Integer@MAX_VALUE", Integer.MAX_VALUE },

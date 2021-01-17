@@ -37,7 +37,7 @@ import java.lang.reflect.Method;
  */
 public class GenericMethodParameterTypeCacheTest
 {
-    private ConcurrentHashMapCache<GenericMethodParameterTypeCacheEntry, Class<?>[]> cache =
+    private final ConcurrentHashMapCache<GenericMethodParameterTypeCacheEntry, Class<?>[]> cache =
         new ConcurrentHashMapCache<GenericMethodParameterTypeCacheEntry, Class<?>[]>( new GenericMethodParameterTypeFactory( ) );
 
     @Test

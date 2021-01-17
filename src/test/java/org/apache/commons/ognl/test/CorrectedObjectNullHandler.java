@@ -27,7 +27,7 @@ public class CorrectedObjectNullHandler
     extends Object
     implements NullHandler
 {
-    private String defaultValue;
+    private final String defaultValue;
 
     /*
      * =================================================================== Constructors

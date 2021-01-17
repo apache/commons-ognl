@@ -33,11 +33,11 @@ public class IndexedPropertyTest
     extends OgnlTestCase
 {
 
-    private static Indexed INDEXED = new Indexed();
+    private static final Indexed INDEXED = new Indexed();
 
-    private static Root ROOT = new Root();
+    private static final Root ROOT = new Root();
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         // Indexed properties
         { INDEXED, "getValues", INDEXED.getValues() }, // gets String[]
         { INDEXED, "[\"values\"]", INDEXED.getValues() }, // String[]

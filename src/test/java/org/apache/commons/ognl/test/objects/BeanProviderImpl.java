@@ -32,7 +32,7 @@ import java.util.Map;
 public class BeanProviderImpl
     implements Serializable, BeanProvider
 {
-    private Map _map = new HashMap();
+    private final Map _map = new HashMap();
 
     public BeanProviderImpl()
     {

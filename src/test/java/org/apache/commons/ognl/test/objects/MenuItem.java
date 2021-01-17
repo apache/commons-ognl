@@ -28,9 +28,9 @@ import java.util.List;
 public class MenuItem
 {
 
-    private String page;
+    private final String page;
 
-    private String label;
+    private final String label;
 
     private List<MenuItem> children = new ArrayList<MenuItem>();
 

@@ -21,7 +21,7 @@ package org.apache.commons.ognl.test.objects;
 
 public class Bean1
 {
-    private Bean2 bean2 = new Bean2();
+    private final Bean2 bean2 = new Bean2();
 
     public Bean2 getBean2()
     {

@@ -40,23 +40,23 @@ public class Performance
 
     private static boolean TIME_MODE;
 
-    private static NumberFormat FACTOR_FORMAT = new DecimalFormat( "0.000" );
+    private static final NumberFormat FACTOR_FORMAT = new DecimalFormat( "0.000" );
 
-    private String _name;
+    private final String _name;
 
-    private OgnlContext _context = (OgnlContext) Ognl.createDefaultContext( null );
+    private final OgnlContext _context = (OgnlContext) Ognl.createDefaultContext( null );
 
-    private Bean1 _root = new Bean1();
+    private final Bean1 _root = new Bean1();
 
     private SimpleNode _expression;
 
     private SimpleNode _compiledExpression;
 
-    private Method _method;
+    private final Method _method;
 
     private int _iterations;
 
-    private String _expressionString;
+    private final String _expressionString;
 
     private boolean _isMvel = false;
 

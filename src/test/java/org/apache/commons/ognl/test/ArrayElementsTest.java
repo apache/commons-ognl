@@ -34,13 +34,13 @@ public class ArrayElementsTest
     extends OgnlTestCase
 {
 
-    private static String[] STRING_ARRAY = new String[] { "hello", "world" };
+    private static final String[] STRING_ARRAY = new String[] { "hello", "world" };
 
-    private static int[] INT_ARRAY = new int[] { 10, 20 };
+    private static final int[] INT_ARRAY = new int[] { 10, 20 };
 
-    private static Root ROOT = new Root();
+    private static final Root ROOT = new Root();
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         // Array elements test
         { STRING_ARRAY, "length", 2 },
         { STRING_ARRAY, "#root[1]", "world" },

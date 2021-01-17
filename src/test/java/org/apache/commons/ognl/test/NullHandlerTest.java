@@ -34,9 +34,9 @@ import java.util.Collection;
 public class NullHandlerTest
     extends OgnlTestCase
 {
-    private static CorrectedObject CORRECTED = new CorrectedObject();
+    private static final CorrectedObject CORRECTED = new CorrectedObject();
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         // NullHandler
         { CORRECTED, "stringValue", "corrected" }, { CORRECTED, "getStringValue()", "corrected" },
         { CORRECTED, "#root.stringValue", "corrected" }, { CORRECTED, "#root.getStringValue()", "corrected" }, };

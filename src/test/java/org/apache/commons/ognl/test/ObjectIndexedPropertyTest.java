@@ -34,11 +34,11 @@ public class ObjectIndexedPropertyTest
     extends OgnlTestCase
 {
 
-    private static ObjectIndexed OBJECT_INDEXED = new ObjectIndexed();
+    private static final ObjectIndexed OBJECT_INDEXED = new ObjectIndexed();
 
-    private static Bean1 root = new Bean1();
+    private static final Bean1 ROOT = new Bean1();
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         // Arbitrary indexed properties
         { OBJECT_INDEXED, "attributes[\"bar\"]", "baz" }, // get non-indexed property through
         // attributes Map
@@ -61,7 +61,7 @@ public class ObjectIndexedPropertyTest
         { OBJECT_INDEXED, "attribute[$]", OgnlException.class }, // illegal DynamicSubscript
         // access to object indexed
         // property
-        { root, "bean2.bean3.indexedValue[25]", null } };
+        { ROOT, "bean2.bean3.indexedValue[25]", null } };
 
     /*
      * =================================================================== Public static methods

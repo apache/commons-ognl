@@ -38,13 +38,13 @@ public class PropertyArithmeticAndLogicalOperatorsTest
     extends OgnlTestCase
 {
 
-    private static Root ROOT = new Root();
+    private static final Root ROOT = new Root();
 
-    private static TestModel MODEL = new TestModel();
+    private static final TestModel MODEL = new TestModel();
 
-    private static SimpleNumeric NUMERIC = new SimpleNumeric();
+    private static final SimpleNumeric NUMERIC = new SimpleNumeric();
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         { ROOT, "objectIndex > 0", Boolean.TRUE },
         { ROOT, "false", Boolean.FALSE },
         { ROOT, "!false || true", Boolean.TRUE },

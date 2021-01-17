@@ -22,11 +22,11 @@ package org.apache.commons.ognl.test.util;
 public class NameFactory
     extends Object
 {
-    private String classBaseName;
+    private final String classBaseName;
 
     private int classNameCounter = 0;
 
-    private String variableBaseName;
+    private final String variableBaseName;
 
     private int variableNameCounter = 0;
 

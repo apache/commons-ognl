@@ -27,7 +27,7 @@ import java.util.Map;
  */
 class PrimitiveWrapperClasses {
 
-    private Map<Class<?>, Class<?>> map = new IdentityHashMap<Class<?>, Class<?>>();
+    private final Map<Class<?>, Class<?>> map = new IdentityHashMap<Class<?>, Class<?>>();
 
     PrimitiveWrapperClasses() {
         map.put( Boolean.TYPE, Boolean.class );

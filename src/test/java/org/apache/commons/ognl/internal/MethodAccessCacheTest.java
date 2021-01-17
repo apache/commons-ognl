@@ -36,7 +36,7 @@ import java.lang.reflect.Method;
  */
 public class MethodAccessCacheTest
 {
-    private Cache<Method, MethodAccessEntryValue> cache =
+    private final Cache<Method, MethodAccessEntryValue> cache =
         new ConcurrentHashMapCache<Method, MethodAccessEntryValue>( new MethodAccessCacheEntryFactory( ) );
 
     @Test

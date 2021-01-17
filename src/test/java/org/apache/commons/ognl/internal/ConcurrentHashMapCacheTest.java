@@ -34,8 +34,8 @@ import static org.junit.Assert.assertFalse;
 
 public class ConcurrentHashMapCacheTest
 {
-    private ConcurrentHashMapCacheTest.DummyEntryFactory entryFactory=new DummyEntryFactory( );
-    private Cache<CacheEntry, List<Method>> cache = new ConcurrentHashMapCache<CacheEntry, List<Method>>( entryFactory );
+    private final ConcurrentHashMapCacheTest.DummyEntryFactory entryFactory=new DummyEntryFactory( );
+    private final Cache<CacheEntry, List<Method>> cache = new ConcurrentHashMapCache<CacheEntry, List<Method>>( entryFactory );
 
 
     @Test
@@ -57,9 +57,9 @@ public class ConcurrentHashMapCacheTest
 
     private class CacheEntry
     {
-        private Class<?> clazz;
+        private final Class<?> clazz;
 
-        private String methodName;
+        private final String methodName;
 
         private CacheEntry( Class<?> clazz, String methodName )
         {

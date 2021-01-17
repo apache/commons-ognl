@@ -38,7 +38,7 @@ public class InheritedMethodsTest
     extends TestCase
 {
 
-    private static Root ROOT = new Root();
+    private static final Root ROOT = new Root();
 
     public void test_Base_Inheritance()
         throws Exception

@@ -38,7 +38,7 @@ public class PropertyNotFoundTest
 {
     private static final Blah BLAH = new Blah();
 
-    private static Object[][] TESTS = { { BLAH, "webwork.token.name", OgnlException.class, "W value",
+    private static final Object[][] TESTS = { { BLAH, "webwork.token.name", OgnlException.class, "W value",
         OgnlException.class }, };
 
     /*

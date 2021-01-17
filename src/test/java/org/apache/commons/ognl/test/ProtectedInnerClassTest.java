@@ -32,9 +32,9 @@ public class ProtectedInnerClassTest
     extends OgnlTestCase
 {
 
-    private static Root ROOT = new Root();
+    private static final Root ROOT = new Root();
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         // member access of inner class (Arrays.asList() returned protected inner class)
         { ROOT, "list.size()", ROOT.getList().size() },
         { ROOT, "list[0]", ROOT.getList().get( 0 ) }

@@ -35,11 +35,11 @@ public class IndexAccessTest
     extends OgnlTestCase
 {
 
-    private static Root ROOT = new Root();
+    private static final Root ROOT = new Root();
 
-    private static IndexedSetObject INDEXED_SET = new IndexedSetObject();
+    private static final IndexedSetObject INDEXED_SET = new IndexedSetObject();
 
-    private static Object[][] TESTS =
+    private static final Object[][] TESTS =
         {
             { ROOT, "list[index]", ROOT.getList().get( ROOT.getIndex() ) },
             { ROOT, "list[objectIndex]", ROOT.getList().get( ROOT.getObjectIndex().intValue() ) },

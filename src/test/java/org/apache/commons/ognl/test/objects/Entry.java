@@ -25,7 +25,7 @@ package org.apache.commons.ognl.test.objects;
 public class Entry
 {
 
-    private int _size = 1;
+    private final int _size = 1;
 
     public int size()
     {

@@ -32,13 +32,13 @@ public class MethodTest
     extends OgnlTestCase
 {
 
-    private static Simple ROOT = new Simple();
+    private static final Simple ROOT = new Simple();
 
-    private static ListSource LIST = new ListSourceImpl();
+    private static final ListSource LIST = new ListSourceImpl();
 
-    private static BaseGeneric<GameGenericObject, Long> GENERIC = new GameGeneric();
+    private static final BaseGeneric<GameGenericObject, Long> GENERIC = new GameGeneric();
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         { "hashCode()", new Integer( ROOT.hashCode() ) },
         { "getBooleanValue() ? \"here\" : \"\"", "" }, { "getValueIsTrue(!false) ? \"\" : \"here\" ", "" },
         { "messages.format('ShowAllCount', new Object[]{one,two})", "foo" },

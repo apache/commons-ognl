@@ -35,9 +35,9 @@ public class PrivateAccessorTest
     extends OgnlTestCase
 {
 
-    private static Root ROOT = new Root();
+    private static final Root ROOT = new Root();
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         // Using private get/set methods
         { ROOT, "getPrivateAccessorIntValue()", new Integer( 67 ) },
         { ROOT, "privateAccessorIntValue", new Integer( 67 ) },

@@ -35,9 +35,9 @@ public class NullStringCatenationTest
 
     public static final String MESSAGE = "blarney";
 
-    private static Root ROOT = new Root();
+    private static final Root ROOT = new Root();
 
-    private static Object[][] TESTS =
+    private static final Object[][] TESTS =
     {
         // Null string catenation
         { ROOT, "\"bar\" + null", "barnull" }, // Catenate null to a string

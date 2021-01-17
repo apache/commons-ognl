@@ -29,9 +29,9 @@ import java.util.List;
  */
 public class JJTOgnlParserState
 {
-    private List<Node> nodes;
+    private final List<Node> nodes;
 
-    private List<Integer> marks;
+    private final List<Integer> marks;
 
     private int numNodesOnStack;
 

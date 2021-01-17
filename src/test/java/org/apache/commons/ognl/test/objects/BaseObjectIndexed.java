@@ -24,7 +24,7 @@ import java.util.*;
 public class BaseObjectIndexed
     extends Object
 {
-    private Map attributes = new HashMap();
+    private final Map attributes = new HashMap();
 
     public BaseObjectIndexed()
     {

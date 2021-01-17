@@ -84,11 +84,11 @@ import java.lang.reflect.Method;
 public class ObjectIndexedPropertyDescriptor
     extends PropertyDescriptor
 {
-    private Method indexedReadMethod;
+    private final Method indexedReadMethod;
 
-    private Method indexedWriteMethod;
+    private final Method indexedWriteMethod;
 
-    private Class<?> propertyType;
+    private final Class<?> propertyType;
 
     public ObjectIndexedPropertyDescriptor( String propertyName, Class<?> propertyType, Method indexedReadMethod,
                                             Method indexedWriteMethod )

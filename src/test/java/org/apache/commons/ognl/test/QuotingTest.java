@@ -31,7 +31,7 @@ import java.util.Collection;
 public class QuotingTest
     extends OgnlTestCase
 {
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         // Quoting
         { null, "`c`", new Character( 'c' ) }, { null, "'s'", new Character( 's' ) }, { null, "'string'", "string" },
         { null, "\"string\"", "string" }, { null, "'' + 'bar'", "bar" },

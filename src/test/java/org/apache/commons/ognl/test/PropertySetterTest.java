@@ -35,9 +35,9 @@ public class PropertySetterTest
 
     private Map<String, String> map;
 
-    private TestObject testObject = new TestObject( "propertyValue" );
+    private final TestObject testObject = new TestObject( "propertyValue" );
 
-    private String propertyKey = "property";
+    private final String propertyKey = "property";
 
     public interface TestInterface
     {
@@ -50,7 +50,7 @@ public class PropertySetterTest
 
         private String property;
 
-        private Integer integerProperty = 1;
+        private final Integer integerProperty = 1;
 
         public TestObject( String property )
         {

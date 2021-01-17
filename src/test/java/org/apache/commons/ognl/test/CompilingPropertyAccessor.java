@@ -45,9 +45,9 @@ public class CompilingPropertyAccessor
     extends ObjectPropertyAccessor
 {
 
-    private static NameFactory NAME_FACTORY = new NameFactory( "ognl.PropertyAccessor", "v" );
+    private static final NameFactory NAME_FACTORY = new NameFactory( "ognl.PropertyAccessor", "v" );
 
-    private static Getter NotFoundGetter = new Getter()
+    private static final Getter NOT_FOUND_GETTER = new Getter()
     {
 
         public Object get( OgnlContext context, Object target, String propertyName )
@@ -56,7 +56,7 @@ public class CompilingPropertyAccessor
         }
     };
 
-    private static Getter DefaultGetter = new Getter()
+    private static final Getter DEFAULT_GETTER = new Getter()
     {
 
         public Object get( OgnlContext context, Object target, String propertyName )
@@ -72,13 +72,13 @@ public class CompilingPropertyAccessor
         }
     };
 
-    private static Map pools = new HashMap();
+    private static final Map POOLS = new HashMap();
 
-    private static Map loaders = new HashMap();
+    private static final Map LOADERS = new HashMap();
 
-    private static java.util.IdentityHashMap PRIMITIVE_WRAPPER_CLASSES = new IdentityHashMap();
+    private static final java.util.IdentityHashMap PRIMITIVE_WRAPPER_CLASSES = new IdentityHashMap();
 
-    private java.util.IdentityHashMap seenGetMethods = new java.util.IdentityHashMap();
+    private final java.util.IdentityHashMap seenGetMethods = new java.util.IdentityHashMap();
 
     static
     {
@@ -117,8 +117,8 @@ public class CompilingPropertyAccessor
 
         try
         {
-            ClassPool pool = (ClassPool) pools.get( context.getClassResolver() );
-            EnhancedClassLoader loader = (EnhancedClassLoader) loaders.get( context.getClassResolver() );
+            ClassPool pool = (ClassPool) POOLS.get( context.getClassResolver() );
+            EnhancedClassLoader loader = (EnhancedClassLoader) LOADERS.get( context.getClassResolver() );
             CtClass newClass;
             CtClass ognlContextClass;
             CtClass objectClass;
@@ -133,10 +133,10 @@ public class CompilingPropertyAccessor
 
                 pool = ClassPool.getDefault();
                 pool.insertClassPath( new LoaderClassPath( classLoader ) );
-                pools.put( context.getClassResolver(), pool );
+                POOLS.put( context.getClassResolver(), pool );
 
                 loader = new EnhancedClassLoader( classLoader );
-                loaders.put( context.getClassResolver(), loader );
+                LOADERS.put( context.getClassResolver(), loader );
             }
 
             newClass = pool.makeClass( className );
@@ -227,12 +227,12 @@ public class CompilingPropertyAccessor
                     }
                     else
                     {
-                        propertyMap.put( propertyName, result = DefaultGetter );
+                        propertyMap.put( propertyName, result = DEFAULT_GETTER );
                     }
                 }
                 else
                 {
-                    propertyMap.put( propertyName, result = NotFoundGetter );
+                    propertyMap.put( propertyName, result = NOT_FOUND_GETTER );
                 }
             }
             catch ( Exception ex )
@@ -256,7 +256,7 @@ public class CompilingPropertyAccessor
         {
             Getter getter = getGetter( ognlContext, target, name );
 
-            if ( getter != NotFoundGetter )
+            if ( getter != NOT_FOUND_GETTER )
             {
                 result = getter.get( ognlContext, target, name );
             }

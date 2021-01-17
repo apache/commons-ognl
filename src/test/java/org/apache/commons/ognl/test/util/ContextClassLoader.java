@@ -24,7 +24,7 @@ import org.apache.commons.ognl.OgnlContext;
 public class ContextClassLoader
     extends ClassLoader
 {
-    private OgnlContext context;
+    private final OgnlContext context;
 
     /*
      * =================================================================== Constructors

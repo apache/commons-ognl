@@ -44,13 +44,13 @@ public class PropertyTest
 
     public static final String VALUE = "foo";
 
-    private static Root ROOT = new Root();
+    private static final Root ROOT = new Root();
 
-    private static BaseBean BEAN = new FirstBean();
+    private static final BaseBean BEAN = new FirstBean();
 
-    private static PropertyHolder PROPERTY = new PropertyHolder();
+    private static final PropertyHolder PROPERTY = new PropertyHolder();
 
-    private static Object[][] TESTS =
+    private static final Object[][] TESTS =
         {
             { ROOT, "testString != null && !false", Boolean.TRUE },
             { ROOT, "!getRenderNavigation() and !getReadonly()", Boolean.TRUE },

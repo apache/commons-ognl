@@ -39,7 +39,7 @@ public class NumericConversionTest
     extends OgnlTestCase
 {
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         /* To Integer.class */
         { "55", Integer.class, new Integer( 55 ) }, { new Integer( 55 ), Integer.class, new Integer( 55 ) },
         { new Double( 55 ), Integer.class, new Integer( 55 ) }, { Boolean.TRUE, Integer.class, new Integer( 1 ) },
@@ -150,13 +150,13 @@ public class NumericConversionTest
         { new BigInteger( "55" ), BigDecimal.class, new BigDecimal( "55" ) },
         { new BigDecimal( "55.1234" ), BigDecimal.class, new BigDecimal( "55.1234" ) }, };
 
-    private Object value;
+    private final Object value;
 
-    private Class<? extends Number> toClass;
+    private final Class<? extends Number> toClass;
 
-    private Object expectedValue;
+    private final Object expectedValue;
 
-    private int scale;
+    private final int scale;
 
     /*
      * =================================================================== Public static methods

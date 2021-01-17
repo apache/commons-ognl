@@ -35,7 +35,7 @@ public class ConstantTest
     extends OgnlTestCase
 {
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         { "12345", new Integer( 12345 ) },
         { "0x100", new Integer( 256 ) },
         { "0xfE", new Integer( 254 ) },

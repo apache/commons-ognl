@@ -36,7 +36,7 @@ public class ConstantTreeTest
 
     public static int nonFinalStaticVariable = 15;
 
-    private static Object[][] TESTS = { { "true", Boolean.TRUE }, { "55", Boolean.TRUE },
+    private static final Object[][] TESTS = { { "true", Boolean.TRUE }, { "55", Boolean.TRUE },
         { "@java.awt.Color@black", Boolean.TRUE },
         { "@org.apache.commons.ognl.test.ConstantTreeTest@nonFinalStaticVariable", Boolean.FALSE },
         { "@org.apache.commons.ognl.test.ConstantTreeTest@nonFinalStaticVariable + 10", Boolean.FALSE },

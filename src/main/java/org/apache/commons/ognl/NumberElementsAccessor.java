@@ -35,11 +35,11 @@ public class NumberElementsAccessor
     {
         return new Enumeration<Object>()
         {
-            private int type = OgnlOps.getNumericType( target );
+            private final int type = OgnlOps.getNumericType( target );
 
             private long next = 0;
 
-            private long finish = OgnlOps.longValue( target );
+            private final long finish = OgnlOps.longValue( target );
 
             public boolean hasMoreElements()
             {

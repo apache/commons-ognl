@@ -34,7 +34,7 @@ public class LambdaExpressionTest
     extends OgnlTestCase
 {
 
-    private static Object[][] TESTS = {
+    private static final Object[][] TESTS = {
         // Lambda expressions
         { null, "#a=:[33](20).longValue().{0}.toArray().length", new Integer( 33 ) },
         { null, "#fact=:[#this<=1? 1 : #fact(#this-1) * #this], #fact(30)", new Integer( 1409286144 ) },
