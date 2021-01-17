@@ -53,7 +53,7 @@ public class ObjectMethodAccessor
         Class<?> targetClass = ( target == null ) ? null : target.getClass();
         List<Method> methods = OgnlRuntime.getMethods( targetClass, methodName, false );
 
-        if ( ( methods == null ) || ( methods.size() == 0 ) )
+        if ( ( methods == null ) || ( methods.isEmpty() ) )
         {
             methods = OgnlRuntime.getMethods( targetClass, methodName, true );
 
