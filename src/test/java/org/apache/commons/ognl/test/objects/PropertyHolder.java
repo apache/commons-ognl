@@ -41,7 +41,7 @@ public class PropertyHolder
 
     public boolean hasValue()
     {
-        return _value != null && _value.length() > 0;
+        return _value != null && !_value.isEmpty();
     }
 
     public void setSearch( String value )

@@ -96,7 +96,7 @@ public abstract class ExpressionNode
 
                 if ( ( ASTProperty.class.isInstance( children[i] ) || ASTMethod.class.isInstance( children[i] )
                     || ASTSequence.class.isInstance( children[i] ) || ASTChain.class.isInstance( children[i] ) )
-                    && value != null && value.trim().length() > 0 )
+                    && value != null && !value.trim().isEmpty() )
                 {
 
                     String pre = null;

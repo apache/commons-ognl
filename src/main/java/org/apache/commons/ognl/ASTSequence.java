@@ -115,7 +115,7 @@ public class ASTSequence
             }
 
             if ( i > 0 && ASTProperty.class.isInstance( children[i] ) && seqValue != null
-                && seqValue.trim().length() > 0 )
+                && !seqValue.trim().isEmpty() )
             {
                 String pre = (String) context.get( "_currentChain" );
                 if ( pre == null )
@@ -134,11 +134,11 @@ public class ASTSequence
                 lastExpression = seqValue;
             }
 
-            if ( seqValue != null && seqValue.trim().length() > 0 && ( i + 1 ) < children.length )
+            if ( seqValue != null && !seqValue.trim().isEmpty() && ( i + 1 ) < children.length )
             {
                 result += seqValue + ";";
             }
-            else if ( seqValue != null && seqValue.trim().length() > 0 )
+            else if ( seqValue != null && !seqValue.trim().isEmpty() )
             {
                 result += seqValue;
             }

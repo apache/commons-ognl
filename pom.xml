@@ -181,7 +181,7 @@ limitations under the License.
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
 
-    <animal-sniffer.signature>java15</animal-sniffer.signature>
+    <animal-sniffer.signature>java18</animal-sniffer.signature>
 
     <commons.releaseManagerKey>63AFBB1F</commons.releaseManagerKey>
   </properties>
