@@ -185,7 +185,7 @@ public class PropertyDescriptorCacheEntryFactory
     {
         boolean result = false;
 
-        if ( methods.size() > 0 )
+        if ( !methods.isEmpty() )
         {
             Method method = methods.get( 0 );
             Class<?>[] parameterTypes = OgnlRuntime.getParameterTypes( method );
