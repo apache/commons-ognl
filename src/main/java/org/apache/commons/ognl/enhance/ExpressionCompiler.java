@@ -593,7 +593,7 @@ public class ExpressionCompiler
 
         String getterCode = expression.toGetSourceString( context, root );
 
-        if ( getterCode == null || getterCode.trim().length() <= 0
+        if ( getterCode == null || getterCode.trim().isEmpty()
             && !ASTVarRef.class.isAssignableFrom( expression.getClass() ) )
         {
             getterCode = "null";

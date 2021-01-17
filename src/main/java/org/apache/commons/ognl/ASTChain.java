@@ -333,7 +333,7 @@ public class ASTChain
                         ordered = true;
                         OrderedReturn or = (OrderedReturn) child;
 
-                        if ( or.getCoreExpression() == null || or.getCoreExpression().trim().length() <= 0 )
+                        if ( or.getCoreExpression() == null || or.getCoreExpression().trim().isEmpty() )
                         {
                             result = "";
                         }
@@ -424,7 +424,7 @@ public class ASTChain
                     }
 
                     String value = children[i].toSetSourceString( context, context.getCurrentObject() );
-                    // if (value == null || value.trim().length() <= 0)
+                    // if (value == null || value.trim().isEmpty())
                     // return "";
 
                     // System.out.println("astchain setter child returned >>  " + value + "  <<");

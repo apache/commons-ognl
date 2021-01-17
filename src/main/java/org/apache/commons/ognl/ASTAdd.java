@@ -190,7 +190,7 @@ class ASTAdd
 
                     if ( ( expr != null && "null".equals( expr ) )
                         || ( !ASTConst.class.isInstance( children[i] )
-                        && ( expr == null || expr.trim().length() <= 0 ) ) )
+                        && ( expr == null || expr.trim().isEmpty() ) ) )
                     {
                         expr = "null";
                     }

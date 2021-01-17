@@ -190,7 +190,7 @@ public class ASTList
                     value = " ($w) (" + value + ")";
                 }
 
-                if ( objValue == null || value.length() <= 0 )
+                if ( objValue == null || value.isEmpty() )
                 {
                     value = "null";
                 }
