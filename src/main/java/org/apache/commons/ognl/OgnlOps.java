@@ -255,7 +255,7 @@ public abstract class OgnlOps
         }
         String s = stringValue( value, true );
 
-        return ( s.length() == 0 ) ? 0.0 : Double.parseDouble( s );
+        return ( s.isEmpty() ) ? 0.0 : Double.parseDouble( s );
     }
 
     /**
