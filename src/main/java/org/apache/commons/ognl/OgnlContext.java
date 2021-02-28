@@ -111,12 +111,12 @@ public class OgnlContext
             s = System.getProperty( PROPERTY_KEY_PREFIX + ".traceEvaluations" );
             if ( s != null )
             {
-                defaultTraceEvaluations = Boolean.valueOf( s.trim() );
+                defaultTraceEvaluations = Boolean.parseBoolean( s.trim() );
             }
             s = System.getProperty( PROPERTY_KEY_PREFIX + ".keepLastEvaluation" );
             if ( s != null )
             {
-                defaultKeepLastEvaluation = Boolean.valueOf( s.trim() );
+                defaultKeepLastEvaluation = Boolean.parseBoolean( s.trim() );
             }
         }
         catch ( SecurityException ex )
