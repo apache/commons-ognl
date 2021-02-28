@@ -71,11 +71,6 @@ public class ASTConst
 
     public Class getGetterClass()
     {
-        if ( getterClass == null )
-        {
-            return null;
-        }
-
         return getterClass;
     }
 
