@@ -52,7 +52,7 @@ class ASTGreaterEq
     {
         return "!org.apache.commons.ognl.OgnlOps.less";
     }
-    
+
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
         throws OgnlException
     {

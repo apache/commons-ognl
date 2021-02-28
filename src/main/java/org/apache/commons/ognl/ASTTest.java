@@ -64,13 +64,13 @@ class ASTTest
         {
             throw new UnsupportedCompilationException( "evaluation resulted in null expression." );
         }
-        
+
         if ( children.length != 3 )
         {
             throw new UnsupportedCompilationException( "Can only compile test expressions with two children."
                 + children.length );
         }
-        
+
         String result = "";
 
         try
@@ -81,7 +81,7 @@ class ASTTest
             {
                 first = OgnlRuntime.getCompiler( context ).createLocalReference( context, first, context.getCurrentType() );
             }
-            
+
             if ( ExpressionNode.class.isInstance( children[0] ) )
             {
                 first = "(" + first + ")";
@@ -94,7 +94,7 @@ class ASTTest
             {
                 second = OgnlRuntime.getCompiler( context ).createLocalReference( context, second, context.getCurrentType() );
             }
-            
+
             if ( ExpressionNode.class.isInstance( children[1] ) )
             {
                 second = "(" + second + ")";
@@ -106,9 +106,9 @@ class ASTTest
             if ( !OgnlRuntime.isBoolean( third ) && !context.getCurrentType().isPrimitive() )
             {
                 third = OgnlRuntime.getCompiler( context ).createLocalReference( context, third, context.getCurrentType() );
-            
+
             }
-            
+
             if ( ExpressionNode.class.isInstance( children[2] ) )
             {
                 third = "(" + third + ")";
@@ -144,7 +144,7 @@ class ASTTest
             throw OgnlOps.castToRuntime( t );
         }
     }
-    
+
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
         throws OgnlException
     {

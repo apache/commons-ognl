@@ -18,7 +18,7 @@
  * under the License.
  */
 /**
- * 
+ *
  */
 package org.apache.commons.ognl.test;
 

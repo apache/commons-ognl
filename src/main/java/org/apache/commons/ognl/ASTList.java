@@ -123,7 +123,7 @@ public class ASTList
                 {
                     cast = "";
                 }
-                
+
                 if ( !ASTConst.class.isInstance( children[i] ) )
                 {
                     value = cast + value;
@@ -219,7 +219,7 @@ public class ASTList
     {
         throw new UnsupportedCompilationException( "Can't generate setter for ASTList." );
     }
-    
+
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
         throws OgnlException
     {

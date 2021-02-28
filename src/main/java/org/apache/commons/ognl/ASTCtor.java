@@ -238,12 +238,12 @@ public class ASTCtor
                         {
                             cast = "";
                         }
-                        
+
                         if ( !ASTConst.class.isInstance( children[i] ) )
                         {
                             value = cast + value;
                         }
-                        
+
                         values[i] = objValue;
                         expressions[i] = value;
                         types[i] = context.getCurrentType();
@@ -274,8 +274,8 @@ public class ASTCtor
                                                                         OgnlRuntime.getConstructors( clazz ), values,
                                                                         new Object[values.length] );
                     }
-                    
-                    if ( ctor == null ) 
+
+                    if ( ctor == null )
                     {
                         throw new NoSuchMethodException(
                             "Unable to find constructor appropriate for arguments in class: " + clazz );
@@ -322,7 +322,7 @@ public class ASTCtor
                                 {
                                     value =
                                         "new "
-                                            + ExpressionCompiler.getCastString( 
+                                            + ExpressionCompiler.getCastString(
                                                 OgnlRuntime.getPrimitiveWrapperClass( types[i] ) )
                                             + "(" + value + ")";
                                 }

@@ -86,7 +86,7 @@ class ASTEval
     {
         throw new UnsupportedCompilationException( "Map expressions not supported as native java yet." );
     }
-    
+
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
         throws OgnlException
     {

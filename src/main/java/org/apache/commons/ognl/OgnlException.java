@@ -52,7 +52,7 @@ public class OgnlException
 
     /**
      * Why this exception was thrown.
-     * 
+     *
      * @serial
      */
     private final Throwable reason;
@@ -65,7 +65,7 @@ public class OgnlException
 
     /**
      * Constructs an OgnlException with the given message but no encapsulated exception.
-     * 
+     *
      * @param msg the exception's detail message
      */
     public OgnlException( String msg )
@@ -75,7 +75,7 @@ public class OgnlException
 
     /**
      * Constructs an OgnlException with the given message and encapsulated exception.
-     * 
+     *
      * @param msg the exception's detail message
      * @param reason the encapsulated exception
      */
@@ -99,7 +99,7 @@ public class OgnlException
 
     /**
      * Returns the encapsulated exception, or null if there is none.
-     * 
+     *
      * @return the encapsulated exception
      */
     public Throwable getReason()
@@ -109,7 +109,7 @@ public class OgnlException
 
     /**
      * Returns the Evaluation that was the root evaluation when the exception was thrown.
-     * 
+     *
      * @return The {@link Evaluation}.
      */
     public Evaluation getEvaluation()
@@ -119,7 +119,7 @@ public class OgnlException
 
     /**
      * Sets the Evaluation that was current when this exception was thrown.
-     * 
+     *
      * @param value The {@link Evaluation}.
      */
     public void setEvaluation( Evaluation value )
@@ -129,7 +129,7 @@ public class OgnlException
 
     /**
      * Returns a string representation of this exception.
-     * 
+     *
      * @return a string representation of this exception
      */
     @Override

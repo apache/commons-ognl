@@ -48,14 +48,14 @@ public class NullStringCatenationTest
         { ROOT, "'width:' + width + ';'", "width:238px;" },
         { ROOT, "theLong + '_' + index", "4_1" },
         { ROOT, "'javascript:' + @org.apache.commons.ognl.test.NullStringCatenationTest@MESSAGE", "javascript:blarney" },
-        { ROOT,  "printDelivery ? '' : 'javascript:deliverySelected(' + property.carrier + ',' + currentDeliveryId + ')'", "" }, 
-        { ROOT, "bean2.id + '_' + theInt", "1_6" } 
+        { ROOT,  "printDelivery ? '' : 'javascript:deliverySelected(' + property.carrier + ',' + currentDeliveryId + ')'", "" },
+        { ROOT, "bean2.id + '_' + theInt", "1_6" }
     };
 
-    
+
     /**
      * Setup parameters for this test which are used to call this class constructor
-     * @return the collection of paramaters 
+     * @return the collection of paramaters
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -76,7 +76,7 @@ public class NullStringCatenationTest
 
     /**
      * Constructor: size of the Object[] returned by the @Parameter annotated method must match
-     * the number of arguments in this constructor  
+     * the number of arguments in this constructor
      */
     public NullStringCatenationTest( String name, Object root, String expressionString, Object expectedResult)
     {

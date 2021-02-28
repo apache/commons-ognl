@@ -57,7 +57,7 @@ class ASTNot
             {
                 srcString = "null";
             }
-            
+
             context.setCurrentType( Boolean.TYPE );
 
             return "(! org.apache.commons.ognl.OgnlOps.booleanValue(" + srcString + ") )";
@@ -68,7 +68,7 @@ class ASTNot
             throw OgnlOps.castToRuntime( t );
         }
     }
-    
+
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
         throws OgnlException
     {

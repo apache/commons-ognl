@@ -29,7 +29,7 @@ public interface MethodAccessor
 {
     /**
      * Calls the static method named with the arguments given on the class given.
-     * 
+     *
      * @param context expression context in which the method should be called
      * @param targetClass the object in which the method exists
      * @param methodName the name of the method
@@ -42,7 +42,7 @@ public interface MethodAccessor
 
     /**
      * Calls the method named with the arguments given.
-     * 
+     *
      * @param context expression context in which the method should be called
      * @param target the object in which the method exists
      * @param methodName the name of the method

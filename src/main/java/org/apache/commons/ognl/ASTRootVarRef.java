@@ -55,7 +55,7 @@ public class ASTRootVarRef
         {
             getterClass = target.getClass();
         }
-        
+
         if ( getterClass != null )
         {
 
@@ -83,7 +83,7 @@ public class ASTRootVarRef
             return "$3";
         }
     }
-    
+
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
         throws OgnlException
     {

@@ -77,14 +77,14 @@ public interface Node
 
     /**
      * Gets the compiled bytecode enhanced expression accessor for getting/setting values.
-     * 
+     *
      * @return The accessor for this node, or null if none has been compiled for it.
      */
     ExpressionAccessor getAccessor();
 
     /**
      * Sets a new compiled accessor for this node expression.
-     * 
+     *
      * @param accessor The compiled representation of this node.
      */
     void setAccessor( ExpressionAccessor accessor );

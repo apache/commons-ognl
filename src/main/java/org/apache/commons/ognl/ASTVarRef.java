@@ -115,7 +115,7 @@ public class ASTVarRef
         {
             throw new UnsupportedCompilationException( "Current context object is null, can't compile var reference." );
         }
-        
+
         String pre = "";
         String post = "";
         if ( context.getCurrentType() != null )

@@ -40,7 +40,7 @@ public abstract class OgnlOps
      * Comparable and the types are compatible (i.e. v1 is of the same or superclass of v2's type) they are compared
      * with Comparable.compareTo(). If both values are non-numeric and not Comparable or of incompatible classes this
      * will throw and IllegalArgumentException.
-     * 
+     *
      * @param v1 First value to compare
      * @param v2 second value to compare
      * @return integer describing the comparison between the two objects. A negative number indicates that v1 < v2.
@@ -102,7 +102,7 @@ public abstract class OgnlOps
     /**
      * Returns true if object1 is equal to object2 in either the sense that they are the same object or, if both are
      * non-null if they are equal in the <CODE>equals()</CODE> sense.
-     * 
+     *
      * @param object1 First object to compare
      * @param object2 Second object to compare
      * @return true if v1 == v2
@@ -171,7 +171,7 @@ public abstract class OgnlOps
     /**
      * Evaluates the given object as a boolean: if it is a Boolean object, it's easy; if it's a Number or a Character,
      * returns true for non-zero objects; and otherwise returns true for non-null objects.
-     * 
+     *
      * @param value an object to interpret as a boolean
      * @return the boolean value implied by the given object
      */
@@ -200,7 +200,7 @@ public abstract class OgnlOps
 
     /**
      * Evaluates the given object as a long integer.
-     * 
+     *
      * @param value an object to interpret as a long integer
      * @return the long integer value implied by the given object
      * @throws NumberFormatException if the given object can't be understood as a long integer
@@ -229,7 +229,7 @@ public abstract class OgnlOps
 
     /**
      * Evaluates the given object as a double-precision floating-point number.
-     * 
+     *
      * @param value an object to interpret as a double
      * @return the double value implied by the given object
      * @throws NumberFormatException if the given object can't be understood as a double
@@ -260,7 +260,7 @@ public abstract class OgnlOps
 
     /**
      * Evaluates the given object as a BigInteger.
-     * 
+     *
      * @param value an object to interpret as a BigInteger
      * @return the BigInteger value implied by the given object
      * @throws NumberFormatException if the given object can't be understood as a BigInteger
@@ -297,7 +297,7 @@ public abstract class OgnlOps
 
     /**
      * Evaluates the given object as a BigDecimal.
-     * 
+     *
      * @param value an object to interpret as a BigDecimal
      * @return the BigDecimal value implied by the given object
      * @throws NumberFormatException if the given object can't be understood as a BigDecimal
@@ -330,7 +330,7 @@ public abstract class OgnlOps
 
     /**
      * Evaluates the given object as a String and trims it if the trim flag is true.
-     * 
+     *
      * @param value an object to interpret as a String
      * @param trim if true trims the result
      * @return the String value implied by the given object as returned by the toString() method, or "null" if the
@@ -357,7 +357,7 @@ public abstract class OgnlOps
 
     /**
      * Evaluates the given object as a String.
-     * 
+     *
      * @param value an object to interpret as a String
      * @return the String value implied by the given object as returned by the toString() method, or "null" if the
      *         object is null.
@@ -369,7 +369,7 @@ public abstract class OgnlOps
 
     /**
      * Returns a constant from the NumericTypes interface that represents the numeric type of the given object.
-     * 
+     *
      * @param value an object that needs to be interpreted as a number
      * @return the appropriate constant from the NumericTypes interface
      */
@@ -597,7 +597,7 @@ public abstract class OgnlOps
     /**
      * Returns the value converted numerically to the given class type This method also detects when arrays are being
      * converted and converts the components of one array to the type of the other.
-     * 
+     *
      * @param value an object to be converted to the given type
      * @param toType class type to be converted to
      * @return converted value of the type given, or value if the value cannot be converted to the given type.
@@ -785,7 +785,7 @@ public abstract class OgnlOps
      * <li>{@link Number} instances have their intValue() methods invoked.</li>
      * <li>All other types result in calling Integer.parseInt(value.toString());</li>
      * </ul>
-     * 
+     *
      * @param value The object to get the value of.
      * @return A valid integer.
      */
@@ -817,7 +817,7 @@ public abstract class OgnlOps
     /**
      * Returns the constant from the NumericTypes interface that best expresses the type of a numeric operation on the
      * two given objects.
-     * 
+     *
      * @param v1 one argument to a numeric operator
      * @param v2 the other argument
      * @return the appropriate constant from the NumericTypes interface
@@ -830,7 +830,7 @@ public abstract class OgnlOps
     /**
      * Returns the constant from the NumericTypes interface that best expresses the type of an operation, which can be
      * either numeric or not, on the two given types.
-     * 
+     *
      * @param t1 type of one argument to an operator
      * @param t2 type of the other argument
      * @param canBeNonNumeric whether the operator can be interpreted as non-numeric
@@ -894,7 +894,7 @@ public abstract class OgnlOps
     /**
      * Returns the constant from the NumericTypes interface that best expresses the type of an operation, which can be
      * either numeric or not, on the two given objects.
-     * 
+     *
      * @param v1 one argument to an operator
      * @param v2 the other argument
      * @param canBeNonNumeric whether the operator can be interpreted as non-numeric
@@ -908,7 +908,7 @@ public abstract class OgnlOps
     /**
      * Returns a new Number object of an appropriate type to hold the given integer value. The type of the returned
      * object is consistent with the given type argument, which is a constant from the NumericTypes interface.
-     * 
+     *
      * @param type the nominal numeric type of the result, a constant from the NumericTypes interface
      * @param value the integer value to convert to a Number object
      * @return a Number object with the given value, of type implied by the type argument
@@ -952,7 +952,7 @@ public abstract class OgnlOps
      * Returns a new Number object of an appropriate type to hold the given real value. The type of the returned object
      * is always either Float or Double, and is only Float if the given type tag (a constant from the NumericTypes
      * interface) is FLOAT.
-     * 
+     *
      * @param type the nominal numeric type of the result, a constant from the NumericTypes interface
      * @param value the real value to convert to a Number object
      * @return a Number object with the given value, of type implied by the type argument
@@ -1290,7 +1290,7 @@ public abstract class OgnlOps
     /**
      * Utility method that converts incoming exceptions to {@link RuntimeException} instances - or casts them if they
      * already are.
-     * 
+     *
      * @param t The exception to cast.
      * @return The exception cast to a {@link RuntimeException}.
      */

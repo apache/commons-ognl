@@ -131,7 +131,7 @@ public class ASTChain
                             if ( !handled )
                             {
                                 result =
-                                    OgnlRuntime.getIndexedProperty( 
+                                    OgnlRuntime.getIndexedProperty(
                                         context,
                                         result,
                                         propertyNode.getProperty( context, result ).toString(),
@@ -221,7 +221,7 @@ public class ASTChain
                             else if ( !handled )
                             {
                                 target =
-                                    OgnlRuntime.getIndexedProperty( 
+                                    OgnlRuntime.getIndexedProperty(
                                         context,
                                         target,
                                         propertyNode.getProperty( context, target ).toString(),
@@ -395,7 +395,7 @@ public class ASTChain
         {
             throw new UnsupportedCompilationException( "Can't compile nested chain expressions." );
         }
-        
+
         if ( target != null )
         {
             context.setCurrentObject( target );
@@ -433,7 +433,7 @@ public class ASTChain
                     {
                         constructor = true;
                     }
-                    
+
                     if ( NodeType.class.isInstance( children[i] )
                         && ( (NodeType) children[i] ).getGetterClass() != null )
                     {
@@ -467,7 +467,7 @@ public class ASTChain
                     {
                         result += value;
                     }
-                    
+
                     context.put( "_currentChain", result );
                 }
             }
@@ -484,10 +484,10 @@ public class ASTChain
         {
             setterClass = lastType.getSetterClass();
         }
-        
+
         return result;
     }
-    
+
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
         throws OgnlException
     {

@@ -54,7 +54,7 @@ class ASTBitNegate
             return "~(" + source + ")";
         }
     }
-    
+
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
         throws OgnlException
     {

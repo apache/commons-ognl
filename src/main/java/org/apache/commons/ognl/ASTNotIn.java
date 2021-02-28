@@ -85,7 +85,7 @@ class ASTNotIn
             throw OgnlOps.castToRuntime( t );
         }
     }
-    
+
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
         throws OgnlException
     {

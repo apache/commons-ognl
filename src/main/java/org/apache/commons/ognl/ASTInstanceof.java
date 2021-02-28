@@ -43,7 +43,7 @@ public class ASTInstanceof
         this.targetType = targetType;
     }
 
-    String getTargetType() 
+    String getTargetType()
     {
         return targetType;
     }
@@ -95,7 +95,7 @@ public class ASTInstanceof
     {
         return toGetSourceString( context, target );
     }
-    
+
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
         throws OgnlException
     {

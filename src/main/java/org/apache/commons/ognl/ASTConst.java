@@ -43,9 +43,9 @@ public class ASTConst
         super( p, id );
     }
 
-    /** 
+    /**
      * Called from parser actions.
-     * @param value the value to set 
+     * @param value the value to set
      */
     public void setValue( Object value )
     {
@@ -75,7 +75,7 @@ public class ASTConst
         {
             return null;
         }
-        
+
         return getterClass;
     }
 
@@ -114,7 +114,7 @@ public class ASTConst
             return value.toString();
         }
         else if ( !( parent != null
-                        && value != null 
+                        && value != null
                         && NumericExpression.class.isAssignableFrom( parent.getClass() ) )
             && String.class.isAssignableFrom( value.getClass() ) )
         {
@@ -140,7 +140,7 @@ public class ASTConst
             {
                 retval = "'" + OgnlOps.getEscapedChar( ( (Character) value ).charValue() ) + "'";
             }
-            
+
             context.setCurrentObject( retval );
             return retval.toString();
         }
@@ -164,10 +164,10 @@ public class ASTConst
         {
             throw new UnsupportedCompilationException( "Can't modify constant values." );
         }
-        
+
         return toGetSourceString( context, target );
     }
-    
+
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
         throws OgnlException
     {

@@ -59,7 +59,7 @@ public class ASTThisVarRef
     {
         throw new UnsupportedCompilationException( "Unable to compile this references." );
     }
-    
+
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
         throws OgnlException
     {

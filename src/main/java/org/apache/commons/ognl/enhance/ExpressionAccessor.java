@@ -32,7 +32,7 @@ public interface ExpressionAccessor
 
     /**
      * Gets the value represented by this expression path, if any.
-     * 
+     *
      * @param context The standard ognl context used for variable substitution/etc.
      * @param target The root object this expression is meant for.
      * @return The evaluated value, if any.
@@ -41,7 +41,7 @@ public interface ExpressionAccessor
 
     /**
      * Sets the value represented by this expression path, if possible.
-     * 
+     *
      * @param context The standard ognl context used for variable substitution/etc.
      * @param target The root object this expression is meant for.
      * @param value The new value to set if this expression references a settable property.
@@ -51,7 +51,7 @@ public interface ExpressionAccessor
     /**
      * Used to set the original root expression node on instances where the compiled version has to fall back to
      * interpreted syntax because of compilation failures.
-     * 
+     *
      * @param expression The root expression node used to generate this accessor.
      */
     void setExpression( Node expression );

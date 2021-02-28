@@ -90,7 +90,7 @@ public class ASTOr
         {
             throw new UnsupportedCompilationException( "Can only compile boolean expressions with two children." );
         }
-        
+
         String result = "(";
 
         try
@@ -101,7 +101,7 @@ public class ASTOr
             {
                 first = OgnlRuntime.getCompiler( context ).createLocalReference( context, first, context.getCurrentType() );
             }
-            
+
             Class firstType = context.getCurrentType();
 
             String second = OgnlRuntime.getChildSource( context, target, children[1] );
@@ -109,7 +109,7 @@ public class ASTOr
             {
                 second = OgnlRuntime.getCompiler( context ).createLocalReference( context, second, context.getCurrentType() );
             }
-            
+
             Class secondType = context.getCurrentType();
 
             boolean mismatched =
@@ -146,13 +146,13 @@ public class ASTOr
         {
             throw new UnsupportedCompilationException( "Can only compile boolean expressions with two children." );
         }
-        
+
         String pre = (String) context.get( "_currentChain" );
         if ( pre == null )
         {
             pre = "";
         }
-        
+
         String result = "";
 
         try
@@ -197,7 +197,7 @@ public class ASTOr
 
         return result;
     }
-    
+
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
         throws OgnlException
     {

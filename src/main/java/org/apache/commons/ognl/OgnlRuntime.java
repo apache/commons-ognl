@@ -700,7 +700,7 @@ public class OgnlRuntime
 
     public static boolean getConvertedTypes( OgnlContext context, Object target, Member member, String propertyName,
                                              Class<?>[] parameterTypes, Object[] args, Object[] newArgs )
-        
+
     {
         boolean result = false;
 
@@ -736,7 +736,7 @@ public class OgnlRuntime
 
     public static Method getConvertedMethodAndArgs( OgnlContext context, Object target, String propertyName,
                                                     List<Method> methods, Object[] args, Object[] newArgs )
-        
+
     {
         Method convertedMethod = null;
         TypeConverter typeConverter = context.getTypeConverter();
@@ -762,7 +762,7 @@ public class OgnlRuntime
     public static Constructor<?> getConvertedConstructorAndArgs( OgnlContext context, Object target,
                                                                  List<Constructor<?>> constructors, Object[] args,
                                                                  Object[] newArgs )
-        
+
     {
         Constructor<?> constructor = null;
         TypeConverter typeConverter = context.getTypeConverter();
@@ -799,7 +799,7 @@ public class OgnlRuntime
      */
     public static Method getAppropriateMethod( OgnlContext context, Object source, Object target, String propertyName,
                                                List<Method> methods, Object[] args, Object[] actualArgs )
-        
+
     {
         Method appropriateMethod = null;
         Class<?>[] resultParameterTypes = null;

@@ -53,7 +53,7 @@ class ASTGreater
     {
         return "org.apache.commons.ognl.OgnlOps.greater";
     }
-    
+
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
         throws OgnlException
     {

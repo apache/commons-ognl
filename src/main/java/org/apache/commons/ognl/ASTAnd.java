@@ -230,7 +230,7 @@ public class ASTAnd
 
         return result;
     }
-    
+
     /* (non-Javadoc)
      * @see org.apache.commons.ognl.Node#accept(org.apache.commons.ognl.NodeVisitor, java.lang.Object)
      */

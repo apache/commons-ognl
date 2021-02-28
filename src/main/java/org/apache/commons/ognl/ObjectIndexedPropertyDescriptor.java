@@ -29,7 +29,7 @@ import java.lang.reflect.Method;
  * IndexedPropertyDescriptor this allows the "key" to be an arbitrary object rather than just an int. Consequently it
  * does not have a "readMethod" or "writeMethod" because it only expects a pattern like:
  * </p>
- * 
+ *
  * <pre>
  *    public void set<i>Property</i>(<i>KeyType</i>, <i>ValueType</i>);
  *    public <i>ValueType</i> get<i>Property</i>(<i>KeyType</i>);
@@ -42,12 +42,12 @@ import java.lang.reflect.Method;
  * <p>
  * For example, if an object were to have methods that accessed and "attributes" property it would be natural to index
  * them by String rather than by integer and expose the attributes as a map with a different property name:
- * 
+ *
  * <pre>
  * public void setAttribute( String name, Object value );
- * 
+ *
  * public Object getAttribute( String name );
- * 
+ *
  * public Map getAttributes();
  * </pre>
  * <p>

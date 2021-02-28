@@ -31,7 +31,7 @@ public class UnsupportedCompilationException
 {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 4961625077128174947L;
 

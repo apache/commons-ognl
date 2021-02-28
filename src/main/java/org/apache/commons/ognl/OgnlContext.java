@@ -344,7 +344,7 @@ public class OgnlContext
 
     /**
      * Gets the current class type being evaluated on the stack, as set by {@link #setCurrentType(Class)}.
-     * 
+     *
      * @return The current object type, may be null.
      */
     public Class<?> getCurrentType()
@@ -365,7 +365,7 @@ public class OgnlContext
     /**
      * Represents the last known object type on the evaluation stack, will be the value of the last known
      * {@link #getCurrentType()}.
-     * 
+     *
      * @return The previous type of object on the stack, may be null.
      */
     public Class<?> getPreviousType()

@@ -122,7 +122,7 @@ public class ASTSequence
                 {
                     pre = "";
                 }
-                
+
                 seqValue =
                     ExpressionCompiler.getRootExpression( children[i], context.getRoot(), context ) + pre + seqValue;
                 context.setCurrentAccessor( context.getRoot().getClass() );
@@ -157,7 +157,7 @@ public class ASTSequence
 
         return result;
     }
-    
+
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
         throws OgnlException
     {

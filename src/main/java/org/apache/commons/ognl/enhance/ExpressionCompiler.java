@@ -88,7 +88,7 @@ public class ExpressionCompiler
      * store the cast java source string in to the current {@link org.apache.commons.ognl.OgnlContext}. This will either
      * add to the existing string present if it already exists or create a new instance and store it using the static
      * key of {@link #PRE_CAST}.
-     * 
+     *
      * @param context The current execution context.
      * @param cast The java source string to store in to the context.
      */
@@ -114,7 +114,7 @@ public class ExpressionCompiler
      * For instance, if given an {@link Integer} object the string <code>"java.lang.Integer"</code> would be returned.
      * For an array of primitive ints <code>"int[]"</code> and so on..
      * </p>
-     * 
+     *
      * @param type The class to cast a string expression for.
      * @return The converted raw string version of the class name.
      */
@@ -132,7 +132,7 @@ public class ExpressionCompiler
      * Convenience method called by many different property/method resolving AST types to get a root expression
      * resolving string for the given node. The callers are mostly ignorant and rely on this method to properly
      * determine if the expression should be cast at all and take the appropriate actions if it should.
-     * 
+     *
      * @param expression The node to check and generate a root expression to if necessary.
      * @param root The root object for this execution.
      * @param context The current execution context.
@@ -326,7 +326,7 @@ public class ExpressionCompiler
     /**
      * Helper utility method used by compiler to help resolve class->method mappings during method calls to
      * {@link OgnlExpressionCompiler#getSuperOrInterfaceClass(java.lang.reflect.Method, Class)}.
-     * 
+     *
      * @param m The method to check for existance of.
      * @param clazz The class to check for the existance of a matching method definition to the method passed in.
      * @return True if the class contains the specified method, false otherwise.
@@ -744,7 +744,7 @@ public class ExpressionCompiler
 
     /**
      * Fail safe getter creation when normal compilation fails.
-     * 
+     *
      * @param clazz The javassist class the new method should be attached to.
      * @param valueGetter The method definition the generated code will be contained within.
      * @param node The root expression node.
@@ -765,7 +765,7 @@ public class ExpressionCompiler
 
     /**
      * Fail safe setter creation when normal compilation fails.
-     * 
+     *
      * @param clazz The javassist class the new method should be attached to.
      * @param valueSetter The method definition the generated code will be contained within.
      * @param node The root expression node.
@@ -787,7 +787,7 @@ public class ExpressionCompiler
     /**
      * Creates a {@link ClassLoader} instance compatible with the javassist classloader and normal OGNL class resolving
      * semantics.
-     * 
+     *
      * @param context The current execution context.
      * @return The created {@link ClassLoader} instance.
      */
@@ -810,7 +810,7 @@ public class ExpressionCompiler
 
     /**
      * Loads a new class definition via javassist for the specified class.
-     * 
+     *
      * @param searchClass The class to load.
      * @return The javassist class equivalent.
      * @throws javassist.NotFoundException When the class definition can't be found.
@@ -825,7 +825,7 @@ public class ExpressionCompiler
      * Gets either a new or existing {@link ClassPool} for use in compiling javassist classes. A new class path object
      * is inserted in to the returned {@link ClassPool} using the passed in <code>loader</code> instance if a new pool
      * needs to be created.
-     * 
+     *
      * @param context The current execution context.
      * @param loader The {@link ClassLoader} instance to use - as returned by
      *            {@link #getClassLoader(org.apache.commons.ognl.OgnlContext)}.

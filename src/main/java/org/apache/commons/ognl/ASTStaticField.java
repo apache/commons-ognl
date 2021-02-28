@@ -109,7 +109,7 @@ public class ASTStaticField
         {
             throw new OgnlException( "Could not get static field " + fieldName + " from class " + className, cause );
         }
-        
+
         return result;
     }
 
@@ -209,7 +209,7 @@ public class ASTStaticField
 
         return className + "." + fieldName;
     }
-    
+
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
         throws OgnlException
     {

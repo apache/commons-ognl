@@ -30,14 +30,14 @@ public interface OrderedReturn
 
     /**
      * Get the core expression to execute first before any return foo logic is started.
-     * 
+     *
      * @return The core standalone expression that shouldn't be pre-pended with a return keyword.
      */
     String getCoreExpression();
 
     /**
      * Gets the last expression to be pre-pended with a return &lt;expression&gt; block.
-     * 
+     *
      * @return The expression representing the return portion of a statement;
      */
     String getLastExpression();

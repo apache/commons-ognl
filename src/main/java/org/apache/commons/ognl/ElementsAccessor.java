@@ -33,7 +33,7 @@ public interface ElementsAccessor
 {
     /**
      * Returns an iterator over the elements of the given target object.
-     * 
+     *
      * @param target the object to get the elements of
      * @return an iterator over the elements of the given object
      * @throws OgnlException if there is an error getting the given object's elements
