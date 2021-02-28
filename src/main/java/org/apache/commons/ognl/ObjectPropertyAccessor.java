@@ -187,7 +187,7 @@ public class ObjectPropertyAccessor
 
                 if ( String.class.isAssignableFrom( index.getClass() ) && !target.getClass().isArray() )
                 {
-                    String key = ( (String) index ).replaceAll( "\"", "" );
+                    String key = ( (String) index ).replace( "\"", "" );
                     try
                     {
                         Field f = target.getClass().getField( key );
@@ -220,7 +220,7 @@ public class ObjectPropertyAccessor
         try
         {
 
-            String methodName = index.toString().replaceAll( "\"", "" );
+            String methodName = index.toString().replace( "\"", "" );
             Method m = OgnlRuntime.getReadMethod( target.getClass(), methodName );
 
             // try last ditch effort of checking if they were trying to do reflection via a return method value
@@ -229,7 +229,7 @@ public class ObjectPropertyAccessor
             {
                 m =
                     OgnlRuntime.getReadMethod( target.getClass(),
-                                               context.getCurrentObject().toString().replaceAll( "\"", "" ) );
+                                               context.getCurrentObject().toString().replace( "\"", "" ) );
             }
             // System.out.println("tried to get read method from target: " + target.getClass() + " with methodName:" +
             // methodName + " result: " + m);
@@ -278,14 +278,14 @@ public class ObjectPropertyAccessor
         try
         {
 
-            String methodName = index.toString().replaceAll( "\"", "" );
+            String methodName = index.toString().replace( "\"", "" );
             Method m = OgnlRuntime.getWriteMethod( target.getClass(), methodName );
 
             if ( m == null && context.getCurrentObject() != null && context.getCurrentObject().toString() != null )
             {
                 m =
                     OgnlRuntime.getWriteMethod( target.getClass(),
-                                                context.getCurrentObject().toString().replaceAll( "\"", "" ) );
+                                                context.getCurrentObject().toString().replace( "\"", "" ) );
             }
 
             if ( m == null || m.getParameterTypes() == null || m.getParameterTypes().length <= 0 )

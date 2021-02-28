@@ -1838,7 +1838,7 @@ public class OgnlRuntime
     {
         try
         {
-            name = name.replaceAll( "\"", "" ).toLowerCase();
+            name = name.replace( "\"", "" ).toLowerCase();
 
             BeanInfo info = Introspector.getBeanInfo( target );
             MethodDescriptor[] methodDescriptors = info.getMethodDescriptors();
@@ -1937,7 +1937,7 @@ public class OgnlRuntime
     {
         try
         {
-            name = name.replaceAll( "\"", "" );
+            name = name.replace( "\"", "" );
 
             BeanInfo info = Introspector.getBeanInfo( target );
             MethodDescriptor[] methods = info.getMethodDescriptors();

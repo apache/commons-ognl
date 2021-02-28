@@ -120,7 +120,7 @@ public class MapPropertyAccessor
 
         if ( String.class.isInstance( index ) && !indexedAccess )
         {
-            String key = indexStr.replaceAll( "\"", "" );
+            String key = indexStr.replace( "\"", "" );
 
             if ( "size".equals( key ) )
             {
@@ -156,7 +156,7 @@ public class MapPropertyAccessor
 
         if ( String.class.isInstance( index ) )
         {
-            String key = indexStr.replaceAll( "\"", "" );
+            String key = indexStr.replace( "\"", "" );
 
             if ( "size".equals( key ) || "keys".equals( key ) || "keySet".equals( key ) || "values".equals( key )
                 || "isEmpty".equals( key ) )

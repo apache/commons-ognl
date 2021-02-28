@@ -154,7 +154,7 @@ public class ListPropertyAccessor
     {
         if ( index instanceof String )
         {
-            String key = ( (String) index ).replaceAll( "\"", "" );
+            String key = ( (String) index ).replace( "\"", "" );
             if ( "size".equals( key ) )
             {
                 return int.class;
@@ -181,7 +181,7 @@ public class ListPropertyAccessor
     @Override
     public String getSourceAccessor( OgnlContext context, Object target, Object index )
     {
-        String indexStr = index.toString().replaceAll( "\"", "" );
+        String indexStr = index.toString().replace( "\"", "" );
 
         if ( String.class.isInstance( index ) )
         {
@@ -213,7 +213,7 @@ public class ListPropertyAccessor
     @Override
     public String getSourceSetter( OgnlContext context, Object target, Object index )
     {
-        String indexStr = index.toString().replaceAll( "\"", "" );
+        String indexStr = index.toString().replace( "\"", "" );
 
         // TODO: This feels really inefficient, must be some better way
         // check if the index string represents a method on a custom class implementing java.util.List instead..

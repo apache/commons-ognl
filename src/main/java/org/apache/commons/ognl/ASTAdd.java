@@ -255,7 +255,7 @@ class ASTAdd
                     if ( context.getCurrentType() != null && context.getCurrentType() == Character.class
                         && ASTConst.class.isInstance( children[i] ) )
                     {
-                        expr = expr.replaceAll( "'", "\"" );
+                        expr = expr.replace( "'", "\"" );
                         context.setCurrentType( String.class );
                     }
                     else
@@ -274,8 +274,8 @@ class ASTAdd
                             if ( lastType != null && String.class.isAssignableFrom( lastType.getGetterClass() ) )
                             {
                                 // System.out.println("Input expr >>" + expr + "<<");
-                                expr = expr.replaceAll( "&quot;", "\"" );
-                                expr = expr.replaceAll( "\"", "'" );
+                                expr = expr.replace( "&quot;", "\"" );
+                                expr = expr.replace( "\"", "'" );
                                 expr = format( "\"%s\"", expr );
                                 // System.out.println("Expr now >>" + expr + "<<");
                             }

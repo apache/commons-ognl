@@ -58,7 +58,7 @@ public class BeanProviderAccessor
         throws OgnlException
     {
         BeanProvider provider = (BeanProvider) target;
-        String beanName = ( (String) oname ).replaceAll( "\"", "" );
+        String beanName = ( (String) oname ).replace( "\"", "" );
 
         return provider.getBean( beanName ) != null;
     }
@@ -67,7 +67,7 @@ public class BeanProviderAccessor
     public String getSourceAccessor( OgnlContext context, Object target, Object name )
     {
         BeanProvider provider = (BeanProvider) target;
-        String beanName = ( (String) name ).replaceAll( "\"", "" );
+        String beanName = ( (String) name ).replace( "\"", "" );
 
         if ( provider.getBean( beanName ) != null )
         {
