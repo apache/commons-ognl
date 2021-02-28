@@ -53,7 +53,6 @@ public class Component
 
     public Component()
     {
-        super();
     }
 
     public Page getPage()

@@ -36,7 +36,6 @@ public class NameFactory
      */
     public NameFactory( String classBaseName, String variableBaseName )
     {
-        super();
         this.classBaseName = classBaseName;
         this.variableBaseName = variableBaseName;
     }

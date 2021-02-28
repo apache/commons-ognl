@@ -50,7 +50,6 @@ public class DefaultMemberAccess
     public DefaultMemberAccess( boolean allowPrivateAccess, boolean allowProtectedAccess,
                                 boolean allowPackageProtectedAccess )
     {
-        super();
         this.allowPrivateAccess = allowPrivateAccess;
         this.allowProtectedAccess = allowProtectedAccess;
         this.allowPackageProtectedAccess = allowPackageProtectedAccess;

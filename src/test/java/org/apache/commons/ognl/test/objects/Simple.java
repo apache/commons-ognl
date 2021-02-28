@@ -71,12 +71,10 @@ public class Simple
 
     public Simple( Object[] values )
     {
-        super();
     }
 
     public Simple( String stringValue, float floatValue, int intValue )
     {
-        super();
         this.stringValue = stringValue;
         this.floatValue = floatValue;
         this.intValue = intValue;

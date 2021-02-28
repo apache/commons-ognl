@@ -24,7 +24,6 @@ public class ObjectIndexed
 {
     public ObjectIndexed()
     {
-        super();
         setAttribute( "foo", "bar" );
         setAttribute( "bar", "baz" );
         setAttribute( "other", new OtherObjectIndexed() );

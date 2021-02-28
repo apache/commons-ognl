@@ -28,7 +28,6 @@ public class BaseObjectIndexed
 
     public BaseObjectIndexed()
     {
-        super();
     }
 
     public Map getAttributes()

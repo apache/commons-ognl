@@ -79,7 +79,6 @@ public class Performance
 
         public Results( int iterations, long time, boolean mvel )
         {
-            super();
             this.iterations = iterations;
             this.time = time;
             this.mvel = mvel;

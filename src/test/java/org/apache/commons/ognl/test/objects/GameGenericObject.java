@@ -28,7 +28,6 @@ public class GameGenericObject
 
     public GameGenericObject()
     {
-        super();
     }
 
     public int getId()

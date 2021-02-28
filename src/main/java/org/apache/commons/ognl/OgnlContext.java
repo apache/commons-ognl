@@ -163,7 +163,6 @@ public class OgnlContext
 
     public OgnlContext( Map<String, Object> values )
     {
-        super();
         this.values = values;
     }
 

@@ -35,7 +35,6 @@ public class CorrectedObjectNullHandler
      */
     public CorrectedObjectNullHandler( String defaultValue )
     {
-        super();
         this.defaultValue = defaultValue;
     }
 

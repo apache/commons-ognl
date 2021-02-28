@@ -150,7 +150,6 @@ public class ObjectIndexedTest
      */
     public ObjectIndexedTest()
     {
-        super();
     }
 
     public ObjectIndexedTest( String name )

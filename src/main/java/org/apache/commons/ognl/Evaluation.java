@@ -50,7 +50,6 @@ public class Evaluation
      */
     public Evaluation( SimpleNode node, Object source )
     {
-        super();
         this.node = node;
         this.source = source;
     }
