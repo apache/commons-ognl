@@ -1065,12 +1065,9 @@ public class OgnlRuntime
             method = getReadMethod( targetClass, propertyName, 0 );
         }
 
-        if ( checkAccessAndExistence )
+        if ( checkAccessAndExistence && (( method == null ) || !context.getMemberAccess().isAccessible( context, target, method, propertyName )) )
         {
-            if ( ( method == null ) || !context.getMemberAccess().isAccessible( context, target, method, propertyName ) )
-            {
-                methodValue = NotFound;
-            }
+            methodValue = NotFound;
         }
         if ( methodValue == null )
         {
@@ -1106,12 +1103,9 @@ public class OgnlRuntime
         boolean result = true;
         Method method = getSetMethod( context, ( target == null ) ? null : target.getClass(), propertyName );
 
-        if ( checkAccessAndExistence )
+        if ( checkAccessAndExistence && (( method == null ) || !context.getMemberAccess().isAccessible( context, target, method, propertyName )) )
         {
-            if ( ( method == null ) || !context.getMemberAccess().isAccessible( context, target, method, propertyName ) )
-            {
-                result = false;
-            }
+            result = false;
         }
 
         if ( result )
@@ -1195,12 +1189,9 @@ public class OgnlRuntime
         Class<?> targetClass = target == null ? null : target.getClass();
         Field field = getField( targetClass, propertyName );
 
-        if ( checkAccessAndExistence )
+        if ( checkAccessAndExistence && (( field == null ) || !context.getMemberAccess().isAccessible( context, target, field, propertyName )) )
         {
-            if ( ( field == null ) || !context.getMemberAccess().isAccessible( context, target, field, propertyName ) )
-            {
-                result = NotFound;
-            }
+            result = NotFound;
         }
         if ( result == null )
         {
@@ -1908,14 +1899,10 @@ public class OgnlRuntime
                     if ( numParms > 0 && methodDescriptor.getMethod().getParameterTypes().length == numParms )
                     {
                         return methodDescriptor.getMethod();
-                    }
-                    else if ( numParms < 0 )
+                    } else if ( (numParms < 0) && (method == null || ( method.getParameterTypes().length
+                        > methodDescriptor.getMethod().getParameterTypes().length )) )
                     {
-                        if ( method == null || ( method.getParameterTypes().length
-                            > methodDescriptor.getMethod().getParameterTypes().length ) )
-                        {
-                            method = methodDescriptor.getMethod();
-                        }
+                        method = methodDescriptor.getMethod();
                     }
                 }
             }

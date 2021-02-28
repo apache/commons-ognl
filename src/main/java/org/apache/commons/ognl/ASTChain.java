@@ -75,70 +75,67 @@ public class ASTChain
         {
             boolean handled = false;
 
-            if ( i < ilast )
+            if ( (i < ilast) && (children[i] instanceof ASTProperty) )
             {
-                if ( children[i] instanceof ASTProperty )
+                ASTProperty propertyNode = (ASTProperty) children[i];
+                int indexType = propertyNode.getIndexedPropertyType( context, result );
+
+                if ( ( indexType != OgnlRuntime.INDEXED_PROPERTY_NONE )
+                    && ( children[i + 1] instanceof ASTProperty ) )
                 {
-                    ASTProperty propertyNode = (ASTProperty) children[i];
-                    int indexType = propertyNode.getIndexedPropertyType( context, result );
+                    ASTProperty indexNode = (ASTProperty) children[i + 1];
 
-                    if ( ( indexType != OgnlRuntime.INDEXED_PROPERTY_NONE )
-                        && ( children[i + 1] instanceof ASTProperty ) )
+                    if ( indexNode.isIndexedAccess() )
                     {
-                        ASTProperty indexNode = (ASTProperty) children[i + 1];
+                        Object index = indexNode.getProperty( context, result );
 
-                        if ( indexNode.isIndexedAccess() )
+                        if ( index instanceof DynamicSubscript )
                         {
-                            Object index = indexNode.getProperty( context, result );
-
-                            if ( index instanceof DynamicSubscript )
+                            if ( indexType == OgnlRuntime.INDEXED_PROPERTY_INT )
                             {
-                                if ( indexType == OgnlRuntime.INDEXED_PROPERTY_INT )
-                                {
-                                    Object array = propertyNode.getValue( context, result );
-                                    int len = Array.getLength( array );
+                                Object array = propertyNode.getValue( context, result );
+                                int len = Array.getLength( array );
 
-                                    switch ( ( (DynamicSubscript) index ).getFlag() )
-                                    {
-                                        case DynamicSubscript.ALL:
-                                            result = Array.newInstance( array.getClass().getComponentType(), len );
-                                            System.arraycopy( array, 0, result, 0, len );
-                                            handled = true;
-                                            i++;
-                                            break;
-                                        case DynamicSubscript.FIRST:
-                                            index = ( len > 0 ) ? 0 : -1;
-                                            break;
-                                        case DynamicSubscript.MID:
-                                            index = ( len > 0 ) ? ( len / 2 ) : -1;
-                                            break;
-                                        case DynamicSubscript.LAST:
-                                            index = ( len > 0 ) ? ( len - 1 ) : -1;
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                }
-                                else
+                                switch ( ( (DynamicSubscript) index ).getFlag() )
                                 {
-                                    if ( indexType == OgnlRuntime.INDEXED_PROPERTY_OBJECT )
-                                    {
-                                        throw new OgnlException( "DynamicSubscript '" + indexNode
-                                            + "' not allowed for object indexed property '" + propertyNode + "'" );
-                                    }
+                                    case DynamicSubscript.ALL:
+                                        result = Array.newInstance( array.getClass().getComponentType(), len );
+                                        System.arraycopy( array, 0, result, 0, len );
+                                        handled = true;
+                                        i++;
+                                        break;
+                                    case DynamicSubscript.FIRST:
+                                        index = ( len > 0 ) ? 0 : -1;
+                                        break;
+                                    case DynamicSubscript.MID:
+                                        index = ( len > 0 ) ? ( len / 2 ) : -1;
+                                        break;
+                                    case DynamicSubscript.LAST:
+                                        index = ( len > 0 ) ? ( len - 1 ) : -1;
+                                        break;
+                                    default:
+                                        break;
                                 }
                             }
-                            if ( !handled )
+                            else
                             {
-                                result =
-                                    OgnlRuntime.getIndexedProperty(
-                                        context,
-                                        result,
-                                        propertyNode.getProperty( context, result ).toString(),
-                                        index );
-                                handled = true;
-                                i++;
+                                if ( indexType == OgnlRuntime.INDEXED_PROPERTY_OBJECT )
+                                {
+                                    throw new OgnlException( "DynamicSubscript '" + indexNode
+                                        + "' not allowed for object indexed property '" + propertyNode + "'" );
+                                }
                             }
+                        }
+                        if ( !handled )
+                        {
+                            result =
+                                OgnlRuntime.getIndexedProperty(
+                                    context,
+                                    result,
+                                    propertyNode.getProperty( context, result ).toString(),
+                                    index );
+                            handled = true;
+                            i++;
                         }
                     }
                 }
@@ -158,77 +155,74 @@ public class ASTChain
 
         for ( int i = 0, ilast = children.length - 2; i <= ilast; ++i )
         {
-            if ( i <= ilast )
+            if ( (i <= ilast) && (children[i] instanceof ASTProperty) )
             {
-                if ( children[i] instanceof ASTProperty )
+                ASTProperty propertyNode = (ASTProperty) children[i];
+                int indexType = propertyNode.getIndexedPropertyType( context, target );
+
+                if ( ( indexType != OgnlRuntime.INDEXED_PROPERTY_NONE )
+                    && ( children[i + 1] instanceof ASTProperty ) )
                 {
-                    ASTProperty propertyNode = (ASTProperty) children[i];
-                    int indexType = propertyNode.getIndexedPropertyType( context, target );
+                    ASTProperty indexNode = (ASTProperty) children[i + 1];
 
-                    if ( ( indexType != OgnlRuntime.INDEXED_PROPERTY_NONE )
-                        && ( children[i + 1] instanceof ASTProperty ) )
+                    if ( indexNode.isIndexedAccess() )
                     {
-                        ASTProperty indexNode = (ASTProperty) children[i + 1];
+                        Object index = indexNode.getProperty( context, target );
 
-                        if ( indexNode.isIndexedAccess() )
+                        if ( index instanceof DynamicSubscript )
                         {
-                            Object index = indexNode.getProperty( context, target );
-
-                            if ( index instanceof DynamicSubscript )
+                            if ( indexType == OgnlRuntime.INDEXED_PROPERTY_INT )
                             {
-                                if ( indexType == OgnlRuntime.INDEXED_PROPERTY_INT )
-                                {
-                                    Object array = propertyNode.getValue( context, target );
-                                    int len = Array.getLength( array );
+                                Object array = propertyNode.getValue( context, target );
+                                int len = Array.getLength( array );
 
-                                    switch ( ( (DynamicSubscript) index ).getFlag() )
-                                    {
-                                        case DynamicSubscript.ALL:
-                                            System.arraycopy( target, 0, value, 0, len );
-                                            handled = true;
-                                            i++;
-                                            break;
-                                        case DynamicSubscript.FIRST:
-                                            index = ( len > 0 ) ? 0 : -1;
-                                            break;
-                                        case DynamicSubscript.MID:
-                                            index = ( len > 0 ) ? ( len / 2 ) : -1;
-                                            break;
-                                        case DynamicSubscript.LAST:
-                                            index = ( len > 0 ) ? ( len - 1 ) : -1;
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                }
-                                else
+                                switch ( ( (DynamicSubscript) index ).getFlag() )
                                 {
-                                    if ( indexType == OgnlRuntime.INDEXED_PROPERTY_OBJECT )
-                                    {
-                                        throw new OgnlException( "DynamicSubscript '" + indexNode
-                                            + "' not allowed for object indexed property '" + propertyNode + "'" );
-                                    }
+                                    case DynamicSubscript.ALL:
+                                        System.arraycopy( target, 0, value, 0, len );
+                                        handled = true;
+                                        i++;
+                                        break;
+                                    case DynamicSubscript.FIRST:
+                                        index = ( len > 0 ) ? 0 : -1;
+                                        break;
+                                    case DynamicSubscript.MID:
+                                        index = ( len > 0 ) ? ( len / 2 ) : -1;
+                                        break;
+                                    case DynamicSubscript.LAST:
+                                        index = ( len > 0 ) ? ( len - 1 ) : -1;
+                                        break;
+                                    default:
+                                        break;
                                 }
                             }
-                            if ( !handled && i == ilast )
+                            else
                             {
-                                OgnlRuntime.setIndexedProperty( context, target,
-                                                                propertyNode.getProperty( context, target ).toString(),
-                                                                index, value );
-                                handled = true;
-                                i++;
+                                if ( indexType == OgnlRuntime.INDEXED_PROPERTY_OBJECT )
+                                {
+                                    throw new OgnlException( "DynamicSubscript '" + indexNode
+                                        + "' not allowed for object indexed property '" + propertyNode + "'" );
+                                }
                             }
-                            else if ( !handled )
-                            {
-                                target =
-                                    OgnlRuntime.getIndexedProperty(
-                                        context,
-                                        target,
-                                        propertyNode.getProperty( context, target ).toString(),
-                                        index );
-                                i++;
-                                continue;
-                            }
+                        }
+                        if ( !handled && i == ilast )
+                        {
+                            OgnlRuntime.setIndexedProperty( context, target,
+                                                            propertyNode.getProperty( context, target ).toString(),
+                                                            index, value );
+                            handled = true;
+                            i++;
+                        }
+                        else if ( !handled )
+                        {
+                            target =
+                                OgnlRuntime.getIndexedProperty(
+                                    context,
+                                    target,
+                                    propertyNode.getProperty( context, target ).toString(),
+                                    index );
+                            i++;
+                            continue;
                         }
                     }
                 }
