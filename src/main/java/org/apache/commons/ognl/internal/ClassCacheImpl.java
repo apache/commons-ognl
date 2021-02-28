@@ -59,10 +59,7 @@ public class ClassCacheImpl<V>
      */
     public void clear()
     {
-        for ( int i = 0; i < table.length; i++ )
-        {
-            table[i] = null;
-        }
+        Arrays.fill(table, null);
 
         size = 0;
     }
