@@ -41,7 +41,7 @@ public class PropertySetterTest
 
     public interface TestInterface
     {
-        public String getProperty();
+        String getProperty();
     }
 
     public class TestObject

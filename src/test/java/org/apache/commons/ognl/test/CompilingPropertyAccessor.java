@@ -107,7 +107,7 @@ public class CompilingPropertyAccessor
 
     public interface Getter
     {
-        public Object get( OgnlContext context, Object target, String propertyName );
+        Object get( OgnlContext context, Object target, String propertyName );
     }
 
     public static Getter generateGetter( OgnlContext context, String code )

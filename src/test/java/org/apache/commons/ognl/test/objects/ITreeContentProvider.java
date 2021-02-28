@@ -28,7 +28,7 @@ public interface ITreeContentProvider
     extends IContentProvider
 {
 
-    public Collection getChildren( Object parentElement );
+    Collection getChildren( Object parentElement );
 
-    public boolean hasChildren( Object parentElement );
+    boolean hasChildren( Object parentElement );
 }

@@ -29,7 +29,7 @@ public enum SimpleEnum
 
     private final int _value;
 
-    private SimpleEnum( int value )
+    SimpleEnum( int value )
     {
         _value = value;
     }

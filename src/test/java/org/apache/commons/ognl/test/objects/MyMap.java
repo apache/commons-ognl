@@ -28,5 +28,5 @@ import java.util.*;
 public interface MyMap
     extends Map
 {
-    public String getDescription();
+    String getDescription();
 }

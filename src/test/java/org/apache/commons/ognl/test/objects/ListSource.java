@@ -25,9 +25,9 @@ package org.apache.commons.ognl.test.objects;
 public interface ListSource
 {
 
-    public int getTotal();
+    int getTotal();
 
-    public Object addValue( Object value );
+    Object addValue( Object value );
 
-    public Object getName();
+    Object getName();
 }
