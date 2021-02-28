@@ -89,7 +89,7 @@ public class ConcurrentHashMapCacheTest
             for ( Method method : methods )
             {
                 String name = method.getName( );
-                boolean isGet = name.substring( 3, name.length( ) ).equalsIgnoreCase( key.getMethodName( ) );
+                boolean isGet = name.substring( 3 ).equalsIgnoreCase( key.getMethodName( ) );
                 if ( isGet )
                 {
                     list.add( method );

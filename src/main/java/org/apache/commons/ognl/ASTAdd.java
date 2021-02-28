@@ -215,7 +215,7 @@ class ASTAdd
                         // dirty fix for overly aggressive casting dot operations
                         if ( rootExpr.endsWith( "." ) && chain != null && chain.startsWith( ")." ) )
                         {
-                            chain = chain.substring( 1, chain.length() );
+                            chain = chain.substring( 1 );
                         }
 
                         expr = rootExpr + ( chain != null ? chain + "." : "" ) + expr;
@@ -235,7 +235,7 @@ class ASTAdd
                         if ( !ASTProperty.class.isInstance( children[i].jjtGetChild( 0 ) ) && rootExpr.endsWith( ")" )
                             && expr.startsWith( ")" ) )
                         {
-                            expr = expr.substring( 1, expr.length() );
+                            expr = expr.substring( 1 );
                         }
 
                         expr = rootExpr + expr;
