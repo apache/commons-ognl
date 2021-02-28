@@ -188,7 +188,7 @@ class ASTAdd
 
                     String expr = children[i].toGetSourceString( context, target );
 
-                    if ( ( expr != null && "null".equals( expr ) )
+                    if ( ( "null".equals( expr ) )
                         || ( !ASTConst.class.isInstance( children[i] )
                         && ( expr == null || expr.trim().isEmpty() ) ) )
                     {
