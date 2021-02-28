@@ -42,7 +42,7 @@ public class LambdaExpressionTest
         { null, "#fact=:[#this<=1? 1 : #fact(#this-1) * #this], #fact(30h)",
             new BigInteger( "265252859812191058636308480000000" ) },
         { null, "#bump = :[ #this.{ #this + 1 } ], (#bump)({ 1, 2, 3 })",
-            new ArrayList( Arrays.asList( new Integer[] { new Integer( 2 ), new Integer( 3 ), new Integer( 4 ) } ) ) },
+            new ArrayList( Arrays.asList( new Integer( 2 ), new Integer( 3 ), new Integer( 4 ) ) ) },
         { null, "#call = :[ \"calling \" + [0] + \" on \" + [1] ], (#call)({ \"x\", \"y\" })", "calling x on y" },
 
     };

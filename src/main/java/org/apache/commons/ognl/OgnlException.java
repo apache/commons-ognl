@@ -37,7 +37,7 @@ public class OgnlException
     {
         try
         {
-            initCause = OgnlException.class.getMethod( "initCause", new Class[] { Throwable.class } );
+            initCause = OgnlException.class.getMethod( "initCause", Throwable.class );
         }
         catch ( NoSuchMethodException e )
         {

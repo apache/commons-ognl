@@ -90,7 +90,7 @@ public class ObjectPropertyAccessor
                 Method m = OgnlRuntime.getWriteMethod( target.getClass(), name );
                 if ( m != null )
                 {
-                    result = m.invoke( target, new Object[] { value } );
+                    result = m.invoke( target, value );
                 }
             }
         }

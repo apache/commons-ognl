@@ -61,7 +61,7 @@ public class ConstantTest
         { "true", Boolean.TRUE },
         { "false", Boolean.FALSE },
         { "{ false, true, null, 0, 1. }",
-            Arrays.asList( new Object[] { Boolean.FALSE, Boolean.TRUE, null, new Integer( 0 ), new Double( 1 ) } ) },
+            Arrays.asList( Boolean.FALSE, Boolean.TRUE, null, new Integer( 0 ), new Double( 1 ) ) },
         { "'HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\"'",
             "HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\"" }, };
 

@@ -38,10 +38,10 @@ public class ProjectionSelectionTest
     private static final Object[][] TESTS = {
         // Projection, selection
         { ROOT, "array.{class}",
-            Arrays.asList( new Class[] { Integer.class, Integer.class, Integer.class, Integer.class } ) },
-        { ROOT, "map.array.{? #this > 2 }", Arrays.asList( new Integer[] { new Integer( 3 ), new Integer( 4 ) } ) },
-        { ROOT, "map.array.{^ #this > 2 }", Arrays.asList( new Integer[] { new Integer( 3 ) } ) },
-        { ROOT, "map.array.{$ #this > 2 }", Arrays.asList( new Integer[] { new Integer( 4 ) } ) },
+            Arrays.asList( Integer.class, Integer.class, Integer.class, Integer.class ) },
+        { ROOT, "map.array.{? #this > 2 }", Arrays.asList( new Integer( 3 ), new Integer( 4 ) ) },
+        { ROOT, "map.array.{^ #this > 2 }", Arrays.asList( new Integer( 3 ) ) },
+        { ROOT, "map.array.{$ #this > 2 }", Arrays.asList( new Integer( 4 ) ) },
         { ROOT, "map.array[*].{?true} instanceof java.util.Collection", Boolean.TRUE },
         { null, "#fact=1, 30H.{? #fact = #fact * (#this+1), false }, #fact",
             new BigInteger( "265252859812191058636308480000000" ) }, };

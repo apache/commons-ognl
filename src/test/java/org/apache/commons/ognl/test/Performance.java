@@ -275,7 +275,7 @@ public class Performance
 
         try
         {
-            _method = getClass().getMethod( javaMethodName, new Class[] {} );
+            _method = getClass().getMethod( javaMethodName );
         }
         catch ( Exception ex )
         {

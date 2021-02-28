@@ -41,9 +41,9 @@ public class Root
 
     private final MyMap myMap = new MyMapImpl();
 
-    private final List list = Arrays.asList( new Object[] { null, this, array } );
+    private final List list = Arrays.asList( null, this, array );
 
-    private final List settableList = new ArrayList( Arrays.asList( new Object[] { "foo", "bar", "baz" } ) );
+    private final List settableList = new ArrayList( Arrays.asList( "foo", "bar", "baz" ) );
 
     private final int index = 1;
 
