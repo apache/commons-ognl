@@ -47,7 +47,7 @@ public class CollectionDirectPropertyTest
         { Arrays.asList( "hello", "world" ), "size", 2 },
         { ROOT, "map[\"test\"]", ROOT }, { ROOT, "map.size", ROOT.getMap().size() },
         { ROOT, "map.keySet", ROOT.getMap().keySet() }, { ROOT, "map.values", ROOT.getMap().values() },
-        { ROOT, "map.keys.size", ROOT.getMap().keySet().size() },
+        { ROOT, "map.keys.size", ROOT.getMap().size() },
         { ROOT, "map[\"size\"]", ROOT.getMap().get( "size" ) },
         { ROOT, "map.isEmpty", ROOT.getMap().isEmpty() ? Boolean.TRUE : Boolean.FALSE },
         { ROOT, "map[\"isEmpty\"]", null }, };
