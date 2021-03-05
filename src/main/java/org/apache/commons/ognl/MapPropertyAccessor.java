@@ -127,17 +127,17 @@ public class MapPropertyAccessor
                 context.setCurrentType( int.class );
                 return ".size()";
             }
-            else if ( "keys".equals( key ) || "keySet".equals( key ) )
+            if ( "keys".equals( key ) || "keySet".equals( key ) )
             {
                 context.setCurrentType( Set.class );
                 return ".keySet()";
             }
-            else if ( "values".equals( key ) )
+            if ( "values".equals( key ) )
             {
                 context.setCurrentType( Collection.class );
                 return ".values()";
             }
-            else if ( "isEmpty".equals( key ) )
+            if ( "isEmpty".equals( key ) )
             {
                 context.setCurrentType( boolean.class );
                 return ".isEmpty()";

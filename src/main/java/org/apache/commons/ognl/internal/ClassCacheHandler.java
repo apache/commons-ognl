@@ -53,28 +53,24 @@ public class ClassCacheHandler
                     for ( Class<?> clazz = forClass; clazz != null; clazz = clazz.getSuperclass() )
                     {
                         answer = handlers.get( clazz );
-                        if ( answer == null )
-                        {
-                            Class<?>[] interfaces = clazz.getInterfaces();
-                            for ( Class<?> iface : interfaces )
-                            {
-                                answer = handlers.get( iface );
-                                if ( answer == null )
-                                {
-                                    /* Try super-interfaces */
-                                    answer = getHandler( iface, handlers );
-                                }
-                                if ( answer != null )
-                                {
-                                    keyFound = iface;
-                                    break outer;
-                                }
-                            }
-                        }
-                        else
-                        {
+                        if ( answer != null ) {
                             keyFound = clazz;
                             break;
+                        }
+                        Class<?>[] interfaces = clazz.getInterfaces();
+                        for ( Class<?> iface : interfaces )
+                        {
+                            answer = handlers.get( iface );
+                            if ( answer == null )
+                            {
+                                /* Try super-interfaces */
+                                answer = getHandler( iface, handlers );
+                            }
+                            if ( answer != null )
+                            {
+                                keyFound = iface;
+                                break outer;
+                            }
                         }
                     }
                 }

@@ -873,22 +873,18 @@ public abstract class OgnlOps
             }
             return Math.max( DOUBLE, t1 );
         }
-        else if ( t2 >= MIN_REAL_TYPE )
-        {
-            if ( t1 < INT )
-            {
-                return t2;
-            }
-            if ( t1 == BIGINT )
-            {
-                return BIGDEC;
-            }
-            return Math.max( DOUBLE, t2 );
-        }
-        else
-        {
+        if ( t2 < MIN_REAL_TYPE ) {
             return Math.max( t1, t2 );
         }
+        if ( t1 < INT )
+        {
+            return t2;
+        }
+        if ( t1 == BIGINT )
+        {
+            return BIGDEC;
+        }
+        return Math.max( DOUBLE, t2 );
     }
 
     /**

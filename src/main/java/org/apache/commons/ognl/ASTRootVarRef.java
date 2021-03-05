@@ -66,10 +66,7 @@ public class ASTRootVarRef
         {
             return "";
         }
-        else
-        {
-            return ExpressionCompiler.getRootExpression( this, target, context );
-        }
+        return ExpressionCompiler.getRootExpression( this, target, context );
     }
 
     public String toSetSourceString( OgnlContext context, Object target )
@@ -78,10 +75,7 @@ public class ASTRootVarRef
         {
             return "";
         }
-        else
-        {
-            return "$3";
-        }
+        return "$3";
     }
 
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )

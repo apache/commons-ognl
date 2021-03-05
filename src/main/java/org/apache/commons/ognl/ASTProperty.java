@@ -189,26 +189,23 @@ public class ASTProperty
 
                     return "." + m.getName() + "(" + srcString + ")";
                 }
-                else
+                PropertyAccessor propertyAccessor = OgnlRuntime.getPropertyAccessor( target.getClass() );
+
+                // System.out.println("child value : " + _children[0].getValue(context, context.getCurrentObject())
+                // + " using propaccessor " + p.getClass().getName()
+                // + " and srcString " + srcString + " on target: " + target);
+
+                Object currentObject = context.getCurrentObject();
+                if ( ASTConst.class.isInstance( child ) && Number.class.isInstance( currentObject ) )
                 {
-                    PropertyAccessor propertyAccessor = OgnlRuntime.getPropertyAccessor( target.getClass() );
-
-                    // System.out.println("child value : " + _children[0].getValue(context, context.getCurrentObject())
-                    // + " using propaccessor " + p.getClass().getName()
-                    // + " and srcString " + srcString + " on target: " + target);
-
-                    Object currentObject = context.getCurrentObject();
-                    if ( ASTConst.class.isInstance( child ) && Number.class.isInstance( currentObject ) )
-                    {
-                        context.setCurrentType( OgnlRuntime.getPrimitiveWrapperClass( currentObject.getClass() ) );
-                    }
-                    Object indexValue = propertyAccessor.getProperty( context, target, value );
-                    result = propertyAccessor.getSourceAccessor( context, target, srcString );
-                    getterClass = context.getCurrentType();
-                    context.setCurrentObject( indexValue );
-
-                    return result;
+                    context.setCurrentType( OgnlRuntime.getPrimitiveWrapperClass( currentObject.getClass() ) );
                 }
+                Object indexValue = propertyAccessor.getProperty( context, target, value );
+                result = propertyAccessor.getSourceAccessor( context, target, srcString );
+                getterClass = context.getCurrentType();
+                context.setCurrentObject( indexValue );
+
+                return result;
             }
 
             String name = ( (ASTConst) child ).getValue().toString();
@@ -236,14 +233,10 @@ public class ASTProperty
                 }
                 else
                 {
-                    if ( pd instanceof ObjectIndexedPropertyDescriptor )
-                    {
-                        m = ( (ObjectIndexedPropertyDescriptor) pd ).getIndexedReadMethod();
-                    }
-                    else
-                    {
+                    if ( !(pd instanceof ObjectIndexedPropertyDescriptor) ) {
                         throw new OgnlException( "property '" + name + "' is not an indexed property" );
                     }
+                    m = ( (ObjectIndexedPropertyDescriptor) pd ).getIndexedReadMethod();
                 }
 
                 if ( parent == null )
@@ -383,7 +376,7 @@ public class ASTProperty
         {
             return ( (IndexedPropertyDescriptor) pd ).getIndexedWriteMethod();
         }
-        else if ( ObjectIndexedPropertyDescriptor.class.isInstance( pd ) )
+        if ( ObjectIndexedPropertyDescriptor.class.isInstance( pd ) )
         {
             return ( (ObjectIndexedPropertyDescriptor) pd ).getIndexedWriteMethod();
         }
@@ -425,46 +418,7 @@ public class ASTProperty
                 // System.out.println("astproperty setter using indexed value " + value + " and srcString: " +
                 // srcString);
 
-                if ( context.get( "_indexedMethod" ) != null )
-                {
-                    m = (Method) context.remove( "_indexedMethod" );
-                    PropertyDescriptor pd = (PropertyDescriptor) context.remove( "_indexedDescriptor" );
-
-                    boolean lastChild = lastChild( context );
-                    if ( lastChild )
-                    {
-                        m = getIndexedWriteMethod( pd );
-
-                        if ( m == null )
-                        {
-                            throw new UnsupportedCompilationException(
-                                "Indexed property has no corresponding write method." );
-                        }
-                    }
-
-                    setterClass = m.getParameterTypes()[0];
-
-                    Object indexedValue = null;
-                    if ( !lastChild )
-                    {
-                        indexedValue = OgnlRuntime.callMethod( context, target, m.getName(), new Object[]{ value } );
-                    }
-                    context.setCurrentType( setterClass );
-                    context.setCurrentAccessor(
-                        OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
-
-                    if ( !lastChild )
-                    {
-                        context.setCurrentObject( indexedValue );
-                        return "." + m.getName() + "(" + srcString + ")";
-                    }
-                    else
-                    {
-                        return "." + m.getName() + "(" + srcString + ", $3)";
-                    }
-                }
-                else
-                {
+                if ( context.get( "_indexedMethod" ) == null ) {
                     PropertyAccessor propertyAccessor = OgnlRuntime.getPropertyAccessor( target.getClass() );
 
                     Object currentObject = context.getCurrentObject();
@@ -496,6 +450,38 @@ public class ASTProperty
                      */
                     return result;
                 }
+                m = (Method) context.remove( "_indexedMethod" );
+                PropertyDescriptor pd = (PropertyDescriptor) context.remove( "_indexedDescriptor" );
+
+                boolean lastChild = lastChild( context );
+                if ( lastChild )
+                {
+                    m = getIndexedWriteMethod( pd );
+
+                    if ( m == null )
+                    {
+                        throw new UnsupportedCompilationException(
+                            "Indexed property has no corresponding write method." );
+                    }
+                }
+
+                setterClass = m.getParameterTypes()[0];
+
+                Object indexedValue = null;
+                if ( !lastChild )
+                {
+                    indexedValue = OgnlRuntime.callMethod( context, target, m.getName(), new Object[]{ value } );
+                }
+                context.setCurrentType( setterClass );
+                context.setCurrentAccessor(
+                    OgnlRuntime.getCompiler( context ).getSuperOrInterfaceClass( m, m.getDeclaringClass() ) );
+
+                if ( !lastChild )
+                {
+                    context.setCurrentObject( indexedValue );
+                    return "." + m.getName() + "(" + srcString + ")";
+                }
+                return "." + m.getName() + "(" + srcString + ", $3)";
             }
 
             String name = ( (ASTConst) child ).getValue().toString();
@@ -532,16 +518,12 @@ public class ASTProperty
                 }
                 else
                 {
-                    if ( pd instanceof ObjectIndexedPropertyDescriptor )
-                    {
-                        ObjectIndexedPropertyDescriptor opd = (ObjectIndexedPropertyDescriptor) pd;
-
-                        m = lastChild( context ) ? opd.getIndexedWriteMethod() : opd.getIndexedReadMethod();
-                    }
-                    else
-                    {
+                    if ( !(pd instanceof ObjectIndexedPropertyDescriptor) ) {
                         throw new OgnlException( "property '" + name + "' is not an indexed property" );
                     }
+                    ObjectIndexedPropertyDescriptor opd = (ObjectIndexedPropertyDescriptor) pd;
+
+                    m = lastChild( context ) ? opd.getIndexedWriteMethod() : opd.getIndexedReadMethod();
                 }
 
                 if ( parent == null )

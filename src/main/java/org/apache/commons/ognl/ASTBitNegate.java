@@ -49,10 +49,7 @@ class ASTBitNegate
         {
             return "~(" + super.coerceToNumeric( source, context, children[0] ) + ")";
         }
-        else
-        {
-            return "~(" + source + ")";
-        }
+        return "~(" + source + ")";
     }
 
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )

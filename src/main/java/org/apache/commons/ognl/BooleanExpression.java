@@ -89,7 +89,7 @@ public abstract class BooleanExpression
             {
                 return "false";
             }
-            else if ( "(true)".equals( ret ) )
+            if ( "(true)".equals( ret ) )
             {
                 return "true";
             }

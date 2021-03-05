@@ -169,10 +169,7 @@ public class ASTMethod
 
                 return "";
             }
-            else
-            {
-                getterClass = method.getReturnType();
-            }
+            getterClass = method.getReturnType();
 
             // TODO: This is a hacky workaround until javassist supports varargs method invocations
             boolean varArgs = method.isVarArgs();

@@ -233,14 +233,10 @@ public abstract class OgnlTestCase
                 ex = (Exception) ex.getCause();
             }
 
-            if ( testedResult instanceof Class )
-            {
-                Assert.assertTrue( Exception.class.isAssignableFrom( (Class<?>) testedResult ) );
-            }
-            else
-            {
+            if ( !(testedResult instanceof Class) ) {
                 throw ex;
             }
+            Assert.assertTrue( Exception.class.isAssignableFrom( (Class<?>) testedResult ) );
         }
     }
 

@@ -130,16 +130,13 @@ public class ASTStaticField
             {
                 return clazz;
             }
-            else if ( clazz.isEnum() )
+            if ( clazz.isEnum() )
             {
                 return clazz;
             }
-            else
-            {
-                Field field = clazz.getField( fieldName );
+            Field field = clazz.getField( fieldName );
 
-                return field.getType();
-            }
+            return field.getType();
         }
         catch ( ClassNotFoundException e )
         {

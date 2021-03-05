@@ -44,20 +44,13 @@ public class MethodAccessCacheEntryFactory
     {
         final boolean notPublic = !Modifier.isPublic( method.getModifiers() ) || !Modifier.isPublic(
             method.getDeclaringClass().getModifiers() );
-        if ( notPublic )
-        {
-            if ( !method.isAccessible() )
-            {
-                return INACCESSIBLE_NON_PUBLIC_METHOD;
-            }
-            else
-            {
-                return ACCESSIBLE_NON_PUBLIC_METHOD;
-            }
-        }
-        else
-        {
+        if ( !notPublic ) {
             return PUBLIC_METHOD;
         }
+        if ( !method.isAccessible() )
+        {
+            return INACCESSIBLE_NON_PUBLIC_METHOD;
+        }
+        return ACCESSIBLE_NON_PUBLIC_METHOD;
     }
 }

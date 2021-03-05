@@ -49,10 +49,7 @@ class ASTNegate
         {
             return "-" + source;
         }
-        else
-        {
-            return "-(" + source + ")";
-        }
+        return "-(" + source + ")";
     }
 
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )

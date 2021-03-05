@@ -265,7 +265,7 @@ public class ExpressionCompiler
             {
                 return intface.getName();
             }
-            else if ( intface.getName().indexOf( "Iterator" ) > 0 )
+            if ( intface.getName().indexOf( "Iterator" ) > 0 )
             {
                 return intface.getName();
             }
@@ -428,19 +428,19 @@ public class ExpressionCompiler
             {
                 return List.class;
             }
-            else if ( Iterator.class.isAssignableFrom( anIntf ) )
+            if ( Iterator.class.isAssignableFrom( anIntf ) )
             {
                 return Iterator.class;
             }
-            else if ( Map.class.isAssignableFrom( anIntf ) )
+            if ( Map.class.isAssignableFrom( anIntf ) )
             {
                 return Map.class;
             }
-            else if ( Set.class.isAssignableFrom( anIntf ) )
+            if ( Set.class.isAssignableFrom( anIntf ) )
             {
                 return Set.class;
             }
-            else if ( Collection.class.isAssignableFrom( anIntf ) )
+            if ( Collection.class.isAssignableFrom( anIntf ) )
             {
                 return Collection.class;
             }

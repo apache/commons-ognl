@@ -41,18 +41,12 @@ public class DeclaredMethodCacheEntryFactory
         {
             return true;
         }
-        else
+        boolean isStatic = Modifier.isStatic( method.getModifiers() );
+        if ( key.type == DeclaredMethodCacheEntry.MethodType.STATIC )
         {
-            boolean isStatic = Modifier.isStatic( method.getModifiers() );
-            if ( key.type == DeclaredMethodCacheEntry.MethodType.STATIC )
-            {
-                return isStatic;
-            }
-            else
-            {
-                return !isStatic;
-            }
+            return isStatic;
         }
+        return !isStatic;
 
     }
 }

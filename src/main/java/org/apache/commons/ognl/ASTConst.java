@@ -86,7 +86,7 @@ public class ASTConst
             context.setCurrentType( null );
             return "null";
         }
-        else if ( value == null )
+        if ( value == null )
         {
             context.setCurrentType( null );
             return "";
@@ -101,14 +101,14 @@ public class ASTConst
 
             return value.toString();
         }
-        else if ( value != null && Number.class.isAssignableFrom( value.getClass() ) )
+        if ( value != null && Number.class.isAssignableFrom( value.getClass() ) )
         {
             context.setCurrentType( OgnlRuntime.getPrimitiveWrapperClass( value.getClass() ) );
             context.setCurrentObject( value );
 
             return value.toString();
         }
-        else if ( !( parent != null
+        if ( !( parent != null
                         && value != null
                         && NumericExpression.class.isAssignableFrom( parent.getClass() ) )
             && String.class.isAssignableFrom( value.getClass() ) )
@@ -121,7 +121,7 @@ public class ASTConst
 
             return retval.toString();
         }
-        else if ( Character.class.isInstance( value ) )
+        if ( Character.class.isInstance( value ) )
         {
             Character val = (Character) value;
 

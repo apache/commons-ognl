@@ -319,17 +319,11 @@ public class Performance
         {
             return ( t1 - t0 ) >= MAX_TIME;
         }
-        else
+        if ( ITERATIONS_MODE )
         {
-            if ( ITERATIONS_MODE )
-            {
-                return _iterations >= MAX_ITERATIONS;
-            }
-            else
-            {
-                throw new RuntimeException( "no maximums specified" );
-            }
+            return _iterations >= MAX_ITERATIONS;
         }
+        throw new RuntimeException( "no maximums specified" );
     }
 
     /*

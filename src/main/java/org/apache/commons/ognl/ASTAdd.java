@@ -98,11 +98,11 @@ class ASTAdd
         {
             return false;
         }
-        else if ( parent == null && String.class.isAssignableFrom( lastType.getGetterClass() ) )
+        if ( parent == null && String.class.isAssignableFrom( lastType.getGetterClass() ) )
         {
             return true;
         }
-        else if ( parent == null && String.class.isAssignableFrom( type.getGetterClass() ) )
+        if ( parent == null && String.class.isAssignableFrom( type.getGetterClass() ) )
         {
             return false;
         }

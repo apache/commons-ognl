@@ -77,16 +77,12 @@ public class ArrayPropertyAccessor
             }
             if ( result == null )
             {
-                if ( index instanceof Number )
-                {
-                    int i = ( (Number) index ).intValue();
-
-                    result = ( i >= 0 ) ? Array.get( target, i ) : null;
-                }
-                else
-                {
+                if ( !(index instanceof Number) ) {
                     throw new NoSuchPropertyException( target, index );
                 }
+                int i = ( (Number) index ).intValue();
+
+                result = ( i >= 0 ) ? Array.get( target, i ) : null;
             }
         }
         return result;
@@ -130,14 +126,10 @@ public class ArrayPropertyAccessor
         }
         else
         {
-            if ( name instanceof String )
-            {
-                super.setProperty( context, target, name, value );
-            }
-            else
-            {
+            if ( !(name instanceof String) ) {
                 throw new NoSuchPropertyException( target, name );
             }
+            super.setProperty( context, target, name, value );
         }
     }
 

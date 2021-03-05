@@ -508,7 +508,7 @@ public class OgnlRuntime
         {
             return Boolean.TYPE;
         }
-        else if ( clazz.getSuperclass() == Number.class )
+        if ( clazz.getSuperclass() == Number.class )
         {
             if ( clazz == Integer.class )
             {
@@ -629,11 +629,11 @@ public class OgnlRuntime
                 {
                     return true;
                 }
-                else if ( class1.isAssignableFrom( class2 ) )
+                if ( class1.isAssignableFrom( class2 ) )
                 {
                     return false;
                 }
-                else if ( class2.isAssignableFrom( class1 ) )
+                if ( class2.isAssignableFrom( class1 ) )
                 {
                     return true;
                 }
@@ -1071,20 +1071,16 @@ public class OgnlRuntime
         }
         if ( methodValue == null )
         {
-            if ( method != null )
-            {
-                try
-                {
-                    methodValue = invokeMethod( target, method, NoArguments );
-                }
-                catch ( InvocationTargetException ex )
-                {
-                    throw new OgnlException( propertyName, ex.getTargetException() );
-                }
-            }
-            else
-            {
+            if ( method == null ) {
                 throw new NoSuchMethodException( propertyName );
+            }
+            try
+            {
+                methodValue = invokeMethod( target, method, NoArguments );
+            }
+            catch ( InvocationTargetException ex )
+            {
+                throw new OgnlException( propertyName, ex.getTargetException() );
             }
         }
         return methodValue;
@@ -1203,16 +1199,12 @@ public class OgnlRuntime
             {
                 Object state;
 
-                if ( !Modifier.isStatic( field.getModifiers() ) )
-                {
-                    state = context.getMemberAccess().setup( context, target, field, propertyName );
-                    result = field.get( target );
-                    context.getMemberAccess().restore( context, target, field, propertyName, state );
-                }
-                else
-                {
+                if ( Modifier.isStatic( field.getModifiers() ) ) {
                     throw new NoSuchFieldException( propertyName );
                 }
+                state = context.getMemberAccess().setup( context, target, field, propertyName );
+                result = field.get( target );
+                context.getMemberAccess().restore( context, target, field, propertyName, state );
 
             }
             catch ( IllegalAccessException ex )
@@ -1292,20 +1284,17 @@ public class OgnlRuntime
             {
                 return clazz;
             }
-            else if ( clazz.isEnum() )
+            if ( clazz.isEnum() )
             {
                 return Enum.valueOf( (Class<? extends Enum>) clazz, fieldName );
             }
-            else
+            Field field = clazz.getField( fieldName );
+            if ( !Modifier.isStatic(field.getModifiers()) )
             {
-                Field field = clazz.getField( fieldName );
-                if ( !Modifier.isStatic(field.getModifiers()) )
-                {
-                    throw new OgnlException( "Field " + fieldName + " of class " + className + " is not static" );
-                }
-
-                return field.get( null );
+                throw new OgnlException( "Field " + fieldName + " of class " + className + " is not static" );
             }
+
+            return field.get( null );
         }
         catch ( ClassNotFoundException e )
         {
@@ -1658,14 +1647,10 @@ public class OgnlRuntime
             }
             else
             {
-                if ( propertyDescriptor instanceof ObjectIndexedPropertyDescriptor )
-                {
-                    method = ( (ObjectIndexedPropertyDescriptor) propertyDescriptor ).getIndexedReadMethod();
-                }
-                else
-                {
+                if ( !(propertyDescriptor instanceof ObjectIndexedPropertyDescriptor) ) {
                     throw new OgnlException( "property '" + name + "' is not an indexed property" );
                 }
+                method = ( (ObjectIndexedPropertyDescriptor) propertyDescriptor ).getIndexedReadMethod();
             }
 
             return callMethod( context, source, method.getName(), args );
@@ -1697,14 +1682,10 @@ public class OgnlRuntime
             }
             else
             {
-                if ( propertyDescriptor instanceof ObjectIndexedPropertyDescriptor )
-                {
-                    method = ( (ObjectIndexedPropertyDescriptor) propertyDescriptor ).getIndexedWriteMethod();
-                }
-                else
-                {
+                if ( !(propertyDescriptor instanceof ObjectIndexedPropertyDescriptor) ) {
                     throw new OgnlException( "property '" + name + "' is not an indexed property" );
                 }
+                method = ( (ObjectIndexedPropertyDescriptor) propertyDescriptor ).getIndexedWriteMethod();
             }
 
             callMethod( context, source, method.getName(), args );
@@ -1866,13 +1847,13 @@ public class OgnlRuntime
                     {
                         return methodDescriptor.getMethod();
                     }
-                    else if ( numParms < 0 )
+                    if ( numParms < 0 )
                     {
                         if ( methodName.equals( name ) )
                         {
                             return methodDescriptor.getMethod();
                         }
-                        else if ( method == null || ( method.getParameterTypes().length > methodParamLen ) )
+                        if ( method == null || ( method.getParameterTypes().length > methodParamLen ) )
                         {
                             method = methodDescriptor.getMethod();
                         }
@@ -1899,7 +1880,8 @@ public class OgnlRuntime
                     if ( numParms > 0 && methodDescriptor.getMethod().getParameterTypes().length == numParms )
                     {
                         return methodDescriptor.getMethod();
-                    } else if ( (numParms < 0) && (method == null || ( method.getParameterTypes().length
+                    }
+                    if ( (numParms < 0) && (method == null || ( method.getParameterTypes().length
                         > methodDescriptor.getMethod().getParameterTypes().length )) )
                     {
                         method = methodDescriptor.getMethod();
@@ -1958,7 +1940,7 @@ public class OgnlRuntime
                     {
                         return method.getMethod();
                     }
-                    else if ( numParms < 0 )
+                    if ( numParms < 0 )
                     {
                         return method.getMethod();
                     }
@@ -1984,7 +1966,7 @@ public class OgnlRuntime
                     {
                         return cmethod;
                     }
-                    else if ( numParms < 0 )
+                    if ( numParms < 0 )
                     {
                         return cmethod;
                     }
