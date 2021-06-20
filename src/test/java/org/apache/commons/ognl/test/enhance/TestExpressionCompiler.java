@@ -242,7 +242,7 @@ public class TestExpressionCompiler
         GenericRoot root = new GenericRoot();
 
         Node node = Ognl.compileExpression( _context, root, "cracker.param" );
-        assertEquals( null, node.getAccessor().get( _context, root ) );
+        assertNull(node.getAccessor().get(_context, root));
 
         node.getAccessor().set( _context, root, 0 );
         assertEquals( 0, node.getAccessor().get( _context, root ) );

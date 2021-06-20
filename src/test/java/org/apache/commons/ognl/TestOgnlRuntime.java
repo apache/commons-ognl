@@ -205,7 +205,7 @@ public class TestOgnlRuntime
         SetterReturns root = new SetterReturns();
 
         Method m = OgnlRuntime.getWriteMethod( root.getClass(), "value" );
-        assertTrue( m != null );
+        assertNotNull(m);
 
         Ognl.setValue( "value", context, root, "12__" );
         assertEquals( Ognl.getValue( "value", context, root ), "12__" );

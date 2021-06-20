@@ -56,7 +56,7 @@ public class ListPropertyAccessorTest
         assertEquals( List.class, context.getCurrentAccessor() );
         assertEquals( Object.class, context.getCurrentType() );
         assertEquals( Integer.TYPE, context.getPreviousType() );
-        assertEquals( null, context.getPreviousAccessor() );
+        assertNull(context.getPreviousAccessor());
     }
 
     @Test
@@ -76,7 +76,7 @@ public class ListPropertyAccessorTest
         assertEquals( List.class, context.getCurrentAccessor() );
         assertEquals( Object.class, context.getCurrentType() );
         assertEquals( Integer.class, context.getPreviousType() );
-        assertEquals( null, context.getPreviousAccessor() );
+        assertNull(context.getPreviousAccessor());
     }
 
     @Test

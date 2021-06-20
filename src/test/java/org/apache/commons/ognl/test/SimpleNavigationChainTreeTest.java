@@ -24,6 +24,7 @@ import static junit.framework.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import junit.framework.Assert;
 import org.apache.commons.ognl.Ognl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -78,6 +79,6 @@ public class SimpleNavigationChainTreeTest
     public void runTest()
         throws Exception
     {
-        assertTrue( Ognl.isSimpleNavigationChain( getExpression(), _context ) == ( (Boolean) getExpectedResult() ).booleanValue() );
+        Assert.assertEquals(Ognl.isSimpleNavigationChain(getExpression(), _context), ((Boolean) getExpectedResult()).booleanValue());
     }
 }

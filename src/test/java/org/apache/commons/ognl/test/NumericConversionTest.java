@@ -27,6 +27,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import junit.framework.Assert;
 import org.apache.commons.ognl.OgnlException;
 import org.apache.commons.ognl.OgnlOps;
 import org.junit.Test;
@@ -213,7 +214,7 @@ public class NumericConversionTest
                 double scalingFactor = Math.pow( 10, scale ), v1 = ( (Number) value ).doubleValue() * scalingFactor, v2 =
                     ( (Number) expectedValue ).doubleValue() * scalingFactor;
 
-                assertTrue( (int) v1 == (int) v2 );
+                Assert.assertEquals((int) v1, (int) v2);
             }
             else
             {

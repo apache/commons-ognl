@@ -63,18 +63,18 @@ public class ASTPropertyTest
         context.setCurrentNode( pRef );
 
         assertEquals( root.getClass(), context.getCurrentType() );
-        assertEquals( null, context.getPreviousType() );
+        assertNull(context.getPreviousType());
         assertEquals( root, context.getCurrentObject() );
-        assertEquals( null, context.getCurrentAccessor() );
-        assertEquals( null, context.getPreviousAccessor() );
+        assertNull(context.getCurrentAccessor());
+        assertNull(context.getPreviousAccessor());
 
         int type = p.getIndexedPropertyType( context, root );
 
         assertEquals( OgnlRuntime.INDEXED_PROPERTY_NONE, type );
         assertEquals( root.getClass(), context.getCurrentType() );
-        assertEquals( null, context.getPreviousType() );
-        assertEquals( null, context.getCurrentAccessor() );
-        assertEquals( null, context.getPreviousAccessor() );
+        assertNull(context.getPreviousType());
+        assertNull(context.getCurrentAccessor());
+        assertNull(context.getPreviousAccessor());
     }
 
     public void test_Get_Value_Body()
@@ -95,18 +95,18 @@ public class ASTPropertyTest
         context.setCurrentNode( pRef );
 
         assertEquals( root.getClass(), context.getCurrentType() );
-        assertEquals( null, context.getPreviousType() );
+        assertNull(context.getPreviousType());
         assertEquals( root, context.getCurrentObject() );
-        assertEquals( null, context.getCurrentAccessor() );
-        assertEquals( null, context.getPreviousAccessor() );
+        assertNull(context.getCurrentAccessor());
+        assertNull(context.getPreviousAccessor());
 
         Object value = p.getValue( context, root );
 
         assertEquals( root.get( "nested" ), value );
         assertEquals( root.getClass(), context.getCurrentType() );
-        assertEquals( null, context.getPreviousType() );
-        assertEquals( null, context.getCurrentAccessor() );
-        assertEquals( null, context.getPreviousAccessor() );
+        assertNull(context.getPreviousType());
+        assertNull(context.getCurrentAccessor());
+        assertNull(context.getPreviousAccessor());
     }
 
     public void test_Get_Source()
@@ -130,14 +130,14 @@ public class ASTPropertyTest
         assertEquals( Object.class, context.getCurrentType() );
         assertEquals( Map.class, context.getCurrentAccessor() );
         assertEquals( root.getClass(), context.getPreviousType() );
-        assertEquals( null, context.getPreviousAccessor() );
+        assertNull(context.getPreviousAccessor());
 
         assertEquals( root.get( "nested" ), context.getCurrentObject() );
 
         assert Map.class.isAssignableFrom( context.getCurrentAccessor() );
 
         assertEquals( root.getClass(), context.getPreviousType() );
-        assertEquals( null, context.getPreviousAccessor() );
+        assertNull(context.getPreviousAccessor());
     }
 
     public void test_Set_Source()
@@ -164,7 +164,7 @@ public class ASTPropertyTest
         assert Map.class.isAssignableFrom( context.getCurrentAccessor() );
 
         assertEquals( root.getClass(), context.getPreviousType() );
-        assertEquals( null, context.getPreviousAccessor() );
+        assertNull(context.getPreviousAccessor());
     }
 
     public void test_Indexed_Object_Type()
@@ -206,7 +206,7 @@ public class ASTPropertyTest
         assertEquals( ".getList()", listp.toGetSourceString( context, root ) );
         assertEquals( List.class, context.getCurrentType() );
         assertEquals( Root.class, context.getCurrentAccessor() );
-        assertEquals( null, context.getPreviousAccessor() );
+        assertNull(context.getPreviousAccessor());
         assertEquals( root.getClass(), context.getPreviousType() );
         assertEquals( root.getList(), context.getCurrentObject() );
 
@@ -225,7 +225,7 @@ public class ASTPropertyTest
         assertEquals( ".getList()", chain.toGetSourceString( context, root ) );
         assertEquals( List.class, context.getCurrentType() );
         assertEquals( Root.class, context.getCurrentAccessor() );
-        assertEquals( null, context.getPreviousAccessor() );
+        assertNull(context.getPreviousAccessor());
         assertEquals( Root.class, context.getPreviousType() );
         assertEquals( root.getList(), context.getCurrentObject() );
 
