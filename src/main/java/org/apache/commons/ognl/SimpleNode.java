@@ -243,17 +243,11 @@ public abstract class SimpleNode
             {
                 result = evaluateGetValueBody( context, source );
             }
-            catch ( OgnlException ex )
+            catch ( OgnlException | RuntimeException ex )
             {
                 evalException = ex;
                 throw ex;
-            }
-            catch ( RuntimeException ex )
-            {
-                evalException = ex;
-                throw ex;
-            }
-            finally
+            } finally
             {
                 Evaluation eval = context.popEvaluation();
 

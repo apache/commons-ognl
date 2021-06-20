@@ -927,15 +927,10 @@ public class OgnlRuntime
             return invokeMethod( target, method, convertedArgs );
 
         }
-        catch ( NoSuchMethodException e )
+        catch ( NoSuchMethodException | IllegalAccessException e )
         {
             cause = e;
-        }
-        catch ( IllegalAccessException e )
-        {
-            cause = e;
-        }
-        catch ( InvocationTargetException e )
+        } catch ( InvocationTargetException e )
         {
             cause = e.getTargetException();
         }
@@ -1019,25 +1014,12 @@ public class OgnlRuntime
             }
             return ctor.newInstance( actualArgs );
         }
-        catch ( ClassNotFoundException e )
+        catch ( ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException e )
         {
             cause = e;
-        }
-        catch ( NoSuchMethodException e )
-        {
-            cause = e;
-        }
-        catch ( IllegalAccessException e )
-        {
-            cause = e;
-        }
-        catch ( InvocationTargetException e )
+        } catch ( InvocationTargetException e )
         {
             cause = e.getTargetException();
-        }
-        catch ( InstantiationException e )
-        {
-            cause = e;
         }
 
         throw new MethodFailedException( className, "new", cause );
@@ -1296,19 +1278,7 @@ public class OgnlRuntime
 
             return field.get( null );
         }
-        catch ( ClassNotFoundException e )
-        {
-            cause = e;
-        }
-        catch ( NoSuchFieldException e )
-        {
-            cause = e;
-        }
-        catch ( SecurityException e )
-        {
-            cause = e;
-        }
-        catch ( IllegalAccessException e )
+        catch ( ClassNotFoundException | IllegalAccessException | SecurityException | NoSuchFieldException e )
         {
             cause = e;
         }

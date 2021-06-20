@@ -111,11 +111,7 @@ public abstract class Ognl
             OgnlParser parser = new OgnlParser( new StringReader( expression ) );
             return parser.topLevelExpression();
         }
-        catch ( ParseException e )
-        {
-            throw new ExpressionSyntaxException( expression, e );
-        }
-        catch ( TokenMgrError e )
+        catch ( ParseException | TokenMgrError e )
         {
             throw new ExpressionSyntaxException( expression, e );
         }
