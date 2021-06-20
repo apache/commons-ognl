@@ -112,14 +112,7 @@ public class OgnlCache {
         cacheFactory.createClassCache( new PropertyDescriptorCacheEntryFactory() );
 
     private final ClassCache<List<Constructor<?>>> constructorCache =
-        cacheFactory.createClassCache( new ClassCacheEntryFactory<List<Constructor<?>>>()
-        {
-            public List<Constructor<?>> create( Class<?> key )
-                throws CacheException
-            {
-                return Arrays.<Constructor<?>>asList( key.getConstructors() );
-            }
-        } );
+        cacheFactory.createClassCache(key -> Arrays.<Constructor<?>>asList( key.getConstructors() ));
 
     private final Cache<DeclaredMethodCacheEntry, Map<String, List<Method>>> _methodCache =
         cacheFactory.createCache( new DeclaredMethodCacheEntryFactory() );
@@ -131,26 +124,13 @@ public class OgnlCache {
         cacheFactory.createClassCache( new FieldCacheEntryFactory() );
 
     private final Cache<Method, Class<?>[]> _methodParameterTypesCache =
-        cacheFactory.createCache( new CacheEntryFactory<Method, Class<?>[]>()
-        {
-            public Class<?>[] create( Method key )
-                throws CacheException
-            {
-                return key.getParameterTypes( );
-            }
-        } );
+        cacheFactory.createCache(Method::getParameterTypes);
 
     private final Cache<GenericMethodParameterTypeCacheEntry, Class<?>[]> _genericMethodParameterTypesCache =
         cacheFactory.createCache( new GenericMethodParameterTypeFactory() );
 
     private final Cache<Constructor<?>, Class<?>[]> _ctorParameterTypesCache =
-        cacheFactory.createCache( new CacheEntryFactory<Constructor<?>, Class<?>[]>()
-        {
-            public Class<?>[] create( Constructor<?> key ) throws CacheException
-            {
-                return key.getParameterTypes( );
-            }
-        } );
+        cacheFactory.createCache(Constructor::getParameterTypes);
 
     private final Cache<Method, MethodAccessEntryValue> _methodAccessCache =
         cacheFactory.createCache( new MethodAccessCacheEntryFactory( ) );

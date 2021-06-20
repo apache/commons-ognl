@@ -55,13 +55,7 @@ public abstract class MethodCacheEntryFactory<T extends MethodCacheEntry>
 
                 if ( shouldCache( key, method ) )
                 {
-                    List<Method> ml = result.get( method.getName() );
-
-                    if ( ml == null )
-                    {
-                        ml = new ArrayList<Method>();
-                        result.put( method.getName(), ml );
-                    }
+                    List<Method> ml = result.computeIfAbsent(method.getName(), k -> new ArrayList<Method>());
 
                     ml.add( method );
                 }

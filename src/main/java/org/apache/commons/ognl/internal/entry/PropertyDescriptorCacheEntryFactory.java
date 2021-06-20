@@ -127,22 +127,14 @@ public class PropertyDescriptorCacheEntryFactory
 
                     if ( isGet && ( parameterCount == 1 ) && ( method.getReturnType() != Void.TYPE ) )
                     {
-                        List<Method> pair = pairs.get( propertyName );
+                        List<Method> pair = pairs.computeIfAbsent(propertyName, k -> new ArrayList<Method>());
 
-                        if ( pair == null )
-                        {
-                            pairs.put( propertyName, pair = new ArrayList<Method>() );
-                        }
                         pair.add( method );
                     }
                     if ( isSet && ( parameterCount == 2 ) && ( method.getReturnType() == Void.TYPE ) )
                     {
-                        List<Method> pair = pairs.get( propertyName );
+                        List<Method> pair = pairs.computeIfAbsent(propertyName, k -> new ArrayList<Method>());
 
-                        if ( pair == null )
-                        {
-                            pairs.put( propertyName, pair = new ArrayList<Method>() );
-                        }
                         pair.add( method );
                     }
                 }
