@@ -24,6 +24,7 @@ import static junit.framework.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import junit.framework.Assert;
 import org.apache.commons.ognl.Ognl;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -77,7 +78,7 @@ public class ConstantTreeTest
     public void runTest()
         throws Exception
     {
-        assertTrue( Ognl.isConstant( getExpression(), _context ) == ( (Boolean) getExpectedResult() ).booleanValue() );
+        Assert.assertEquals(Ognl.isConstant(getExpression(), _context), ((Boolean) getExpectedResult()).booleanValue());
     }
 
     /*
