@@ -142,7 +142,7 @@ public class ASTCtor
 
     public String toGetSourceString( OgnlContext context, Object target )
     {
-        String result = "new " + className;
+        StringBuilder result = new StringBuilder("new " + className);
 
         Class clazz = null;
         Object ctorValue = null;
@@ -179,30 +179,28 @@ public class ASTCtor
                 if ( children[0] instanceof ASTConst )
                 {
 
-                    result = result + "[" + children[0].toGetSourceString( context, target ) + "]";
+                    result.append("[").append(children[0].toGetSourceString(context, target)).append("]");
                 }
                 else if ( ASTProperty.class.isInstance( children[0] ) )
                 {
 
-                    result =
-                        result + "[" + ExpressionCompiler.getRootExpression( children[0], target, context )
-                            + children[0].toGetSourceString( context, target ) + "]";
+                    result.append("[").append(ExpressionCompiler.getRootExpression(children[0], target, context)).append(children[0].toGetSourceString(context, target)).append("]");
                 }
                 else if ( ASTChain.class.isInstance( children[0] ) )
                 {
 
-                    result = result + "[" + children[0].toGetSourceString( context, target ) + "]";
+                    result.append("[").append(children[0].toGetSourceString(context, target)).append("]");
                 }
                 else
                 {
 
-                    result = result + "[] " + children[0].toGetSourceString( context, target );
+                    result.append("[] ").append(children[0].toGetSourceString(context, target));
                 }
 
             }
             else
             {
-                result = result + "(";
+                result.append("(");
 
                 if ( ( children != null ) && ( children.length > 0 ) )
                 {
@@ -284,7 +282,7 @@ public class ASTCtor
                     {
                         if ( i > 0 )
                         {
-                            result = result + ", ";
+                            result.append(", ");
                         }
 
                         String value = expressions[i];
@@ -329,11 +327,11 @@ public class ASTCtor
                             }
                         }
 
-                        result += value;
+                        result.append(value);
                     }
 
                 }
-                result = result + ")";
+                result.append(")");
             }
 
             context.setCurrentType( ctorValue != null ? ctorValue.getClass() : clazz );
@@ -348,7 +346,7 @@ public class ASTCtor
 
         context.remove( "_ctorClass" );
 
-        return result;
+        return result.toString();
     }
 
     public String toSetSourceString( OgnlContext context, Object target )

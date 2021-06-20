@@ -143,7 +143,7 @@ class ASTAdd
     {
         try
         {
-            String result = "";
+            StringBuilder result = new StringBuilder();
             NodeType lastType = null;
 
             // go through once to determine the ultimate type
@@ -183,7 +183,7 @@ class ASTAdd
                 {
                     if ( i > 0 )
                     {
-                        result += " " + getExpressionOperator( i ) + " ";
+                        result.append(" ").append(getExpressionOperator(i)).append(" ");
                     }
 
                     String expr = children[i].toGetSourceString( context, target );
@@ -282,7 +282,7 @@ class ASTAdd
                         }
                     }
 
-                    result += expr;
+                    result.append(expr);
 
                     // hanlde addition for numeric types when applicable or just string concatenation
 
@@ -298,10 +298,10 @@ class ASTAdd
                                 || ASTProperty.class.isInstance( children[i] )
                                 || ASTChain.class.isInstance( children[i] ) )
                             {
-                                result += ".";
+                                result.append(".");
                             }
 
-                            result += OgnlRuntime.getNumericValueGetter( context.getCurrentType() );
+                            result.append(OgnlRuntime.getNumericValueGetter(context.getCurrentType()));
                             context.setCurrentType( OgnlRuntime.getPrimitiveWrapperClass( context.getCurrentType() ) );
                         }
                     }
@@ -335,7 +335,7 @@ class ASTAdd
                 throw OgnlOps.castToRuntime( t );
             }
 
-            return result;
+            return result.toString();
 
         }
         catch ( Throwable t )

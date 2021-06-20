@@ -66,14 +66,8 @@ public class ASTList
 
     public String toGetSourceString( OgnlContext context, Object target )
     {
-        String result = "";
-        boolean array = false;
-
-        if ( parent != null && ASTCtor.class.isInstance( parent ) && ( (ASTCtor) parent ).isArray() )
-        {
-
-            array = true;
-        }
+        StringBuilder result = new StringBuilder();
+        boolean array = ASTCtor.class.isInstance(parent) && ((ASTCtor) parent).isArray();
 
         context.setCurrentType( List.class );
         context.setCurrentAccessor( List.class );
@@ -84,10 +78,10 @@ public class ASTList
             {
                 return "java.util.Arrays.asList( new Object[0])";
             }
-            result += "java.util.Arrays.asList( new Object[] ";
+            result.append("java.util.Arrays.asList( new Object[] ");
         }
 
-        result += "{ ";
+        result.append("{ ");
 
         try
         {
@@ -96,7 +90,7 @@ public class ASTList
             {
                 if ( i > 0 )
                 {
-                    result = result + ", ";
+                    result.append(", ");
                 }
 
                 Class prevType = context.getCurrentType();
@@ -194,7 +188,7 @@ public class ASTList
                 {
                     value = "null";
                 }
-                result += value;
+                result.append(value);
             }
 
         }
@@ -206,13 +200,13 @@ public class ASTList
         context.setCurrentType( List.class );
         context.setCurrentAccessor( List.class );
 
-        result += "}";
+        result.append("}");
 
         if ( !array )
         {
-            result += ")";
+            result.append(")");
         }
-        return result;
+        return result.toString();
     }
 
     public String toSetSourceString( OgnlContext context, Object target )

@@ -274,7 +274,7 @@ public class ASTMethod
         }
 
         String post = "";
-        String result = "." + method.getName() + "(";
+        StringBuilder result = new StringBuilder("." + method.getName() + "(");
 
         if ( method.getReturnType() != void.class && method.getReturnType().isPrimitive() && ( parent == null
             || !ASTTest.class.isInstance( parent ) ) )
@@ -310,7 +310,7 @@ public class ASTMethod
                 {
                     if ( i > 0 )
                     {
-                        result += ", ";
+                        result.append(", ");
                     }
 
                     Class prevType = context.getCurrentType();
@@ -373,7 +373,7 @@ public class ASTMethod
                             ASTMethodUtil.getParmString( context, parms[i], parmString, child, valueClass, ".class)" );
                     }
 
-                    result += parmString;
+                    result.append(parmString);
                 }
 
                 if ( prevCast != null )

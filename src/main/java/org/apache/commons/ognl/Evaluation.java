@@ -277,33 +277,32 @@ public class Evaluation
      */
     public String toString( boolean compact, boolean showChildren, String depth )
     {
-        String stringResult;
+        StringBuilder stringResult;
 
         if ( compact )
         {
-            stringResult = depth + "<" + node.getClass().getName() + " " + System.identityHashCode( this ) + ">";
+            stringResult = new StringBuilder(depth + "<" + node.getClass().getName() + " " + System.identityHashCode(this) + ">");
         }
         else
         {
             String ss = ( source != null ) ? source.getClass().getName() : "null", rs =
                 ( result != null ) ? result.getClass().getName() : "null";
 
-            stringResult =
-                depth + "<" + node.getClass().getName() + ": [" + ( setOperation ? "set" : "get" ) + "] source = " + ss
-                    + ", result = " + result + " [" + rs + "]>";
+            stringResult = new StringBuilder(depth + "<" + node.getClass().getName() + ": [" + (setOperation ? "set" : "get") + "] source = " + ss
+                    + ", result = " + result + " [" + rs + "]>");
         }
         if ( showChildren )
         {
             Evaluation child = firstChild;
 
-            stringResult += "\n";
+            stringResult.append("\n");
             while ( child != null )
             {
-                stringResult += child.toString( compact, depth + "  " );
+                stringResult.append(child.toString(compact, depth + "  "));
                 child = child.next;
             }
         }
-        return stringResult;
+        return stringResult.toString();
     }
 
     /**
