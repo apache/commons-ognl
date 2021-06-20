@@ -92,15 +92,7 @@ public class ASTStaticField
                 result = Modifier.isFinal( field.getModifiers() );
             }
         }
-        catch ( ClassNotFoundException e )
-        {
-            cause = e;
-        }
-        catch ( NoSuchFieldException e )
-        {
-            cause = e;
-        }
-        catch ( SecurityException e )
+        catch ( ClassNotFoundException | SecurityException | NoSuchFieldException e )
         {
             cause = e;
         }
@@ -138,15 +130,7 @@ public class ASTStaticField
 
             return field.getType();
         }
-        catch ( ClassNotFoundException e )
-        {
-            cause = e;
-        }
-        catch ( NoSuchFieldException e )
-        {
-            cause = e;
-        }
-        catch ( SecurityException e )
+        catch ( ClassNotFoundException | SecurityException | NoSuchFieldException e )
         {
             cause = e;
         }

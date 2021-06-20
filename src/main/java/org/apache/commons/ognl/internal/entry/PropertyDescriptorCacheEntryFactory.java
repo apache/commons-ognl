@@ -67,11 +67,7 @@ public class PropertyDescriptorCacheEntryFactory
 
             findObjectIndexedPropertyDescriptors( targetClass, result );
         }
-        catch ( IntrospectionException e )
-        {
-            throw new CacheException( e );
-        }
-        catch ( OgnlException e )
+        catch ( IntrospectionException | OgnlException e )
         {
             throw new CacheException( e );
         }

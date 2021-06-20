@@ -52,16 +52,10 @@ public class ObjectPropertyAccessor
             {
                 result = OgnlRuntime.getFieldValue( ognlContext, target, name, true );
             }
-        }
-        catch ( IntrospectionException ex )
-        {
-            throw new OgnlException( name, ex );
-        }
-        catch ( OgnlException ex )
+        } catch ( OgnlException ex )
         {
             throw ex;
-        }
-        catch ( Exception ex )
+        } catch ( Exception ex )
         {
             throw new OgnlException( name, ex );
         }
@@ -93,16 +87,10 @@ public class ObjectPropertyAccessor
                     result = m.invoke( target, value );
                 }
             }
-        }
-        catch ( IntrospectionException ex )
-        {
-            throw new OgnlException( name, ex );
-        }
-        catch ( OgnlException ex )
+        } catch ( OgnlException ex )
         {
             throw ex;
-        }
-        catch ( Exception ex )
+        } catch ( Exception ex )
         {
             throw new OgnlException( name, ex );
         }
