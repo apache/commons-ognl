@@ -47,28 +47,16 @@ public class CompilingPropertyAccessor
 
     private static final NameFactory NAME_FACTORY = new NameFactory( "ognl.PropertyAccessor", "v" );
 
-    private static final Getter NOT_FOUND_GETTER = new Getter()
-    {
+    private static final Getter NOT_FOUND_GETTER = (context, target, propertyName) -> null;
 
-        public Object get( OgnlContext context, Object target, String propertyName )
+    private static final Getter DEFAULT_GETTER = (context, target, propertyName) -> {
+        try
         {
-            return null;
+            return OgnlRuntime.getMethodValue( context, target, propertyName, true );
         }
-    };
-
-    private static final Getter DEFAULT_GETTER = new Getter()
-    {
-
-        public Object get( OgnlContext context, Object target, String propertyName )
+        catch ( Exception ex )
         {
-            try
-            {
-                return OgnlRuntime.getMethodValue( context, target, propertyName, true );
-            }
-            catch ( Exception ex )
-            {
-                throw new RuntimeException( ex );
-            }
+            throw new RuntimeException( ex );
         }
     };
 

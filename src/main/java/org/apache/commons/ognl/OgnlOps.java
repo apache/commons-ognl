@@ -87,13 +87,13 @@ public abstract class OgnlOps
                     double dv1 = doubleValue( v1 ),
                     dv2 = doubleValue( v2 );
 
-                    return ( dv1 == dv2 ) ? 0 : ( ( dv1 < dv2 ) ? -1 : 1 );
+                    return Double.compare(dv1, dv2);
 
                 default:
                     long lv1 = longValue( v1 ),
                     lv2 = longValue( v2 );
 
-                    return ( lv1 == lv2 ) ? 0 : ( ( lv1 < lv2 ) ? -1 : 1 );
+                    return Long.compare(lv1, lv2);
             }
         }
         return result;
