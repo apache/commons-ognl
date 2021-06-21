@@ -109,12 +109,12 @@ public class ASTSequence
             // System.out.println("astsequence child : " + _children[i].getClass().getName());
             String seqValue = children[i].toGetSourceString( context, target );
 
-            if ( ( i + 1 ) < children.length && ASTOr.class.isInstance( children[i] ) )
+            if ( ( i + 1 ) < children.length && children[i] instanceof ASTOr)
             {
                 seqValue = "(" + seqValue + ")";
             }
 
-            if ( i > 0 && ASTProperty.class.isInstance( children[i] ) && seqValue != null
+            if ( i > 0 && children[i] instanceof ASTProperty && seqValue != null
                 && !seqValue.trim().isEmpty() )
             {
                 String pre = (String) context.get( "_currentChain" );
@@ -144,7 +144,7 @@ public class ASTSequence
             }
             // set last known type from last child with a type
 
-            if ( NodeType.class.isInstance( children[i] ) && ( (NodeType) children[i] ).getGetterClass() != null )
+            if ( children[i] instanceof NodeType && ( (NodeType) children[i] ).getGetterClass() != null )
             {
                 lastType = (NodeType) children[i];
             }

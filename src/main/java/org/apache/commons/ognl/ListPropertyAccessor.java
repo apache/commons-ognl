@@ -183,7 +183,7 @@ public class ListPropertyAccessor
     {
         String indexStr = index.toString().replace( "\"", "" );
 
-        if ( String.class.isInstance( index ) )
+        if (index instanceof String)
         {
             if ( "size".equals( indexStr ) )
             {
@@ -231,7 +231,7 @@ public class ListPropertyAccessor
     {
         Object currentObject = context.getCurrentObject();
         Class<?> currentType = context.getCurrentType();
-        if ( currentObject != null && !Number.class.isInstance( currentObject ) )
+        if ( currentObject != null && !(currentObject instanceof Number))
         {
             try
             {
@@ -274,7 +274,7 @@ public class ListPropertyAccessor
         {
             // means it needs to be cast first as well
 
-            String toString = String.class.isInstance( index ) && currentType != Object.class ? "" : ".toString()";
+            String toString = index instanceof String && currentType != Object.class ? "" : ".toString()";
 
             indexStr = "org.apache.commons.ognl.OgnlOps#getIntValue(" + indexStr + toString + ")";
         }

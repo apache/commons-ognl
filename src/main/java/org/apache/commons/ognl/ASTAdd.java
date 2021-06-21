@@ -159,7 +159,7 @@ class ASTAdd
                 {
                     aChildren.toGetSourceString( context, target );
 
-                    if ( NodeType.class.isInstance( aChildren ) && ( (NodeType) aChildren ).getGetterClass() != null
+                    if ( aChildren instanceof NodeType && ( (NodeType) aChildren ).getGetterClass() != null
                         && isWider( (NodeType) aChildren, lastType ) )
                     {
                         lastType = (NodeType) aChildren;
@@ -189,7 +189,7 @@ class ASTAdd
                     String expr = children[i].toGetSourceString( context, target );
 
                     if ( ( "null".equals( expr ) )
-                        || ( !ASTConst.class.isInstance( children[i] )
+                        || ( !(children[i] instanceof ASTConst)
                         && ( expr == null || expr.trim().isEmpty() ) ) )
                     {
                         expr = "null";
@@ -198,12 +198,12 @@ class ASTAdd
                     // System.out.println("astadd child class: " + _children[i].getClass().getName() +
                     // " and return expr: " + expr);
 
-                    if ( ASTProperty.class.isInstance( children[i] ) )
+                    if (children[i] instanceof ASTProperty)
                     {
                         expr = ExpressionCompiler.getRootExpression( children[i], context.getRoot(), context ) + expr;
                         context.setCurrentAccessor( context.getRoot().getClass() );
                     }
-                    else if ( ASTMethod.class.isInstance( children[i] ) )
+                    else if (children[i] instanceof ASTMethod)
                     {
                         String chain = (String) context.get( "_currentChain" );
                         String rootExpr =
@@ -222,17 +222,17 @@ class ASTAdd
                         context.setCurrentAccessor( context.getRoot().getClass() );
 
                     }
-                    else if ( ExpressionNode.class.isInstance( children[i] ) )
+                    else if (children[i] instanceof ExpressionNode)
                     {
                         expr = "(" + expr + ")";
                     }
-                    else if ( ( parent == null || !ASTChain.class.isInstance( parent ) )
-                        && ASTChain.class.isInstance( children[i] ) )
+                    else if ( ( parent == null || !(parent instanceof ASTChain))
+                        && children[i] instanceof ASTChain)
                     {
                         String rootExpr =
                             ExpressionCompiler.getRootExpression( children[i], context.getRoot(), context );
 
-                        if ( !ASTProperty.class.isInstance( children[i].jjtGetChild( 0 ) ) && rootExpr.endsWith( ")" )
+                        if ( !(children[i].jjtGetChild(0) instanceof ASTProperty) && rootExpr.endsWith( ")" )
                             && expr.startsWith( ")" ) )
                         {
                             expr = expr.substring( 1 );
@@ -253,7 +253,7 @@ class ASTAdd
                     // turn quoted characters into quoted strings
 
                     if ( context.getCurrentType() != null && context.getCurrentType() == Character.class
-                        && ASTConst.class.isInstance( children[i] ) )
+                        && children[i] instanceof ASTConst)
                     {
                         expr = expr.replace( "'", "\"" );
                         context.setCurrentType( String.class );
@@ -262,14 +262,14 @@ class ASTAdd
                     {
 
                         if ( !ASTVarRef.class.isAssignableFrom( children[i].getClass() )
-                            && !ASTProperty.class.isInstance( children[i] )
-                            && !ASTMethod.class.isInstance( children[i] )
-                            && !ASTSequence.class.isInstance( children[i] )
-                            && !ASTChain.class.isInstance( children[i] )
+                            && !(children[i] instanceof ASTProperty)
+                            && !(children[i] instanceof ASTMethod)
+                            && !(children[i] instanceof ASTSequence)
+                            && !(children[i] instanceof ASTChain)
                             && !NumericExpression.class.isAssignableFrom( children[i].getClass() )
-                            && !ASTStaticField.class.isInstance( children[i] )
-                            && !ASTStaticMethod.class.isInstance( children[i] )
-                            && !ASTTest.class.isInstance( children[i] ) )
+                            && !(children[i] instanceof ASTStaticField)
+                            && !(children[i] instanceof ASTStaticMethod)
+                            && !(children[i] instanceof ASTTest))
                         {
                             if ( lastType != null && String.class.isAssignableFrom( lastType.getGetterClass() ) )
                             {
@@ -292,11 +292,11 @@ class ASTAdd
                     {
                         if ( context.getCurrentType() != null
                             && Number.class.isAssignableFrom( context.getCurrentType() )
-                            && !ASTMethod.class.isInstance( children[i] ) )
+                            && !(children[i] instanceof ASTMethod))
                         {
-                            if ( ASTVarRef.class.isInstance( children[i] )
-                                || ASTProperty.class.isInstance( children[i] )
-                                || ASTChain.class.isInstance( children[i] ) )
+                            if ( children[i] instanceof ASTVarRef
+                                || children[i] instanceof ASTProperty
+                                || children[i] instanceof ASTChain)
                             {
                                 result.append(".");
                             }

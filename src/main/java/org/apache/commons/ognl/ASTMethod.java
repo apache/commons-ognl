@@ -277,7 +277,7 @@ public class ASTMethod
         StringBuilder result = new StringBuilder("." + method.getName() + "(");
 
         if ( method.getReturnType() != void.class && method.getReturnType().isPrimitive() && ( parent == null
-            || !ASTTest.class.isInstance( parent ) ) )
+            || !(parent instanceof ASTTest)) )
         {
             Class wrapper = OgnlRuntime.getPrimitiveWrapperClass( method.getReturnType() );
 
@@ -331,8 +331,8 @@ public class ASTMethod
 
                     if ( parmString == null || parmString.trim().length() < 1 )
                     {
-                        if ( ASTProperty.class.isInstance( child ) || ASTMethod.class.isInstance( child )
-                            || ASTStaticMethod.class.isInstance( child ) || ASTChain.class.isInstance( child ) )
+                        if ( child instanceof ASTProperty || child instanceof ASTMethod
+                            || child instanceof ASTStaticMethod || child instanceof ASTChain)
                         {
                             throw new UnsupportedCompilationException(
                                 "ASTMethod setter child returned null from a sub property expression." );
@@ -341,7 +341,7 @@ public class ASTMethod
                     }
 
                     // to undo type setting of constants when used as method parameters
-                    if ( ASTConst.class.isInstance( child ) )
+                    if (child instanceof ASTConst)
                     {
                         context.setCurrentType( prevType );
                     }

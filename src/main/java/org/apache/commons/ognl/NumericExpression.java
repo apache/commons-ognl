@@ -108,13 +108,13 @@ public abstract class NumericExpression
         StringBuilder ret = new StringBuilder( source );
         Object value = context.getCurrentObject();
 
-        if ( ASTConst.class.isInstance( child ) && value != null )
+        if ( child instanceof ASTConst && value != null )
         {
             return value.toString();
         }
 
         if ( context.getCurrentType() != null && !context.getCurrentType().isPrimitive()
-            && context.getCurrentObject() != null && Number.class.isInstance( context.getCurrentObject() ) )
+            && context.getCurrentObject() != null && context.getCurrentObject() instanceof Number)
         {
             ret = new StringBuilder( "((" ).append(
                 ExpressionCompiler.getCastString( context.getCurrentObject().getClass() ) ).append( ")" ).append(
@@ -122,7 +122,7 @@ public abstract class NumericExpression
                 OgnlRuntime.getNumericValueGetter( context.getCurrentObject().getClass() ) );
         }
         else if ( context.getCurrentType() != null && context.getCurrentType().isPrimitive()
-            && ( ASTConst.class.isInstance( child ) || NumericExpression.class.isInstance( child ) ) )
+            && ( child instanceof ASTConst || child instanceof NumericExpression) )
         {
             @SuppressWarnings( "unchecked" ) // checked by the condition in the if clause
             Class<? extends Number> numberClass = (Class<? extends Number>) context.getCurrentType();
@@ -136,7 +136,7 @@ public abstract class NumericExpression
             context.setCurrentType( Double.TYPE );
         }
 
-        if ( NumericExpression.class.isInstance( child ) )
+        if (child instanceof NumericExpression)
         {
             ret = new StringBuilder( "(" ).append( ret ).append( ")" );
         }

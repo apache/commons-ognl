@@ -53,7 +53,7 @@ class ASTAssign
         String first = children[0].toGetSourceString( context, target );
         String second = "";
 
-        if ( ASTProperty.class.isInstance( children[1] ) )
+        if (children[1] instanceof ASTProperty)
         {
             second += "((" + OgnlRuntime.getCompiler( context ).getClassName( target.getClass() ) + ")$2).";
         }
@@ -79,8 +79,8 @@ class ASTAssign
                                                                 Object.class );
         }
 
-        if ( NodeType.class.isInstance( children[1] ) && !ASTProperty.class.isInstance( children[1] )
-            && ( (NodeType) children[1] ).getGetterClass() != null && !OrderedReturn.class.isInstance( children[1] ) )
+        if ( children[1] instanceof NodeType && !(children[1] instanceof ASTProperty)
+            && ( (NodeType) children[1] ).getGetterClass() != null && !(children[1] instanceof OrderedReturn))
         {
 
             second = "new " + ( (NodeType) children[1] ).getGetterClass().getName() + "(" + second + ")";
@@ -113,7 +113,7 @@ class ASTAssign
 
         result += children[0].toSetSourceString( context, target );
 
-        if ( ASTProperty.class.isInstance( children[1] ) )
+        if (children[1] instanceof ASTProperty)
         {
             result += "((" + OgnlRuntime.getCompiler( context ).getClassName( target.getClass() ) + ")$2).";
         }
@@ -133,7 +133,7 @@ class ASTAssign
             value = seq.getLastExpression();
         }
 
-        if ( NodeType.class.isInstance( children[1] ) && !ASTProperty.class.isInstance( children[1] )
+        if ( children[1] instanceof NodeType && !(children[1] instanceof ASTProperty)
             && ( (NodeType) children[1] ).getGetterClass() != null )
         {
 

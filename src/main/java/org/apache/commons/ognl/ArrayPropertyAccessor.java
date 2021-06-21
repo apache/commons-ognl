@@ -184,7 +184,7 @@ public class ArrayPropertyAccessor
             // means it needs to be cast first as well
 
             String toString =
-                String.class.isInstance( index ) && context.getCurrentType() != Object.class ? "" : ".toString()";
+                index instanceof String && context.getCurrentType() != Object.class ? "" : ".toString()";
 
             indexStr = format( "org.apache.commons.ognl.OgnlOps#getIntValue(%s%s)", indexStr, toString );
         }

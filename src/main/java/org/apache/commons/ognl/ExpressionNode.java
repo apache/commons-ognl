@@ -94,13 +94,13 @@ public abstract class ExpressionNode
 
                 String value = children[i].toGetSourceString( context, target );
 
-                if ( ( ASTProperty.class.isInstance( children[i] ) || ASTMethod.class.isInstance( children[i] )
-                    || ASTSequence.class.isInstance( children[i] ) || ASTChain.class.isInstance( children[i] ) )
+                if ( ( children[i] instanceof ASTProperty || children[i] instanceof ASTMethod
+                    || children[i] instanceof ASTSequence || children[i] instanceof ASTChain)
                     && value != null && !value.trim().isEmpty() )
                 {
 
                     String pre = null;
-                    if ( ASTMethod.class.isInstance( children[i] ) )
+                    if (children[i] instanceof ASTMethod)
                     {
                         pre = (String) context.get( "_currentChain" );
                     }

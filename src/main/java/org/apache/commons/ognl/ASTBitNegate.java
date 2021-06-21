@@ -45,7 +45,7 @@ class ASTBitNegate
     {
         String source = children[0].toGetSourceString( context, target );
 
-        if ( !ASTBitNegate.class.isInstance( children[0] ) )
+        if ( !(children[0] instanceof ASTBitNegate))
         {
             return "~(" + super.coerceToNumeric( source, context, children[0] ) + ")";
         }

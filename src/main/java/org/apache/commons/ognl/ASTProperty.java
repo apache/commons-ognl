@@ -196,7 +196,7 @@ public class ASTProperty
                 // + " and srcString " + srcString + " on target: " + target);
 
                 Object currentObject = context.getCurrentObject();
-                if ( ASTConst.class.isInstance( child ) && Number.class.isInstance( currentObject ) )
+                if ( child instanceof ASTConst && currentObject instanceof Number)
                 {
                     context.setCurrentType( OgnlRuntime.getPrimitiveWrapperClass( currentObject.getClass() ) );
                 }
@@ -300,8 +300,7 @@ public class ASTProperty
 
                         String srcString = child.toGetSourceString( context, context.getRoot() );
 
-                        if ( ASTConst.class.isInstance( child ) && String.class.isInstance(
-                            context.getCurrentObject() ) )
+                        if ( child instanceof ASTConst && context.getCurrentObject() instanceof String)
                         {
                             srcString = "\"" + srcString + "\"";
                         }
@@ -372,11 +371,11 @@ public class ASTProperty
 
     Method getIndexedWriteMethod( PropertyDescriptor pd )
     {
-        if ( IndexedPropertyDescriptor.class.isInstance( pd ) )
+        if (pd instanceof IndexedPropertyDescriptor)
         {
             return ( (IndexedPropertyDescriptor) pd ).getIndexedWriteMethod();
         }
-        if ( ObjectIndexedPropertyDescriptor.class.isInstance( pd ) )
+        if (pd instanceof ObjectIndexedPropertyDescriptor)
         {
             return ( (ObjectIndexedPropertyDescriptor) pd ).getIndexedWriteMethod();
         }
@@ -422,7 +421,7 @@ public class ASTProperty
                     PropertyAccessor propertyAccessor = OgnlRuntime.getPropertyAccessor( target.getClass() );
 
                     Object currentObject = context.getCurrentObject();
-                    if ( ASTConst.class.isInstance( child ) && Number.class.isInstance( currentObject ) )
+                    if ( child instanceof ASTConst && currentObject instanceof Number)
                     {
                         context.setCurrentType( OgnlRuntime.getPrimitiveWrapperClass( currentObject.getClass() ) );
                     }
@@ -577,8 +576,7 @@ public class ASTProperty
 
                         String srcString = child.toGetSourceString( context, context.getRoot() );
 
-                        if ( ASTConst.class.isInstance( child ) && String.class.isInstance(
-                            context.getCurrentObject() ) )
+                        if ( child instanceof ASTConst && context.getCurrentObject() instanceof String)
                         {
                             srcString = "\"" + srcString + "\"";
                         }
@@ -630,7 +628,7 @@ public class ASTProperty
         String srcString = child.toGetSourceString( context, context.getRoot() );
         srcString = ExpressionCompiler.getRootExpression( child, context.getRoot(), context ) + srcString;
 
-        if ( ASTChain.class.isInstance( child ) )
+        if (child instanceof ASTChain)
         {
             String cast = (String) context.remove( ExpressionCompiler.PRE_CAST );
             if ( cast != null )
@@ -639,7 +637,7 @@ public class ASTProperty
             }
         }
 
-        if ( ASTConst.class.isInstance( child ) && String.class.isInstance( context.getCurrentObject() ) )
+        if ( child instanceof ASTConst && context.getCurrentObject() instanceof String)
         {
             srcString = "\"" + srcString + "\"";
         }
