@@ -122,7 +122,7 @@ public class OgnlRuntime
      */
     private static final String NULL_OBJECT_STRING = "<null>";
 
-    static OgnlCache cache = new OgnlCache();
+    static final OgnlCache cache = new OgnlCache();
 
     private static final PrimitiveTypes primitiveTypes = new PrimitiveTypes();
 

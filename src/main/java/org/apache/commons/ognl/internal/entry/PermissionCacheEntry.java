@@ -28,7 +28,7 @@ import java.lang.reflect.Method;
 public class PermissionCacheEntry
     implements CacheEntry
 {
-    public Method method;
+    public final Method method;
 
     public PermissionCacheEntry( Method method )
     {
