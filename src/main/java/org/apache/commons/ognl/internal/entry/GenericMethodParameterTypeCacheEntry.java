@@ -28,9 +28,9 @@ import java.lang.reflect.Method;
 public class GenericMethodParameterTypeCacheEntry
     implements CacheEntry
 {
-    Method method;
+    final Method method;
 
-    Class<?> type;
+    final Class<?> type;
 
     public GenericMethodParameterTypeCacheEntry( Method method, Class<?> type )
     {

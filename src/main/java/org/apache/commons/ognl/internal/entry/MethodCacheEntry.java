@@ -26,7 +26,7 @@ package org.apache.commons.ognl.internal.entry;
 public class MethodCacheEntry
     implements CacheEntry
 {
-    public Class<?> targetClass;
+    public final Class<?> targetClass;
 
     public MethodCacheEntry( Class<?> targetClass )
     {
