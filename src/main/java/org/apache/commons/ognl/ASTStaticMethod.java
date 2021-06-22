@@ -150,7 +150,7 @@ public class ASTStaticMethod
                                 + ")org.apache.commons.ognl.OgnlOps.convertValue(" + parmString + ","
                                 + parms[i].getName() + ".class)", parms[i] );
                         }
-                        else if ( ( NodeType.class.isInstance( child ) && ( (NodeType) child ).getGetterClass() != null
+                        else if ( ( child instanceof NodeType && ( (NodeType) child ).getGetterClass() != null
                             && Number.class.isAssignableFrom( ( (NodeType) child ).getGetterClass() ) )
                             || valueClass.isPrimitive() )
                         {

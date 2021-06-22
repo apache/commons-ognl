@@ -45,7 +45,7 @@ class ASTNegate
     {
         String source = children[0].toGetSourceString( context, target );
 
-        if ( !ASTNegate.class.isInstance( children[0] ) )
+        if ( !(children[0] instanceof ASTNegate))
         {
             return "-" + source;
         }

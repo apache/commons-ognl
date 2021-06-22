@@ -81,7 +81,7 @@ public class ASTConst
 
     public String toGetSourceString( OgnlContext context, Object target )
     {
-        if ( value == null && parent != null && ExpressionNode.class.isInstance( parent ) )
+        if ( value == null && parent != null && parent instanceof ExpressionNode)
         {
             context.setCurrentType( null );
             return "null";
@@ -95,7 +95,7 @@ public class ASTConst
         getterClass = value.getClass();
 
         Object retval = value;
-        if ( parent != null && ASTProperty.class.isInstance( parent ) )
+        if ( parent != null && parent instanceof ASTProperty)
         {
             context.setCurrentObject( value );
 
@@ -121,7 +121,7 @@ public class ASTConst
 
             return retval.toString();
         }
-        if ( Character.class.isInstance( value ) )
+        if (value instanceof Character)
         {
             Character val = (Character) value;
 

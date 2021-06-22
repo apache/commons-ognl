@@ -181,12 +181,12 @@ public class ASTCtor
 
                     result.append("[").append(children[0].toGetSourceString(context, target)).append("]");
                 }
-                else if ( ASTProperty.class.isInstance( children[0] ) )
+                else if (children[0] instanceof ASTProperty)
                 {
 
                     result.append("[").append(ExpressionCompiler.getRootExpression(children[0], target, context)).append(children[0].toGetSourceString(context, target)).append("]");
                 }
-                else if ( ASTChain.class.isInstance( children[0] ) )
+                else if (children[0] instanceof ASTChain)
                 {
 
                     result.append("[").append(children[0].toGetSourceString(context, target)).append("]");
@@ -217,7 +217,7 @@ public class ASTCtor
                         Object objValue = children[i].getValue( context, context.getRoot() );
                         String value = children[i].toGetSourceString( context, target );
 
-                        if ( !ASTRootVarRef.class.isInstance( children[i] ) )
+                        if ( !(children[i] instanceof ASTRootVarRef))
                         {
                             value = ExpressionCompiler.getRootExpression( children[i], target, context ) + value;
                         }
@@ -233,7 +233,7 @@ public class ASTCtor
                             cast = "";
                         }
 
-                        if ( !ASTConst.class.isInstance( children[i] ) )
+                        if ( !(children[i] instanceof ASTConst))
                         {
                             value = cast + value;
                         }
@@ -301,15 +301,15 @@ public class ASTCtor
                         {
 
                             if ( values[i] != null && !types[i].isPrimitive() && !values[i].getClass().isArray()
-                                && !ASTConst.class.isInstance( children[i] ) )
+                                && !(children[i] instanceof ASTConst))
                             {
 
                                 value =
                                     "(" + OgnlRuntime.getCompiler( context ).getInterfaceClass( values[i].getClass() ).getName()
                                         + ")" + value;
                             }
-                            else if ( !ASTConst.class.isInstance( children[i] )
-                                || ( ASTConst.class.isInstance( children[i] ) && !types[i].isPrimitive() ) )
+                            else if ( !(children[i] instanceof ASTConst)
+                                || ( children[i] instanceof ASTConst && !types[i].isPrimitive() ) )
                             {
 
                                 if ( !types[i].isArray() && types[i].isPrimitive() && !ctorParamTypes[i].isPrimitive() )

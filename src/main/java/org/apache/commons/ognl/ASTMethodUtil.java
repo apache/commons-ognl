@@ -44,7 +44,7 @@ class ASTMethodUtil
         }
 
         // to undo type setting of constants when used as method parameters
-        if ( ASTConst.class.isInstance( child ) )
+        if (child instanceof ASTConst)
         {
             context.setCurrentType( prevType );
         }
@@ -62,7 +62,7 @@ class ASTMethodUtil
             cast = "";
         }
 
-        if ( !ASTConst.class.isInstance( child ) )
+        if ( !(child instanceof ASTConst))
         {
             parmString = cast + parmString;
         }
@@ -108,7 +108,7 @@ class ASTMethodUtil
                                                         parm );
 
         }
-        else if ( ( NodeType.class.isInstance( child ) && ( (NodeType) child ).getGetterClass() != null
+        else if ( ( child instanceof NodeType && ( (NodeType) child ).getGetterClass() != null
             && Number.class.isAssignableFrom( ( (NodeType) child ).getGetterClass() ) ) || ( valueClass != null
             && valueClass.isPrimitive() ) )
         {

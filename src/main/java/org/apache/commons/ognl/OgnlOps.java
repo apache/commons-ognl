@@ -798,13 +798,13 @@ public abstract class OgnlOps
                 return -1;
             }
 
-            if ( Number.class.isInstance( value ) )
+            if (value instanceof Number)
             {
 
                 return ( (Number) value ).intValue();
             }
 
-            String str = String.class.isInstance( value ) ? (String) value : value.toString();
+            String str = value instanceof String ? (String) value : value.toString();
 
             return Integer.parseInt( str );
         }
@@ -1292,12 +1292,12 @@ public abstract class OgnlOps
      */
     public static RuntimeException castToRuntime( Throwable t )
     {
-        if ( RuntimeException.class.isInstance( t ) )
+        if (t instanceof RuntimeException)
         {
             return (RuntimeException) t;
         }
 
-        if ( OgnlException.class.isInstance( t ) )
+        if (t instanceof OgnlException)
         {
             throw new UnsupportedCompilationException( "Error evluating expression: " + t.getMessage(), t );
         }

@@ -82,7 +82,7 @@ class ASTTest
                 first = OgnlRuntime.getCompiler( context ).createLocalReference( context, first, context.getCurrentType() );
             }
 
-            if ( ExpressionNode.class.isInstance( children[0] ) )
+            if (children[0] instanceof ExpressionNode)
             {
                 first = "(" + first + ")";
             }
@@ -95,7 +95,7 @@ class ASTTest
                 second = OgnlRuntime.getCompiler( context ).createLocalReference( context, second, context.getCurrentType() );
             }
 
-            if ( ExpressionNode.class.isInstance( children[1] ) )
+            if (children[1] instanceof ExpressionNode)
             {
                 second = "(" + second + ")";
             }
@@ -109,7 +109,7 @@ class ASTTest
 
             }
 
-            if ( ExpressionNode.class.isInstance( children[2] ) )
+            if (children[2] instanceof ExpressionNode)
             {
                 third = "(" + third + ")";
             }

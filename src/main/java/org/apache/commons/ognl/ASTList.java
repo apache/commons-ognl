@@ -67,7 +67,7 @@ public class ASTList
     public String toGetSourceString( OgnlContext context, Object target )
     {
         StringBuilder result = new StringBuilder();
-        boolean array = ASTCtor.class.isInstance(parent) && ((ASTCtor) parent).isArray();
+        boolean array = parent instanceof ASTCtor && ((ASTCtor) parent).isArray();
 
         context.setCurrentType( List.class );
         context.setCurrentAccessor( List.class );
@@ -99,7 +99,7 @@ public class ASTList
                 String value = children[i].toGetSourceString( context, target );
 
                 // to undo type setting of constants when used as method parameters
-                if ( ASTConst.class.isInstance( children[i] ) )
+                if (children[i] instanceof ASTConst)
                 {
 
                     context.setCurrentType( prevType );
@@ -118,7 +118,7 @@ public class ASTList
                     cast = "";
                 }
 
-                if ( !ASTConst.class.isInstance( children[i] ) )
+                if ( !(children[i] instanceof ASTConst))
                 {
                     value = cast + value;
                 }
@@ -164,7 +164,7 @@ public class ASTList
                                     + ctorClass.getName() + ".class)", ctorClass );
 
                     }
-                    else if ( ( NodeType.class.isInstance( children[i] )
+                    else if ( ( children[i] instanceof NodeType
                         && ( (NodeType) children[i] ).getGetterClass() != null
                         && Number.class.isAssignableFrom( ( (NodeType) children[i] ).getGetterClass() ) )
                         || valueClass.isPrimitive() )

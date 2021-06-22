@@ -72,7 +72,7 @@ public class ASTInstanceof
 
             String ret = "";
 
-            if ( ASTConst.class.isInstance( children[0] ) )
+            if (children[0] instanceof ASTConst)
             {
                 ret = ( (Boolean) getValueBody( context, target ) ).toString();
             }

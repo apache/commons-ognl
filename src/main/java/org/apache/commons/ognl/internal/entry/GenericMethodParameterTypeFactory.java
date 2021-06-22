@@ -49,20 +49,20 @@ public class GenericMethodParameterTypeFactory
         {
             TypeVariable<?> paramType = null;
 
-            if ( TypeVariable.class.isInstance( genTypes[i] ) )
+            if (genTypes[i] instanceof TypeVariable)
             {
                 paramType = (TypeVariable<?>) genTypes[i];
             }
-            else if ( GenericArrayType.class.isInstance( genTypes[i] ) )
+            else if (genTypes[i] instanceof GenericArrayType)
             {
                 paramType = (TypeVariable<?>) ( (GenericArrayType) genTypes[i] ).getGenericComponentType();
             }
-            else if ( ParameterizedType.class.isInstance( genTypes[i] ) )
+            else if (genTypes[i] instanceof ParameterizedType)
             {
                 types[i] = (Class<?>) ( (ParameterizedType) genTypes[i] ).getRawType();
                 continue;
             }
-            else if ( Class.class.isInstance( genTypes[i] ) )
+            else if (genTypes[i] instanceof Class)
             {
                 types[i] = (Class<?>) genTypes[i];
                 continue;
@@ -72,7 +72,7 @@ public class GenericMethodParameterTypeFactory
 
             if ( resolved != null )
             {
-                if ( GenericArrayType.class.isInstance( genTypes[i] ) )
+                if (genTypes[i] instanceof GenericArrayType)
                 {
                     resolved = Array.newInstance( resolved, 0 ).getClass();
                 }
@@ -95,7 +95,7 @@ public class GenericMethodParameterTypeFactory
 
         for ( int i = 0; i < declaredTypes.length; i++ )
         {
-            if ( !TypeVariable.class.isInstance( param.getActualTypeArguments()[i] )
+            if ( !(param.getActualTypeArguments()[i] instanceof TypeVariable)
                 && declaredTypes[i].getName().equals( var.getName() ) )
             {
                 return (Class<?>) param.getActualTypeArguments()[i];

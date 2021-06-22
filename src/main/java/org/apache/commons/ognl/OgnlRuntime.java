@@ -395,8 +395,7 @@ public class OgnlRuntime
     public static Class<?>[] findParameterTypes( Class<?> type, Method method )
         throws CacheException
     {
-        if ( type == null || type.getGenericSuperclass() == null || !ParameterizedType.class.isInstance(
-            type.getGenericSuperclass() ) || method.getDeclaringClass().getTypeParameters() == null )
+        if ( type == null || type.getGenericSuperclass() == null || !(type.getGenericSuperclass() instanceof ParameterizedType) || method.getDeclaringClass().getTypeParameters() == null )
         {
             return getParameterTypes( method );
         }
@@ -809,7 +808,7 @@ public class OgnlRuntime
             for ( Method method : methods )
             {
                 Class<?> typeClass = target != null ? target.getClass() : null;
-                if ( typeClass == null && source != null && Class.class.isInstance( source ) )
+                if ( typeClass == null && source != null && source instanceof Class)
                 {
                     typeClass = (Class<?>) source;
                 }
@@ -2086,7 +2085,7 @@ public class OgnlRuntime
 
         // handle root / method expressions that may not have proper root java source access
 
-        if ( !ASTConst.class.isInstance( child ) && ( target == null || context.getRoot() != target ) )
+        if ( !(child instanceof ASTConst) && ( target == null || context.getRoot() != target ) )
         {
             source = pre + source;
         }
@@ -2097,7 +2096,7 @@ public class OgnlRuntime
             context.setCurrentAccessor( context.getRoot().getClass() );
         }
 
-        if ( ASTChain.class.isInstance( child ) )
+        if (child instanceof ASTChain)
         {
             String cast = (String) context.remove( ExpressionCompiler.PRE_CAST );
             if ( cast == null )

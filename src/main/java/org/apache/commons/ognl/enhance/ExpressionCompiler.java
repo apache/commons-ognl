@@ -148,27 +148,26 @@ public class ExpressionCompiler
             return rootExpr;
         }
 
-        if ( ( !ASTList.class.isInstance( expression ) && !ASTVarRef.class.isInstance( expression )
-            && !ASTStaticMethod.class.isInstance( expression ) && !ASTStaticField.class.isInstance( expression )
-            && !ASTConst.class.isInstance( expression ) && !ExpressionNode.class.isInstance( expression )
-            && !ASTCtor.class.isInstance( expression ) && !ASTStaticMethod.class.isInstance( expression )
-            && root != null ) || ( root != null && ASTRootVarRef.class.isInstance( expression ) ) )
+        if ( ( !(expression instanceof ASTList) && !(expression instanceof ASTVarRef)
+            && !(expression instanceof ASTStaticMethod) && !(expression instanceof ASTStaticField)
+            && !(expression instanceof ASTConst) && !(expression instanceof ExpressionNode)
+            && !(expression instanceof ASTCtor) && !(expression instanceof ASTStaticMethod)
+            && root != null ) || ( root != null && expression instanceof ASTRootVarRef) )
         {
 
             Class<?> castClass = OgnlRuntime.getCompiler( context ).getRootExpressionClass( expression, context );
 
-            if ( castClass.isArray() || ASTRootVarRef.class.isInstance( expression ) || ASTThisVarRef.class.isInstance(
-                expression ) )
+            if ( castClass.isArray() || expression instanceof ASTRootVarRef || expression instanceof ASTThisVarRef)
             {
                 rootExpr = "((" + getCastString( castClass ) + ")$2)";
 
-                if ( ASTProperty.class.isInstance( expression ) && !( (ASTProperty) expression ).isIndexedAccess() )
+                if ( expression instanceof ASTProperty && !( (ASTProperty) expression ).isIndexedAccess() )
                 {
                     rootExpr += ".";
                 }
             }
-            else if ( ( ASTProperty.class.isInstance( expression ) && ( (ASTProperty) expression ).isIndexedAccess() )
-                || ASTChain.class.isInstance( expression ) )
+            else if ( ( expression instanceof ASTProperty && ( (ASTProperty) expression ).isIndexedAccess() )
+                || expression instanceof ASTChain)
             {
                 rootExpr = "((" + getCastString( castClass ) + ")$2)";
             }
@@ -190,18 +189,18 @@ public class ExpressionCompiler
      */
     public static boolean shouldCast( Node expression )
     {
-        if ( ASTChain.class.isInstance( expression ) )
+        if (expression instanceof ASTChain)
         {
             Node child = expression.jjtGetChild( 0 );
-            if ( ASTConst.class.isInstance( child ) || ASTStaticMethod.class.isInstance( child )
-                || ASTStaticField.class.isInstance( child ) || ( ASTVarRef.class.isInstance( child )
-                && !ASTRootVarRef.class.isInstance( child ) ) )
+            if ( child instanceof ASTConst || child instanceof ASTStaticMethod
+                || child instanceof ASTStaticField || ( child instanceof ASTVarRef
+                && !(child instanceof ASTRootVarRef)) )
             {
                 return false;
             }
         }
 
-        return !ASTConst.class.isInstance( expression );
+        return !(expression instanceof ASTConst);
     }
 
     /**
@@ -218,11 +217,11 @@ public class ExpressionCompiler
                 && context.getCurrentAccessor().isAssignableFrom( context.getPreviousType() ) ) || body == null
             || body.trim().length() < 1 || ( context.getCurrentType() != null && context.getCurrentType().isArray() && (
             context.getPreviousType() == null || context.getPreviousType() != Object.class ) )
-            || ASTOr.class.isInstance( expression ) || ASTAnd.class.isInstance( expression )
-            || ASTRootVarRef.class.isInstance( expression ) || context.getCurrentAccessor() == Class.class || (
+            || expression instanceof ASTOr || expression instanceof ASTAnd
+            || expression instanceof ASTRootVarRef || context.getCurrentAccessor() == Class.class || (
             context.get( ExpressionCompiler.PRE_CAST ) != null && ( (String) context.get(
-                ExpressionCompiler.PRE_CAST ) ).startsWith( "new" ) ) || ASTStaticField.class.isInstance( expression )
-            || ASTStaticMethod.class.isInstance( expression ) || ( OrderedReturn.class.isInstance( expression )
+                ExpressionCompiler.PRE_CAST ) ).startsWith( "new" ) ) || expression instanceof ASTStaticField
+            || expression instanceof ASTStaticMethod || ( expression instanceof OrderedReturn
             && ( (OrderedReturn) expression ).getLastExpression() != null ) )
         {
             return body;
@@ -619,10 +618,10 @@ public class ExpressionCompiler
 
         createLocalReferences( context, classPool, newClass, objClass, valueGetter.getParameterTypes() );
 
-        if ( OrderedReturn.class.isInstance( expression )
+        if ( expression instanceof OrderedReturn
             && ( (OrderedReturn) expression ).getLastExpression() != null )
         {
-            body = "{ " + ( ASTMethod.class.isInstance( expression ) || ASTChain.class.isInstance( expression )
+            body = "{ " + ( expression instanceof ASTMethod || expression instanceof ASTChain
                 ? rootExpr
                 : "" ) + ( castExpression != null ? castExpression : "" )
                 + ( (OrderedReturn) expression ).getCoreExpression() + " return " + pre
@@ -697,7 +696,7 @@ public class ExpressionCompiler
                                      CtMethod valueSetter, Node expression, Object root )
         throws Exception
     {
-        if ( ExpressionNode.class.isInstance( expression ) || ASTConst.class.isInstance( expression ) )
+        if ( expression instanceof ExpressionNode || expression instanceof ASTConst)
         {
             throw new UnsupportedCompilationException( "Can't compile expression/constant setters." );
         }

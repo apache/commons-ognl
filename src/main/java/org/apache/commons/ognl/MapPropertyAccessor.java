@@ -118,7 +118,7 @@ public class MapPropertyAccessor
         context.setCurrentAccessor( Map.class );
         context.setCurrentType( Object.class );
 
-        if ( String.class.isInstance( index ) && !indexedAccess )
+        if ( index instanceof String && !indexedAccess )
         {
             String key = indexStr.replace( "\"", "" );
 
@@ -154,7 +154,7 @@ public class MapPropertyAccessor
 
         String indexStr = index.toString();
 
-        if ( String.class.isInstance( index ) )
+        if (index instanceof String)
         {
             String key = indexStr.replace( "\"", "" );
 
