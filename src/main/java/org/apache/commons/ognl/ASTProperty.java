@@ -300,7 +300,7 @@ public class ASTProperty
 
                         String srcString = child.toGetSourceString( context, context.getRoot() );
 
-                        if ( child instanceof ASTConst && context.getCurrentObject() instanceof String)
+                        if (context.getCurrentObject() instanceof String)
                         {
                             srcString = "\"" + srcString + "\"";
                         }
@@ -576,7 +576,7 @@ public class ASTProperty
 
                         String srcString = child.toGetSourceString( context, context.getRoot() );
 
-                        if ( child instanceof ASTConst && context.getCurrentObject() instanceof String)
+                        if (context.getCurrentObject() instanceof String)
                         {
                             srcString = "\"" + srcString + "\"";
                         }

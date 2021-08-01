@@ -126,7 +126,7 @@ public class ASTList
                 if ( array && ctorClass != null && !ctorClass.isPrimitive() )
                 {
 
-                    Class valueClass = value != null ? value.getClass() : null;
+                    Class valueClass = value.getClass();
                     if ( NodeType.class.isAssignableFrom( children[i].getClass() ) )
                     {
                         valueClass = ( (NodeType) children[i] ).getGetterClass();
@@ -141,18 +141,6 @@ public class ASTList
                                     + ")org.apache.commons.ognl.OgnlOps.toArray(" + value + ", "
                                     + ctorClass.getComponentType().getName() + ".class, true)", ctorClass );
 
-                    }
-                    else if ( ctorClass.isPrimitive() )
-                    {
-
-                        Class wrapClass = OgnlRuntime.getPrimitiveWrapperClass( ctorClass );
-
-                        value =
-                            compiler
-                                .createLocalReference( context, "((" + wrapClass.getName()
-                                    + ")org.apache.commons.ognl.OgnlOps.convertValue(" + value + ","
-                                    + wrapClass.getName() + ".class, true))." + OgnlRuntime.getNumericValueGetter(
-                                    wrapClass ), ctorClass );
                     }
                     else if ( ctorClass != Object.class )
                     {
@@ -171,10 +159,6 @@ public class ASTList
                     {
 
                         value = " ($w) (" + value + ")";
-                    }
-                    else if ( valueClass.isPrimitive() )
-                    {
-                        value = "($w) (" + value + ")";
                     }
 
                 }

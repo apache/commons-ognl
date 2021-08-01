@@ -154,7 +154,7 @@ public class ClassCacheImpl<V>
     @Override
     public String toString()
     {
-        return "ClassCacheImpl[" + "_table=" + ( table == null ? null : Arrays.asList( table ) ) + '\n'
+        return "ClassCacheImpl[" + "_table=" + Arrays.asList( table ) + '\n'
             + ", _classInspector=" + classInspector + '\n' + ", _size=" + size + '\n' + ']';
     }
 

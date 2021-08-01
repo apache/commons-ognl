@@ -101,17 +101,15 @@ public class ASTConst
 
             return value.toString();
         }
-        if ( value != null && Number.class.isAssignableFrom( value.getClass() ) )
+        if (Number.class.isAssignableFrom( value.getClass() ))
         {
             context.setCurrentType( OgnlRuntime.getPrimitiveWrapperClass( value.getClass() ) );
             context.setCurrentObject( value );
 
             return value.toString();
         }
-        if ( !( parent != null
-                        && value != null
-                        && NumericExpression.class.isAssignableFrom( parent.getClass() ) )
-            && String.class.isAssignableFrom( value.getClass() ) )
+        if (!(parent != null && NumericExpression.class.isAssignableFrom(parent.getClass()))
+                && String.class.isAssignableFrom(value.getClass()))
         {
             context.setCurrentType( String.class );
 
