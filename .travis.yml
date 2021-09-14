@@ -28,6 +28,7 @@ jdk:
 matrix:
   allow_failures:
     - jdk: openjdk-ea
+    - jdk: openjdk16
 
 script:
   - mvn -V --no-transfer-progress
