@@ -35,5 +35,5 @@ jobs:
         distribution: adopt
         java-version: ${{ matrix.java }}
         cache: 'maven'
-    - name: Build with Maven on Java ${{ matrix.Java }
+    - name: Build with Maven on Java ${{ matrix.java }}
       run: mvn -V -Ddoclint=all --file pom.xml --no-transfer-progress ${{ matrix.additionalArg }}
