@@ -607,5 +607,28 @@ limitations under the License.
         </pluginManagement>
       </build>
     </profile>
+
+    <profile>
+      <id>jdk17</id>
+      <activation>
+        <jdk>[17,)</jdk>
+      </activation>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.surefire</groupId>
+              <artifactId>surefire-junit4</artifactId>
+              <configuration>
+                <argLine>--illegal-access=permit</argLine>
+                <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
+                <argLine>--add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED</argLine>
+                <argLine>-Dillegal-access=permit</argLine>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
   </profiles>
 </project>
