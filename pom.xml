@@ -174,7 +174,7 @@ limitations under the License.
   <properties>
     <commons.encoding>UTF-8</commons.encoding>
     <commons.componentid>ognl</commons.componentid>
-    <commons.javadoc.version>3.2.0</commons.javadoc.version>
+    <commons.javadoc.version>3.3.1</commons.javadoc.version>
     <commons.module.name>org.apache.commons.ognl</commons.module.name>
     <commons.scmPubCheckoutDirectory>target/site-content</commons.scmPubCheckoutDirectory>
 
