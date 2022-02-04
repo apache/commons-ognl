@@ -83,6 +83,11 @@
       <action issue="OGNL-6" type="update" dev="simonetripodi">Upgrade groupId/artifactId/version on pom</action>
       <action issue="OGNL-2" type="update" dev="">Update legals to all OGNL file</action>
       <action issue="OGNL-1" type="update" dev="lukaszlenart">Import the OGNL codebase</action>
+      <!-- UPDATE -->
+      <action type="update" dev="ggregory" due-to="Dependabot">Bump build-helper-maven-plugin from 3.2.0 to 3.3.0 #61.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot">Bump h2 from 2.0.202 to 2.0.206 #57.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot">Bump ognl from 3.3.0 to 3.3.2 #59.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot">Bump maven-javadoc-plugin 3.2.0 from to 3.3.1.</action>
     </release>
   </body>
 </document>
