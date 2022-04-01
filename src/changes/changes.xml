@@ -90,6 +90,7 @@
       <action type="update" dev="ggregory" due-to="Dependabot">Bump maven-javadoc-plugin 3.2.0 from to 3.3.1.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump slf4j-api from 1.7.32 to 1.7.36 #66.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump actions/checkout from 2 to 3 #68.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot">Bump taglist-maven-plugin from 2.4 to 3.0.0 #65.</action>
     </release>
   </body>
 </document>
