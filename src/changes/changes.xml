@@ -93,6 +93,8 @@
       <action type="update" dev="ggregory" due-to="Dependabot">Bump taglist-maven-plugin from 2.4 to 3.0.0 #65.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump maven-jar-plugin from 3.2.1 to 3.2.2 #63.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump actions/setup-java from 2 to 3 #70.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot">Bump commons-parent from 52 to 53 #69.</action>
+         
     </release>
   </body>
 </document>
