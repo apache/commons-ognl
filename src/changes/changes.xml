@@ -33,7 +33,7 @@
         NumericLiterals and NumericDefaults. (contributed by Adrian Cumiskey).
       </action>
       <action issue="OGNL-38" type="update" dev="mcucchiara">Use StringBuilder instead of StringBuffer, deprecate
-        >=JDK1.5 conditionals and use CONSTANT.equals(variable) (contributed by Adrian Cumiskey).
+        greater than JDK 5 conditionals and use CONSTANT.equals(variable) (contributed by Adrian Cumiskey).
       </action>
       <action issue="OGNL-37" type="fix" dev="mcucchiara">Findbugs fixes (contributed by Adrian Cumiskey).</action>
       <action issue="OGNL-35" type="update" dev="mcucchiara">Improvements to {List,Map,Array}PropertyAccessor and
@@ -92,6 +92,7 @@
       <action type="update" dev="ggregory" due-to="Dependabot">Bump actions/checkout from 2 to 3 #68.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump taglist-maven-plugin from 2.4 to 3.0.0 #65.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump maven-jar-plugin from 3.2.1 to 3.2.2 #63.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot">Bump actions/setup-java from 2 to 3 #70.</action>
     </release>
   </body>
 </document>
