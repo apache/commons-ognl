@@ -179,11 +179,8 @@ public class ObjectPropertyAccessor
                     try
                     {
                         Field f = target.getClass().getField( key );
-                        if ( f != null )
-                        {
 
-                            return f.getType();
-                        }
+                        return f.getType();
                     }
                     catch ( NoSuchFieldException e )
                     {
@@ -231,13 +228,10 @@ public class ObjectPropertyAccessor
                     {
                         Field f = target.getClass().getField( methodName );
 
-                        if ( f != null )
-                        {
-                            context.setCurrentType( f.getType() );
-                            context.setCurrentAccessor( f.getDeclaringClass() );
+                        context.setCurrentType( f.getType() );
+                        context.setCurrentAccessor( f.getDeclaringClass() );
 
-                            return "." + f.getName();
-                        }
+                        return "." + f.getName();
                     }
                 }
                 catch ( NoSuchFieldException e )
@@ -276,7 +270,7 @@ public class ObjectPropertyAccessor
                                                 context.getCurrentObject().toString().replace( "\"", "" ) );
             }
 
-            if ( m == null || m.getParameterTypes() == null || m.getParameterTypes().length <= 0 )
+            if (m == null || m.getParameterTypes().length <= 0)
             {
                 throw new UnsupportedCompilationException( "Unable to determine setting expression on "
                     + context.getCurrentObject() + " with index of " + index );

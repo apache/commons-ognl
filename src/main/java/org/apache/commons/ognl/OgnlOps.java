@@ -649,11 +649,6 @@ public abstract class OgnlOps
             Array.set( result, i, convertValue( Array.get( value, i ), toType ) );
         }
 
-        if ( result == null && preventNulls )
-        {
-            return value;
-        }
-
         return result;
     }
 
@@ -681,7 +676,7 @@ public abstract class OgnlOps
                     Array.set( result, i, convertValue( Array.get( value, i ), componentType ) );
                 }
             }
-            else if ( classIsArray && !toTypeIsArray)
+            else if (classIsArray)
             {
 
                 return convertValue( Array.get( value, 0 ), toType );

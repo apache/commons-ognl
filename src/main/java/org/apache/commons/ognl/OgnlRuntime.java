@@ -1339,17 +1339,14 @@ public class OgnlRuntime
 
         List<Method> methods = getDeclaredMethods( targetClass, propertyName, false /* find 'get' methods */ );
 
-        if ( methods != null )
+        for ( Method method : methods )
         {
-            for ( Method method : methods )
-            {
-                Class<?>[] mParameterTypes = findParameterTypes( targetClass, method ); // getParameterTypes(method);
+            Class<?>[] mParameterTypes = findParameterTypes( targetClass, method ); // getParameterTypes(method);
 
-                if ( mParameterTypes.length == 0 )
-                {
-                    result = method;
-                    break;
-                }
+            if ( mParameterTypes.length == 0 )
+            {
+                result = method;
+                break;
             }
         }
 
@@ -1374,17 +1371,14 @@ public class OgnlRuntime
 
         List<Method> methods = getDeclaredMethods( targetClass, propertyName, true /* find 'set' methods */ );
 
-        if ( methods != null )
+        for ( Method method : methods )
         {
-            for ( Method method : methods )
-            {
-                Class<?>[] mParameterTypes = findParameterTypes( targetClass, method ); // getParameterTypes(method);
+            Class<?>[] mParameterTypes = findParameterTypes( targetClass, method ); // getParameterTypes(method);
 
-                if ( mParameterTypes.length == 1 )
-                {
-                    setMethod = method;
-                    break;
-                }
+            if ( mParameterTypes.length == 1 )
+            {
+                setMethod = method;
+                break;
             }
         }
 

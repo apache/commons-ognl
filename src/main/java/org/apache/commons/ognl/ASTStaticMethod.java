@@ -156,10 +156,6 @@ public class ASTStaticMethod
                         {
                             parmString = " ($w) " + parmString;
                         }
-                        else if ( valueClass.isPrimitive() )
-                        {
-                            parmString = "($w) " + parmString;
-                        }
                     }
 
                     result.append(parmString);

@@ -19,8 +19,6 @@
  */
 package org.apache.commons.ognl.test;
 
-import static junit.framework.Assert.assertTrue;
-
 import java.util.ArrayList;
 import java.util.Collection;
 

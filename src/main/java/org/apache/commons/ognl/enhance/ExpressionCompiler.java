@@ -151,7 +151,7 @@ public class ExpressionCompiler
         if ( ( !(expression instanceof ASTList) && !(expression instanceof ASTVarRef)
             && !(expression instanceof ASTStaticMethod) && !(expression instanceof ASTStaticField)
             && !(expression instanceof ASTConst) && !(expression instanceof ExpressionNode)
-            && !(expression instanceof ASTCtor) && !(expression instanceof ASTStaticMethod)
+            && !(expression instanceof ASTCtor)
             && root != null ) || ( root != null && expression instanceof ASTRootVarRef) )
         {
 
@@ -334,23 +334,14 @@ public class ExpressionCompiler
     {
         Method[] methods = clazz.getMethods();
 
-        if ( methods == null )
-        {
-            return false;
-        }
-
         for ( Method method : methods )
         {
             if ( method.getName().equals( m.getName() ) && method.getReturnType() == m.getReturnType() )
             {
                 Class<?>[] parms = m.getParameterTypes();
-                if ( parms == null )
-                {
-                    continue;
-                }
 
                 Class<?>[] mparms = method.getParameterTypes();
-                if ( mparms == null || mparms.length != parms.length )
+                if (mparms.length != parms.length)
                 {
                     continue;
                 }
@@ -371,13 +362,9 @@ public class ExpressionCompiler
                 }
 
                 Class<?>[] exceptions = m.getExceptionTypes();
-                if ( exceptions == null )
-                {
-                    continue;
-                }
 
                 Class<?>[] mexceptions = method.getExceptionTypes();
-                if ( mexceptions == null || mexceptions.length != exceptions.length )
+                if (mexceptions.length != exceptions.length)
                 {
                     continue;
                 }

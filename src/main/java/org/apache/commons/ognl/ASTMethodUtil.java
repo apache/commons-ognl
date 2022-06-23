@@ -114,10 +114,6 @@ class ASTMethodUtil
         {
             parmString = " ($w) " + parmString;
         }
-        else if ( valueClass != null && valueClass.isPrimitive() )
-        {
-            parmString = "($w) " + parmString;
-        }
         return parmString;
     }
 }

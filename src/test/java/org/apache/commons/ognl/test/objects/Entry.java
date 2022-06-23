@@ -41,11 +41,7 @@ public class Entry
     {
         if ( this == o )
             return true;
-        if ( o == null || getClass() != o.getClass() )
-            return false;
-
-        Entry entry = (Entry) o;
-        return _size == entry._size;
+        return o != null && getClass() == o.getClass();
     }
 
     public int hashCode()
