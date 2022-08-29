@@ -61,7 +61,7 @@ public class ASTAnd
     }
 
     /* (non-Javadoc)
-     * @see org.apache.commons.ognl.SimpleNode#getValueBody(org.apache.commons.ognl.OgnlContext, java.lang.Object)
+     * @see org.apache.commons.ognl.SimpleNode#getValueBody(org.apache.commons.ognl.OgnlContext, Object)
      */
     protected Object getValueBody( OgnlContext context, Object source )
         throws OgnlException
@@ -82,7 +82,7 @@ public class ASTAnd
     }
 
     /* (non-Javadoc)
-     * @see org.apache.commons.ognl.SimpleNode#setValueBody(org.apache.commons.ognl.OgnlContext, java.lang.Object, java.lang.Object)
+     * @see org.apache.commons.ognl.SimpleNode#setValueBody(org.apache.commons.ognl.OgnlContext, Object, Object)
      */
     protected void setValueBody( OgnlContext context, Object target, Object value )
         throws OgnlException
@@ -119,7 +119,7 @@ public class ASTAnd
     }
 
     /* (non-Javadoc)
-     * @see org.apache.commons.ognl.BooleanExpression#toGetSourceString(org.apache.commons.ognl.OgnlContext, java.lang.Object)
+     * @see org.apache.commons.ognl.BooleanExpression#toGetSourceString(org.apache.commons.ognl.OgnlContext, Object)
      */
     public String toGetSourceString( OgnlContext context, Object target )
     {
@@ -171,7 +171,7 @@ public class ASTAnd
     }
 
     /* (non-Javadoc)
-     * @see org.apache.commons.ognl.ExpressionNode#toSetSourceString(org.apache.commons.ognl.OgnlContext, java.lang.Object)
+     * @see org.apache.commons.ognl.ExpressionNode#toSetSourceString(org.apache.commons.ognl.OgnlContext, Object)
      */
     public String toSetSourceString( OgnlContext context, Object target )
     {
@@ -232,7 +232,7 @@ public class ASTAnd
     }
 
     /* (non-Javadoc)
-     * @see org.apache.commons.ognl.Node#accept(org.apache.commons.ognl.NodeVisitor, java.lang.Object)
+     * @see org.apache.commons.ognl.Node#accept(org.apache.commons.ognl.NodeVisitor, Object)
      */
     public <R, P> R accept( NodeVisitor<? extends R, ? super P> visitor, P data )
         throws OgnlException
