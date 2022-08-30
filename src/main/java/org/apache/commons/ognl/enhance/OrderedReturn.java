@@ -1,5 +1,3 @@
-package org.apache.commons.ognl.enhance;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -19,6 +17,7 @@ package org.apache.commons.ognl.enhance;
  * under the License.
  */
 
+package org.apache.commons.ognl.enhance;
 
 /**
  * Marks an ognl expression {@link org.apache.commons.ognl.Node} as needing to have the return portion of a getter
