@@ -23,7 +23,6 @@ import org.apache.commons.ognl.ClassCacheInspector;
 import org.apache.commons.ognl.internal.entry.CacheEntryFactory;
 
 /*
- * $Id$
  */
 
 public class ConcurrentHashMapClassCache<T>

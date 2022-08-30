@@ -26,7 +26,6 @@ import java.lang.reflect.Constructor;
 import java.util.List;
 
 /**
- * $Id$
  */
 public class ASTCtor
     extends SimpleNode

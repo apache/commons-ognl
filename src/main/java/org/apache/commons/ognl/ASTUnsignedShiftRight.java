@@ -20,7 +20,6 @@ package org.apache.commons.ognl;
  */
 
 /**
- * $Id$
  */
 class ASTUnsignedShiftRight
     extends NumericExpression

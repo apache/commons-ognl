@@ -34,6 +34,5 @@ package org.apache.commons.ognl;
  *
  * We pronounce OGNL as a word, like the last syllables of a drunken
  * pronunciation of "orthogonal" or like "ogg-null".
- * $Id$
  */
 

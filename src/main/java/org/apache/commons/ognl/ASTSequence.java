@@ -23,7 +23,6 @@ import org.apache.commons.ognl.enhance.ExpressionCompiler;
 import org.apache.commons.ognl.enhance.OrderedReturn;
 
 /**
- * $Id$
  */
 public class ASTSequence
     extends SimpleNode

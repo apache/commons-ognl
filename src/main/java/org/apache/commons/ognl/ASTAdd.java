@@ -27,7 +27,6 @@ import java.math.BigInteger;
 import static java.lang.String.format;
 
 /**
- * $Id$
  */
 class ASTAdd
     extends NumericExpression

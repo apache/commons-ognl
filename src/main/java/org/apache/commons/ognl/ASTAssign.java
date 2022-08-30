@@ -23,7 +23,6 @@ import org.apache.commons.ognl.enhance.OrderedReturn;
 import org.apache.commons.ognl.enhance.UnsupportedCompilationException;
 
 /**
- * $Id$
  */
 class ASTAssign
     extends SimpleNode

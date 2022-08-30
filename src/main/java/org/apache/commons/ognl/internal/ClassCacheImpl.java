@@ -20,7 +20,6 @@ package org.apache.commons.ognl.internal;
  */
 
 /*
- * $Id$
  */
 
 import org.apache.commons.ognl.ClassCacheInspector;

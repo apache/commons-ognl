@@ -23,7 +23,6 @@ import org.apache.commons.ognl.enhance.OrderedReturn;
 import org.apache.commons.ognl.enhance.UnsupportedCompilationException;
 
 /**
- * $Id$
  */
 public class ASTVarRef
     extends SimpleNode

@@ -26,7 +26,6 @@ import java.util.Enumeration;
 import java.util.List;
 
 /**
- * $Id$
  */
 class ASTSelectLast
     extends SimpleNode

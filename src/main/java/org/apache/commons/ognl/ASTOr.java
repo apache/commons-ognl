@@ -23,7 +23,6 @@ import org.apache.commons.ognl.enhance.ExpressionCompiler;
 import org.apache.commons.ognl.enhance.UnsupportedCompilationException;
 
 /**
- * $Id$
  */
 public class ASTOr
     extends BooleanExpression

@@ -28,7 +28,6 @@ import java.lang.reflect.Method;
 import java.util.Iterator;
 
 /**
- * $Id$
  */
 public class ASTProperty
     extends SimpleNode

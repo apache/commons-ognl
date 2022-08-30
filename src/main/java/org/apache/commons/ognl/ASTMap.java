@@ -26,7 +26,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * $Id$
  */
 class ASTMap
     extends SimpleNode

@@ -20,7 +20,6 @@ package org.apache.commons.ognl.internal.entry;
  */
 
 /*
- * $Id$
  */
 
 import org.apache.commons.ognl.OgnlRuntime;

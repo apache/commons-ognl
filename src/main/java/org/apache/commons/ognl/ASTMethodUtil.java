@@ -24,7 +24,6 @@ import org.apache.commons.ognl.enhance.OgnlExpressionCompiler;
 
 
 /**
- * $Id$
  */
 class ASTMethodUtil
 {

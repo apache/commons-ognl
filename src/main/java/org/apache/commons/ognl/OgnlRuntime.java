@@ -58,7 +58,6 @@ import java.util.Map;
  * / {@link NullHandler} instances / etc..</li>
  * </ul>
  *
- * $Id$
  */
 public class OgnlRuntime
 {

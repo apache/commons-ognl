@@ -23,7 +23,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 /**
- * $Id$
  */
 public class ASTStaticField
     extends SimpleNode

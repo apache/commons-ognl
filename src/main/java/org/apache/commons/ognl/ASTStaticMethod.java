@@ -26,7 +26,6 @@ import org.apache.commons.ognl.enhance.UnsupportedCompilationException;
 import java.lang.reflect.Method;
 
 /**
- * $Id$
  */
 public class ASTStaticMethod
     extends SimpleNode

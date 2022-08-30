@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * $Id$
  */
 public class ASTList
     extends SimpleNode

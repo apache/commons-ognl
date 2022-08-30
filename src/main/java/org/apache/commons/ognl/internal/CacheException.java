@@ -20,7 +20,6 @@ package org.apache.commons.ognl.internal;
  */
 
 /*
- * $Id$
  */
 public class CacheException
     extends RuntimeException

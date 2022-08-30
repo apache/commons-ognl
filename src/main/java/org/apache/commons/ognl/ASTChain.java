@@ -26,7 +26,6 @@ import org.apache.commons.ognl.enhance.UnsupportedCompilationException;
 import java.lang.reflect.Array;
 
 /**
- * $Id$
  */
 public class ASTChain
     extends SimpleNode

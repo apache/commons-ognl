@@ -20,7 +20,6 @@ package org.apache.commons.ognl.internal;
  */
 
 /**
- * $Id$
  */
 public interface Cache<K, V>
 {

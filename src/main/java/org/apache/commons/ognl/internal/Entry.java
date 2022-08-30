@@ -23,7 +23,6 @@ package org.apache.commons.ognl.internal;
 /**
  * Used by {@link ClassCacheImpl} to store entries in the cache.
  * <p/>
- * $Id$
  */
 class Entry<K, V>
 {

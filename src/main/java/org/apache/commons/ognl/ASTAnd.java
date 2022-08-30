@@ -25,7 +25,6 @@ import org.apache.commons.ognl.enhance.UnsupportedCompilationException;
 import static java.lang.String.format;
 
 /**
- * $Id$
  */
 public class ASTAnd
     extends BooleanExpression
