@@ -86,7 +86,7 @@
       <!-- UPDATE -->
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/cache from 3.0.5 to 3.0.8.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump actions/setup-java from 2 to 3 #70.</action>
-      <action type="update" dev="ggregory" due-to="Dependabot">Bump actions/checkout from 2 to 3 #68.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump actions/checkout from 2 to 3.0.2 #68.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump build-helper-maven-plugin from 3.2.0 to 3.3.0 #61.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump h2 from 2.0.202 to 2.1.210 #57, #62.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump ognl from 3.3.0 to 3.3.2 #59.</action>
