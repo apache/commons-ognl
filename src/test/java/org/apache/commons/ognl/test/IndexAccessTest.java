@@ -66,18 +66,17 @@ public class IndexAccessTest
     public static Collection<Object[]> data()
     {
         Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
-        for ( int i = 0; i < TESTS.length; i++ )
-        {
+        for (Object[] element : TESTS) {
             Object[] tmp = new Object[6];
-            tmp[0] = TESTS[i][1];
-            tmp[1] = TESTS[i][0];
-            tmp[2] = TESTS[i][1];
-            tmp[3] = TESTS[i][2];
+            tmp[0] = element[1];
+            tmp[1] = element[0];
+            tmp[2] = element[1];
+            tmp[3] = element[2];
 
-            if ( TESTS[i].length == 5 )
+            if ( element.length == 5 )
             {
-                tmp[4] = TESTS[i][3];
-                tmp[5] = TESTS[i][4];
+                tmp[4] = element[3];
+                tmp[5] = element[4];
             }
 
             data.add( tmp );

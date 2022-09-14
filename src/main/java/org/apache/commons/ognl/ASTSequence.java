@@ -53,9 +53,8 @@ public class ASTSequence
         throws OgnlException
     {
         Object result = null;
-        for ( int i = 0; i < children.length; ++i )
-        {
-            result = children[i].getValue( context, source );
+        for (Node child : children) {
+            result = child.getValue( context, source );
         }
 
         return result; // The result is just the last one we saw.

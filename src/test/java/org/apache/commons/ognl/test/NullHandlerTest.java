@@ -48,32 +48,31 @@ public class NullHandlerTest
     public static Collection<Object[]> data()
     {
         Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
-        for ( int i = 0; i < TESTS.length; i++ )
-        {
+        for (Object[] element : TESTS) {
             Object[] tmp = new Object[6];
-            tmp[0] = TESTS[i][1];
-            tmp[1] = TESTS[i][0];
-            tmp[2] = TESTS[i][1];
+            tmp[0] = element[1];
+            tmp[1] = element[0];
+            tmp[2] = element[1];
 
-            switch ( TESTS[i].length )
+            switch ( element.length )
             {
                 case 3:
-                    tmp[3] = TESTS[i][2];
+                    tmp[3] = element[2];
                     break;
 
                 case 4:
-                    tmp[3] = TESTS[i][2];
-                    tmp[4] = TESTS[i][3];
+                    tmp[3] = element[2];
+                    tmp[4] = element[3];
                     break;
 
                 case 5:
-                    tmp[3] = TESTS[i][2];
-                    tmp[4] = TESTS[i][3];
-                    tmp[5] = TESTS[i][4];
+                    tmp[3] = element[2];
+                    tmp[4] = element[3];
+                    tmp[5] = element[4];
                     break;
 
                 default:
-                    throw new RuntimeException( "don't understand TEST format with length " + TESTS[i].length );
+                    throw new RuntimeException( "don't understand TEST format with length " + element.length );
             }
 
             data.add( tmp );

@@ -166,13 +166,12 @@ public class NumericConversionTest
     public static Collection<Object[]> data()
     {
         Collection<Object[]> data = new ArrayList<Object[]>(TESTS.length);
-        for ( int i = 0; i < TESTS.length; i++ )
-        {
+        for (Object[] element : TESTS) {
             Object[] tmp = new Object[4];
-            tmp[0] = TESTS[i][0];
-            tmp[1] = TESTS[i][1];
-            tmp[2] = TESTS[i][2];
-            tmp[3] = ( TESTS[i].length > 3 ) ? ( (Integer) TESTS[i][3] ).intValue() : -1 ;
+            tmp[0] = element[0];
+            tmp[1] = element[1];
+            tmp[2] = element[2];
+            tmp[3] = ( element.length > 3 ) ? ( (Integer) element[3] ).intValue() : -1 ;
 
             data.add( tmp );
         }

@@ -248,14 +248,13 @@ public class ASTCtor
                     Constructor ctor = null;
                     Class[] ctorParamTypes = null;
 
-                    for ( int i = 0; i < cons.length; i++ )
-                    {
-                        Class[] ctorTypes = cons[i].getParameterTypes();
+                    for (Constructor con : cons) {
+                        Class[] ctorTypes = con.getParameterTypes();
 
                         if ( OgnlRuntime.areArgsCompatible( values, ctorTypes )
                             && ( ctor == null || OgnlRuntime.isMoreSpecific( ctorTypes, ctorParamTypes ) ) )
                         {
-                            ctor = cons[i];
+                            ctor = con;
                             ctorParamTypes = ctorTypes;
                         }
                     }

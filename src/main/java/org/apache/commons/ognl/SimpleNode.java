@@ -148,9 +148,8 @@ public abstract class SimpleNode
 
         if ( children != null )
         {
-            for ( int i = 0; i < children.length; ++i )
-            {
-                SimpleNode n = (SimpleNode) children[i];
+            for (Node child : children) {
+                SimpleNode n = (SimpleNode) child;
                 if ( n != null )
                 {
                     n.dump( writer, prefix + "  " );
