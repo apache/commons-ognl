@@ -24,7 +24,7 @@ jobs:
       matrix:
         java: [ 8, 11, 17 ]
     steps:
-    - uses: actions/checkout@v3.0.2
+    - uses: actions/checkout@v3.1.0
       with:
         persist-credentials: false
     - name: Set up JDK ${{ matrix.java }}
