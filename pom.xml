@@ -196,7 +196,7 @@ limitations under the License.
     <dependency>
       <groupId>org.easymock</groupId>
       <artifactId>easymock</artifactId>
-      <version>4.3</version>
+      <version>5.0.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
