@@ -391,7 +391,7 @@
 
         <source>#@java.util.LinkedHashMap@{ &#34;foo&#34; : &#34;foo value&#34;, &#34;bar&#34; : &#34;bar value&#34; }</source>
 
-        <p>The above example will create an instance of the JDK 1.4 class <code>LinkedHashMap</code>, ensuring the the insertion order of the elements is preserved.</p>
+        <p>The above example will create an instance of the JDK 1.4 class <code>LinkedHashMap</code>, ensuring the insertion order of the elements is preserved.</p>
       </subsection>
     </section>
 

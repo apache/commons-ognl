@@ -151,7 +151,7 @@ public class Evaluation
     }
 
     /**
-     * Returns the parent evaluation of this evaluation. If this returns null then it is is the root evaluation of a
+     * Returns the parent evaluation of this evaluation. If this returns null then it is the root evaluation of a
      * tree.
      */
     public Evaluation getParent()
