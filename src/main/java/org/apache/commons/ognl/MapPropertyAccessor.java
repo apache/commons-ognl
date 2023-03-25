@@ -25,7 +25,6 @@ import java.util.Set;
 
 /**
  * Implementation of PropertyAccessor that sets and gets properties by storing and looking up values in Maps.
- *
  */
 public class MapPropertyAccessor
     implements PropertyAccessor

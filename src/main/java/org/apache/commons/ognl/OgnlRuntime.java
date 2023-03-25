@@ -57,7 +57,6 @@ import java.util.Map;
  * <li>Core runtime configuration point for setting/using global {@link TypeConverter} / {@link OgnlExpressionCompiler}
  * / {@link NullHandler} instances / etc..</li>
  * </ul>
- *
  */
 public class OgnlRuntime
 {
