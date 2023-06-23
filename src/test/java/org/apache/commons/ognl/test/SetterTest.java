@@ -18,14 +18,20 @@
  */
 package org.apache.commons.ognl.test;
 
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.commons.ognl.InappropriateExpressionException;
 import org.apache.commons.ognl.NoSuchPropertyException;
 import org.apache.commons.ognl.test.objects.Root;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-
-import java.util.*;
 
 @RunWith(value = Parameterized.class)
 public class SetterTest
@@ -97,7 +103,7 @@ public class SetterTest
                     break;
 
                 default:
-                    throw new RuntimeException( "don't understand TEST format with length " + element.length );
+                    fail( "don't understand TEST format with length " + element.length );
             }
 
             data.add( tmp );

@@ -18,6 +18,8 @@
  */
 package org.apache.commons.ognl.test;
 
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -132,7 +134,7 @@ public class PropertyNotFoundTest
                     break;
 
                 default:
-                    throw new RuntimeException( "don't understand TEST format with length " + element.length );
+                    fail( "don't understand TEST format with length " + element.length );
             }
 
             data.add( tmp );
