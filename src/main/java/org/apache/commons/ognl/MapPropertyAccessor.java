@@ -21,6 +21,7 @@ package org.apache.commons.ognl;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -93,13 +94,10 @@ public class MapPropertyAccessor
 
     public String getSourceAccessor( OgnlContext context, Object target, Object index )
     {
-        Node currentNode = context.getCurrentNode().jjtGetParent();
+        Objects.requireNonNull(context, "context");
+        Objects.requireNonNull(context.getCurrentNode(), "getCurrentNode()");
+        Node currentNode = Objects.requireNonNull(context.getCurrentNode().jjtGetParent(), "node is null for '" + index + "'" );
         boolean indexedAccess = false;
-
-        if ( currentNode == null )
-        {
-            throw new RuntimeException( "node is null for '" + index + "'" );
-        }
 
         if ( !( currentNode instanceof ASTProperty ) )
         {

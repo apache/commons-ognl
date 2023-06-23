@@ -810,7 +810,7 @@ public abstract class OgnlOps
         }
         catch ( Throwable t )
         {
-            throw new RuntimeException( "Error converting " + value + " to integer:", t );
+            throw new IllegalArgumentException( "Error converting " + value + " to integer:", t );
         }
     }
 

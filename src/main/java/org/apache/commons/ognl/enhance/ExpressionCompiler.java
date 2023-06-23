@@ -566,7 +566,7 @@ public class ExpressionCompiler
         }
         catch ( Throwable t )
         {
-            throw new RuntimeException( "Error compiling expression on object " + root + " with expression node "
+            throw new IllegalStateException( "Error compiling expression on object " + root + " with expression node "
                 + expression + " getter body: " + getBody + " setter body: " + setBody, t );
         }
 

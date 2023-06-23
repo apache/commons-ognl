@@ -455,7 +455,7 @@ public class ToStringVisitor
         catch ( OgnlException e )
         {
             // This should never happen, but delegate it on just in case.
-            throw new RuntimeException( e );
+            throw new IllegalArgumentException( e );
         }
     }
 

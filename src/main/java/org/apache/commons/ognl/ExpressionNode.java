@@ -73,7 +73,7 @@ public abstract class ExpressionNode
 
     public String getExpressionOperator( int index )
     {
-        throw new RuntimeException( "unknown operator for " + OgnlParserTreeConstants.jjtNodeName[id] );
+        throw new UnsupportedOperationException( "unknown operator for " + OgnlParserTreeConstants.jjtNodeName[id] );
     }
 
     @Override
