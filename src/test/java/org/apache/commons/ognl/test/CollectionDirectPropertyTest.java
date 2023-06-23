@@ -18,14 +18,16 @@
  */
 package org.apache.commons.ognl.test;
 
-import org.apache.commons.ognl.test.objects.Root;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+
+import org.apache.commons.ognl.test.objects.Root;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(value = Parameterized.class)
 public class CollectionDirectPropertyTest
@@ -84,7 +86,7 @@ public class CollectionDirectPropertyTest
                     break;
 
                 default:
-                    throw new RuntimeException( "don't understand TEST format with length" );
+                    fail( "don't understand TEST format with length" );
             }
 
             data.add( tmp );

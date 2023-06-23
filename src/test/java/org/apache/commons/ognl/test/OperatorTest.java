@@ -18,12 +18,14 @@
  */
 package org.apache.commons.ognl.test;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(value = Parameterized.class)
 public class OperatorTest
@@ -70,7 +72,7 @@ public class OperatorTest
                     break;
 
                 default:
-                    throw new RuntimeException( "don't understand TEST format with length " + element.length );
+                    fail( "don't understand TEST format with length " + element.length );
             }
 
             data.add( tmp );

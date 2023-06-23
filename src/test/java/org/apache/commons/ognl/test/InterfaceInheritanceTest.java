@@ -18,6 +18,12 @@
  */
 package org.apache.commons.ognl.test;
 
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.apache.commons.ognl.OgnlRuntime;
 import org.apache.commons.ognl.test.objects.Bean1;
 import org.apache.commons.ognl.test.objects.BeanProvider;
@@ -30,10 +36,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 @RunWith(value = Parameterized.class)
 public class InterfaceInheritanceTest
@@ -99,7 +101,7 @@ public class InterfaceInheritanceTest
                     break;
 
                 default:
-                    throw new RuntimeException( "don't understand TEST format with length " + element.length );
+                    fail( "don't understand TEST format with length " + element.length );
             }
 
             data.add( tmp );

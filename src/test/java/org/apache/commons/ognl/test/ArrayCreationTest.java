@@ -18,6 +18,11 @@
  */
 package org.apache.commons.ognl.test;
 
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.apache.commons.ognl.ExpressionSyntaxException;
 import org.apache.commons.ognl.test.objects.Entry;
 import org.apache.commons.ognl.test.objects.Root;
@@ -25,9 +30,6 @@ import org.apache.commons.ognl.test.objects.Simple;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 @RunWith(value = Parameterized.class)
 public class ArrayCreationTest
@@ -93,7 +95,7 @@ public class ArrayCreationTest
                     break;
 
                 default:
-                    throw new RuntimeException( "don't understand TEST format with length" );
+                    fail( "don't understand TEST format with length" );
             }
 
             data.add( tmp );

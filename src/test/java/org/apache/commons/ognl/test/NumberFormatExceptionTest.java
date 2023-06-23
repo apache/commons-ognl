@@ -18,16 +18,18 @@
  */
 package org.apache.commons.ognl.test;
 
-import org.apache.commons.ognl.OgnlException;
-import org.apache.commons.ognl.test.objects.Simple;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import org.apache.commons.ognl.OgnlException;
+import org.apache.commons.ognl.test.objects.Simple;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(value = Parameterized.class)
 public class NumberFormatExceptionTest
@@ -91,7 +93,7 @@ public class NumberFormatExceptionTest
                     break;
 
                 default:
-                    throw new RuntimeException( "don't understand TEST format with length " + TEST.length );
+                    fail( "don't understand TEST format with length " + TEST.length );
             }
 
             data.add( tmp );

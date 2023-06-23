@@ -18,15 +18,17 @@
  */
 package org.apache.commons.ognl.test;
 
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.apache.commons.ognl.OgnlException;
 import org.apache.commons.ognl.test.objects.Bean1;
 import org.apache.commons.ognl.test.objects.ObjectIndexed;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 @RunWith(value = Parameterized.class)
 public class ObjectIndexedPropertyTest
@@ -94,7 +96,7 @@ public class ObjectIndexedPropertyTest
                     break;
 
                 default:
-                    throw new RuntimeException( "don't understand TEST format with length " + element.length );
+                    fail( "don't understand TEST format with length " + element.length );
             }
 
             data.add( tmp );

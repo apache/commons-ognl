@@ -322,7 +322,7 @@ public class Performance
         {
             return _iterations >= MAX_ITERATIONS;
         }
-        throw new RuntimeException( "no maximums specified" );
+        throw new IllegalStateException( "no maximums specified" );
     }
 
     /*
