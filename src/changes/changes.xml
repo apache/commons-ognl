@@ -83,6 +83,8 @@
       <action issue="OGNL-6" type="update" dev="simonetripodi">Upgrade groupId/artifactId/version on pom</action>
       <action issue="OGNL-2" type="update" dev="">Update legals to all OGNL file</action>
       <action issue="OGNL-1" type="update" dev="lukaszlenart">Import the OGNL codebase</action>
+      <!-- FIX -->
+      <action type="fix" dev="ggregory" due-to="step-security-bot, Gary Gregory">[StepSecurity] ci: Harden GitHub Actions #127.</action>            
       <!-- UPDATE -->
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/cache from 3.0.5 to 3.0.8.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump actions/setup-java from 2 to 3 #70.</action>
