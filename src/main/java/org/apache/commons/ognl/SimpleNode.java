@@ -83,7 +83,7 @@ public abstract class SimpleNode
         }
         else if ( i >= children.length )
         {
-            Node c[] = new Node[i + 1];
+            Node[] c = new Node[i + 1];
             System.arraycopy( children, 0, c, 0, children.length );
             children = c;
         }
