@@ -16,7 +16,8 @@
 -->
 # Apache Commons OGNL
 
-[![Java CI Status](https://github.com/apache/commons-ognl/workflows/Java%20CI/badge.svg)](https://github.com/apache/commons-ognl/actions?query=workflow%3A%22Java+CI%22)
-[![Travis Status](https://travis-ci.com/apache/commons-ognl.svg?branch=master)](https://travis-ci.com/apache/commons-ognl)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-ognl/badge.svg?gav=true)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-ognl/?gav=true)
-[![CodeQL](https://github.com/apache/commons-ognl/workflows/CodeQL/badge.svg)](https://github.com/apache/commons-ognl/actions/workflows/codeql-analysis.yml?query=workflow%3ACodeQL)
+Warning: The Apache Commons OGNL component is now DORMANT, meaning
+this component is not being developed.
+
+For queries, please contact the
+<a href="mailto:dev@commons.apache.org?subject=[OGNL] question on dormant component">Commons Developer</a> list
