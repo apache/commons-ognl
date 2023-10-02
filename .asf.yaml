@@ -14,7 +14,7 @@
 # limitations under the License.
 
 github:
-  description: "Apache Commons OGNL"
+  description: "Apache Commons OGNL (Dormant)"
   homepage: https://commons.apache.org/ognl/
 
 notifications:
