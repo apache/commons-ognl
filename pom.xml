@@ -184,7 +184,6 @@ limitations under the License.
 
     <animal-sniffer.signature>java18</animal-sniffer.signature>
 
-    <commons.releaseManagerKey>63AFBB1F</commons.releaseManagerKey>
     <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/dormant/commons-ognl</commons.scmPubUrl>
   </properties>
 
