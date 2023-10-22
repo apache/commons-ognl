@@ -20,7 +20,6 @@ package org.apache.commons.ognl;
  */
 
 /*
-*  $Id$
 */
 public interface NodeVisitor<R, P>
 {
