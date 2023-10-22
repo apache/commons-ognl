@@ -1,5 +1,3 @@
-$Id$
-
 
                           Commons OGNL Package
                               Version 4.0
