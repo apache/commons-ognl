@@ -43,7 +43,7 @@ public class ClassCacheImpl<V>
 
     private ClassCacheInspector classInspector;
 
-    private int size = 0;
+    private int size;
 
     /**
      * {@inheritDoc}

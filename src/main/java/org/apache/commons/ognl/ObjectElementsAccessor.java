@@ -36,7 +36,7 @@ public class ObjectElementsAccessor
 
         return new Enumeration<Object>()
         {
-            private boolean seen = false;
+            private boolean seen;
 
             public boolean hasMoreElements()
             {

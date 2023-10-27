@@ -56,9 +56,9 @@ public class OgnlContext
 
     private static final String PROPERTY_KEY_PREFIX = "ognl";
 
-    private static boolean defaultTraceEvaluations = false;
+    private static boolean defaultTraceEvaluations;
 
-    private static boolean defaultKeepLastEvaluation = false;
+    private static boolean defaultKeepLastEvaluation;
 
     public static final DefaultClassResolver DEFAULT_CLASS_RESOLVER = new DefaultClassResolver();
 
@@ -129,9 +129,9 @@ public class OgnlContext
 
     private final Stack<Class<?>> accessorStack = new Stack<Class<?>>();
 
-    private int localReferenceCounter = 0;
+    private int localReferenceCounter;
 
-    private Map<String, LocalReference> localReferenceMap = null;
+    private Map<String, LocalReference> localReferenceMap;
 
     /**
      * Constructs a new OgnlContext with the default class resolver, type converter and member access.

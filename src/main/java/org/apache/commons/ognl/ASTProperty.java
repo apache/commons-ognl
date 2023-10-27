@@ -33,7 +33,7 @@ public class ASTProperty
     extends SimpleNode
     implements NodeType
 {
-    private boolean indexedAccess = false;
+    private boolean indexedAccess;
 
     private Class getterClass;
 

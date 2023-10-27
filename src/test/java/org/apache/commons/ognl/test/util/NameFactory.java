@@ -23,11 +23,11 @@ public class NameFactory
 {
     private final String classBaseName;
 
-    private int classNameCounter = 0;
+    private int classNameCounter;
 
     private final String variableBaseName;
 
-    private int variableNameCounter = 0;
+    private int variableNameCounter;
 
     /*
      * =================================================================== Constructors

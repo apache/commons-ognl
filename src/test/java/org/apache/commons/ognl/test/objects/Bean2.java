@@ -22,7 +22,7 @@ public class Bean2
 {
     private final Bean3 bean3 = new Bean3();
 
-    private boolean _pageBreakAfter = false;
+    private boolean _pageBreakAfter;
 
     public Long getId()
     {

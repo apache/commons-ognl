@@ -46,7 +46,7 @@ public class Root
 
     private final int index = 1;
 
-    private int intValue = 0;
+    private int intValue;
 
     private String stringValue;
 
@@ -90,7 +90,7 @@ public class Root
 
     private final Date _date = new Date();
 
-    private boolean _openWindow = false;
+    private boolean _openWindow;
 
     private final ITreeContentProvider _contentProvider = new TreeContentProvider();
 

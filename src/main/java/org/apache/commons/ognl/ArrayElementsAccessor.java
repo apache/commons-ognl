@@ -37,7 +37,7 @@ public class ArrayElementsAccessor
         {
             private final int count = Array.getLength( target );
 
-            private int index = 0;
+            private int index;
 
             public boolean hasMoreElements()
             {

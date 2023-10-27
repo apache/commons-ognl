@@ -57,7 +57,7 @@ public class Performance
 
     private final String _expressionString;
 
-    private boolean _isMvel = false;
+    private boolean _isMvel;
 
     private long t0;
 

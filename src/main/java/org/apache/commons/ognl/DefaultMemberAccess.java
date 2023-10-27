@@ -32,11 +32,11 @@ import java.util.Map;
 public class DefaultMemberAccess
     implements MemberAccess
 {
-    private boolean allowPrivateAccess = false;
+    private boolean allowPrivateAccess;
 
-    private boolean allowProtectedAccess = false;
+    private boolean allowProtectedAccess;
 
-    private boolean allowPackageProtectedAccess = false;
+    private boolean allowPackageProtectedAccess;
 
     /*
      * =================================================================== Constructors

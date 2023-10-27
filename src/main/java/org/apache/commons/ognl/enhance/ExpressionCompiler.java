@@ -81,7 +81,7 @@ public class ExpressionCompiler
      */
     protected ClassPool pool;
 
-    protected int classCounter = 0;
+    protected int classCounter;
 
     /**
      * Used by {@link #castExpression(org.apache.commons.ognl.OgnlContext, org.apache.commons.ognl.Node, String)} to

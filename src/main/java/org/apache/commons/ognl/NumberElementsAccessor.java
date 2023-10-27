@@ -37,7 +37,7 @@ public class NumberElementsAccessor
         {
             private final int type = OgnlOps.getNumericType( target );
 
-            private long next = 0;
+            private long next;
 
             private final long finish = OgnlOps.longValue( target );
 
