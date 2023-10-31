@@ -24,7 +24,7 @@ import java.util.Map;
 
 /**
  * This interface provides a hook for preparing for accessing members of objects. The Java2 version of this method can
- * allow access to otherwise inaccessable members, such as private fields.
+ * allow access to otherwise inaccessible members, such as private fields.
  */
 public interface MemberAccess
 {
