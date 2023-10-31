@@ -52,7 +52,7 @@ public class ASTVarRef
         this.name = name;
     }
     /**
-     * Get the variable name.
+     * Gets the variable name.
      *
      * @return the variable name.
      * @since 4.0

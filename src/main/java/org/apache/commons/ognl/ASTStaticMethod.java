@@ -206,7 +206,7 @@ public class ASTStaticMethod
     }
 
     /**
-     * Get the class name for this method.
+     * Gets the class name for this method.
      *
      * @return the class name.
      * @since 4.0
@@ -217,7 +217,7 @@ public class ASTStaticMethod
     }
 
     /**
-     * Get the method name for this method.
+     * Gets the method name for this method.
      *
      * @return the method name.
      * @since 4.0

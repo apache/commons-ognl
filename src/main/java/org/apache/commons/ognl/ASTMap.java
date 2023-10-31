@@ -50,7 +50,7 @@ class ASTMap
     }
 
     /**
-     * Get the class name for this map.
+     * Gets the class name for this map.
      *
      * @return the class name.
      * @since 4.0

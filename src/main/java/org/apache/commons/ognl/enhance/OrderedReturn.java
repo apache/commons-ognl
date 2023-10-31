@@ -28,7 +28,7 @@ public interface OrderedReturn
 {
 
     /**
-     * Get the core expression to execute first before any return foo logic is started.
+     * Gets the core expression to execute first before any return foo logic is started.
      *
      * @return The core standalone expression that shouldn't be pre-pended with a return keyword.
      */

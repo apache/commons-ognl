@@ -52,7 +52,7 @@ public class ASTCtor
     }
 
     /**
-     * Get the class name for this constructor.
+     * Gets the class name for this constructor.
      *
      * @return the class name.
      * @since 4.0

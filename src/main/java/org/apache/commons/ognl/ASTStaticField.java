@@ -197,7 +197,7 @@ public class ASTStaticField
     }
 
     /**
-     * Get the field name for this field.
+     * Gets the field name for this field.
      *
      * @return the field name.
      * @since 4.0
@@ -208,7 +208,7 @@ public class ASTStaticField
     }
 
     /**
-     * Get the class name for this field.
+     * Gets the class name for this field.
      *
      * @return the class name.
      * @since 4.0
