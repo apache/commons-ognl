@@ -27,7 +27,7 @@ import java.util.Set;
  */
 public class SetPropertyAccessor
     extends ObjectPropertyAccessor
-    implements PropertyAccessor // This is here to make javadoc show this class as an implementor
+    implements PropertyAccessor // This is here to make Javadoc show this class as an implementor
 {
 
     @Override

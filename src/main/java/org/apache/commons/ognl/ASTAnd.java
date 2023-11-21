@@ -33,7 +33,7 @@ public class ASTAnd
     private static final long serialVersionUID = -4585941425250141812L;
 
     /**
-     * TODO: javadoc
+     * TODO: Javadoc
      * @param id the id
      */
     public ASTAnd( int id )
@@ -42,7 +42,7 @@ public class ASTAnd
     }
 
     /**
-     * TODO: javadoc
+     * TODO: Javadoc
      * @param p the parser
      * @param id the id
      */
