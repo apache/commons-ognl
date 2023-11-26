@@ -307,7 +307,7 @@ public abstract class Ognl
     }
 
     /**
-     * Configures the type converter to use for a given context. This will be used to convert into / out of various java
+     * Configures the type converter to use for a given context. This will be used to convert into / out of various Java
      * class types.
      *
      * @param context The context to configure it for.

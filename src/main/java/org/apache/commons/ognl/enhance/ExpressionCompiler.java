@@ -59,7 +59,7 @@ import java.util.Set;
 import static java.lang.String.format;
 
 /**
- * Responsible for managing/providing functionality related to compiling generated java source expressions via bytecode
+ * Responsible for managing/providing functionality related to compiling generated Java source expressions via bytecode
  * enhancements for a given ognl expression.
  */
 public class ExpressionCompiler
@@ -67,7 +67,7 @@ public class ExpressionCompiler
 {
 
     /**
-     * Key used to store any java source string casting statements in the {@link OgnlContext} during class compilation.
+     * Key used to store any Java source string casting statements in the {@link OgnlContext} during class compilation.
      */
     public static final String PRE_CAST = "_preCast";
 
@@ -85,12 +85,12 @@ public class ExpressionCompiler
 
     /**
      * Used by {@link #castExpression(org.apache.commons.ognl.OgnlContext, org.apache.commons.ognl.Node, String)} to
-     * store the cast java source string in to the current {@link org.apache.commons.ognl.OgnlContext}. This will either
+     * store the cast Java source string in to the current {@link org.apache.commons.ognl.OgnlContext}. This will either
      * add to the existing string present if it already exists or create a new instance and store it using the static
      * key of {@link #PRE_CAST}.
      *
      * @param context The current execution context.
-     * @param cast The java source string to store in to the context.
+     * @param cast The Java source string to store in to the context.
      */
     public static void addCastString( OgnlContext context, String cast )
     {
@@ -136,7 +136,7 @@ public class ExpressionCompiler
      * @param expression The node to check and generate a root expression to if necessary.
      * @param root The root object for this execution.
      * @param context The current execution context.
-     * @return Either an empty string or a root path java source string compatible with javassist compilations from the
+     * @return Either an empty string or a root path Java source string compatible with javassist compilations from the
      *         root object up to the specified {@link Node}.
      */
     public static String getRootExpression( Node expression, Object root, OgnlContext context )

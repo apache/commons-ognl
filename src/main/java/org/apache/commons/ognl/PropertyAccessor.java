@@ -63,7 +63,7 @@ public interface PropertyAccessor
         throws OgnlException;
 
     /**
-     * Returns a java string representing the textual method that should be called to access a particular element. (ie
+     * Returns a Java string representing the textual method that should be called to access a particular element. (ie
      * "get")
      *
      * @param context The current execution context.
@@ -74,7 +74,7 @@ public interface PropertyAccessor
     String getSourceAccessor( OgnlContext context, Object target, Object index );
 
     /**
-     * Returns a java string representing the textual method that should be called to set a particular element. (ie
+     * Returns a Java string representing the textual method that should be called to set a particular element. (ie
      * "set")
      *
      * @param context The current execution context.

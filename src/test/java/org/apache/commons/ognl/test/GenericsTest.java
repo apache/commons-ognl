@@ -30,7 +30,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 /**
- * Tests java >= 1.5 generics support in ognl.
+ * Tests Java >= 1.5 generics support in ognl.
  */
 @RunWith(value = Parameterized.class)
 public class GenericsTest

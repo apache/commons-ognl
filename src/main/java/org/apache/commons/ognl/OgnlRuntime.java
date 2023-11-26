@@ -2015,7 +2015,7 @@ public class OgnlRuntime
     }
 
     /**
-     * Attempts to get the java source string represented by the specific child expression via the
+     * Attempts to get the Java source string represented by the specific child expression via the
      * {@link JavaSource#toGetSourceString(OgnlContext, Object)} interface method.
      *
      * @param context The ognl context to pass to the child.
@@ -2032,7 +2032,7 @@ public class OgnlRuntime
     }
 
     /**
-     * Attempts to get the java source string represented by the specific child expression via the
+     * Attempts to get the Java source string represented by the specific child expression via the
      * {@link JavaSource#toGetSourceString(OgnlContext, Object)} interface method.
      *
      * @param context         The ognl context to pass to the child.

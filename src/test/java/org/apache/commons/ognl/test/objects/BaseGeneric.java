@@ -21,7 +21,7 @@ package org.apache.commons.ognl.test.objects;
 import java.io.Serializable;
 
 /**
- * Used to test ognl handling of java generics.
+ * Used to test ognl handling of Java generics.
  */
 public class BaseGeneric<E extends GenericObject, I extends Serializable>
 {

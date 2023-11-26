@@ -21,26 +21,26 @@ package org.apache.commons.ognl;
 
 /**
  * Defines an object that can return a representation of itself and any objects it contains in the form of a
- * {@link String} embedded with literal java statements.
+ * {@link String} embedded with literal Java statements.
  */
 public interface JavaSource
 {
 
     /**
-     * Expected to return a java source representation of itself such that it could be turned into a literal java
+     * Expected to return a java source representation of itself such that it could be turned into a literal Java
      * expression to be compiled and executed for
      * {@link org.apache.commons.ognl.enhance.ExpressionAccessor#get(OgnlContext, Object)} calls.
      *
-     * @return Literal java string representation of an object get.
+     * @return Literal Java string representation of an object get.
      */
     String toGetSourceString( OgnlContext context, Object target );
 
     /**
-     * Expected to return a java source representation of itself such that it could be turned into a literal java
+     * Expected to return a java source representation of itself such that it could be turned into a literal Java
      * expression to be compiled and executed for
      * {@link org.apache.commons.ognl.enhance.ExpressionAccessor#get(OgnlContext, Object)} calls.
      *
-     * @return Literal java string representation of an object get.
+     * @return Literal Java string representation of an object get.
      */
     String toSetSourceString( OgnlContext context, Object target );
 

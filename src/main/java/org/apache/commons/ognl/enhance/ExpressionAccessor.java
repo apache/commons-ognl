@@ -23,8 +23,8 @@ import org.apache.commons.ognl.Node;
 import org.apache.commons.ognl.OgnlContext;
 
 /**
- * Provides pure java expression paths to get/set values from an ognl expression. This is achieved by taking an existing
- * {@link Node} parsed expression and using bytecode enhancements to do the same work using pure java vs the ognl
+ * Provides pure Java expression paths to get/set values from an ognl expression. This is achieved by taking an existing
+ * {@link Node} parsed expression and using bytecode enhancements to do the same work using pure Java vs the ognl
  * interpreter.
  */
 public interface ExpressionAccessor
