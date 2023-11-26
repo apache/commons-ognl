@@ -25,7 +25,6 @@ package org.apache.commons.ognl.internal;
 import org.apache.commons.ognl.ClassCacheInspector;
 import org.apache.commons.ognl.internal.entry.CacheEntryFactory;
 
-
 public class ReentrantReadWriteLockClassCache<T>
     extends HashMapCache<Class<?>, T>
     implements ClassCache<T>

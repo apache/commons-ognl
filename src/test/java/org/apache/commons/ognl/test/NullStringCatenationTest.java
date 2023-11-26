@@ -51,7 +51,6 @@ public class NullStringCatenationTest
         { ROOT, "bean2.id + '_' + theInt", "1_6" }
     };
 
-
     /**
      * Setup parameters for this test which are used to call this class constructor
      * @return the collection of paramaters

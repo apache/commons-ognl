@@ -89,7 +89,6 @@ public interface Node
      */
     void setAccessor( ExpressionAccessor accessor );
 
-
     /**
      * Supports the Visitor pattern. The method which corresponds to
      * the runtime type of this Node will be called.

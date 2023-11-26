@@ -20,7 +20,6 @@
 
 package org.apache.commons.ognl.performance.invocation;
 
-
 import org.apache.commons.ognl.performance.runtime.RuntimeWrapper;
 
 import java.lang.reflect.Method;

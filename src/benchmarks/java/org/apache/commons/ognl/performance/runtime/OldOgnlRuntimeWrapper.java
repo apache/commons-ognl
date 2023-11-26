@@ -40,13 +40,11 @@ public class OldOgnlRuntimeWrapper
         OgnlRuntime.getFields( c );
     }
 
-
     public void findParameterTypes( Class<?> targetClass, Method method )
         throws Exception
     {
         OgnlRuntime.findParameterTypes( targetClass, method );
     }
-
 
     public void getConstructors( Class<?> c )
         throws Exception
@@ -54,13 +52,11 @@ public class OldOgnlRuntimeWrapper
         OgnlRuntime.getConstructors( c );
     }
 
-
     public void getMethods( Class<?> c, boolean staticMethods )
         throws Exception
     {
         OgnlRuntime.getMethods( c, staticMethods );
     }
-
 
     public void getDeclaredMethods( Class<?> c, String propertyName, boolean setters )
         throws Exception
@@ -68,13 +64,11 @@ public class OldOgnlRuntimeWrapper
         OgnlRuntime.getDeclaredMethods( c, propertyName, setters );
     }
 
-
     public void getParameterTypes( Method method )
         throws Exception
     {
         OgnlRuntime.getParameterTypes( method );
     }
-
 
     public void getParameterTypes( Constructor<?> constructor )
         throws Exception
@@ -82,13 +76,11 @@ public class OldOgnlRuntimeWrapper
         OgnlRuntime.getParameterTypes( constructor );
     }
 
-
     public void getPermission( Method method )
         throws Exception
     {
         OgnlRuntime.getPermission( method );
     }
-
 
     public void getPrimitiveDefaultValue( Class<?> type )
         throws Exception
@@ -96,13 +88,11 @@ public class OldOgnlRuntimeWrapper
         OgnlRuntime.getPrimitiveDefaultValue( type );
     }
 
-
     public void invokeMethod( Object o, Method method, Object[] args )
         throws Exception
     {
         OgnlRuntime.invokeMethod( o, method, args );
     }
-
 
     public void clearCache()
     {

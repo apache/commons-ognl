@@ -36,7 +36,6 @@ public class ConcurrentHashMapCacheTest
     private final ConcurrentHashMapCacheTest.DummyEntryFactory entryFactory=new DummyEntryFactory( );
     private final Cache<CacheEntry, List<Method>> cache = new ConcurrentHashMapCache<CacheEntry, List<Method>>( entryFactory );
 
-
     @Test
     public void testGet( )
         throws Exception

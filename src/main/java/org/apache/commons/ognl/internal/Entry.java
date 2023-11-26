@@ -19,7 +19,6 @@ package org.apache.commons.ognl.internal;
  * under the License.
  */
 
-
 /**
  * Used by {@link ClassCacheImpl} to store entries in the cache.
  * <p/>

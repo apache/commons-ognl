@@ -89,7 +89,6 @@ public class HashMapCache<K, V>
         }
     }
 
-
     public boolean contains( K key )
     {
         return this.cache.containsKey( key );

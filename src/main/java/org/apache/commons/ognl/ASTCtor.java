@@ -62,7 +62,6 @@ public class ASTCtor
         return className;
     }
 
-
     void setArray( boolean value )
     {
         isArray = value;
@@ -137,7 +136,6 @@ public class ASTCtor
 
         return result;
     }
-
 
     public String toGetSourceString( OgnlContext context, Object target )
     {

@@ -68,7 +68,6 @@ public class PropertyArithmeticAndLogicalOperatorsTest
         { NUMERIC, "budget - timeBilled", new Double( NUMERIC.getBudget() - NUMERIC.getTimeBilled() ) },
         { NUMERIC, "(budget % tableSize) == 0", Boolean.TRUE } };
 
-
     @Parameters
     public static Collection<Object[]> data()
     {

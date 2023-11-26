@@ -22,7 +22,6 @@ package org.apache.commons.ognl;
 import org.apache.commons.ognl.enhance.ExpressionCompiler;
 import org.apache.commons.ognl.enhance.OgnlExpressionCompiler;
 
-
 /**
  */
 class ASTMethodUtil

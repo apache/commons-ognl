@@ -22,7 +22,6 @@ package org.apache.commons.ognl.internal.entry;
 /*
  */
 
-
 import org.apache.commons.ognl.OgnlRuntime;
 import org.apache.commons.ognl.internal.CacheException;
 
