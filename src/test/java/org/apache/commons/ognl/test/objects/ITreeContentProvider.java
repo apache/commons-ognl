@@ -21,7 +21,6 @@ package org.apache.commons.ognl.test.objects;
 import java.util.Collection;
 
 /**
- *
  */
 public interface ITreeContentProvider
     extends IContentProvider

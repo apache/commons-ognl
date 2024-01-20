@@ -30,7 +30,6 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- *
  */
 @RunWith(value = Parameterized.class)
 public class PropertyArithmeticAndLogicalOperatorsTest

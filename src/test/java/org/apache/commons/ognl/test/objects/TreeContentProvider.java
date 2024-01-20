@@ -23,7 +23,6 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- *
  */
 public class TreeContentProvider
     implements ITreeContentProvider

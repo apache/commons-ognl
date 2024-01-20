@@ -19,7 +19,6 @@
 package org.apache.commons.ognl.test.objects;
 
 /**
- *
  */
 public class PersonGenericObject
     implements GenericObject
