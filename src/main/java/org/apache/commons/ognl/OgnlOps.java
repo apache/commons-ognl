@@ -43,8 +43,8 @@ public abstract class OgnlOps
      *
      * @param v1 First value to compare
      * @param v2 second value to compare
-     * @return integer describing the comparison between the two objects. A negative number indicates that v1 < v2.
-     *         Positive indicates that v1 > v2. Zero indicates v1 == v2.
+     * @return integer describing the comparison between the two objects. A negative number indicates that v1 {@code <} v2.
+     *         Positive indicates that v1 {@code >} v2. Zero indicates v1 == v2.
      * @throws IllegalArgumentException if the objects are both non-numeric yet of incompatible types or do not
      *             implement Comparable.
      */

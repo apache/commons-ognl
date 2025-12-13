@@ -53,7 +53,7 @@ import java.util.Map;
  * Utility class used by internal OGNL API to do various things like:
  * <ul>
  * <li>Handles majority of reflection logic / caching.</li>
- * <li>Utility methods for casting strings / various numeric types used by {@link OgnlExpressionCompiler}.</li.
+ * <li>Utility methods for casting strings / various numeric types used by {@link OgnlExpressionCompiler}.</li>
  * <li>Core runtime configuration point for setting/using global {@link TypeConverter} / {@link OgnlExpressionCompiler}
  * / {@link NullHandler} instances / etc..</li>
  * </ul>
@@ -436,7 +436,7 @@ public class OgnlRuntime
     }
 
     /**
-     * Permission will be named "invoke.<declaring-class>.<method-name>".
+     * Permission will be named "invoke.declaring-class.method-name".
      * @param method
      * @return
      * @throws org.apache.commons.ognl.internal.CacheException
