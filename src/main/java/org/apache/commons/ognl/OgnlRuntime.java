@@ -404,6 +404,7 @@ public class OgnlRuntime
 
     /**
      * Returns the parameter types of the given method.
+     *
      * @param constructor
      * @return
      * @throws org.apache.commons.ognl.internal.CacheException
@@ -437,6 +438,7 @@ public class OgnlRuntime
 
     /**
      * Permission will be named "invoke.declaring-class.method-name".
+     *
      * @param method
      * @return
      * @throws org.apache.commons.ognl.internal.CacheException
@@ -1430,6 +1432,7 @@ public class OgnlRuntime
     /**
      * This method returns a PropertyDescriptor for the given class and property name using a Map lookup (using
      * getPropertyDescriptorsMap()).
+     *
      * @param targetClass a target class.
      * @param propertyName a property name.
      * @return the PropertyDescriptor for the given targetClass and propertyName.

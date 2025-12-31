@@ -44,6 +44,7 @@ public class ASTConst
 
     /**
      * Called from parser actions.
+     *
      * @param value the value to set
      */
     public void setValue( Object value )

@@ -34,6 +34,7 @@ public class ASTAnd
 
     /**
      * TODO: Javadoc
+     *
      * @param id the id
      */
     public ASTAnd( int id )
@@ -43,6 +44,7 @@ public class ASTAnd
 
     /**
      * TODO: Javadoc
+     *
      * @param p the parser
      * @param id the id
      */
