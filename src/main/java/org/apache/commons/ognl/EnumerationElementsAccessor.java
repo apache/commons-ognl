@@ -28,6 +28,7 @@ import java.util.Enumeration;
 public class EnumerationElementsAccessor
     implements ElementsAccessor
 {
+
     /**
      * {@inheritDoc}
      */

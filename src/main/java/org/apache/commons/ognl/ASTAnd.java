@@ -29,6 +29,7 @@ import static java.lang.String.format;
 public class ASTAnd
     extends BooleanExpression
 {
+
     /** Serial */
     private static final long serialVersionUID = -4585941425250141812L;
 

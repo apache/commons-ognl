@@ -31,6 +31,7 @@ import java.util.Enumeration;
  */
 public interface ElementsAccessor
 {
+
     /**
      * Returns an iterator over the elements of the given target object.
      *

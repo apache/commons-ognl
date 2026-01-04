@@ -30,6 +30,7 @@ import java.util.Iterator;
 public class IteratorElementsAccessor
     implements ElementsAccessor
 {
+
     /**
      * {@inheritDoc}
      */

@@ -41,6 +41,7 @@ public class OgnlException
         }
         catch ( NoSuchMethodException e )
         {
+
             /** ignore */
         }
     }
@@ -92,6 +93,7 @@ public class OgnlException
             }
             catch ( Exception ignored )
             {
+
                 /** ignore */
             }
         }

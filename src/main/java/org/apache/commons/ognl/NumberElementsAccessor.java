@@ -28,6 +28,7 @@ import java.util.NoSuchElementException;
 public class NumberElementsAccessor
     implements ElementsAccessor, NumericTypes
 {
+
     /**
      * {@inheritDoc}
      */

@@ -28,6 +28,7 @@ import java.util.Map;
  */
 public interface MemberAccess
 {
+
     /**
      * Sets the member up for accessibility
      */

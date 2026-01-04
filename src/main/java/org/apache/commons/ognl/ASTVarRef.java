@@ -51,6 +51,7 @@ public class ASTVarRef
     {
         this.name = name;
     }
+
     /**
      * Gets the variable name.
      *

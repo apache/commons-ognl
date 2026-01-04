@@ -30,6 +30,7 @@ import java.util.Map;
 public class MapElementsAccessor
     implements ElementsAccessor
 {
+
     /**
      * {@inheritDoc}
      */

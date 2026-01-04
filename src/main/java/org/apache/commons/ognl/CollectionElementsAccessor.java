@@ -30,6 +30,7 @@ import java.util.Enumeration;
 public class CollectionElementsAccessor
     implements ElementsAccessor
 {
+
     /**
      * {@inheritDoc}
      */

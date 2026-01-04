@@ -27,6 +27,7 @@ import java.util.Map;
  */
 public interface NullHandler
 {
+
     /**
      * Method called on target returned null.
      */

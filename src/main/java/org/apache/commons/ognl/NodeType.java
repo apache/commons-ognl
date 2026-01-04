@@ -25,6 +25,7 @@ package org.apache.commons.ognl;
  */
 public interface NodeType
 {
+
     /**
      * The type returned from the expression - if any.
      *
