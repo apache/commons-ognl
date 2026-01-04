@@ -120,12 +120,12 @@ public class ArrayElementsTest
     public void setUp()
     {
         super.setUp();
-        /**
-         * TypeConverter arrayConverter;
-         * arrayConverter = new DefaultTypeConverter() { public Object convertValue(Map context, Object target, Member
-         * member, String propertyName, Object value, Class toType) { if (value.getClass().isArray()) { if
-         * (!toType.isArray()) { value = Array.get(value, 0); } } return super.convertValue(context, target, member,
-         * propertyName, value, toType); } }; _context.setTypeConverter(arrayConverter);
-         */
+        //
+        // TypeConverter arrayConverter;
+        // arrayConverter = new DefaultTypeConverter() { public Object convertValue(Map context, Object target, Member
+        // member, String propertyName, Object value, Class toType) { if (value.getClass().isArray()) { if
+        // (!toType.isArray()) { value = Array.get(value, 0); } } return super.convertValue(context, target, member,
+        // propertyName, value, toType); } }; _context.setTypeConverter(arrayConverter);
+        //
     }
 }
