@@ -513,7 +513,6 @@ public class OgnlContext
         return localReferenceMap;
     }
 
-    /* ================= Map interface ================= */
     public int size()
     {
         return values.size();
