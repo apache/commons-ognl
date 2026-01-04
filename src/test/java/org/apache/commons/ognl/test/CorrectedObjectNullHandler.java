@@ -29,8 +29,6 @@ public class CorrectedObjectNullHandler
     private final String defaultValue;
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public CorrectedObjectNullHandler( String defaultValue )
     {
@@ -38,8 +36,6 @@ public class CorrectedObjectNullHandler
     }
 
     /*
-     * =================================================================== TypeConverter interface (overridden)
-     * ===================================================================
      */
     public Object nullMethodResult( Map context, Object target, String methodName, Object[] args )
     {

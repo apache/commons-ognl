@@ -70,8 +70,6 @@ public class InterfaceInheritanceTest
         { ROOT, "objectIndex instanceof java.lang.Object", Boolean.TRUE } };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -110,8 +108,6 @@ public class InterfaceInheritanceTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public InterfaceInheritanceTest( String name, Object root, String expressionString, Object expectedResult,
                                      Object setValue, Object expectedAfterSetResult )

@@ -50,8 +50,6 @@ public class PrimitiveArrayTest
     };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -91,8 +89,6 @@ public class PrimitiveArrayTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public PrimitiveArrayTest( String name, Object root, String expressionString, Object expectedResult,
                                Object setValue, Object expectedAfterSetResult )

@@ -39,8 +39,6 @@ public class SimpleNavigationChainTreeTest
         { "name + foo", Boolean.FALSE }, { "name.foo", Boolean.TRUE } };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -59,8 +57,6 @@ public class SimpleNavigationChainTreeTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public SimpleNavigationChainTreeTest( String name, Object root, String expressionString, Object expectedResult,
                                           Object setValue, Object expectedAfterSetResult )
@@ -69,8 +65,6 @@ public class SimpleNavigationChainTreeTest
     }
 
     /*
-     * =================================================================== Overridden methods
-     * ===================================================================
      */
     @Test
     @Override

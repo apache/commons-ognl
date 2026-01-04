@@ -90,8 +90,6 @@ public class PropertyArithmeticAndLogicalOperatorsTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public PropertyArithmeticAndLogicalOperatorsTest( String name, Object root, String expressionString,
                                                       Object expectedResult, Object setValue,

@@ -46,8 +46,6 @@ public class MemberAccessTest
         { "getBigIntValue()", OgnlException.class }, { "stringValue", ROOT.getStringValue() }, };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -69,8 +67,6 @@ public class MemberAccessTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public MemberAccessTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,
                              Object expectedAfterSetResult )
@@ -79,8 +75,6 @@ public class MemberAccessTest
     }
 
     /*
-     * =================================================================== Overridden methods
-     * ===================================================================
      */
     @Override
     @Before

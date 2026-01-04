@@ -54,8 +54,6 @@ public class CollectionDirectPropertyTest
         { ROOT, "map[\"isEmpty\"]", null }, };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -95,8 +93,6 @@ public class CollectionDirectPropertyTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public CollectionDirectPropertyTest( String name, Object root, String expressionString, Object expectedResult,
                                          Object setValue, Object expectedAfterSetResult )

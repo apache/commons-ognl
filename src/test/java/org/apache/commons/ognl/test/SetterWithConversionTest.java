@@ -51,8 +51,6 @@ public class SetterWithConversionTest
         };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -91,8 +89,6 @@ public class SetterWithConversionTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public SetterWithConversionTest( String name, Object root, String expressionString, Object expectedResult,
                                      Object setValue, Object expectedAfterSetResult )

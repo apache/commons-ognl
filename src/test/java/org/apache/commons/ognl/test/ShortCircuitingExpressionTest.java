@@ -39,8 +39,6 @@ public class ShortCircuitingExpressionTest
         { "99 || 101", new Integer( 99 ) }, };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -59,8 +57,6 @@ public class ShortCircuitingExpressionTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public ShortCircuitingExpressionTest( String name, Object root, String expressionString, Object expectedResult,
                                           Object setValue, Object expectedAfterSetResult )

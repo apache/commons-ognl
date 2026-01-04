@@ -38,10 +38,6 @@ public class DefaultMemberAccess
 
     private boolean allowPackageProtectedAccess;
 
-    /*
-     * =================================================================== Constructors
-     * ===================================================================
-     */
     public DefaultMemberAccess( boolean allowAllAccess )
     {
         this( allowAllAccess, allowAllAccess, allowAllAccess );
@@ -55,10 +51,6 @@ public class DefaultMemberAccess
         this.allowPackageProtectedAccess = allowPackageProtectedAccess;
     }
 
-    /*
-     * =================================================================== Public methods
-     * ===================================================================
-     */
     public boolean getAllowPrivateAccess()
     {
         return allowPrivateAccess;
@@ -89,10 +81,6 @@ public class DefaultMemberAccess
         allowPackageProtectedAccess = value;
     }
 
-    /*
-     * =================================================================== MemberAccess interface
-     * ===================================================================
-     */
     public Object setup( Map<String, Object> context, Object target, Member member, String propertyName )
     {
         Object result = null;

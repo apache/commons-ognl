@@ -39,8 +39,6 @@ public class SimplePropertyTreeTest
         { "name.foo.bar", Boolean.FALSE }, { "name.{? foo }", Boolean.FALSE }, { "name.( foo )", Boolean.FALSE } };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -59,8 +57,6 @@ public class SimplePropertyTreeTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public SimplePropertyTreeTest( String name, Object root, String expressionString, Object expectedResult,
                                    Object setValue, Object expectedAfterSetResult )
@@ -69,8 +65,6 @@ public class SimplePropertyTreeTest
     }
 
     /*
-     * =================================================================== Overridden methods
-     * ===================================================================
      */
     @Before
     @Override

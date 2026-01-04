@@ -56,14 +56,6 @@ public class ArrayElementsTest
             Arrays.asList( '1', '2', '3' ) },
         { null, "{ true, !false }", Arrays.asList( Boolean.TRUE, Boolean.TRUE ) } };
 
-    /*
-     * =================================================================== Private static methods
-     * ===================================================================
-     */
-    /*
-     * =================================================================== Public static methods
-     * ===================================================================
-     */
     @Parameters
     public static Collection<Object[]> data()
     {
@@ -102,8 +94,6 @@ public class ArrayElementsTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public ArrayElementsTest( String name, Object root, String expressionString, Object expectedResult,
                               Object setValue, Object expectedAfterSetResult )
@@ -112,8 +102,6 @@ public class ArrayElementsTest
     }
 
     /*
-     * =================================================================== Overridden methods
-     * ===================================================================
      */
     @Override
     @Before

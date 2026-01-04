@@ -47,8 +47,6 @@ public class LambdaExpressionTest
     };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -67,8 +65,6 @@ public class LambdaExpressionTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public LambdaExpressionTest( String name, Object root, String expressionString, Object expectedResult,
                                  Object setValue, Object expectedAfterSetResult )

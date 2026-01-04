@@ -56,8 +56,6 @@ public class IndexedPropertyTest
         { ROOT, "map.value.id", (long) 1 }, { INDEXED, "property['hoodak']", null, "random string", "random string" } };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -96,8 +94,6 @@ public class IndexedPropertyTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public IndexedPropertyTest( String name, Object root, String expressionString, Object expectedResult,
                                 Object setValue, Object expectedAfterSetResult )

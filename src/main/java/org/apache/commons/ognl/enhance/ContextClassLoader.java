@@ -26,20 +26,11 @@ public class ContextClassLoader
 {
     private final OgnlContext context;
 
-    /*
-     * =================================================================== Constructors
-     * ===================================================================
-     */
     public ContextClassLoader( ClassLoader parentClassLoader, OgnlContext context )
     {
         super( parentClassLoader );
         this.context = context;
     }
-
-    /*
-     * =================================================================== Overridden methods
-     * ===================================================================
-     */
 
     /**
      * {@inheritDoc}

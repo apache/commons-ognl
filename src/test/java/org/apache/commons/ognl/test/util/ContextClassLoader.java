@@ -26,8 +26,6 @@ public class ContextClassLoader
     private final OgnlContext context;
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public ContextClassLoader( ClassLoader parentClassLoader, OgnlContext context )
     {
@@ -36,8 +34,6 @@ public class ContextClassLoader
     }
 
     /*
-     * =================================================================== Overridden methods
-     * ===================================================================
      */
     protected Class<?> findClass( String name )
         throws ClassNotFoundException

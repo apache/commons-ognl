@@ -53,8 +53,6 @@ public abstract class OgnlTestCase
     private final Object expectedAfterSetResult;
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
 
     /**
@@ -94,8 +92,6 @@ public abstract class OgnlTestCase
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public OgnlTestCase(String name, Object root, String expressionString, Object expectedResult)
     {
@@ -124,8 +120,6 @@ public abstract class OgnlTestCase
     }
 
     /*
-     * =================================================================== Public methods
-     * ===================================================================
      */
     public String getExpressionDump( SimpleNode node )
     {
@@ -197,8 +191,6 @@ public abstract class OgnlTestCase
     }
 
     /*
-     * =================================================================== Overridden methods
-     * ===================================================================
      */
     @Test
     public void runTest()

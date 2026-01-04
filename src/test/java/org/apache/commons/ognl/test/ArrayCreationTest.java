@@ -63,8 +63,6 @@ public class ArrayCreationTest
                 new Entry[] { new Entry(), new Entry() } } };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -104,8 +102,6 @@ public class ArrayCreationTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public ArrayCreationTest( String name, Object root, String expressionString, Object expectedResult,
                               Object setValue, Object expectedAfterSetResult )

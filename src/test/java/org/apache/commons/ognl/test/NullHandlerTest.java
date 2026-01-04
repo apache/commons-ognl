@@ -43,8 +43,6 @@ public class NullHandlerTest
         { CORRECTED, "#root.stringValue", "corrected" }, { CORRECTED, "#root.getStringValue()", "corrected" }, };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -83,8 +81,6 @@ public class NullHandlerTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public NullHandlerTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,
                             Object expectedAfterSetResult )
@@ -93,8 +89,6 @@ public class NullHandlerTest
     }
 
     /*
-     * =================================================================== Overridden methods
-     * ===================================================================
      */
     @Override
     @Before

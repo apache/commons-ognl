@@ -72,8 +72,6 @@ public class SetterTest
         { ROOT, "openTransitionWin", Boolean.FALSE, Boolean.TRUE } };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -112,8 +110,6 @@ public class SetterTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public SetterTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,
                        Object expectedAfterSetResult )

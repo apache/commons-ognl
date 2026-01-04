@@ -151,8 +151,6 @@ public class StaticsAndConstructorsTest
     }
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -172,8 +170,6 @@ public class StaticsAndConstructorsTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public StaticsAndConstructorsTest( String name, Object root, String expressionString, Object expectedResult,
                                        Object setValue, Object expectedAfterSetResult )

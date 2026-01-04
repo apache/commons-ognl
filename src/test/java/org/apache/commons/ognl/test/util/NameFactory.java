@@ -30,8 +30,6 @@ public class NameFactory
     private int variableNameCounter;
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public NameFactory( String classBaseName, String variableBaseName )
     {
@@ -40,8 +38,6 @@ public class NameFactory
     }
 
     /*
-     * =================================================================== Public methods
-     * ===================================================================
      */
     public String getNewClassName()
     {

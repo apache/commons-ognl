@@ -37,8 +37,6 @@ public class PrivateMemberTest
     protected OgnlContext context;
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     public static TestSuite suite()
     {
@@ -46,8 +44,6 @@ public class PrivateMemberTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public PrivateMemberTest( String name )
     {
@@ -55,8 +51,6 @@ public class PrivateMemberTest
     }
 
     /*
-     * =================================================================== Public methods
-     * ===================================================================
      */
     private String getPrivateProperty()
     {
@@ -76,8 +70,6 @@ public class PrivateMemberTest
     }
 
     /*
-     * =================================================================== Overridden methods
-     * ===================================================================
      */
     @Before
     @Override

@@ -64,8 +64,6 @@ public class MethodTest
     }
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -95,8 +93,6 @@ public class MethodTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public MethodTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,
                        Object expectedAfterSetResult )

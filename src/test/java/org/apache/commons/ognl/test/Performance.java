@@ -64,8 +64,6 @@ public class Performance
     private long t1;
 
     /*
-     * =================================================================== Private static classes
-     * ===================================================================
      */
     private static class Results
     {
@@ -129,8 +127,6 @@ public class Performance
     }
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     public static void main( String[] args )
     {
@@ -256,8 +252,6 @@ public class Performance
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public Performance( String name, String expressionString, String javaMethodName )
         throws Exception
@@ -295,8 +289,6 @@ public class Performance
     }
 
     /*
-     * =================================================================== Protected methods
-     * ===================================================================
      */
     protected void startTest()
     {
@@ -326,8 +318,6 @@ public class Performance
     }
 
     /*
-     * =================================================================== Public methods
-     * ===================================================================
      */
     public String getName()
     {

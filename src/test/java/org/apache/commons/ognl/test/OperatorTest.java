@@ -41,8 +41,6 @@ public class OperatorTest
         { null, "\"o\" == \"o\"", Boolean.TRUE }, { null, "\"o\" eq \"o\"", Boolean.TRUE }, };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -81,8 +79,6 @@ public class OperatorTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public OperatorTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,
                          Object expectedAfterSetResult )

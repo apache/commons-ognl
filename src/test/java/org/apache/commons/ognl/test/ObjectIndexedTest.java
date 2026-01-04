@@ -33,8 +33,6 @@ public class ObjectIndexedTest
     protected OgnlContext context;
 
     /*
-     * =================================================================== Public static classes
-     * ===================================================================
      */
     public interface TestInterface
     {
@@ -135,8 +133,6 @@ public class ObjectIndexedTest
     }
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     public static TestSuite suite()
     {
@@ -144,8 +140,6 @@ public class ObjectIndexedTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public ObjectIndexedTest()
     {
@@ -157,8 +151,6 @@ public class ObjectIndexedTest
     }
 
     /*
-     * =================================================================== Public methods
-     * ===================================================================
      */
     public void testPropertyDescriptorReflection()
         throws Exception
@@ -248,8 +240,6 @@ public class ObjectIndexedTest
     }
 
     /*
-     * =================================================================== Overridden methods
-     * ===================================================================
      */
     @Override
     @Before

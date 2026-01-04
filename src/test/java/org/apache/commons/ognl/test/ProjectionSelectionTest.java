@@ -46,8 +46,6 @@ public class ProjectionSelectionTest
             new BigInteger( "265252859812191058636308480000000" ) }, };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -66,8 +64,6 @@ public class ProjectionSelectionTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public ProjectionSelectionTest( String name, Object root, String expressionString, Object expectedResult,
                                     Object setValue, Object expectedAfterSetResult )

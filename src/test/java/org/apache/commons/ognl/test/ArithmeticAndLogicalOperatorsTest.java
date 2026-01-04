@@ -137,8 +137,6 @@ public class ArithmeticAndLogicalOperatorsTest
         { "#y == \"1\"", Boolean.TRUE }, { "#y + \"1\"", "11" }, { "\"1\" + #y", "11" } };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -158,8 +156,6 @@ public class ArithmeticAndLogicalOperatorsTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
 
     public ArithmeticAndLogicalOperatorsTest( String name, Object root, String expressionString, Object expectedResult )
@@ -167,8 +163,6 @@ public class ArithmeticAndLogicalOperatorsTest
         super( name, root, expressionString, expectedResult );
     }
     /*
-     * =================================================================== Overridden methods
-     * ===================================================================
      */
     @Before
     @Override

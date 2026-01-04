@@ -39,8 +39,6 @@ public class QuotingTest
         { null, "'yyyy\u539Add\u5EA6'", "yyyy\u539Add\u5EA6" } };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -79,8 +77,6 @@ public class QuotingTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public QuotingTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,
                         Object expectedAfterSetResult )

@@ -40,8 +40,6 @@ public class ContextVariableTest
         { "#f=5, #s=6, #f + #s", new Integer( 11 ) }, { "#six=(#five=5, 6), #five + #six", new Integer( 11 ) }, };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -62,8 +60,6 @@ public class ContextVariableTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public ContextVariableTest( String name, Object root, String expressionString, Object expectedResult,
                                 Object setValue, Object expectedAfterSetResult )

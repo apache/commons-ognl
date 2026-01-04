@@ -59,8 +59,6 @@ public class IndexAccessTest
             { ROOT, "map['bar'].value", 100, 50, 50 }, { INDEXED_SET, "thing[\"x\"].val", 1, 2, 2 } };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -85,8 +83,6 @@ public class IndexAccessTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public IndexAccessTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,
                             Object expectedAfterSetResult )

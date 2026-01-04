@@ -65,8 +65,6 @@ public class ObjectIndexedPropertyTest
         { ROOT, "bean2.bean3.indexedValue[25]", null } };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -105,8 +103,6 @@ public class ObjectIndexedPropertyTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public ObjectIndexedPropertyTest( String name, Object root, String expressionString, Object expectedResult,
                                       Object setValue, Object expectedAfterSetResult )

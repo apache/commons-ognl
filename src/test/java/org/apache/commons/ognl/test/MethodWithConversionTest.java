@@ -45,8 +45,6 @@ public class MethodWithConversionTest
         { SIMPLE, "messages.format('Testing', one, two, three)", "blah" } };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -85,8 +83,6 @@ public class MethodWithConversionTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public MethodWithConversionTest( String name, Object root, String expressionString, Object expectedResult,
                                      Object setValue, Object expectedAfterSetResult )

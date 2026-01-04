@@ -45,8 +45,6 @@ public class ClassMethodTest
         { null, "@java.awt.image.ImageObserver@class.getName()", java.awt.image.ImageObserver.class.getName() }, };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -67,8 +65,6 @@ public class ClassMethodTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public ClassMethodTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,
                             Object expectedAfterSetResult )

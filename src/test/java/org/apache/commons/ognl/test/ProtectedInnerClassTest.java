@@ -40,8 +40,6 @@ public class ProtectedInnerClassTest
     };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -61,8 +59,6 @@ public class ProtectedInnerClassTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public ProtectedInnerClassTest( String name, Object root, String expressionString, Object expectedResult,
                                     Object setValue, Object expectedAfterSetResult )

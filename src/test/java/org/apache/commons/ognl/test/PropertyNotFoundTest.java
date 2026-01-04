@@ -43,8 +43,6 @@ public class PropertyNotFoundTest
         OgnlException.class }, };
 
     /*
-     * =================================================================== Public static classes
-     * ===================================================================
      */
     public static class Blah
     {
@@ -103,8 +101,6 @@ public class PropertyNotFoundTest
     }
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -143,8 +139,6 @@ public class PropertyNotFoundTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public PropertyNotFoundTest( String name, Object root, String expressionString, Object expectedResult,
                                  Object setValue, Object expectedAfterSetResult )

@@ -65,8 +65,6 @@ public class ConstantTest
             "HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\"" }, };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -87,8 +85,6 @@ public class ConstantTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public ConstantTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,
                          Object expectedAfterSetResult )

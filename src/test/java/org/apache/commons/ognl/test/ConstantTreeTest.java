@@ -47,8 +47,6 @@ public class ConstantTreeTest
     };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -69,8 +67,6 @@ public class ConstantTreeTest
     }
 
     /*
-     * =================================================================== Overridden methods
-     * ===================================================================
      */
     @Override
     public void runTest()
@@ -80,8 +76,6 @@ public class ConstantTreeTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public ConstantTreeTest( String name, Object root, String expressionString, Object expectedResult, Object setValue,
                              Object expectedAfterSetResult )

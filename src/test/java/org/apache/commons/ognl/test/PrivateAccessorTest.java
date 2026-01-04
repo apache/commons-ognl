@@ -51,8 +51,6 @@ public class PrivateAccessorTest
         { ROOT, "privateAccessorBooleanValue", Boolean.TRUE, Boolean.FALSE }, };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -91,8 +89,6 @@ public class PrivateAccessorTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public PrivateAccessorTest( String name, Object root, String expressionString, Object expectedResult,
                                 Object setValue, Object expectedAfterSetResult )
@@ -101,8 +97,6 @@ public class PrivateAccessorTest
     }
 
     /*
-     * =================================================================== Overridden methods
-     * ===================================================================
      */
     @Before
     @Override

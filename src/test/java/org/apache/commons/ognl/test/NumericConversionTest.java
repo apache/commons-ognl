@@ -159,8 +159,6 @@ public class NumericConversionTest
     private final int scale;
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -179,8 +177,6 @@ public class NumericConversionTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public NumericConversionTest( Object value, Class<? extends Number> toClass, Object expectedValue, int scale )
     {
@@ -194,8 +190,6 @@ public class NumericConversionTest
     }
 
     /*
-     * =================================================================== Overridden methods
-     * ===================================================================
      */
     @Test
     @Override

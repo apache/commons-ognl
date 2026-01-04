@@ -58,8 +58,6 @@ public class PrimitiveNullHandlingTest
         };
 
     /*
-     * =================================================================== Public static methods
-     * ===================================================================
      */
     @Parameters
     public static Collection<Object[]> data()
@@ -98,8 +96,6 @@ public class PrimitiveNullHandlingTest
     }
 
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public PrimitiveNullHandlingTest( String name, Object root, String expressionString, Object expectedResult,
                                       Object setValue, Object expectedAfterSetResult )

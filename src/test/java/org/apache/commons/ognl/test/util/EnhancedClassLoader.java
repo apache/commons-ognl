@@ -22,8 +22,6 @@ public class EnhancedClassLoader
     extends ClassLoader
 {
     /*
-     * =================================================================== Constructors
-     * ===================================================================
      */
     public EnhancedClassLoader( ClassLoader parentClassLoader )
     {
@@ -31,8 +29,6 @@ public class EnhancedClassLoader
     }
 
     /*
-     * =================================================================== Overridden methods
-     * ===================================================================
      */
     public Class<?> defineClass( String enhancedClassName, byte[] byteCode )
     {
