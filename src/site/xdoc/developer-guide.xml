@@ -243,7 +243,7 @@ Ognl.setValue( &#34;identifiers&#34;,
       </section>
 
       <section name="Null Handler">
-        <p>When navigating a chain sometimes properties or methods will evaluate to null, causing subsequent properties or method calls to fail with <code>NullPointerException</code>s. Most of the time this behaviour is correct (as it is
+        <p>When navigating a chain sometimes properties or methods will evaluate to null, causing subsequent properties or method calls to fail with <code>NullPointerException</code>s. Most of the time this behavior is correct (as it is
         with Java), but sometimes you want to be able to dynamically substitute another object in place of <code>null</code>. The <code>NullHandler</code> interface allows you to specify on a class-by-class basis how nulls are
         handled within OGNL expressions. Implementing this interface allows you to intercept when methods return <code>null</code> and properties evaluate to <code>null</code> and allow you to substitute a new value. Since you are
         given the source of the method or property a really clever implementor might write the property back to the object so that subsequent invocations do not return or evaluate to <code>null</code>.</p>
