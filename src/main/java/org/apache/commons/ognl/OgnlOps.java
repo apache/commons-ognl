@@ -907,7 +907,7 @@ public abstract class OgnlOps
      *
      * @param type the nominal numeric type of the result, a constant from the NumericTypes interface
      * @param value the integer value to convert to a Number object
-     * @return a Number object with the given value, of type implied by the type argument
+     * @return A Number object with the given value, of type implied by the type argument
      */
     public static Number newInteger( int type, long value )
     {
@@ -951,7 +951,7 @@ public abstract class OgnlOps
      *
      * @param type the nominal numeric type of the result, a constant from the NumericTypes interface
      * @param value the real value to convert to a Number object
-     * @return a Number object with the given value, of type implied by the type argument
+     * @return A Number object with the given value, of type implied by the type argument
      */
     public static Number newReal( int type, double value )
     {

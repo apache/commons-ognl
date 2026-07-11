@@ -132,7 +132,7 @@ public class OgnlException
     /**
      * Returns a string representation of this exception.
      *
-     * @return a string representation of this exception
+     * @return A string representation of this exception
      */
     @Override
     public String toString()

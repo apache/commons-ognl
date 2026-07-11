@@ -99,7 +99,7 @@ public abstract class Ognl
      * <code>Ognl</code> static methods.
      *
      * @param expression the OGNL expression to be parsed
-     * @return a tree representation of the expression
+     * @return A tree representation of the expression
      * @throws ExpressionSyntaxException if the expression is malformed
      * @throws OgnlException if there is a pathological environmental problem
      */
@@ -146,7 +146,7 @@ public abstract class Ognl
      * Creates and returns a new standard naming context for evaluating an OGNL expression.
      *
      * @param root the root of the object graph
-     * @return a new Map with the keys <code>root</code> and <code>context</code> set appropriately
+     * @return A new Map with the keys <code>root</code> and <code>context</code> set appropriately
      */
     public static Map<String, Object> createDefaultContext( Object root )
     {
@@ -158,7 +158,7 @@ public abstract class Ognl
      *
      * @param root The root of the object graph.
      * @param classResolver The resolver used to instantiate {@link Class} instances referenced in the expression.
-     * @return a new OgnlContext with the keys <code>root</code> and <code>context</code> set appropriately
+     * @return A new OgnlContext with the keys <code>root</code> and <code>context</code> set appropriately
      */
     public static Map<String, Object> createDefaultContext( Object root, ClassResolver classResolver )
     {
@@ -171,7 +171,7 @@ public abstract class Ognl
      * @param root The root of the object graph.
      * @param classResolver The resolver used to instantiate {@link Class} instances referenced in the expression.
      * @param converter Converter used to convert return types of an expression in to their desired types.
-     * @return a new Map with the keys <code>root</code> and <code>context</code> set appropriately
+     * @return A new Map with the keys <code>root</code> and <code>context</code> set appropriately
      */
     public static Map<String, Object> createDefaultContext( Object root, ClassResolver classResolver,
                                                             TypeConverter converter )
@@ -187,7 +187,7 @@ public abstract class Ognl
      * @param converter Converter used to convert return types of an expression in to their desired types.
      * @param memberAccess Java security handling object to determine semantics for accessing normally private/protected
      *            methods / fields.
-     * @return a new Map with the keys <code>root</code> and <code>context</code> set appropriately
+     * @return A new Map with the keys <code>root</code> and <code>context</code> set appropriately
      */
     public static Map<String, Object> createDefaultContext( Object root, ClassResolver classResolver,
                                                             TypeConverter converter, MemberAccess memberAccess )
