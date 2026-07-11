@@ -15,13 +15,11 @@
 
 name: Coverage
 
-# on:
-  push:
-    branches:
-      - 'master'
-  pull_request: {}
 on:
-  workflow_dispatch:
+  push:
+    branches-ignore:
+      - dependabot/**
+  pull_request:
 
 permissions:
   contents: read
