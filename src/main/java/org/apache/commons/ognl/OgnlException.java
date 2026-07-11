@@ -102,7 +102,7 @@ public class OgnlException
     /**
      * Returns the encapsulated exception, or null if there is none.
      *
-     * @return the encapsulated exception
+     * @return The encapsulated exception
      */
     public Throwable getReason()
     {

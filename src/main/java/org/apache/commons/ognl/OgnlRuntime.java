@@ -495,7 +495,7 @@ public class OgnlRuntime
      * classes are passed through unchanged.
      *
      * @param arg an object that is being passed to a method
-     * @return the class to use to look up the method
+     * @return The class to use to look up the method
      */
     public static Class<?> getArgClass( Object arg )
     {
@@ -1436,7 +1436,7 @@ public class OgnlRuntime
      *
      * @param targetClass a target class.
      * @param propertyName a property name.
-     * @return the PropertyDescriptor for the given targetClass and propertyName.
+     * @return The PropertyDescriptor for the given targetClass and propertyName.
      * @throws java.beans.IntrospectionException
      * @throws OgnlException
      */

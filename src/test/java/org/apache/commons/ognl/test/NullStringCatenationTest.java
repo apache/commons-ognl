@@ -53,7 +53,7 @@ public class NullStringCatenationTest
 
     /**
      * Setup parameters for this test which are used to call this class constructor
-     * @return the collection of paramaters
+     * @return The collection of paramaters
      */
     @Parameters
     public static Collection<Object[]> data()

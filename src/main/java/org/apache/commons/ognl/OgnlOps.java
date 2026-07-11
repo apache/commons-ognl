@@ -173,7 +173,7 @@ public abstract class OgnlOps
      * returns true for non-zero objects; and otherwise returns true for non-null objects.
      *
      * @param value an object to interpret as a boolean
-     * @return the boolean value implied by the given object
+     * @return The boolean value implied by the given object
      */
     public static boolean booleanValue( Object value )
     {
@@ -202,7 +202,7 @@ public abstract class OgnlOps
      * Evaluates the given object as a long integer.
      *
      * @param value an object to interpret as a long integer
-     * @return the long integer value implied by the given object
+     * @return The long integer value implied by the given object
      * @throws NumberFormatException if the given object can't be understood as a long integer
      */
     public static long longValue( Object value )
@@ -231,7 +231,7 @@ public abstract class OgnlOps
      * Evaluates the given object as a double-precision floating-point number.
      *
      * @param value an object to interpret as a double
-     * @return the double value implied by the given object
+     * @return The double value implied by the given object
      * @throws NumberFormatException if the given object can't be understood as a double
      */
     public static double doubleValue( Object value )
@@ -262,7 +262,7 @@ public abstract class OgnlOps
      * Evaluates the given object as a BigInteger.
      *
      * @param value an object to interpret as a BigInteger
-     * @return the BigInteger value implied by the given object
+     * @return The BigInteger value implied by the given object
      * @throws NumberFormatException if the given object can't be understood as a BigInteger
      */
     public static BigInteger bigIntValue( Object value )
@@ -299,7 +299,7 @@ public abstract class OgnlOps
      * Evaluates the given object as a BigDecimal.
      *
      * @param value an object to interpret as a BigDecimal
-     * @return the BigDecimal value implied by the given object
+     * @return The BigDecimal value implied by the given object
      * @throws NumberFormatException if the given object can't be understood as a BigDecimal
      */
     public static BigDecimal bigDecValue( Object value )
@@ -333,7 +333,7 @@ public abstract class OgnlOps
      *
      * @param value an object to interpret as a String
      * @param trim if true trims the result
-     * @return the String value implied by the given object as returned by the toString() method, or "null" if the
+     * @return The String value implied by the given object as returned by the toString() method, or "null" if the
      *         object is null.
      */
     public static String stringValue( Object value, boolean trim )
@@ -359,7 +359,7 @@ public abstract class OgnlOps
      * Evaluates the given object as a String.
      *
      * @param value an object to interpret as a String
-     * @return the String value implied by the given object as returned by the toString() method, or "null" if the
+     * @return The String value implied by the given object as returned by the toString() method, or "null" if the
      *         object is null.
      */
     public static String stringValue( Object value )
@@ -371,7 +371,7 @@ public abstract class OgnlOps
      * Returns a constant from the NumericTypes interface that represents the numeric type of the given object.
      *
      * @param value an object that needs to be interpreted as a number
-     * @return the appropriate constant from the NumericTypes interface
+     * @return The appropriate constant from the NumericTypes interface
      */
     public static int getNumericType( Object value )
     {
@@ -820,7 +820,7 @@ public abstract class OgnlOps
      *
      * @param v1 one argument to a numeric operator
      * @param v2 the other argument
-     * @return the appropriate constant from the NumericTypes interface
+     * @return The appropriate constant from the NumericTypes interface
      */
     public static int getNumericType( Object v1, Object v2 )
     {
@@ -834,7 +834,7 @@ public abstract class OgnlOps
      * @param t1 type of one argument to an operator
      * @param t2 type of the other argument
      * @param canBeNonNumeric whether the operator can be interpreted as non-numeric
-     * @return the appropriate constant from the NumericTypes interface
+     * @return The appropriate constant from the NumericTypes interface
      */
     public static int getNumericType( int t1, int t2, boolean canBeNonNumeric )
     {
@@ -894,7 +894,7 @@ public abstract class OgnlOps
      * @param v1 one argument to an operator
      * @param v2 the other argument
      * @param canBeNonNumeric whether the operator can be interpreted as non-numeric
-     * @return the appropriate constant from the NumericTypes interface
+     * @return The appropriate constant from the NumericTypes interface
      */
     public static int getNumericType( Object v1, Object v2, boolean canBeNonNumeric )
     {

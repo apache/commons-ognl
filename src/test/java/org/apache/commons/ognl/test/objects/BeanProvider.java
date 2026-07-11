@@ -31,7 +31,7 @@ public interface BeanProvider
      * Gets a bean by name.
      *
      * @param name
-     * @return the related bean by name
+     * @return The related bean by name
      */
     Object getBean( String name );
 

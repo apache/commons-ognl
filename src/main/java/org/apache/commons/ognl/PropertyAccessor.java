@@ -44,7 +44,7 @@ public interface PropertyAccessor
      * @param context The current execution context.
      * @param target the object to get the property from
      * @param name the name of the property to get.
-     * @return the current value of the given property in the given object
+     * @return The current value of the given property in the given object
      * @throws OgnlException if there is an error locating the property in the given object
      */
     Object getProperty( Map<String, Object> context, Object target, Object name )
