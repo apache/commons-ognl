@@ -42,8 +42,8 @@ public interface PropertyAccessor
      * Extracts and returns the property of the given name from the given target object.
      *
      * @param context The current execution context.
-     * @param target the object to get the property from
-     * @param name the name of the property to get.
+     * @param target The object to get the property from
+     * @param name The name of the property to get.
      * @return The current value of the given property in the given object
      * @throws OgnlException if there is an error locating the property in the given object
      */
@@ -54,9 +54,9 @@ public interface PropertyAccessor
      * Sets the value of the property of the given name in the given target object.
      *
      * @param context The current execution context.
-     * @param target the object to set the property in
-     * @param name the name of the property to set
-     * @param value the new value for the property.
+     * @param target The object to set the property in
+     * @param name The name of the property to set
+     * @param value The new value for the property.
      * @throws OgnlException if there is an error setting the property in the given object
      */
     void setProperty( Map<String, Object> context, Object target, Object name, Object value )

@@ -32,9 +32,9 @@ public interface MethodAccessor
      * Calls the static method named with the arguments given on the class given.
      *
      * @param context expression context in which the method should be called
-     * @param targetClass the object in which the method exists
-     * @param methodName the name of the method
-     * @param args the arguments to the method
+     * @param targetClass The object in which the method exists
+     * @param methodName The name of the method
+     * @param args The arguments to the method
      * @return result of calling the method
      * @throws OgnlException if there is an error calling the method
      */
@@ -45,9 +45,9 @@ public interface MethodAccessor
      * Calls the method named with the arguments given.
      *
      * @param context expression context in which the method should be called
-     * @param target the object in which the method exists
-     * @param methodName the name of the method
-     * @param args the arguments to the method
+     * @param target The object in which the method exists
+     * @param methodName The name of the method
+     * @param args The arguments to the method
      * @return result of calling the method
      * @throws OgnlException if there is an error calling the method
      */

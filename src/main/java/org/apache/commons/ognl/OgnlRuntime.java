@@ -494,7 +494,7 @@ public class OgnlRuntime
      * standard primitive wrapper classes and exchanging for them their underlying primitive class objects. Other
      * classes are passed through unchanged.
      *
-     * @param arg an object that is being passed to a method
+     * @param arg An object that is being passed to a method
      * @return The class to use to look up the method
      */
     public static Class<?> getArgClass( Object arg )
@@ -1434,8 +1434,8 @@ public class OgnlRuntime
      * This method returns a PropertyDescriptor for the given class and property name using a Map lookup (using
      * getPropertyDescriptorsMap()).
      *
-     * @param targetClass a target class.
-     * @param propertyName a property name.
+     * @param targetClass A target class.
+     * @param propertyName A property name.
      * @return The PropertyDescriptor for the given targetClass and propertyName.
      * @throws java.beans.IntrospectionException
      * @throws OgnlException

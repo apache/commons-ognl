@@ -36,7 +36,7 @@ public class ASTAnd
     /**
      * TODO: Javadoc
      *
-     * @param id the id
+     * @param id The id
      */
     public ASTAnd( int id )
     {
@@ -46,8 +46,8 @@ public class ASTAnd
     /**
      * TODO: Javadoc
      *
-     * @param p the parser
-     * @param id the id
+     * @param p The parser
+     * @param id The id
      */
     public ASTAnd( OgnlParser p, int id )
     {

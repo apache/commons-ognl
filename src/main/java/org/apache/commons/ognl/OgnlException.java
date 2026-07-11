@@ -67,7 +67,7 @@ public class OgnlException
     /**
      * Constructs an OgnlException with the given message but no encapsulated exception.
      *
-     * @param msg the exception's detail message
+     * @param msg The exception's detail message
      */
     public OgnlException( String msg )
     {
@@ -77,8 +77,8 @@ public class OgnlException
     /**
      * Constructs an OgnlException with the given message and encapsulated exception.
      *
-     * @param msg the exception's detail message
-     * @param reason the encapsulated exception
+     * @param msg The exception's detail message
+     * @param reason The encapsulated exception
      */
     public OgnlException( String msg, Throwable reason )
     {

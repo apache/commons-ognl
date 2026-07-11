@@ -98,7 +98,7 @@ public abstract class Ognl
      * Parses the given OGNL expression and returns a tree representation of the expression that can be used by
      * <code>Ognl</code> static methods.
      *
-     * @param expression the OGNL expression to be parsed
+     * @param expression The OGNL expression to be parsed
      * @return A tree representation of the expression
      * @throws ExpressionSyntaxException if the expression is malformed
      * @throws OgnlException if there is a pathological environmental problem
@@ -145,7 +145,7 @@ public abstract class Ognl
     /**
      * Creates and returns a new standard naming context for evaluating an OGNL expression.
      *
-     * @param root the root of the object graph
+     * @param root The root of the object graph
      * @return A new Map with the keys <code>root</code> and <code>context</code> set appropriately
      */
     public static Map<String, Object> createDefaultContext( Object root )
@@ -199,8 +199,8 @@ public abstract class Ognl
      * Appends the standard naming context for evaluating an OGNL expression into the context given so that cached maps
      * can be used as a context.
      *
-     * @param root the root of the object graph
-     * @param context the context to which OGNL context will be added.
+     * @param root The root of the object graph
+     * @param context The context to which OGNL context will be added.
      * @return Context Map with the keys <code>root</code> and <code>context</code> set appropriately
      */
     public static Map<String, Object> addDefaultContext( Object root, Map<String, Object> context )
@@ -243,7 +243,7 @@ public abstract class Ognl
      * Appends the standard naming context for evaluating an OGNL expression into the context given so that cached maps
      * can be used as a context.
      *
-     * @param root the root of the object graph
+     * @param root The root of the object graph
      * @param classResolver The class loading resolver that should be used to resolve class references.
      * @param converter The type converter to be used by default.
      * @param memberAccess Definition for handling private/protected access.
@@ -390,9 +390,9 @@ public abstract class Ognl
      * Evaluates the given OGNL expression tree to extract a value from the given root object. The default context is
      * set for the given context and root via <code>addDefaultContext()</code>.
      *
-     * @param tree the OGNL expression tree to evaluate, as returned by parseExpression()
-     * @param context the naming context for the evaluation
-     * @param root the root object for the OGNL expression
+     * @param tree The OGNL expression tree to evaluate, as returned by parseExpression()
+     * @param context The naming context for the evaluation
+     * @param root The root object for the OGNL expression
      * @return the result of evaluating the expression
      * @throws MethodFailedException if the expression called a method which failed
      * @throws NoSuchPropertyException if the expression referred to a nonexistent property
@@ -409,10 +409,10 @@ public abstract class Ognl
      * Evaluates the given OGNL expression tree to extract a value from the given root object. The default context is
      * set for the given context and root via <code>addDefaultContext()</code>.
      *
-     * @param tree the OGNL expression tree to evaluate, as returned by parseExpression()
-     * @param context the naming context for the evaluation
-     * @param root the root object for the OGNL expression
-     * @param resultType the converted type of the resultant object, using the context's type converter
+     * @param tree The OGNL expression tree to evaluate, as returned by parseExpression()
+     * @param context The naming context for the evaluation
+     * @param root The root object for the OGNL expression
+     * @param resultType The converted type of the resultant object, using the context's type converter
      * @return the result of evaluating the expression
      * @throws MethodFailedException if the expression called a method which failed
      * @throws NoSuchPropertyException if the expression referred to a nonexistent property
@@ -480,9 +480,9 @@ public abstract class Ognl
      *
      * @see #parseExpression(String)
      * @see #getValue(Object,Object)
-     * @param expression the OGNL expression to be parsed
-     * @param context the naming context for the evaluation
-     * @param root the root object for the OGNL expression
+     * @param expression The OGNL expression to be parsed
+     * @param context The naming context for the evaluation
+     * @param root The root object for the OGNL expression
      * @return the result of evaluating the expression
      * @throws MethodFailedException if the expression called a method which failed
      * @throws NoSuchPropertyException if the expression referred to a nonexistent property
@@ -500,10 +500,10 @@ public abstract class Ognl
      *
      * @see #parseExpression(String)
      * @see #getValue(Object,Object)
-     * @param expression the OGNL expression to be parsed
-     * @param context the naming context for the evaluation
-     * @param root the root object for the OGNL expression
-     * @param resultType the converted type of the resultant object, using the context's type converter
+     * @param expression The OGNL expression to be parsed
+     * @param context The naming context for the evaluation
+     * @param root The root object for the OGNL expression
+     * @param resultType The converted type of the resultant object, using the context's type converter
      * @return the result of evaluating the expression
      * @throws MethodFailedException if the expression called a method which failed
      * @throws NoSuchPropertyException if the expression referred to a nonexistent property
@@ -519,8 +519,8 @@ public abstract class Ognl
     /**
      * Evaluates the given OGNL expression tree to extract a value from the given root object.
      *
-     * @param tree the OGNL expression tree to evaluate, as returned by parseExpression()
-     * @param root the root object for the OGNL expression
+     * @param tree The OGNL expression tree to evaluate, as returned by parseExpression()
+     * @param root The root object for the OGNL expression
      * @return the result of evaluating the expression
      * @throws MethodFailedException if the expression called a method which failed
      * @throws NoSuchPropertyException if the expression referred to a nonexistent property
@@ -536,9 +536,9 @@ public abstract class Ognl
     /**
      * Evaluates the given OGNL expression tree to extract a value from the given root object.
      *
-     * @param tree the OGNL expression tree to evaluate, as returned by parseExpression()
-     * @param root the root object for the OGNL expression
-     * @param resultType the converted type of the resultant object, using the context's type converter
+     * @param tree The OGNL expression tree to evaluate, as returned by parseExpression()
+     * @param root The root object for the OGNL expression
+     * @param resultType The converted type of the resultant object, using the context's type converter
      * @return the result of evaluating the expression
      * @throws MethodFailedException if the expression called a method which failed
      * @throws NoSuchPropertyException if the expression referred to a nonexistent property
@@ -556,8 +556,8 @@ public abstract class Ognl
      *
      * @see #parseExpression(String)
      * @see #getValue(Object,Object)
-     * @param expression the OGNL expression to be parsed
-     * @param root the root object for the OGNL expression
+     * @param expression The OGNL expression to be parsed
+     * @param root The root object for the OGNL expression
      * @return the result of evaluating the expression
      * @throws ExpressionSyntaxException if the expression is malformed
      * @throws MethodFailedException if the expression called a method which failed
@@ -576,9 +576,9 @@ public abstract class Ognl
      *
      * @see #parseExpression(String)
      * @see #getValue(Object,Object)
-     * @param expression the OGNL expression to be parsed
-     * @param root the root object for the OGNL expression
-     * @param resultType the converted type of the resultant object, using the context's type converter
+     * @param expression The OGNL expression to be parsed
+     * @param root The root object for the OGNL expression
+     * @param resultType The converted type of the resultant object, using the context's type converter
      * @return the result of evaluating the expression
      * @throws ExpressionSyntaxException if the expression is malformed
      * @throws MethodFailedException if the expression called a method which failed
@@ -596,10 +596,10 @@ public abstract class Ognl
      * Evaluates the given OGNL expression tree to insert a value into the object graph rooted at the given root object.
      * The default context is set for the given context and root via <code>addDefaultContext()</code>.
      *
-     * @param tree the OGNL expression tree to evaluate, as returned by parseExpression()
-     * @param context the naming context for the evaluation
-     * @param root the root object for the OGNL expression
-     * @param value the value to insert into the object graph
+     * @param tree The OGNL expression tree to evaluate, as returned by parseExpression()
+     * @param context The naming context for the evaluation
+     * @param root The root object for the OGNL expression
+     * @param value The value to insert into the object graph
      * @throws MethodFailedException if the expression called a method which failed
      * @throws NoSuchPropertyException if the expression referred to a nonexistent property
      * @throws InappropriateExpressionException if the expression can't be used in this context
@@ -637,10 +637,10 @@ public abstract class Ognl
      * Evaluates the given OGNL expression to insert a value into the object graph rooted at the given root object given
      * the context.
      *
-     * @param expression the OGNL expression to be parsed
-     * @param root the root object for the OGNL expression
-     * @param context the naming context for the evaluation
-     * @param value the value to insert into the object graph
+     * @param expression The OGNL expression to be parsed
+     * @param root The root object for the OGNL expression
+     * @param context The naming context for the evaluation
+     * @param value The value to insert into the object graph
      * @throws MethodFailedException if the expression called a method which failed
      * @throws NoSuchPropertyException if the expression referred to a nonexistent property
      * @throws InappropriateExpressionException if the expression can't be used in this context
@@ -655,9 +655,9 @@ public abstract class Ognl
     /**
      * Evaluates the given OGNL expression tree to insert a value into the object graph rooted at the given root object.
      *
-     * @param tree the OGNL expression tree to evaluate, as returned by parseExpression()
-     * @param root the root object for the OGNL expression
-     * @param value the value to insert into the object graph
+     * @param tree The OGNL expression tree to evaluate, as returned by parseExpression()
+     * @param root The root object for the OGNL expression
+     * @param value The value to insert into the object graph
      * @throws MethodFailedException if the expression called a method which failed
      * @throws NoSuchPropertyException if the expression referred to a nonexistent property
      * @throws InappropriateExpressionException if the expression can't be used in this context
@@ -674,9 +674,9 @@ public abstract class Ognl
      *
      * @see #parseExpression(String)
      * @see #setValue(Object,Object,Object)
-     * @param expression the OGNL expression to be parsed
-     * @param root the root object for the OGNL expression
-     * @param value the value to insert into the object graph
+     * @param expression The OGNL expression to be parsed
+     * @param root The root object for the OGNL expression
+     * @param value The value to insert into the object graph
      * @throws ExpressionSyntaxException if the expression is malformed
      * @throws MethodFailedException if the expression called a method which failed
      * @throws NoSuchPropertyException if the expression referred to a nonexistent property
