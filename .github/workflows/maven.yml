@@ -15,30 +15,43 @@
 
 name: Java CI
 
-# on:
-  push:
-    branches:
-      - 'master'
-  pull_request: {}
 on:
-  workflow_dispatch:
+  push:
+    branches-ignore:
+      - dependabot/**
+  pull_request:
+
+permissions:
+  contents: read
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
+    # we want to try all Java versions here.
+    continue-on-error: true
     strategy:
       max-parallel: 20
       matrix:
         java: [ 8, 11, 17 ]
+        include:
+            - java: 26-ea
+              experimental: true
+        
     steps:
-    - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       with:
         persist-credentials: false
+    - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 #v6.1.0
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
     - name: Set up JDK ${{ matrix.java }}
-      uses: actions/setup-java@0ab4596768b603586c0de567f2430c30f5b0d2b0 # v3.13.0
+      uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520 # v5.4.0
       with:
         distribution: 'temurin'
         java-version: ${{ matrix.java }}
-        cache: 'maven'
-    - name: Build with Maven on Java ${{ matrix.java }}
-      run: mvn -V -Ddoclint=all --file pom.xml --no-transfer-progress
+    - name: Build with Maven
+      run: mvn -Ddoclint=all --errors --show-version --batch-mode --no-transfer-progress
