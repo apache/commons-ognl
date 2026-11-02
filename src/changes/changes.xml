@@ -78,10 +78,10 @@
       <action issue="OGNL-10" type="update" dev="simonetripodi">Update the User/Developer guide according the Commons
         standard
       </action>
-      <action issue="OGNL-9" type="update" dev="mcucchiara, simonetripodi">Upgrade JUnit to version4</action>
-      <action issue="OGNL-8" type="update" dev="grobmeier">enabled generation of javacc Parser classes</action>
+      <action issue="OGNL-9" type="update" dev="mcucchiara, simonetripodi">Upgrade JUnit to version 4</action>
+      <action issue="OGNL-8" type="update" dev="grobmeier">Enable generation of javacc Parser classes</action>
       <action issue="OGNL-6" type="update" dev="simonetripodi">Upgrade groupId/artifactId/version on pom</action>
-      <action issue="OGNL-2" type="update" dev="">Update legals to all OGNL file</action>
+      <action issue="OGNL-2" type="update" dev="">Update legals to all OGNL files</action>
       <action issue="OGNL-1" type="update" dev="lukaszlenart">Import the OGNL codebase</action>
       <!-- FIX -->
       <action type="fix" dev="ggregory" due-to="step-security-bot, Gary Gregory">[StepSecurity] ci: Harden GitHub Actions #127.</action>            
@@ -92,7 +92,7 @@
       <action type="update" dev="ggregory" due-to="Dependabot">Bump build-helper-maven-plugin from 3.2.0 to 3.4.0 #61, #125.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump h2 from 2.0.202 to 2.2.224 #57, #62, #75, #129, #141, #148.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump ognl from 3.3.0 to 3.4.2 #59, #83, #133, #134, #138.</action>
-      <action type="update" dev="ggregory" due-to="Dependabot">Bump maven-javadoc-plugin 3.2.0 from to 3.3.1.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot">Bump maven-javadoc-plugin from 3.2.0 to 3.3.1.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump slf4j-api from 1.7.32 to 2.0.7 #66, #121.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump taglist-maven-plugin from 2.4 to 3.0.0 #65.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump maven-jar-plugin from 3.2.1 to 3.3.0 #63, #103.</action>
