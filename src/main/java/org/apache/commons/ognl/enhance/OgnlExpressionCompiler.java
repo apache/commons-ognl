@@ -116,7 +116,7 @@ public interface OgnlExpressionCompiler
      * </p>
      *
      * @param context The current execution context.
-     * @param expression The Java source expression to dump in to a seperate method reference.
+     * @param expression The Java source expression to dump in to a separate method reference.
      * @param type The return type that should be specified for the new method.
      * @return The method name that will be used to reference the sub expression in place of the actual sub expression
      *         itself.
